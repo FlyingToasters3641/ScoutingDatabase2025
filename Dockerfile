@@ -12,6 +12,7 @@ RUN npm install
 
 # Copy the rest of the application code
 COPY ./src ./src
+COPY ./client/build ./client/build
 
 # Expose the port the app runs on
 EXPOSE 3000
