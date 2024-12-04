@@ -1,20 +1,34 @@
-# Use the official Node.js 18 image as the base
-FROM node:18-alpine
+# Stage 1: Build the React app
+FROM node:18-alpine AS react-build
 
-# Set the working directory in the container
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
-
-# Install dependencies
+# Copy React app files
+COPY ./client/package*.json ./client/
+WORKDIR /app/client
 RUN npm install
 
-# Copy the rest of the application code
-COPY ./src ./src
-COPY ./client/build ./client/build
+COPY ./client ./client
+RUN npm run build
 
-# Expose the port the app runs on
+# Stage 2: Set up the Node.js backend and serve the React app
+FROM node:18-alpine
+
+# Set working directory for backend
+WORKDIR /app
+
+# Copy backend package files and install dependencies
+COPY ./package*.json ./
+RUN npm install
+
+# Copy backend source files
+COPY ./src ./src
+
+# Copy the React app build from Stage 1
+COPY --from=react-build /app/client/build ./client/build
+
+# Expose the application port
 EXPOSE 3000
 
 # Start the application
