@@ -1,6 +1,6 @@
 
 # ScoutingDatabase2025
-![CI](https://github.com/FlyingToasters3641/ScoutingDatabase2025/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/FlyingToasters3641/ScoutingDatabase2025/actions/workflows/docker-image.yml/badge.svg)
 
 ## Introduction
 This repository contains the ScoutingDatabase2025 application. This guide will help you set up and run the application using Docker.
