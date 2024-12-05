@@ -1,0 +1,24 @@
+{
+	"name": "ScoutingDatabase2025",
+	"image": "mcr.microsoft.com/devcontainers/javascript-node:18",
+	"features": {
+	  "docker-in-docker": "latest"
+	},
+	"customizations": {
+	  "vscode": {
+		"settings": {
+		  "terminal.integrated.defaultProfile.linux": "bash"
+		},
+		"extensions": [
+		  "dbaeumer.vscode-eslint",
+		  "esbenp.prettier-vscode",
+		  "ms-vscode.vscode-typescript-next"
+		]
+	  }
+	},
+	"forwardPorts": [3000],
+	"postCreateCommand": "npm install && cd client && npm install",
+	"mounts": [
+	  "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+	]
+  }
