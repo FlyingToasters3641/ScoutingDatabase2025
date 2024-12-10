@@ -6,9 +6,8 @@ const { Sequelize, Model, DataTypes } = require('sequelize');
 const app = express();
 const port = 3001;
 
-app.use(cors({ 
-  origin: 'http://localhost:3000' 
-}));
+app.use(cors());
+//app.use(express.json());
 
 // Create Sequelize instance
 const sequelize = new Sequelize({
@@ -33,7 +32,7 @@ app.use(bodyParser.json());
 
 // Default path
 app.get('/', (req, res) => {
-    res.send('Nope');
+    res.json({ message: "Hello from server!" });
   });
 
 // CRUD routes for User model
