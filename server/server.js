@@ -1,3 +1,4 @@
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -6,8 +7,15 @@ const { Sequelize, Model, DataTypes } = require('sequelize');
 const app = express();
 const port = 3001;
 
-app.use(cors());
-//app.use(express.json());
+// Define your CORS options
+const corsOptions = {
+  origin: ['https://super-sniffle-q4v55jpj9wcqrq-3000.app.github.dev'],
+  methods: ['GET', 'POST'],
+  headers: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept']
+};
+
+// Use the CORS middleware
+app.use(cors(corsOptions));
 
 // Create Sequelize instance
 const sequelize = new Sequelize({

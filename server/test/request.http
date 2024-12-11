@@ -13,8 +13,8 @@ POST http://localhost:3001/users
 content-type: application/json
 
 {
-    "name": "JohnDoe",
-    "email": "johndoe@flyingtoasters.com",
-    "password": "123456"
+    "name": "JaneDoe",
+    "email": "jjanedoe@flyingtoasters.com",
+    "password": "654321"
 }
 
