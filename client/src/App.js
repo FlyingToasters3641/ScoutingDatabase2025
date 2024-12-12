@@ -4,15 +4,14 @@ import axios from 'axios';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
+
+  //const baseUrl = process.env.NEXT_STATIC_BASE_URL || "http://localhost:3001";
+  const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3001/api'
   
   useEffect(() => {
   //axios.get('https://jsonplaceholder.typicode.com/posts')
   //axios.get('http://localhost:3001/users')
-  axios.get('https://super-sniffle-q4v55jpj9wcqrq-3001.app.github.dev/users', {
-    headers: {
-      //'X-Github-Token': 'ghu_N4fBiH8CrwS45qoUheeUvmZ8rvUQpK4MuhBp'
-    }
-  })
+  axios.get('https://super-sniffle-q4v55jpj9wcqrq-3001.app.github.dev/users')
   .then(response => setPosts(response.data))
   .catch(error => console.error('Error fetching data:', error));
   }, []);
