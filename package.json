@@ -1,0 +1,16 @@
+{
+  "name": "scoutingdatabase2025",
+  "version": "1.0.0",
+  "description": "![CI](https://github.com/FlyingToasters3641/ScoutingDatabase2025/actions/workflows/docker-image.yml/badge.svg)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently -n \"FRONTEND,BACKEND\" -c \"red,blue\" \"cd client && npm start\" \"cd server && npm run dev\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

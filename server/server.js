@@ -1,3 +1,4 @@
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -6,9 +7,20 @@ const { Sequelize, Model, DataTypes } = require('sequelize');
 const app = express();
 const port = 3001;
 
-app.use(cors({ 
-  origin: 'http://localhost:3000' 
-}));
+// Define your CORS options
+// const corsOptions = {
+//   origin: 'https://super-sniffle-q4v55jpj9wcqrq-3000.app.github.dev' , // Adjust this to match your React app's URL
+//   methods: 'GET,HEAD,PUT,POST,DELETE',
+//   headers: 'Origin, X-Requested-With, Content-Type, Accept',
+//   credentials: true,
+//   preflightContinue: false,
+//   maxAge: 3600,
+//   optionsSuccessStatus: 204
+// };
+
+// Use the CORS middleware
+//app.use(cors(corsOptions));
+app.use(cors());
 
 // Create Sequelize instance
 const sequelize = new Sequelize({
@@ -31,9 +43,12 @@ sequelize.sync();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Enable pre-flight for all routes
+app.options('*', cors()); 
+
 // Default path
 app.get('/', (req, res) => {
-    res.send('Nope');
+    res.json({ message: "Hello from server!" });
   });
 
 // CRUD routes for User model
