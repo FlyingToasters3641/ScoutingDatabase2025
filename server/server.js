@@ -36,6 +36,13 @@ User.init({
   password: DataTypes.STRING
 }, { sequelize, modelName: 'user' });
 
+// Define FRCEvents model
+class FRCEvents extends Model {}
+FRCEvents.init({
+  name: DataTypes.STRING,
+  key: DataTypes.STRING
+}, { sequelize, modelName: 'frcevents' });
+
 // Sync models with database
 sequelize.sync();
 
@@ -86,6 +93,17 @@ app.delete('/users/:id', async (req, res) => {
       res.status(404).json({ message: 'User not found' });
     }
   });
+
+// CRUD routes for FRCEvent model
+app.get('/events', async (req, res) => {
+    const frcevents = await FRCEvents.findAll();
+    res.json(frcevents);
+});
+
+app.post('/events', async (req, res) => {
+    const frcevents = await FRCEvents.create(req.body);
+    res.json(frcevents);
+});
   
 
 // Start server

@@ -7,17 +7,16 @@ GET http://localhost:3001/
 ###
 
 // List all the users currently in the database
-GET http://localhost:3001/users
+GET http://localhost:3001/events
 
 ###
 
 // Adds a user to the database
-POST http://localhost:3001/users 
+POST http://localhost:3001/events
 content-type: application/json
 
 {
-    "name": "JaneDoe",
-    "email": "jjanedoe@flyingtoasters.com",
-    "password": "654321"
+    "name": "Clash in the Corn",
+    "key": "2024iawes"
 }
 
