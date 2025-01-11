@@ -1,0 +1,4 @@
+Homebrew
+If you prefer using Homebrew for macOS, our latest release can be installed via:
+
+brew install db-browser-for-sqlite
