@@ -1,4 +1,3 @@
-
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -6,17 +5,6 @@ const { Sequelize, Model, DataTypes } = require('sequelize');
 
 const app = express();
 const port = 3001;
-
-// Define your CORS options
-// const corsOptions = {
-//   origin: 'https://super-sniffle-q4v55jpj9wcqrq-3000.app.github.dev' , // Adjust this to match your React app's URL
-//   methods: 'GET,HEAD,PUT,POST,DELETE',
-//   headers: 'Origin, X-Requested-With, Content-Type, Accept',
-//   credentials: true,
-//   preflightContinue: false,
-//   maxAge: 3600,
-//   optionsSuccessStatus: 204
-// };
 
 // Use the CORS middleware
 //app.use(cors(corsOptions));
@@ -53,11 +41,13 @@ app.use(bodyParser.json());
 // Enable pre-flight for all routes
 app.options('*', cors()); 
 
+// ######################################################################
 // Default path
 app.get('/', (req, res) => {
     res.json({ message: "Hello from server!" });
   });
 
+// ######################################################################
 // CRUD routes for User model
 app.get('/users', async (req, res) => {
     const users = await User.findAll();
@@ -94,16 +84,36 @@ app.delete('/users/:id', async (req, res) => {
     }
   });
 
+// ######################################################################
+
+// ######################################################################
 // CRUD routes for FRCEvent model
 app.get('/events', async (req, res) => {
     const frcevents = await FRCEvents.findAll();
     res.json(frcevents);
 });
 
+app.get('/events/:id', async (req, res) => {
+  const frcevents = await FRCEvents.findByPk(req.params.id);
+  res.json(frcevents);
+});
+
 app.post('/events', async (req, res) => {
     const frcevents = await FRCEvents.create(req.body);
     res.json(frcevents);
 });
+
+app.delete('/events/:id', async (req, res) => {
+  const frcevents = await FRCEvents.findByPk(req.params.id);
+  if (frcevents) {
+    await frcevents.destroy();
+    res.json({ message: 'User deleted' });
+  } else {
+    res.status(404).json({ message: 'User not found' });
+  }
+});
+
+// ######################################################################
   
 
 // Start server

@@ -11,6 +11,11 @@ GET http://localhost:3001/users
 
 ###
 
+// List user by ID 
+GET http://localhost:3001/users/1
+
+###
+
 // Adds a user to the database
 POST http://localhost:3001/users 
 content-type: application/json
@@ -20,4 +25,10 @@ content-type: application/json
     "email": "jjanedoe@flyingtoasters.com",
     "password": "654321"
 }
+
+###
+
+// Adds a user to the database
+DELETE http://localhost:3001/users/3 
+
 

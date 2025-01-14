@@ -11,6 +11,11 @@ GET http://localhost:3001/events
 
 ###
 
+// List user by ID 
+GET http://localhost:3001/events/2
+
+###
+
 // Adds a user to the database
 POST http://localhost:3001/events
 content-type: application/json
