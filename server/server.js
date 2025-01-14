@@ -16,6 +16,9 @@ const sequelize = new Sequelize({
     storage: './database.sqlite'
   });
 
+// ######################################################################
+// Database models Definitions
+
 // Define User model
 class User extends Model {}
 User.init({
@@ -30,6 +33,8 @@ FRCEvents.init({
   name: DataTypes.STRING,
   key: DataTypes.STRING
 }, { sequelize, modelName: 'frcevents' });
+
+// ######################################################################
 
 // Sync models with database
 sequelize.sync();
@@ -46,25 +51,26 @@ app.options('*', cors());
 app.get('/', (req, res) => {
     res.json({ message: "Hello from server!" });
   });
+// ######################################################################
 
 // ######################################################################
 // CRUD routes for User model
-app.get('/users', async (req, res) => {
+app.get('/api/v1/users', async (req, res) => {
     const users = await User.findAll();
     res.json(users);
   });
 
-app.get('/users/:id', async (req, res) => {
+app.get('/api/v1/users/:id', async (req, res) => {
     const user = await User.findByPk(req.params.id);
     res.json(user);
   });
   
-app.post('/users', async (req, res) => {
+app.post('/api/v1/users', async (req, res) => {
     const user = await User.create(req.body);
     res.json(user);
   });
   
-app.put('/users/:id', async (req, res) => {
+app.put('/api/v1/users/:id', async (req, res) => {
     const user = await User.findByPk(req.params.id);
     if (user) {
       await user.update(req.body);
@@ -74,7 +80,7 @@ app.put('/users/:id', async (req, res) => {
     }
   });
   
-app.delete('/users/:id', async (req, res) => {
+app.delete('/api/v1/users/:id', async (req, res) => {
     const user = await User.findByPk(req.params.id);
     if (user) {
       await user.destroy();
@@ -88,28 +94,28 @@ app.delete('/users/:id', async (req, res) => {
 
 // ######################################################################
 // CRUD routes for FRCEvent model
-app.get('/events', async (req, res) => {
+app.get('/api/v1/events', async (req, res) => {
     const frcevents = await FRCEvents.findAll();
     res.json(frcevents);
 });
 
-app.get('/events/:id', async (req, res) => {
+app.get('/api/v1/events/:id', async (req, res) => {
   const frcevents = await FRCEvents.findByPk(req.params.id);
   res.json(frcevents);
 });
 
-app.post('/events', async (req, res) => {
+app.post('/api/v1/events', async (req, res) => {
     const frcevents = await FRCEvents.create(req.body);
     res.json(frcevents);
 });
 
-app.delete('/events/:id', async (req, res) => {
+app.delete('/api/v1/events/:id', async (req, res) => {
   const frcevents = await FRCEvents.findByPk(req.params.id);
   if (frcevents) {
     await frcevents.destroy();
-    res.json({ message: 'User deleted' });
+    res.json({ message: 'Event deleted' });
   } else {
-    res.status(404).json({ message: 'User not found' });
+    res.status(404).json({ message: 'Event not found' });
   }
 });
 

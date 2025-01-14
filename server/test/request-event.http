@@ -7,21 +7,27 @@ GET http://localhost:3001/
 ###
 
 // List all the users currently in the database
-GET http://localhost:3001/events
+GET http://localhost:3001/api/v1/events
 
 ###
 
 // List user by ID 
-GET http://localhost:3001/events/2
+GET http://localhost:3001/api/v1/events/2
 
 ###
 
 // Adds a user to the database
-POST http://localhost:3001/events
+POST http://localhost:3001/api/v1/events
 content-type: application/json
 
 {
-    "name": "Clash in the Corn",
-    "key": "2024iawes"
+    "name": "Clash in the Corndd",
+    "key": "2024iawesdd"
 }
+
+###
+
+// Adds a user to the database
+DELETE http://localhost:3001/api/v1/events/2
+
 
