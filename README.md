@@ -3,10 +3,14 @@
 ![CI](https://github.com/FlyingToasters3641/ScoutingDatabase2025/actions/workflows/docker-image.yml/badge.svg)
 
 ## Introduction
-This repository contains the ScoutingDatabase2025 application. This guide will help you set up and run the application using Docker.
+This repository contains the ScoutingDatabase2025 laptop application. This guide will help you set up and run the application.
 
 ## Prerequisites
 - Docker installed on your machine. You can download it from [here](https://www.docker.com/products/docker-desktop).
+
+- Node.js installed on your machine (if not using Docker or Codespaces).  You can download if from [here](https://nodejs.org/).
+- VS Code installed on your maching (if not using Codespaces). You can download if from [here](https://code.visualstudio.com/).
+
 
 ## Setup Instructions
 

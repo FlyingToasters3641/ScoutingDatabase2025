@@ -1,15 +1,23 @@
+// VS code extension: REST Client
+// https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
 // Test if the server is running
 GET http://localhost:3001/
 
 ###
 
 // List all the users currently in the database
-GET http://localhost:3001/users
+GET http://localhost:3001/api/v1/users
+
+###
+
+// List user by ID 
+GET http://localhost:3001/api/v1/users/1
 
 ###
 
 // Adds a user to the database
-POST http://localhost:3001/users 
+POST http://localhost:3001/api/v1/users 
 content-type: application/json
 
 {
@@ -17,4 +25,10 @@ content-type: application/json
     "email": "jjanedoe@flyingtoasters.com",
     "password": "654321"
 }
+
+###
+
+// Adds a user to the database
+DELETE http://localhost:3001/api/v1/users/5
+
 
