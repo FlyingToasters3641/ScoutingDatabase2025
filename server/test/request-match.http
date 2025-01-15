@@ -1,0 +1,43 @@
+# // VS code extension: REST Client
+# // https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+# // Test if the server is running
+# GET http://localhost:3001/
+
+# ###
+
+# // List all the users currently in the database
+# GET http://localhost:3001/api/v1/matches
+
+# ###
+
+# // List user by ID 
+# GET http://localhost:3001/api/v1/matches/2
+
+# ###
+
+# // Adds a user to the database
+# POST http://localhost:3001/api/v1/matches
+# content-type: application/json
+
+# {
+#     "matchNumber": "42",
+#     "blueScore": "42",
+#     "redScore": "42",
+#     "redOneTeamNumber": "3641",
+#     "redTwoTeamNumber": "3642",
+#     "redThreeTeamNumber": "3643",
+#     "blueOneTeamNumber": "3644",
+#     "blueTwoTeamNumber": "3645",
+#     "blueThreeTeamNumber": "3646",
+#     "redRankingPoints": "42",
+#     "blueRankingPoints": "42",
+#     "eventKey": "2024iawesdd",
+# }
+
+# ###
+
+# // Adds a user to the database
+# DELETE http://localhost:3001/api/v1/matches/2
+
+
