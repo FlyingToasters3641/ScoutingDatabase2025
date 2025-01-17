@@ -61,6 +61,16 @@ Match.init({
   eventKey: DataTypes.STRING
 }, { sequelize, modelName: 'matches' });
 
+// Define match model
+class MatchData extends Model {}
+MatchData.init({
+  scouterName: DataTypes.STRING,
+  matchNumber: DataTypes.INTEGER,
+  teamNumber: DataTypes.INTEGER,
+  eventKey: DataTypes.STRING,
+  matchKey: DataTypes.STRING
+}, { sequelize, modelName: 'matchdata' });
+
 // ######################################################################
 
 // Sync models with database
@@ -191,6 +201,35 @@ if (match) {
   res.json({ message: 'Match deleted' });
 } else {
   res.status(404).json({ message: 'Match not found' });
+}
+});
+
+// ######################################################################
+
+// ######################################################################
+// CRUD routes for matchData model
+app.get('/api/v1/matchData', async (req, res) => {
+  const matchdata = await MatchData.findAll();
+  res.json(matchdata);
+});
+
+app.get('/api/v1/matchData/:id', async (req, res) => {
+const matchdata = await MatchData.findByPk(req.params.id);
+res.json(matchdata);
+});
+
+app.post('/api/v1/matchData', async (req, res) => {
+  const matchdata = await MatchData.create(req.body);
+  res.json(matchdata);
+});
+
+app.delete('/api/v1/matchData/:id', async (req, res) => {
+const matchdata = await matchdata.findByPk(req.params.id);
+if (matchdata) {
+  await matchdata.destroy();
+  res.json({ message: 'MatchData deleted' });
+} else {
+  res.status(404).json({ message: 'MatchData not found' });
 }
 });
 
