@@ -6,17 +6,17 @@ GET http://localhost:3001/
 
 ###
 
-// List all the users currently in the database
+// List all the matches currently in the database
 GET http://localhost:3001/api/v1/matches
 
 ###
 
-// List user by ID 
+// List match by ID 
 GET http://localhost:3001/api/v1/matches/2
 
 ###
 
-// Adds a user to the database
+// Adds a match to the database
 POST http://localhost:3001/api/v1/matches
 content-type: application/json
 
@@ -32,12 +32,12 @@ content-type: application/json
     "blueThreeTeamNumber": "3646",
     "redRankingPoints": "42",
     "blueRankingPoints": "42",
-    "eventKey": "2024iawesdd",
+    "eventKey": "2024iawesdd"
 }
 
 ###
 
-// Adds a user to the database
+// Adds a match to the database
 DELETE http://localhost:3001/api/v1/matches/2
 
 

@@ -44,6 +44,23 @@ Teams.init({
   country: DataTypes.STRING
 }, { sequelize, modelName: 'teams' });
 
+// Define match model
+class Match extends Model {}
+Match.init({
+  matchNumber: DataTypes.INTEGER,
+  blueScore: DataTypes.INTEGER,
+  redScore: DataTypes.INTEGER,
+  redOneTeamNumber: DataTypes.INTEGER,
+  redTwoTeamNumber: DataTypes.INTEGER,
+  redThreeTeamNumber: DataTypes.INTEGER,
+  blueOneTeamNumber: DataTypes.INTEGER,
+  blueTwoTeamNumber: DataTypes.INTEGER,
+  blueThreeTeamNumber: DataTypes.INTEGER,
+  redRankingPoints: DataTypes.INTEGER,
+  blueRankingPoints: DataTypes.INTEGER,
+  eventKey: DataTypes.STRING
+}, { sequelize, modelName: 'matches' });
+
 // ######################################################################
 
 // Sync models with database
@@ -146,6 +163,35 @@ app.get('/api/v1/teams/:id', async (req, res) => {
 app.post('/api/v1/teams', async (req, res) => {
   const teams = await Teams.create(req.body);
   res.json(teams);
+});
+
+// ######################################################################
+
+// ######################################################################
+// CRUD routes for matches model
+app.get('/api/v1/matches', async (req, res) => {
+  const match = await Match.findAll();
+  res.json(match);
+});
+
+app.get('/api/v1/matches/:id', async (req, res) => {
+const match = await Match.findByPk(req.params.id);
+res.json(match);
+});
+
+app.post('/api/v1/matches', async (req, res) => {
+  const match = await Match.create(req.body);
+  res.json(match);
+});
+
+app.delete('/api/v1/matches/:id', async (req, res) => {
+const match = await match.findByPk(req.params.id);
+if (match) {
+  await match.destroy();
+  res.json({ message: 'Match deleted' });
+} else {
+  res.status(404).json({ message: 'Match not found' });
+}
 });
 
 // ######################################################################

@@ -6,17 +6,17 @@ GET http://localhost:3001/
 
 ###
 
-// List all the users currently in the database
+// List all the teams currently in the database
 GET http://localhost:3001/api/v1/teams
 
 ###
 
-// List user by ID 
+// List team by ID 
 GET http://localhost:3001/api/v1/teams/1
 
 ###
 
-// Adds a user to the database
+// Adds a teams to the database
 POST http://localhost:3001/api/v1/teams
 content-type: application/json
 
@@ -30,7 +30,7 @@ content-type: application/json
 
 ###
 
-// Adds a user to the database
+// Adds a team to the database
 DELETE http://localhost:3001/api/v1/teams/2
 
 
