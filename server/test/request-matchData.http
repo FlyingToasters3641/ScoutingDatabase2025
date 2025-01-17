@@ -1,0 +1,36 @@
+// VS code extension: REST Client
+// https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+// Test if the server is running
+GET http://localhost:3001/
+
+###
+
+// List all the matchData currently in the database
+GET http://localhost:3001/api/v1/matchData
+
+###
+
+// List matchData by ID 
+GET http://localhost:3001/api/v1/matchData/1
+
+###
+
+// Adds a matchData to the database
+POST http://localhost:3001/api/v1/matchData
+content-type: application/json
+
+{
+    "scouterName": "Jane Doe",
+    "matchNumber": "42",
+    "teamNumber": "3641",
+    "eventKey": "2024iawesdd",
+    "matchKey": "2024iawesdd_qm42"
+}
+
+###
+
+// Adds a matchData to the database
+DELETE http://localhost:3001/api/v1/matchData/2
+
+

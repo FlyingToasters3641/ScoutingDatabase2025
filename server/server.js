@@ -34,6 +34,43 @@ FRCEvents.init({
   key: DataTypes.STRING
 }, { sequelize, modelName: 'frcevents' });
 
+// Define Teams model
+class Teams extends Model {}
+Teams.init({
+  teamNumber: DataTypes.INTEGER,
+  nickname: DataTypes.STRING,
+  city: DataTypes.STRING,
+  state_prov: DataTypes.STRING,
+  country: DataTypes.STRING
+}, { sequelize, modelName: 'teams' });
+
+// Define match model
+class Match extends Model {}
+Match.init({
+  matchNumber: DataTypes.INTEGER,
+  blueScore: DataTypes.INTEGER,
+  redScore: DataTypes.INTEGER,
+  redOneTeamNumber: DataTypes.INTEGER,
+  redTwoTeamNumber: DataTypes.INTEGER,
+  redThreeTeamNumber: DataTypes.INTEGER,
+  blueOneTeamNumber: DataTypes.INTEGER,
+  blueTwoTeamNumber: DataTypes.INTEGER,
+  blueThreeTeamNumber: DataTypes.INTEGER,
+  redRankingPoints: DataTypes.INTEGER,
+  blueRankingPoints: DataTypes.INTEGER,
+  eventKey: DataTypes.STRING
+}, { sequelize, modelName: 'matches' });
+
+// Define match model
+class MatchData extends Model {}
+MatchData.init({
+  scouterName: DataTypes.STRING,
+  matchNumber: DataTypes.INTEGER,
+  teamNumber: DataTypes.INTEGER,
+  eventKey: DataTypes.STRING,
+  matchKey: DataTypes.STRING
+}, { sequelize, modelName: 'matchdata' });
+
 // ######################################################################
 
 // Sync models with database
@@ -121,6 +158,82 @@ app.delete('/api/v1/events/:id', async (req, res) => {
 
 // ######################################################################
   
+// ######################################################################
+// CRUD routes for teams model
+app.get('/api/v1/teams', async (req, res) => {
+  const teams = await Teams.findAll();
+  res.json(teams);
+});
+
+app.get('/api/v1/teams/:id', async (req, res) => {
+  const teams = await Teams.findByPk(req.params.id);
+  res.json(teams);
+});
+
+app.post('/api/v1/teams', async (req, res) => {
+  const teams = await Teams.create(req.body);
+  res.json(teams);
+});
+
+// ######################################################################
+
+// ######################################################################
+// CRUD routes for matches model
+app.get('/api/v1/matches', async (req, res) => {
+  const match = await Match.findAll();
+  res.json(match);
+});
+
+app.get('/api/v1/matches/:id', async (req, res) => {
+const match = await Match.findByPk(req.params.id);
+res.json(match);
+});
+
+app.post('/api/v1/matches', async (req, res) => {
+  const match = await Match.create(req.body);
+  res.json(match);
+});
+
+app.delete('/api/v1/matches/:id', async (req, res) => {
+const match = await match.findByPk(req.params.id);
+if (match) {
+  await match.destroy();
+  res.json({ message: 'Match deleted' });
+} else {
+  res.status(404).json({ message: 'Match not found' });
+}
+});
+
+// ######################################################################
+
+// ######################################################################
+// CRUD routes for matchData model
+app.get('/api/v1/matchData', async (req, res) => {
+  const matchdata = await MatchData.findAll();
+  res.json(matchdata);
+});
+
+app.get('/api/v1/matchData/:id', async (req, res) => {
+const matchdata = await MatchData.findByPk(req.params.id);
+res.json(matchdata);
+});
+
+app.post('/api/v1/matchData', async (req, res) => {
+  const matchdata = await MatchData.create(req.body);
+  res.json(matchdata);
+});
+
+app.delete('/api/v1/matchData/:id', async (req, res) => {
+const matchdata = await matchdata.findByPk(req.params.id);
+if (matchdata) {
+  await matchdata.destroy();
+  res.json({ message: 'MatchData deleted' });
+} else {
+  res.status(404).json({ message: 'MatchData not found' });
+}
+});
+
+// ######################################################################
 
 // Start server
 app.listen(port, () => {

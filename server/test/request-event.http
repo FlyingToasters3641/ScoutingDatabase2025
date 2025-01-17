@@ -6,17 +6,17 @@ GET http://localhost:3001/
 
 ###
 
-// List all the users currently in the database
+// List all the events currently in the database
 GET http://localhost:3001/api/v1/events
 
 ###
 
-// List user by ID 
+// List event by ID 
 GET http://localhost:3001/api/v1/events/2
 
 ###
 
-// Adds a user to the database
+// Adds a event to the database
 POST http://localhost:3001/api/v1/events
 content-type: application/json
 
@@ -27,7 +27,7 @@ content-type: application/json
 
 ###
 
-// Adds a user to the database
+// Adds a event to the database
 DELETE http://localhost:3001/api/v1/events/2
 
 
