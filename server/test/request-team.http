@@ -1,36 +1,36 @@
-# // VS code extension: REST Client
-# // https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+// VS code extension: REST Client
+// https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 
-# // Test if the server is running
-# GET http://localhost:3001/
+// Test if the server is running
+GET http://localhost:3001/
 
-# ###
+###
 
-# // List all the users currently in the database
-# GET http://localhost:3001/api/v1/teams
+// List all the users currently in the database
+GET http://localhost:3001/api/v1/teams
 
-# ###
+###
 
-# // List user by ID 
-# GET http://localhost:3001/api/v1/teams/2
+// List user by ID 
+GET http://localhost:3001/api/v1/teams/1
 
-# ###
+###
 
-# // Adds a user to the database
-# POST http://localhost:3001/api/v1/teams
-# content-type: application/json
+// Adds a user to the database
+POST http://localhost:3001/api/v1/teams
+content-type: application/json
 
-# {
-#     "teamNumber": "3641",
-#     "nickname": "The Flying Toasters",
-#     "city": "South Lyon",
-#     "state_prov": "MI",
-#     "country": "USA"
-# }
+{
+    "teamNumber": "3641",
+    "nickname": "The Flying Toasters",
+    "city": "South Lyon",
+    "state_prov": "MI",
+    "country": "USA"
+}
 
-# ###
+###
 
-# // Adds a user to the database
-# DELETE http://localhost:3001/api/v1/teams/2
+// Adds a user to the database
+DELETE http://localhost:3001/api/v1/teams/2
 
 

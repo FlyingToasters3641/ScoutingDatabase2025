@@ -34,6 +34,16 @@ FRCEvents.init({
   key: DataTypes.STRING
 }, { sequelize, modelName: 'frcevents' });
 
+// Define Teams model
+class Teams extends Model {}
+Teams.init({
+  teamNumber: DataTypes.INTEGER,
+  nickname: DataTypes.STRING,
+  city: DataTypes.STRING,
+  state_prov: DataTypes.STRING,
+  country: DataTypes.STRING
+}, { sequelize, modelName: 'teams' });
+
 // ######################################################################
 
 // Sync models with database
@@ -121,6 +131,24 @@ app.delete('/api/v1/events/:id', async (req, res) => {
 
 // ######################################################################
   
+// ######################################################################
+// CRUD routes for teams model
+app.get('/api/v1/teams', async (req, res) => {
+  const teams = await Teams.findAll();
+  res.json(teams);
+});
+
+app.get('/api/v1/teams/:id', async (req, res) => {
+  const teams = await Teams.findByPk(req.params.id);
+  res.json(teams);
+});
+
+app.post('/api/v1/teams', async (req, res) => {
+  const teams = await Teams.create(req.body);
+  res.json(teams);
+});
+
+// ######################################################################
 
 // Start server
 app.listen(port, () => {
