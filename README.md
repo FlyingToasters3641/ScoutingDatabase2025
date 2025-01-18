@@ -113,7 +113,31 @@ Click Extentions on the farthest sidebar and look up rest client
 
 Install rest client.
 
-## !* This may not work at all while at school, insted use a strategy laptop or home computer *!
+## This may not work at all while at school, insted use a strategy laptop or home computer
 
 
-# 
+## setting up in VS code
+setting up in vs code much like setting up in codespaces.
+
+### 1. Insure you have all the correct programs installed. 
+before you even begain to open the code, make sure you have the following programs installed:
+1. VS code
+2. Github desktop
+3. Git
+4. Node js 
+5. DB browser
+### 2. Getting your code on VS
+In order to get your github code onto VS you will first need to open github on your browser and go to your branch. 
+
+After you get to your branch, you should see a big green button labeled <> code, press this. A drop down menu will open, on it, click Open with github desktop.
+
+In the github desktop menu, look for a button that says open with VS code. if you do not see such a button, you can go to Repository > open in Visual Studio Code.
+
+After the VS code loads, you will need to open a termial if one is not open already, to do this go to the top left and  press Terminal > New Terminal. 
+
+In the termial, you will get out of powershell and into the command menu using 
+the command cmd.
+```bash
+PS C:\*your branch*\ScoutingDatabase2025> cmd
+```
+Afterwords, you will enter the commands from instructions 2-4 in Setting up scouting database in codespces (see above).
