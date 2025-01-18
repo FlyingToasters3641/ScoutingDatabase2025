@@ -1,0 +1,34 @@
+// VS code extension: REST Client
+// https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+// Test if the server is running
+GET http://localhost:3001/
+
+###
+
+// List all the teams currently in the database
+GET http://localhost:3001/api/v1/eventteams
+
+###
+
+// List user by ID 
+GET http://localhost:3001/api/v1/eventteams/2
+
+
+###
+
+// Adds a user to the database
+POST http://localhost:3001/api/v1/eventteams 
+content-type: application/json
+
+{
+    "event_id": 2,
+    "team_id": 3
+}
+
+###
+
+// Adds a user to the database
+DELETE http://localhost:3001/api/v1/users/5
+
+

@@ -4,15 +4,23 @@ import { useLocation } from 'react-router-dom';
 
 const Eventdetail = () => {
     const [event, setEvent] = useState([]);
+    const [team, setTeam] = useState([]);
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const query = searchParams.get('eventId');
+    const eventid = searchParams.get('eventId');
 
     useEffect(() => {
-        axios.get('http://localhost:3001/api/v1/events/' + query)
+        axios.get('http://localhost:3001/api/v1/events/' + eventid)
         //axios.get('https://super-sniffle-q4v55jpj9wcqrq-3001.app.github.dev/event/{event.key}')
         .then(response => setEvent(response.data))
+        .catch(error => console.error('Error fetching data:', error));
+        }, []);
+    
+    useEffect(() => {
+        axios.get('http://localhost:3001/api/v1/eventteams/' + eventid)
+        //axios.get('https://super-sniffle-q4v55jpj9wcqrq-3001.app.github.dev/api/v1/teams')
+        .then(response => setTeam(response.data))
         .catch(error => console.error('Error fetching data:', error));
         }, []);
 
@@ -21,7 +29,35 @@ const Eventdetail = () => {
 <div className = "container">
     <h1>{event.name}</h1>
     <hr></hr>
-    <p>Search query: {query}</p>
+    <p>Search query: {eventid}</p>
+    <div className = "container">
+        <div className = "row">
+            <div className = "col">
+            </div>
+        </div>
+        <div className = "row">
+            <div className = "col"><h2>Matches:</h2></div>
+            <div className = "col"><h2>Team List:</h2>
+            <table className="table"> 
+                    <thead>
+                        <tr>
+                        <th>Teams Number</th>
+                        <th>Team Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {team.map(team => (
+                        <tr>
+                            <td>{team.teamNumber}</td>
+                            <td>{team.nickname}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
 </div>
 </>
     );
