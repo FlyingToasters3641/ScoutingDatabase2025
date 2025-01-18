@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 const Home = () => {
     const [events, setPosts] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/events')
+        axios.get('http://localhost:3001/api/v1/events')
         //axios.get('https://super-sniffle-q4v55jpj9wcqrq-3001.app.github.dev/users')
         .then(response => setPosts(response.data))
         .catch(error => console.error('Error fetching data:', error));
@@ -29,7 +30,7 @@ const Home = () => {
                     <tbody>
                     {events.map(event => (
                         <tr>
-                            <td>{event.name} - ({event.key})</td>
+                            <Link to={`/eventdetail/?eventId=${event.id}`}>{event.name} - ({event.key})</Link>
                         </tr>
                     ))}
 
