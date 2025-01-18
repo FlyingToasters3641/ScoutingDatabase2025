@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently -n \"FRONTEND,BACKEND\" -c \"red,blue\" \"cd client && npm start\" \"cd server && npm run dev\""
+    "start": "concurrently -n \"FRONTEND,BACKEND\" -c \"red,blue\" \"cd client && npm start\" \"cd server && npm run dev\"",
+    "installall": "node package-install.js"
   },
   "keywords": [],
   "author": "",
