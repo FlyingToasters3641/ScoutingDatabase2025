@@ -45,6 +45,13 @@ Teams.init({
 }, { sequelize, modelName: 'teams' });
 
 // Define match model
+class EventTeams extends Model {}
+EventTeams.init({
+  event_id: DataTypes.INTEGER,
+  team_id: DataTypes.INTEGER
+}, { sequelize, modelName: 'eventteams' })
+
+// Define match model
 class Match extends Model {}
 Match.init({
   matchNumber: DataTypes.INTEGER,
@@ -175,6 +182,48 @@ app.post('/api/v1/teams', async (req, res) => {
   res.json(teams);
 });
 
+app.delete('/api/v1/eventteams/:id', async (req, res) => {
+  const teams = await Teams.findByPk(req.params.id);
+  if (teams) {
+    await teams.destroy();
+    res.json({ message: 'Team deleted' });
+  } else {
+    res.status(404).json({ message: 'Team not found' });
+  }
+  });
+
+// ######################################################################
+
+// ######################################################################
+// CRUD routes for connecting teams and events together model
+app.get('/api/v1/eventteams', async (req, res) => {
+  const teams = await EventTeams.findAll();
+  res.json(teams);
+});
+
+app.get('/api/v1/eventteams/:id', async (req, res) => {
+const results = await sequelize.query(
+  "SELECT table2.id, teamNumber, nickname FROM eventteams AS table1 LEFT Join teams AS table2 ON table1.team_id = table2.id WHERE table1.event_id=:id",{
+  replacements: {id: req.params.id},
+  type: Sequelize.QueryTypes.SELECT});
+res.json(results);
+});
+
+app.post('/api/v1/eventteams', async (req, res) => {
+  const eventteams = await EventTeams.create(req.body);
+  res.json(eventteams);
+});
+
+app.delete('/api/v1/eventteams/:id', async (req, res) => {
+const eventteams = await EventTeams.findByPk(req.params.id);
+if (eventteams) {
+  await eventteams.destroy();
+  res.json({ message: 'EventTeam deleted' });
+} else {
+  res.status(404).json({ message: 'EventTeam not found' });
+}
+});
+
 // ######################################################################
 
 // ######################################################################
@@ -195,7 +244,7 @@ app.post('/api/v1/matches', async (req, res) => {
 });
 
 app.delete('/api/v1/matches/:id', async (req, res) => {
-const match = await match.findByPk(req.params.id);
+const match = await Match.findByPk(req.params.id);
 if (match) {
   await match.destroy();
   res.json({ message: 'Match deleted' });
