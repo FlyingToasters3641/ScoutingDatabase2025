@@ -182,7 +182,7 @@ app.post('/api/v1/teams', async (req, res) => {
   res.json(teams);
 });
 
-app.delete('/api/v1/eventteams/:id', async (req, res) => {
+app.delete('/api/v1/teams/:id', async (req, res) => {
   const teams = await Teams.findByPk(req.params.id);
   if (teams) {
     await teams.destroy();
