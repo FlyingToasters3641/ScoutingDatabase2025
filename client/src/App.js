@@ -5,6 +5,7 @@ import Home from "./components/Home.js";
 import About from "./components/About.js";
 import Test from "./components/Test.js";
 import Eventdetail from "./components/Eventdetail.js";
+import Team from "./components/Team.js";
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
                 <Route path='/about' component={About}/>
                 <Route path='/test' component={Test}/>
                 <Route path='/eventdetail' component={Eventdetail}/>
+                <Route path='/team' component={Team}/>
             </Switch>
         </Router>
     </div>
