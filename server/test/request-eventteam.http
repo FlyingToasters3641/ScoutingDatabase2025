@@ -22,13 +22,13 @@ POST http://localhost:3001/api/v1/eventteams
 content-type: application/json
 
 {
-    "event_id": 2,
-    "team_id": 3
+    "event_id": 1,
+    "team_id": 5
 }
 
 ###
 
 // Adds a user to the database
-DELETE http://localhost:3001/api/v1/users/5
+DELETE http://localhost:3001/api/v1/eventteams/2
 
 

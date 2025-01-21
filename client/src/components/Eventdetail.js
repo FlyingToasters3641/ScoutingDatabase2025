@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const Eventdetail = () => {
     const [event, setEvent] = useState([]);
@@ -48,7 +48,7 @@ const Eventdetail = () => {
                     <tbody>
                     {team.map(team => (
                         <tr>
-                            <td>{team.teamNumber}</td>
+                            <td><Link to={`/team/?teamId=${team.id}`}>{team.teamNumber}</Link></td>
                             <td>{team.nickname}</td>
                         </tr>
                     ))}
