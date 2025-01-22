@@ -11,33 +11,39 @@ GET http://localhost:3001/api/v1/matches
 
 ###
 
+// List all matches by an event ID 
+GET http://localhost:3001/api/v1/matches/1
+
+###
+
 // List match by ID 
-GET http://localhost:3001/api/v1/matches/2
+GET http://localhost:3001/api/v1/match/1
 
 ###
 
 // Adds a match to the database
-POST http://localhost:3001/api/v1/matches
+POST http://localhost:3001/api/v1/match
 content-type: application/json
 
 {
-    "matchNumber": "42",
-    "blueScore": "42",
-    "redScore": "42",
+    "matchNumber": "1",
+    "blueScore": "1",
+    "redScore": "1",
     "redOneTeamNumber": "3641",
-    "redTwoTeamNumber": "3642",
-    "redThreeTeamNumber": "3643",
-    "blueOneTeamNumber": "3644",
-    "blueTwoTeamNumber": "3645",
-    "blueThreeTeamNumber": "3646",
-    "redRankingPoints": "42",
-    "blueRankingPoints": "42",
-    "eventKey": "2024iawesdd"
+    "redTwoTeamNumber": "10164",
+    "redThreeTeamNumber": "9999",
+    "blueOneTeamNumber": "1",
+    "blueTwoTeamNumber": "2",
+    "blueThreeTeamNumber": "3",
+    "redRankingPoints": "1",
+    "blueRankingPoints": "1",
+    "matchKey": "2024iawesdd_qm1",
+    "event_id": 1
 }
 
 ###
 
 // Adds a match to the database
-DELETE http://localhost:3001/api/v1/matches/2
+DELETE http://localhost:3001/api/v1/match/2
 
 
