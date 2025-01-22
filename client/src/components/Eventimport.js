@@ -1,14 +1,13 @@
 import { useState } from "react";
-import ReactDOM from 'react-dom/client';
 
 const Eventimport = () => {
-    function EventImport() {
-        const [eventkey, setEventkey] = useState("");
-      
-        const handleSubmit = (event) => {
-          event.preventDefault();
-          alert(`Event Key entered: ${eventkey}`);
-        }
+    const [eventkey, setEventkey] = useState("");
+    
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        alert(`Event Key entered: ${eventkey}`);
+    }
+    
     return (
         <>
         <div className = "container">
@@ -28,9 +27,6 @@ const Eventimport = () => {
         </div>
         </>
     );
-}
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<EventImport />);
 }
 export default Eventimport;
