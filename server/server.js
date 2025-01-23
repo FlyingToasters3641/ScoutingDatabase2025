@@ -65,7 +65,8 @@ Match.init({
   blueThreeTeamNumber: DataTypes.INTEGER,
   redRankingPoints: DataTypes.INTEGER,
   blueRankingPoints: DataTypes.INTEGER,
-  eventKey: DataTypes.STRING
+  matchKey: DataTypes.STRING,
+  event_id: DataTypes.INTEGER
 }, { sequelize, modelName: 'matches' });
 
 // Define match model
@@ -234,16 +235,25 @@ app.get('/api/v1/matches', async (req, res) => {
 });
 
 app.get('/api/v1/matches/:id', async (req, res) => {
+  const match = await Match.findAll({
+    where: {
+      event_id: req.params.id,
+    },
+  });
+  res.json(match);
+});
+  
+app.get('/api/v1/match/:id', async (req, res) => {
 const match = await Match.findByPk(req.params.id);
 res.json(match);
 });
 
-app.post('/api/v1/matches', async (req, res) => {
+app.post('/api/v1/match', async (req, res) => {
   const match = await Match.create(req.body);
   res.json(match);
 });
 
-app.delete('/api/v1/matches/:id', async (req, res) => {
+app.delete('/api/v1/match/:id', async (req, res) => {
 const match = await Match.findByPk(req.params.id);
 if (match) {
   await match.destroy();

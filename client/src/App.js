@@ -6,6 +6,8 @@ import About from "./components/About.js";
 import Test from "./components/Test.js";
 import Eventdetail from "./components/Eventdetail.js";
 import Team from "./components/Team.js";
+import Eventimport from "./components/Eventimport.js";
+import Dataimport from "./components/Dataimport.js";
 
 
 const App = () => {
@@ -16,6 +18,8 @@ const App = () => {
             <Switch>
                 <Route exact path='/' component={Home}/>
                 <Route path='/about' component={About}/>
+                <Route path='/eventimport' component={Eventimport}/>
+                <Route path='/dataimport' component={Dataimport}/>
                 <Route path='/test' component={Test}/>
                 <Route path='/eventdetail' component={Eventdetail}/>
                 <Route path='/team' component={Team}/>
