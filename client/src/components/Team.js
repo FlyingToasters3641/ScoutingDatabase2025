@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import BackButton from './BackButton';
 
 const Team = () => {
     const [team, setTeam] = useState([]);
@@ -17,12 +18,13 @@ const Team = () => {
         }, []);
 
     return (
-<>
-<div className = "container">
-    <h1>{team.teamNumber} - {team.nickname}</h1>
-    <hr></hr>
-</div>
-</>
+        <>
+        <div className = "container">
+            <BackButton />
+            <h1> {team.teamNumber} - {team.nickname}</h1>
+            <hr></hr>
+        </div>
+        </>
     );
 }
 
