@@ -239,6 +239,9 @@ app.get('/api/v1/matches/:id', async (req, res) => {
     where: {
       event_id: req.params.id,
     },
+    order: [
+      ['matchNumber', 'ASC'],
+    ],
   });
   res.json(match);
 });
