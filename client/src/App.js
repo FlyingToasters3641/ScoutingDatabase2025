@@ -8,7 +8,7 @@ import Eventdetail from "./views/Events/Eventdetail.js";
 import Team from "./views/Events/Team.js";
 import Eventimport from "./views/Events/Eventimport.js";
 import Dataimport from "./views/Matches/Dataimport.js";
-
+import Matchdetails from "./views/Matches/Matchdetails.js"; 
 
 const App = () => {
   return (
@@ -23,6 +23,7 @@ const App = () => {
                 <Route path='/test' component={Test}/>
                 <Route path='/eventdetail' component={Eventdetail}/>
                 <Route path='/team' component={Team}/>
+                <Route path='/matchdetails' component={Matchdetails}/>
             </Switch>
         </Router>
     </div>
