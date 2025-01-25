@@ -1,13 +1,13 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Navigationbar from "./components/Navigationbar.js";
-import Home from "./components/Home.js";
-import About from "./components/About.js";
-import Test from "./components/Test.js";
-import Eventdetail from "./components/Eventdetail.js";
-import Team from "./components/Team.js";
-import Eventimport from "./components/Eventimport.js";
-import Dataimport from "./components/Dataimport.js";
+import Navigationbar from "./views/common/Navigationbar.js";
+import Home from "./views/Home/Home.js";
+import About from "./views/About/About.js";
+import Test from "./views/Test/Test.js";
+import Eventdetail from "./views/Events/Eventdetail.js";
+import Team from "./views/Events/Team.js";
+import Eventimport from "./views/Events/Eventimport.js";
+import Dataimport from "./views/Matches/Dataimport.js";
 
 
 const App = () => {
