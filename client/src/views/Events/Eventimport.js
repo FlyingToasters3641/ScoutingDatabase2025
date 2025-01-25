@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 
 const Eventimport = () => {
     const [eventkey, setEventkey] = useState("");
@@ -9,8 +10,7 @@ const Eventimport = () => {
     }
     
     return (
-        <>
-        <div className = "container">
+        <Container>
             <h1>Event Import</h1>
             <h3>Import an Event from <a href="https://www.thebluealliance.com/" target="_blank">The Blue Alliance</a> using an Event Key:</h3>
             <hr></hr>
@@ -24,9 +24,9 @@ const Eventimport = () => {
                 </label>
                 <input type="submit"/>
             </form>
-        </div>
-        </>
+        </Container>
     );
 
 }
+
 export default Eventimport;

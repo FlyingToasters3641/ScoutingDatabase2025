@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import BackButton from './BackButton';
+import BackButton from '../common/BackButton';
 
 const Team = () => {
     const [team, setTeam] = useState([]);

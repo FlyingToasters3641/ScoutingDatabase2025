@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
+import { Container, Row, Col } from "react-bootstrap";
 
 const Eventdetail = () => {
     const [event, setEvent] = useState([]);
@@ -56,14 +57,18 @@ const Eventdetail = () => {
     }
     
     return (
-        <div className = "container">
-            <h1>{event.name}</h1>
-            <hr></hr>
-            <p>Search query: {eventid}</p>
-            <div className = "row">
-                <div className = "col-md-7">
-                <h2>Matches:</h2>
-                <table className="table table-bordered">
+        <Container>
+            <Row>
+                <Col md={12}>
+                    <h1>{event.name}</h1>
+                    <hr></hr>
+                    <p>Search query: {eventid}</p>
+                </Col>
+            </Row>
+            <Row>
+                <Col md={7}>
+                    <h2>Matches:</h2>
+                    <table className="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Match Key</th>
@@ -92,12 +97,11 @@ const Eventdetail = () => {
                                 </tr>
                             ))}
                         </tbody>
-                </table>
-                </div>
-
-                <div className = "col-md-5">
-                <h2>Team List:</h2>
-                <table className="table"> 
+                    </table>
+                </Col>
+                <Col md={5}>
+                    <h2>Team List:</h2>
+                    <table className="table"> 
                         <thead>
                             <tr>
                                 <th>Teams Number</th>
@@ -113,10 +117,9 @@ const Eventdetail = () => {
                         ))}
                         </tbody>
                     </table>
-                </div>
-
-            </div>
-        </div>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 
