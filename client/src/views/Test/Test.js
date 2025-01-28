@@ -6,7 +6,6 @@ const Test = () => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-    //axios.get('http://localhost:3001/users')
     axios.get('https://jsonplaceholder.typicode.com/posts')
     .then(response => setPosts(response.data))
     .catch(error => console.error('Error fetching data:', error));
