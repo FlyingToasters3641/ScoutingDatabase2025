@@ -1,22 +1,28 @@
 import { useState } from "react";
 import Html5QrcodePlugin from "../../components/Html5QrcodePlugin.js";
 import { Container, Row, Col } from "react-bootstrap";
+import { sha1 } from "js-sha1";
+import './Matches.css';
 
 const Dataimport = () => {
 
     const [scannedData, setScannedData] = useState('');
+    const [scannedDataSHA1, setScannedDataSHA1] = useState('');
     const [scannedState, setScannedState] = useState('Waitting...');
     // const [lastResult, setLastResult] = useState('');
     // const [countResults, setCountResults] = useState('');
     
     const onNewScanResult = (decodedText, decodedResult) => {
+        alert(`Scan result:${decodedText}`);
         // if (decodedText !== lastResult) {
         //     ++countResults;
         // }
         //alert(` Decoded Text: ${decodedText}`);
         setScannedData(decodedText);
         setScannedState('Success');
-        console.log(`Scan result: ` + JSON.stringify(decodedResult) + `| ${decodedText}`);
+        setScannedDataSHA1(sha1(decodedText));
+
+        console.log(`Scan result:${scannedDataSHA1}| ${decodedText}`);
     };
     
     
@@ -51,9 +57,14 @@ const Dataimport = () => {
                 </Col>
             </Row>
             <Row>
-                <Col md={2}><h2>{ scannedState }</h2></Col>
-                <Col>{ scannedData }</Col>
+                <Col><h2>{ scannedState }</h2></Col>
             </Row>
+            <Row>
+                <Col>
+                    <p>scannedData:<br></br><textarea value={scannedData} className="resizable-textarea" /></p>
+                    <p>SHA1:<br></br><textarea value={scannedDataSHA1} className="resizable-textarea" /></p>
+                </Col>  
+            </Row>  
         </Container>
     );
 }
