@@ -5,13 +5,15 @@ import { APP_DATABASE_URL, TBA_DATABASE_URL, TBA_KEY } from "../../constant/cons
 import "./Events.css";
 
 const Eventimport = () => {
-    const [eventkey, setEventkey] = useState("");
-    const [eventTeams, setEventTeams] = useState("");
-    const [eventMatches, setEventMatches] = useState("");
+    const [eventkey, setEventkey] = useState(""); // debug??, remove once working??
+    const [eventDetails, setEventDetails] = useState(""); // debug, remove once working
+    const [eventMatches, setEventMatches] = useState(""); // debug, remove once working
+    const [eventTeams, setEventTeams] = useState(""); // debug, remove once working
+    const [eventId, setEventID] = useState(""); // debug, remove once working
 
-
-    const [eventDetails, setEventDetails] = useState("");
-    const [eventId, setEventID] = useState("");
+    let frcTbaEvent = [];
+    let frcTbaMatches = [];
+    let frcTbaTeams = [];
 
     
     async function handleSubmit(event) {
@@ -20,22 +22,75 @@ const Eventimport = () => {
 
         // ############################################################
         // Get event details from TBA
+
         // /event/{event_key}
-        await axios.get(`${TBA_DATABASE_URL}/event/${eventkey}`, {
+        const getEventData = axios.get(`${TBA_DATABASE_URL}/event/${eventkey}`, {
             headers: {
               'X-TBA-Auth-Key': `${TBA_KEY}`,
               'accept': 'application/json'
             }
           })
-        .then(response => setEventDetails(response.data))
-        .catch(error => console.error('Error fetching data:', error));
+        .then(response => {
+            frcTbaEvent = response.data;
+            setEventDetails(frcTbaEvent);  // debug, remove once working
+            // alert("getEventData:\n"+JSON.stringify(ftcEvent));
 
-        // Save the event to the database
+        })
+        .catch(error => console.error('Error fetching data:', error))
+        .finally(console.log("TBA: Event Details collected"));
+
+        // Get matches at event from TBA
+        // /event/{event_key}/matches/simple
+        const getEventMatchData = axios.get(`${TBA_DATABASE_URL}/event/${eventkey}/matches/simple`, {
+            headers: {
+              'X-TBA-Auth-Key': `${TBA_KEY}`,
+              'accept': 'application/json'
+            }
+          })
+        .then(response => {
+            frcTbaMatches = response.data;
+            setEventMatches(response.data); // debug, remove once working
+            alert("getEventMatchData:\n"+JSON.stringify(frcTbaMatches));
+        })
+        .catch(error => console.error('Error fetching data:', error))
+        .finally(console.log("TBA: Event Matches collected"));
+
+        // Get teams at event from TBA
+        // /event/{event_key}/teams
+        const getEventTeamsData = axios.get(`${TBA_DATABASE_URL}/event/${eventkey}/teams`, {
+            headers: {
+              'X-TBA-Auth-Key': `${TBA_KEY}`,
+              'accept': 'application/json'
+            }
+          })
+        .then(response => {
+            frcTbaTeams = response.data;
+            setEventTeams(response.data) // debug, remove once working
+            alert("getEventTeamsData:\n"+JSON.stringify(frcTbaTeams)); // debug, remove once working
+        })
+        .catch(error => console.error('Error fetching data:', error))
+        .finally(console.log("TBA: Event Teams collected"));
+
+        // Allow all the TBA calls to execute in parallel but complete before continuing 
+        await getEventData;
+        await getEventMatchData;
+        await getEventTeamsData;
+
+        // alert(JSON.stringify(ftcEvent));
+
+        // Done with TBA data collection
+        console.log("TBA Info collected");
+
+
+        // ############################################################
+        // Now Save the event information to our database
+
+        // Save the event to the database and save the event ID for future use
         await axios.post(
             `${APP_DATABASE_URL}/events`, 
             {
-                name: `${event.name}`, 
-                key: `${event.key}`
+                name: frcTbaEvent.name, 
+                key: frcTbaEvent.key
             }, 
             { 
                 headers: {
@@ -43,23 +98,16 @@ const Eventimport = () => {
                 }
             }
         )
-        .then(response => setEventID(response.data.id))
+        .then(response => {
+            frcTbaEvent.id = response.data.id;
+            setEventID(frcTbaEvent.id); // debug, remove once working
+            alert("here"); // debug, remove once working
+            alert("ftcEvent.id:\n"+JSON.stringify(frcTbaEvent)); // debug, remove once working
+        })
         .catch(error => console.error('Error saving data:', error));
 
 
-        // ############################################################
-        // Get matches at event from TBA
-        // /event/{event_key}/matches/simple
-        await axios.get(`${TBA_DATABASE_URL}/event/${eventkey}/matches/simple`, {
-            headers: {
-              'X-TBA-Auth-Key': `${TBA_KEY}`,
-              'accept': 'application/json'
-            }
-          })
-        .then(response => setEventMatches(response.data))
-        .catch(error => console.error('Error fetching data:', error));
 
-        console.log("Event Matches", eventMatches);
 
         // Save the matches to the database
         // eventMatches.forEach(match => {
@@ -90,16 +138,16 @@ const Eventimport = () => {
 
 
 
-        // Get teams at event from TBA
-        // /event/{event_key}/teams
-        await axios.get(`${TBA_DATABASE_URL}/event/${eventkey}/teams`, {
-            headers: {
-              'X-TBA-Auth-Key': `${TBA_KEY}`,
-              'accept': 'application/json'
-            }
-          })
-        .then(response => setEventTeams(response.data))
-        .catch(error => console.error('Error fetching data:', error));
+        // // Get teams at event from TBA
+        // // /event/{event_key}/teams
+        // await axios.get(`${TBA_DATABASE_URL}/event/${eventkey}/teams`, {
+        //     headers: {
+        //       'X-TBA-Auth-Key': `${TBA_KEY}`,
+        //       'accept': 'application/json'
+        //     }
+        //   })
+        // .then(response => setEventTeams(response.data))
+        // .catch(error => console.error('Error fetching data:', error));
 
 
     //     // Get matches at event from TBA
