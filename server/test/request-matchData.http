@@ -11,6 +11,11 @@ GET http://localhost:3001/api/v1/matchData
 
 ###
 
+// List uniqueid in matchData currently in the database
+GET http://localhost:3001/api/v1/matchData/uniqueid/50c0056e143043b839605250bc6686b8624ea177
+
+###
+
 // List matchData by ID 
 GET http://localhost:3001/api/v1/matchData/1
 
@@ -25,7 +30,10 @@ content-type: application/json
     "matchNumber": "42",
     "teamNumber": "3641",
     "eventKey": "2024iawesdd",
-    "matchKey": "2024iawesdd_qm42"
+    "matchKey": "2024iawesdd_qm42",
+    "event_id": 1,
+    "position": "R1",
+    "uniqueId": "5fa49aa03512bcc45c2d46936c9301fb841d81aa"
 }
 
 ###

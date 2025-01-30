@@ -81,7 +81,10 @@ MatchData.init({
   matchNumber: DataTypes.INTEGER,
   teamNumber: DataTypes.INTEGER,
   eventKey: DataTypes.STRING,
-  matchKey: DataTypes.STRING
+  matchKey: DataTypes.STRING,
+  event_id: DataTypes.INTEGER,
+  position: DataTypes.STRING,
+  uniqueId: DataTypes.STRING
 }, { sequelize, modelName: 'matchdata' });
 
 // ######################################################################
@@ -319,6 +322,15 @@ app.get('/api/v1/matchData', async (req, res) => {
 app.get('/api/v1/matchData/:id', async (req, res) => {
 const matchdata = await MatchData.findByPk(req.params.id);
 res.json(matchdata);
+});
+
+app.get('/api/v1/matchData/uniqueid/:id', async (req, res) => {
+  const matchdata = await MatchData.findAll({
+    where: {
+      uniqueId: req.params.id,
+    },
+  });
+  res.json(matchdata);
 });
 
 app.post('/api/v1/matchData', async (req, res) => {
