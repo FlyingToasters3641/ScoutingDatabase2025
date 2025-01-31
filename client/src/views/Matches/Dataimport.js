@@ -3,6 +3,7 @@ import axios from 'axios';
 import Html5QrcodePlugin from "../../components/Html5QrcodePlugin.js";
 import { Container, Row, Col } from "react-bootstrap";
 import { sha1 } from "js-sha1";
+import { APP_DATABASE_URL } from "../../constant/constant";
 import './Matches.css';
 
 const Dataimport = () => {
@@ -14,17 +15,17 @@ const Dataimport = () => {
     const [scannedState, setScannedState] = useState('Waitting...');
     
     useEffect(() => {
-        axios.get('http://localhost:3001/api/v1/matchData/uniqueid/' + scannedDataSHA1)
+        axios.get(`${APP_DATABASE_URL}/matchData/uniqueid/${scannedDataSHA1}`)
         .then(response => {
-            console.log("Unqiceid Resolt:"+JSON.stringify(response.data))
+            console.log("UniqueId Result:"+JSON.stringify(response.data))
             if (response.data.length > 0) {
                 setScannedState('Already in database');
             }
             else {
                 setScannedState('Not in database');
-                axios.post('http://localhost:3001/api/v1/matchData',
+                axios.post(`${APP_DATABASE_URL}/matchData`,
                     {
-                        uniqueId: scannedDataSHA1
+                        "uniqueId": scannedDataSHA1
                     },
                     { headers: { 'Content-Type': 'application/json' } })
             }
@@ -59,7 +60,7 @@ const Dataimport = () => {
                 </Col>
             </Row>
             <Row>
-                <Col><h2>{ scannedState }</h2></Col>
+                <Col><h3>{ scannedState }</h3></Col>
             </Row>
             <Row>
                 <Col>

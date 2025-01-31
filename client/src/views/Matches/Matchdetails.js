@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
 import BackButton from '../common/BackButton';
 import { Col, Container, Row } from "react-bootstrap";
+import { APP_DATABASE_URL } from "../../constant/constant";
 
 const Matchdetails = () => {
     const [match, setMatch] = useState([]);
@@ -12,8 +13,7 @@ const Matchdetails = () => {
     const matchId = searchParams.get('matchId');
 
     useEffect(() => {
-        axios.get('http://localhost:3001/api/v1/match/' + matchId)
-        //axios.get('https://super-sniffle-q4v55jpj9wcqrq-3001.app.github.dev/event/{event.key}')
+        axios.get(`${APP_DATABASE_URL}/match/${matchId}`)
         .then(response => setMatch(response.data))
         .catch(error => console.error('Error fetching data:', error));
         }, [matchId]);
