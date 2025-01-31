@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import BackButton from '../common/BackButton';
+import { Col, Container, Row } from "react-bootstrap";
 
 const Team = () => {
     const [team, setTeam] = useState([]);
@@ -18,13 +19,13 @@ const Team = () => {
         }, []);
 
     return (
-        <>
-        <div className = "container">
-            <BackButton />
-            <h1> {team.teamNumber} - {team.nickname}</h1>
-            <hr></hr>
-        </div>
-        </>
+        <Container>
+            <Row>
+                <Col md={1}><BackButton /></Col>
+                <Col md={11}><h1> {team.teamNumber} - {team.nickname}</h1></Col>
+            </Row>
+            <Row><hr></hr></Row>
+        </Container>
     );
 }
 
