@@ -85,7 +85,7 @@ const Eventimport = () => {
         // ############################################################
         // Now Save the event information to our database
 
-        // Save the event to the database and save the event ID for future use
+        // Save the event to the database and keep the event ID for future use
         await axios.post(`${APP_DATABASE_URL}/events`, 
             {
                 "name": frcTbaEvent.name, 
@@ -104,6 +104,7 @@ const Eventimport = () => {
         .catch(error => console.error('Error saving data:', error));
 
 
+        // Save the matches to the database
         for (const match of frcTbaMatchList) {
             console.log(match);
             await axios.post(`${APP_DATABASE_URL}/match`, 
@@ -132,46 +133,7 @@ const Eventimport = () => {
         console.log("Matches added");
 
 
-
-
-
-        
-
-
-
-        // // Get teams at event from TBA
-        // // /event/{event_key}/teams
-        // await axios.get(`${TBA_DATABASE_URL}/event/${eventkey}/teams`, {
-        //     headers: {
-        //       'X-TBA-Auth-Key': `${TBA_KEY}`,
-        //       'accept': 'application/json'
-        //     }
-        //   })
-        // .then(response => setEventTeams(response.data))
-        // .catch(error => console.error('Error fetching data:', error));
-
-
-    //     // Get matches at event from TBA
-    //     // /event/{event_key}/matches
-    //     axios.get(`${TBA_DATABASE_URL}/event/${eventkey}/matches`, {
-    //         headers: {
-    //           'X-TBA-Auth-Key': `${TBA_KEY}`,
-    //           'accept': 'application/json'
-    //         }
-    //       })
-    //     .then(response => setEventMatches(response.data))
-    //     .catch(error => console.error('Error fetching data:', error));
-
-    //     // Get matches at event from TBA
-    //     // /event/{event_key}/matches/simple
-    //     axios.get(`${TBA_DATABASE_URL}/event/${eventkey}/matches/simple`, {
-    //         headers: {
-    //           'X-TBA-Auth-Key': `${TBA_KEY}`,
-    //           'accept': 'application/json'
-    //         }
-    //       })
-    //     .then(response => setEventMatchesSimple(response.data))
-    //     .catch(error => console.error('Error fetching data:', error));
+        // TODO: Save the teams to the database
     }
 
 
