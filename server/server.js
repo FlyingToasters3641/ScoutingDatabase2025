@@ -24,13 +24,13 @@ const sequelize = new Sequelize({
 // | |_| | (_| | || (_| | |_) | (_| \__ \  __/ | |  | | (_) | (_| |  __/ \__ \
 // |____/ \__,_|\__\__,_|_.__/ \__,_|___/\___| |_|  |_|\___/ \__,_|\___|_|___/
                                                                           
-// Define User model
-class User extends Model {}
-User.init({
-  name: DataTypes.STRING,
-  email: DataTypes.STRING,
-  password: DataTypes.STRING
-}, { sequelize, modelName: 'user' });
+// // Define User model
+// class User extends Model {}
+// User.init({
+//   name: DataTypes.STRING,
+//   email: DataTypes.STRING,
+//   password: DataTypes.STRING
+// }, { sequelize, modelName: 'user' });
 
 // Define FRCEvents model
 class FRCEvents extends Model {}
@@ -102,7 +102,7 @@ app.options('*', cors());
 // ######################################################################
 // Default path
 app.get('/', (req, res) => {
-    res.json({ message: "Hello from server!" });
+    res.json({ "Error": "Invalid endpoint" });
   });
 // ######################################################################
 
@@ -114,40 +114,40 @@ app.get('/', (req, res) => {
 // | |_| \__ \  __/ |     / ___ \|  __/| |\__ \
 //  \___/|___/\___|_|    /_/   \_\_|  |___|___/
 
-app.get('/api/v1/users', async (req, res) => {
-    const users = await User.findAll();
-    res.json(users);
-  });
+// app.get('/api/v1/users', async (req, res) => {
+//     const users = await User.findAll();
+//     res.json(users);
+//   });
 
-app.get('/api/v1/users/:id', async (req, res) => {
-    const user = await User.findByPk(req.params.id);
-    res.json(user);
-  });
+// app.get('/api/v1/users/:id', async (req, res) => {
+//     const user = await User.findByPk(req.params.id);
+//     res.json(user);
+//   });
   
-app.post('/api/v1/users', async (req, res) => {
-    const user = await User.create(req.body);
-    res.json(user);
-  });
+// app.post('/api/v1/users', async (req, res) => {
+//     const user = await User.create(req.body);
+//     res.json(user);
+//   });
   
-app.put('/api/v1/users/:id', async (req, res) => {
-    const user = await User.findByPk(req.params.id);
-    if (user) {
-      await user.update(req.body);
-      res.json(user);
-    } else {
-      res.status(404).json({ message: 'User not found' });
-    }
-  });
+// app.put('/api/v1/users/:id', async (req, res) => {
+//     const user = await User.findByPk(req.params.id);
+//     if (user) {
+//       await user.update(req.body);
+//       res.json(user);
+//     } else {
+//       res.status(404).json({ message: 'User not found' });
+//     }
+//   });
   
-app.delete('/api/v1/users/:id', async (req, res) => {
-    const user = await User.findByPk(req.params.id);
-    if (user) {
-      await user.destroy();
-      res.json({ message: 'User deleted' });
-    } else {
-      res.status(404).json({ message: 'User not found' });
-    }
-  });
+// app.delete('/api/v1/users/:id', async (req, res) => {
+//     const user = await User.findByPk(req.params.id);
+//     if (user) {
+//       await user.destroy();
+//       res.json({ message: 'User deleted' });
+//     } else {
+//       res.status(404).json({ message: 'User not found' });
+//     }
+//   });
 
 // ######################################################################
 

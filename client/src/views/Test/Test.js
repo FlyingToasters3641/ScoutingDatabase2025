@@ -27,6 +27,4 @@ const Test = () => {
     );
 }
 
-//{post.id}>{post.name} - {post.email}
-
 export default Test;
