@@ -26,7 +26,7 @@ const Eventdetail = () => {
         axios.get(`${APP_DATABASE_URL}/matches/${eventid}`)
         .then(response => setMatch(response.data))
         .catch(error => console.error('Error fetching data:', error));
-        }, [eventid]);
+        }, []);
     
     
     return (

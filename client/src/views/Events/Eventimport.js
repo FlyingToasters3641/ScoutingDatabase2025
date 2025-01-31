@@ -12,7 +12,7 @@ const Eventimport = () => {
     const [eventId, setEventID] = useState(""); // debug, remove once working
 
     let frcTbaEvent = [];
-    let frcTbaMatches = [];
+    let frcTbaMatchList = [];
     let frcTbaTeams = [];
 
     
@@ -33,7 +33,7 @@ const Eventimport = () => {
         .then(response => {
             frcTbaEvent = response.data;
             setEventDetails(frcTbaEvent);  // debug, remove once working
-            // alert("getEventData:\n"+JSON.stringify(ftcEvent));
+            // alert("getEventData:\n"+JSON.stringify(frcTbaEvent));
 
         })
         .catch(error => console.error('Error fetching data:', error))
@@ -48,9 +48,9 @@ const Eventimport = () => {
             }
           })
         .then(response => {
-            frcTbaMatches = response.data;
+            frcTbaMatchList = response.data;
             setEventMatches(response.data); // debug, remove once working
-            alert("getEventMatchData:\n"+JSON.stringify(frcTbaMatches));
+            // alert("getEventMatchData:\n"+JSON.stringify(frcTbaMatchList));
         })
         .catch(error => console.error('Error fetching data:', error))
         .finally(console.log("TBA: Event Matches collected"));
@@ -66,7 +66,7 @@ const Eventimport = () => {
         .then(response => {
             frcTbaTeams = response.data;
             setEventTeams(response.data) // debug, remove once working
-            alert("getEventTeamsData:\n"+JSON.stringify(frcTbaTeams)); // debug, remove once working
+            // alert("getEventTeamsData:\n"+JSON.stringify(frcTbaTeams)); // debug, remove once working
         })
         .catch(error => console.error('Error fetching data:', error))
         .finally(console.log("TBA: Event Teams collected"));
@@ -86,54 +86,55 @@ const Eventimport = () => {
         // Now Save the event information to our database
 
         // Save the event to the database and save the event ID for future use
-        await axios.post(
-            `${APP_DATABASE_URL}/events`, 
+        await axios.post(`${APP_DATABASE_URL}/events`, 
             {
-                name: frcTbaEvent.name, 
-                key: frcTbaEvent.key
+                "name": frcTbaEvent.name, 
+                "key": frcTbaEvent.key
             }, 
             { 
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: {'Content-Type': 'application/json'}
             }
         )
         .then(response => {
             frcTbaEvent.id = response.data.id;
             setEventID(frcTbaEvent.id); // debug, remove once working
-            alert("here"); // debug, remove once working
-            alert("ftcEvent.id:\n"+JSON.stringify(frcTbaEvent)); // debug, remove once working
+            // alert("here"); // debug, remove once working
+            // alert("ftcEvent.id:\n"+JSON.stringify(frcTbaEvent)); // debug, remove once working
         })
         .catch(error => console.error('Error saving data:', error));
 
 
+        for (const match of frcTbaMatchList) {
+            console.log(match);
+            await axios.post(`${APP_DATABASE_URL}/match`, 
+                {
+                    "matchNumber": match.match_number,
+                    "redOneTeamNumber": match.alliances.red.team_keys[0].substring(3),
+                    "redTwoTeamNumber": match.alliances.red.team_keys[1].substring(3),
+                    "redThreeTeamNumber": match.alliances.red.team_keys[2].substring(3),
+                    "blueOneTeamNumber": match.alliances.blue.team_keys[0].substring(3),
+                    "blueTwoTeamNumber": match.alliances.blue.team_keys[1].substring(3),
+                    "blueThreeTeamNumber": match.alliances.blue.team_keys[2].substring(3),
+                    "redScore": "0",
+                    "blueScore": "0",
+                    "redRankingPoints": 0,
+                    "blueRankingPoints": 0,
+                    "matchKey": match.key,
+                    "event_id": frcTbaEvent.id
+                }, 
+                { 
+                    headers: { 'Content-Type': 'application/json'}
+                }
+            )
+            .then(console.log("Match added: " + match.match_number))   
+            .catch(error => console.error('Error saving data:', error));
+        }
+        console.log("Matches added");
 
 
-        // Save the matches to the database
-        // eventMatches.forEach(match => {
-        //     console.log("Match saved", match.key)
-            // axios.post(`${APP_DATABASE_URL}/matches`, 
-            //     {
-            //         matchNumber: `${match.match_number}`, 
-            //         redOneTeamNumber: `${match.alliances.red.team_keys[0]}`,
-            //         redTwoTeamNumber: `${match.alliances.red.team_keys[1]}`,
-            //         redThreeTeamNumber: `${match.alliances.red.team_keys[2]}`,
-            //         blueOneTeamNumber: `${match.alliances.blue.team_keys[0]}`,
-            //         blueTwoTeamNumber: `${match.alliances.blue.team_keys[1]}`,
-            //         blueThreeTeamNumber: `${match.alliances.blue.team_keys[2]}`,
-            //         event_id: `${eventId}`,
-            //         matchKey: `${match.key}`
-            //     }, 
-            //     { 
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         }
-            //     }
-            // )
-            // .then(console.log("Match saved", match.key))
-            // .catch(error => console.error('Error saving data:', error));
-            
-        // });
+
+
+
         
 
 
