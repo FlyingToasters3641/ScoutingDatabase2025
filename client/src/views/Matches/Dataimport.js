@@ -12,43 +12,31 @@ const Dataimport = () => {
     const [scannedData, setScannedData] = useState('');
     const [scannedDataSHA1, setScannedDataSHA1] = useState('');
     const [scannedState, setScannedState] = useState('Waitting...');
-    // const [lastResult, setLastResult] = useState('');
-    // const [countResults, setCountResults] = useState('');
     
     useEffect(() => {
         axios.get('http://localhost:3001/api/v1/matchData/uniqueid/' + scannedDataSHA1)
         .then(response => {
             console.log("Unqiceid Resolt:"+JSON.stringify(response.data))
             if (response.data.length > 0) {
-                // setMatchData(response.data[0]);
                 setScannedState('Already in database');
             }
             else {
                 setScannedState('Not in database');
+                axios.post('http://localhost:3001/api/v1/matchData',
+                    {
+                        uniqueId: scannedDataSHA1
+                    },
+                    { headers: { 'Content-Type': 'application/json' } })
             }
         })
         .catch(error => console.error('Error fetching data:', error));
     }, [scannedDataSHA1]);
 
     const onNewScanResult = (decodedText, decodedResult) => {
-        // alert(`Scan result:${decodedText}`);
-        if (matchData.uniqueid === scannedDataSHA1) {
-            setScannedState('Already in database');
-        }
         setScannedData(decodedText);
         setScannedDataSHA1(sha1(decodedText));
 
         console.log(`Scan result:${scannedDataSHA1}| ${decodedText}`);
-    };
-    
-    
-
-    const onScanSuccess = (decodedText, decodedResult) => {
-        //setScannedData(decodedText);
-    };
-
-    const onError = (error) => {
-    console.error(error);
     };
 
     return (
@@ -66,8 +54,6 @@ const Dataimport = () => {
                         fps={10}
                         qrbox={500}
                         disableFlip={false}
-                        onScanSuccess={onScanSuccess}
-                        onError={onError}
                         qrCodeSuccessCallback={onNewScanResult}
                     />
                 </Col>
