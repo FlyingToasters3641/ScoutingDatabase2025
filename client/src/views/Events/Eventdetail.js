@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
+import { APP_DATABASE_URL } from "../../constant/constant";
+import { arrayLookup } from "../../utils/common";
 
 const Eventdetail = () => {
     const [event, setEvent] = useState([]);
@@ -13,48 +15,19 @@ const Eventdetail = () => {
     const eventid = searchParams.get('eventId');
 
     useEffect(() => {
-        axios.get('http://localhost:3001/api/v1/events/' + eventid)
-        //axios.get('https://super-sniffle-q4v55jpj9wcqrq-3001.app.github.dev/event/{event.key}')
+        axios.get(`${APP_DATABASE_URL}/events/${eventid}`)
         .then(response => setEvent(response.data))
         .catch(error => console.error('Error fetching data:', error));
 
-        axios.get('http://localhost:3001/api/v1/eventteams/' + eventid)
-        //axios.get('https://super-sniffle-q4v55jpj9wcqrq-3001.app.github.dev/api/v1/teams')
+        axios.get(`${APP_DATABASE_URL}/eventteams/${eventid}`)
         .then(response => setTeam(response.data))
         .catch(error => console.error('Error fetching data:', error));
 
-        axios.get('http://localhost:3001/api/v1/matches/' + eventid)
-        //axios.get('https://super-sniffle-q4v55jpj9wcqrq-3001.app.github.dev/event/{event.key}')
+        axios.get(`${APP_DATABASE_URL}/matches/${eventid}`)
         .then(response => setMatch(response.data))
         .catch(error => console.error('Error fetching data:', error));
-        }, [eventid]);
+        }, []);
     
-    
-    // ############################################################################################################
-    // Todo: This function should be moved to a common file imported as it may be used elsewhere in the applicaiton.
-    /**
-     * This function is used to lookup a value in a multi-dimensional array
-     * Posted on Tathyika.com (also refer for more codes there)
-     * 
-     * @version 1
-     *
-     * @param {Object} searchValue The value to search for the lookup (vertical).
-     * @param {Array} array The multi-dimensional array to be searched.
-     * @param {String} searchIndex The column-index of the array where to search.
-     * @param {String} returnIndex The column-index of the array from where to get the returning matching value.
-     * @return {Object} Returns the matching value found else returns null.
-     */
-    function arrayLookup(searchValue,array,searchIndex,returnIndex) {
-        var returnVal = null;
-        var i;
-        for(i=0; i<array.length; i++) {
-            if(array[i][searchIndex]===searchValue) {
-                returnVal = array[i][returnIndex];
-                break;
-            }
-        }
-        return returnVal;
-    }
     
     return (
         <Container>

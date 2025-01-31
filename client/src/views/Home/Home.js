@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import { Container, Row, Col } from "react-bootstrap";
+import { APP_DATABASE_URL } from "../../constant/constant";
 
 const Home = () => {
     const [events, setPosts] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/api/v1/events')
-        //axios.get('https://super-sniffle-q4v55jpj9wcqrq-3001.app.github.dev/users')
+        axios.get(`${APP_DATABASE_URL}/events`)
         .then(response => setPosts(response.data))
         .catch(error => console.error('Error fetching data:', error));
         }, []);
@@ -17,13 +17,13 @@ const Home = () => {
     return (
         <Container>
             <Row>
-                <Col md={12}> 
+                <Col> 
                     <h2>The Flying Toaster's Scouting Database</h2>
                     <hr></hr>
                 </Col>
             </Row>
             <Row>
-                <Col md={12}>
+                <Col>
                     <table className="table"> 
                         <thead>
                             <tr>
@@ -32,8 +32,8 @@ const Home = () => {
                         </thead>
                         <tbody>
                         {events.map(event => (
-                            <tr>
-                                <Link to={`/eventdetail/?eventId=${event.id}`}>{event.name} - ({event.key})</Link>
+                            <tr key={event.id}>
+                                <td><Link to={`/eventdetail/?eventId=${event.id}`}>{event.name} - ({event.key})</Link></td>
                             </tr>
                         ))}
                         </tbody>

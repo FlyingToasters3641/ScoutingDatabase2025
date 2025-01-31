@@ -1,0 +1,6 @@
+.resizable-textarea {
+    width: 100%;
+    height: 150px;
+    resize: both; /* Allows both horizontal and vertical resizing */
+    overflow: auto;
+  }
