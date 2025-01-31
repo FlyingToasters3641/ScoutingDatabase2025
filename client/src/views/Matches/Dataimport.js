@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 import Html5QrcodePlugin from "../../components/Html5QrcodePlugin.js";
 import { Container, Row, Col } from "react-bootstrap";
 import { sha1 } from "js-sha1";
@@ -6,20 +7,35 @@ import './Matches.css';
 
 const Dataimport = () => {
 
+    const [matchData, setMatchData] = useState([]);
+
     const [scannedData, setScannedData] = useState('');
     const [scannedDataSHA1, setScannedDataSHA1] = useState('');
     const [scannedState, setScannedState] = useState('Waitting...');
     // const [lastResult, setLastResult] = useState('');
     // const [countResults, setCountResults] = useState('');
     
+    useEffect(() => {
+        axios.get('http://localhost:3001/api/v1/matchData/uniqueid/' + scannedDataSHA1)
+        .then(response => {
+            console.log("Unqiceid Resolt:"+JSON.stringify(response.data))
+            if (response.data.length > 0) {
+                // setMatchData(response.data[0]);
+                setScannedState('Already in database');
+            }
+            else {
+                setScannedState('Not in database');
+            }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    }, [scannedDataSHA1]);
+
     const onNewScanResult = (decodedText, decodedResult) => {
-        alert(`Scan result:${decodedText}`);
-        // if (decodedText !== lastResult) {
-        //     ++countResults;
-        // }
-        //alert(` Decoded Text: ${decodedText}`);
+        // alert(`Scan result:${decodedText}`);
+        if (matchData.uniqueid === scannedDataSHA1) {
+            setScannedState('Already in database');
+        }
         setScannedData(decodedText);
-        setScannedState('Success');
         setScannedDataSHA1(sha1(decodedText));
 
         console.log(`Scan result:${scannedDataSHA1}| ${decodedText}`);
