@@ -5,7 +5,7 @@ import { APP_DATABASE_URL, TBA_DATABASE_URL, TBA_KEY } from "../../constant/cons
 import "./Events.css";
 
 const Eventimport = () => {
-    const [eventkey, setEventkey] = useState(""); // debug??, remove once working??
+    const [eventkey, setEventkey] = useState("2024milac");
     const [eventDetails, setEventDetails] = useState(""); // debug, remove once working
     const [eventMatches, setEventMatches] = useState(""); // debug, remove once working
     const [eventTeams, setEventTeams] = useState(""); // debug, remove once working
@@ -13,7 +13,7 @@ const Eventimport = () => {
 
     let frcTbaEvent = [];
     let frcTbaMatchList = [];
-    let frcTbaTeams = [];
+    let frcTbaTeamsList = [];
 
     
     async function handleSubmit(event) {
@@ -64,7 +64,7 @@ const Eventimport = () => {
             }
           })
         .then(response => {
-            frcTbaTeams = response.data;
+            frcTbaTeamsList = response.data;
             setEventTeams(response.data) // debug, remove once working
             // alert("getEventTeamsData:\n"+JSON.stringify(frcTbaTeams)); // debug, remove once working
         })
@@ -96,10 +96,10 @@ const Eventimport = () => {
             }
         )
         .then(response => {
-            frcTbaEvent.id = response.data.id;
-            setEventID(frcTbaEvent.id); // debug, remove once working
+            frcTbaEvent.event_id = response.data.id;
+            setEventID(frcTbaEvent.event_id); // debug, remove once working
             // alert("here"); // debug, remove once working
-            // alert("ftcEvent.id:\n"+JSON.stringify(frcTbaEvent)); // debug, remove once working
+            //alert("ftcEvent.id:\n"+JSON.stringify(frcTbaEvent)); // debug, remove once working
         })
         .catch(error => console.error('Error saving data:', error));
 
@@ -121,7 +121,7 @@ const Eventimport = () => {
                     "redRankingPoints": 0,
                     "blueRankingPoints": 0,
                     "matchKey": match.key,
-                    "event_id": frcTbaEvent.id
+                    "event_id": frcTbaEvent.event_id
                 }, 
                 { 
                     headers: { 'Content-Type': 'application/json'}
@@ -134,8 +134,57 @@ const Eventimport = () => {
 
 
         // TODO: Save the teams to the database
-    }
+        for (const team of frcTbaTeamsList) {
+            console.log(team);
+            await axios.get(`${APP_DATABASE_URL}/teams/number/${team.team_number}`)
+            // .then(response => console.log(response.data));
+            .then(response => {
+                if (response.data.length <= 0) {
+                    axios.post(`${APP_DATABASE_URL}/teams`,
+                        {
+                            "teamNumber": team.team_number,
+                            "nickname": team.nickname,
+                            "city": team.city,
+                            "state_prov": team.state_prov,
+                            "country": team.country
+                        },
+                        {
+                            headers: { 'Content-Type': 'application/json'}
+                        }
+                    )
+                    .then(postresponse => {
+                        console.log(postresponse.data)
+                        // team.team_id = postresponse.data[0].id;
+                        // console.log("New team_id added:" + team.team_id)
+                    })
+                    .catch(error => console.error('Error fetching data:', error))
+                }
+                else {
+                    team.team_id = response.data[0].id;
+                    console.log("pre team_id added:" + team.team_id)
+                }
 
+            });
+            
+
+
+            // // Enter event_id and tean_id to the EventTeam Database
+            // await axios.post(`${APP_DATABASE_URL}/eventteams`,
+            //     {
+            //         "event_id": frcTbaEvent.event_id ,
+            //         "team_id": team.team_id
+            //     },
+            //     {
+            //         headers: { 'Content-Type': 'application/json'}
+            //     }
+            // )
+            // .then(console.log("eventTable updated for the team"))
+            // .catch(error => console.error('Error fetching data:', error));
+
+           
+        }
+    
+    }
 
 
     

@@ -204,6 +204,15 @@ app.get('/api/v1/teams/:id', async (req, res) => {
   res.json(teams);
 });
 
+app.get('/api/v1/teams/number/:id', async (req, res) => {
+  const teams = await Teams.findAll({
+    where: {
+      teamNumber: req.params.id,
+    },
+  });
+  res.json(teams);
+});
+
 app.post('/api/v1/teams', async (req, res) => {
   const teams = await Teams.create(req.body);
   res.json(teams);
