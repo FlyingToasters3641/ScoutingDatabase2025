@@ -106,7 +106,7 @@ const Eventimport = () => {
 
         // Save the matches to the database
         for (const match of frcTbaMatchList) {
-            console.log(match);
+            // console.log(match);
             await axios.post(`${APP_DATABASE_URL}/match`, 
                 {
                     "matchNumber": match.match_number,
@@ -134,13 +134,14 @@ const Eventimport = () => {
 
 
         // TODO: Save the teams to the database
+        console.log("START: Starting to check and add teams");
         for (const team of frcTbaTeamsList) {
-            console.log(team);
+            console.log("START: call team database for " + team.team_number);
+
             await axios.get(`${APP_DATABASE_URL}/teams/number/${team.team_number}`)
-            // .then(response => console.log(response.data));
-            .then(response => {
+            .then(async response => {
                 if (response.data.length <= 0) {
-                    axios.post(`${APP_DATABASE_URL}/teams`,
+                    await axios.post(`${APP_DATABASE_URL}/teams`,
                         {
                             "teamNumber": team.team_number,
                             "nickname": team.nickname,
@@ -153,9 +154,9 @@ const Eventimport = () => {
                         }
                     )
                     .then(postresponse => {
-                        console.log(postresponse.data)
-                        // team.team_id = postresponse.data[0].id;
-                        // console.log("New team_id added:" + team.team_id)
+                        // console.log(postresponse.data)
+                        team.team_id = postresponse.data.id;
+                        console.log("New team_id added:" + team.team_id)
                     })
                     .catch(error => console.error('Error fetching data:', error))
                 }
@@ -165,6 +166,8 @@ const Eventimport = () => {
                 }
 
             });
+
+            console.log(team);
             
 
 
@@ -183,6 +186,7 @@ const Eventimport = () => {
 
            
         }
+        console.log("DONE: Teams added if needed");
     
     }
 
