@@ -171,18 +171,18 @@ const Eventimport = () => {
             
 
 
-            // // Enter event_id and tean_id to the EventTeam Database
-            // await axios.post(`${APP_DATABASE_URL}/eventteams`,
-            //     {
-            //         "event_id": frcTbaEvent.event_id ,
-            //         "team_id": team.team_id
-            //     },
-            //     {
-            //         headers: { 'Content-Type': 'application/json'}
-            //     }
-            // )
-            // .then(console.log("eventTable updated for the team"))
-            // .catch(error => console.error('Error fetching data:', error));
+            // Enter event_id and tean_id to the EventTeam Database
+            await axios.post(`${APP_DATABASE_URL}/eventteams`,
+                {
+                    "event_id": frcTbaEvent.event_id ,
+                    "team_id": team.team_id
+                },
+                {
+                    headers: { 'Content-Type': 'application/json'}
+                }
+            )
+            .then(console.log("eventTable updated for the team"))
+            .catch(error => console.error('Error fetching data:', error));
 
            
         }
