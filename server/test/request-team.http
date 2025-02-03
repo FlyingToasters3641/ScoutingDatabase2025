@@ -16,6 +16,11 @@ GET http://localhost:3001/api/v1/teams/1
 
 ###
 
+// List team keys by ID
+GET http://localhost:3001/api/v1/teams/key/1
+
+###
+
 // Adds a teams to the database
 POST http://localhost:3001/api/v1/teams
 content-type: application/json
