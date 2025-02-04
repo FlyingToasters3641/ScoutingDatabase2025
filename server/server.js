@@ -342,6 +342,18 @@ app.get('/api/v1/matchData/uniqueid/:id', async (req, res) => {
   res.json(matchdata);
 });
 
+app.get('/api/v1/matchData/matchkey/:id', async (req, res) => {
+  const matchdata = await MatchData.findAll({
+    where: {
+      matchKey: req.params.id,
+    },
+    order: [
+      ['position', 'ASC'],
+    ],
+  });
+  res.json(matchdata);
+});
+
 app.post('/api/v1/matchData', async (req, res) => {
   const matchdata = await MatchData.create(req.body);
   res.json(matchdata);

@@ -16,6 +16,11 @@ GET http://localhost:3001/api/v1/matchData/uniqueid/50c0056e143043b839605250bc66
 
 ###
 
+// List match number in matchData currently in the database
+GET http://localhost:3001/api/v1/matchData/matchkey/"2024iawesdd_qm1"
+
+###
+
 // List matchData by ID 
 GET http://localhost:3001/api/v1/matchData/1
 
