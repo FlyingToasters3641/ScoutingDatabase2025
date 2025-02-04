@@ -22,7 +22,8 @@ const Team = () => {
         <Container>
             <Row>
                 <Col md={1}><BackButton /></Col>
-                <Col md={11}><h1> {team.teamNumber} - {team.nickname}</h1></Col>
+                <Col md={11}><h1> {team.teamNumber} - {team.nickname}</h1><br></br>
+                <h2>{team.city} - {team.state_prov} - {team.country}</h2></Col>
             </Row>
             <Row><hr></hr></Row>
         </Container>
