@@ -13,6 +13,7 @@ const Navigationbar = () => {
                         <NavLink eventKey="3" as={Link} to="/dataimport">Import Data</NavLink>
                         <NavLink eventKey="4" as={Link} to="/about">About</NavLink>
                         <NavLink eventKey="5" as={Link} to="/test">Test</NavLink>
+                        <NavLink eventKey="6" as={Link} to="/admin">Admin</NavLink>
                     </Nav>
             </div>
         </Navbar>
