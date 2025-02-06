@@ -1,5 +1,6 @@
 import {Nav, Navbar, NavLink } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { RiAdminFill } from "react-icons/ri";
 
 const Navigationbar = () => {
     return (
@@ -13,7 +14,7 @@ const Navigationbar = () => {
                         <NavLink eventKey="3" as={Link} to="/dataimport">Import Data</NavLink>
                         <NavLink eventKey="4" as={Link} to="/about">About</NavLink>
                         <NavLink eventKey="5" as={Link} to="/test">Test</NavLink>
-                        <NavLink eventKey="6" as={Link} to="/admin">Admin</NavLink>
+                        <NavLink eventKey="6" as={Link} to="/admin"><RiAdminFill /></NavLink>
                     </Nav>
             </div>
         </Navbar>
