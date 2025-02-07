@@ -1,16 +1,14 @@
 import { useState } from "react";
 import axios from 'axios';
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, ProgressBar } from "react-bootstrap";
 import { APP_DATABASE_URL, TBA_DATABASE_URL, TBA_KEY } from "../../constant/constant";
 import "./Events.css";
 import BackButton from '../common/BackButton';
 
 const Eventimport = () => {
     const [eventkey, setEventkey] = useState("2024milac");
-    const [eventDetails, setEventDetails] = useState(""); // debug, remove once working
-    const [eventMatches, setEventMatches] = useState(""); // debug, remove once working
-    const [eventTeams, setEventTeams] = useState(""); // debug, remove once working
-    const [eventId, setEventID] = useState(""); // debug, remove once working
+    const [importStatus, setImportStatus] = useState("Waiting to Import");
+    const [progress, setProgress] = useState(0);
 
     let frcTbaEvent = [];
     let frcTbaMatchList = [];
@@ -33,7 +31,6 @@ const Eventimport = () => {
           })
         .then(response => {
             frcTbaEvent = response.data;
-            setEventDetails(frcTbaEvent);  // debug, remove once working
             // alert("getEventData:\n"+JSON.stringify(frcTbaEvent));
 
         })
@@ -50,7 +47,6 @@ const Eventimport = () => {
           })
         .then(response => {
             frcTbaMatchList = response.data;
-            setEventMatches(response.data); // debug, remove once working
             // alert("getEventMatchData:\n"+JSON.stringify(frcTbaMatchList));
         })
         .catch(error => console.error('Error fetching data:', error))
@@ -66,7 +62,6 @@ const Eventimport = () => {
           })
         .then(response => {
             frcTbaTeamsList = response.data;
-            setEventTeams(response.data) // debug, remove once working
             // alert("getEventTeamsData:\n"+JSON.stringify(frcTbaTeams)); // debug, remove once working
         })
         .catch(error => console.error('Error fetching data:', error))
@@ -81,6 +76,8 @@ const Eventimport = () => {
 
         // Done with TBA data collection
         console.log("TBA Info collected");
+        setImportStatus("TBA Info collected");
+        setProgress(33);
 
 
         // ############################################################
@@ -99,7 +96,6 @@ const Eventimport = () => {
         )
         .then(response => {
             frcTbaEvent.event_id = response.data.id;
-            setEventID(frcTbaEvent.event_id); // debug, remove once working
             // alert("here"); // debug, remove once working
             //alert("ftcEvent.id:\n"+JSON.stringify(frcTbaEvent)); // debug, remove once working
         })
@@ -133,6 +129,8 @@ const Eventimport = () => {
             .catch(error => console.error('Error saving data:', error));
         }
         console.log("Matches added");
+        setImportStatus("Matches Added");
+        setProgress(66);
 
 
         // TODO: Save the teams to the database
@@ -189,6 +187,8 @@ const Eventimport = () => {
            
         }
         console.log("DONE: Teams added if needed");
+        setImportStatus("Done");
+        setProgress(100);
     
     }
 
@@ -218,20 +218,12 @@ const Eventimport = () => {
             </Row>
             <Row>
                 <Col>
-                    <p>Event Key:{eventkey}|{eventDetails.name}|</p>
+                    <p>Import Status: {importStatus}</p>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <p>eventId:<br></br><textarea value={eventId} className="resizable-textarea" /></p>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <p>Event Detail:<br></br><textarea value={JSON.stringify(eventDetails)} className="resizable-textarea" /></p>
-                    <p>Event Matches:<br></br><textarea value={JSON.stringify(eventMatches)} className="resizable-textarea" /></p>
-                    <p>Event Teams:<br></br><textarea value={JSON.stringify(eventTeams)} className="resizable-textarea" /></p>
-                    
+                <ProgressBar animated now={progress} label={`${importStatus}`} />
                 </Col>
             </Row>
         </Container>
