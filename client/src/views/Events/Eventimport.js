@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Container, Row, Col } from "react-bootstrap";
 import { APP_DATABASE_URL, TBA_DATABASE_URL, TBA_KEY } from "../../constant/constant";
 import "./Events.css";
+import BackButton from '../common/BackButton';
 
 const Eventimport = () => {
     const [eventkey, setEventkey] = useState("2024milac");
@@ -89,7 +90,8 @@ const Eventimport = () => {
         await axios.post(`${APP_DATABASE_URL}/events`, 
             {
                 "name": frcTbaEvent.name, 
-                "key": frcTbaEvent.key
+                "key": frcTbaEvent.key,
+                "year": frcTbaEvent.year
             }, 
             { 
                 headers: {'Content-Type': 'application/json'}
@@ -195,7 +197,8 @@ const Eventimport = () => {
     return (
         <Container>
             <Row>
-                <Col><h1>Event Import</h1></Col>
+                <Col md={1}><BackButton /></Col>
+                <Col md={11}><h1>Event Import</h1></Col>
                 <hr></hr>
             </Row>
             <Row>

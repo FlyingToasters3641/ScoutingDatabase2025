@@ -36,7 +36,8 @@ const sequelize = new Sequelize({
 class FRCEvents extends Model {}
 FRCEvents.init({
   name: DataTypes.STRING,
-  key: DataTypes.STRING
+  key: DataTypes.STRING,
+  year: DataTypes.INTEGER
 }, { sequelize, modelName: 'frcevents' });
 
 // Define Teams model

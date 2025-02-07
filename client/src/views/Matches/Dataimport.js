@@ -5,6 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { sha1 } from "js-sha1";
 import { APP_DATABASE_URL } from "../../constant/constant";
 import './Matches.css';
+import BackButton from '../common/BackButton';
 
 const Dataimport = () => {
 
@@ -43,10 +44,11 @@ const Dataimport = () => {
     return (
         <Container>
             <Row>
-                <Col md={12}> 
+                <Col md={1}><BackButton /></Col>
+                <Col md={11}> 
                     <h1>Import Scouting Data</h1>
-                    <hr></hr>
                 </Col>
+                <hr></hr>
             </Row>
             <Row>
                 <Col md={12}>
