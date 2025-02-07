@@ -29,6 +29,9 @@ const Eventdetail = () => {
         .catch(error => console.error('Error fetching data:', error));
         }, []);
     
+        const tdRight={
+            textAlign:'right'
+        };
     
     return (
         <Container>
@@ -39,6 +42,12 @@ const Eventdetail = () => {
                 </Col>
                 <hr></hr>
                 <p>Search query: {eventid}</p>
+            </Row>
+            <Row>
+                <Col md={1}>&nbsp;</Col>
+                <Col md={11} style={tdRight}>
+                    <Link to={`/dataimport`}><button type="button" class="btn btn-success">Import Data</button></Link>
+                </Col>
             </Row>
             <Row>
                 <Col md={7}>
