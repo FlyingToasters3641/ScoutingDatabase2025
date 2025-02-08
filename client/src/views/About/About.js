@@ -6,7 +6,7 @@ const About = () => {
         <Container>
             <Row>
                 <Col md={1}><BackButton /></Col>
-                <Col md={12}> 
+                <Col md={11}> 
                     <h1>About</h1>
                     <p>Version 0</p>
                 </Col>

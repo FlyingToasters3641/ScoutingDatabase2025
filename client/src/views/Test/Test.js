@@ -16,7 +16,7 @@ const Test = () => {
         <Container>
             <Row>
                 <Col md={1}><BackButton /></Col>
-                <Col md={12}> 
+                <Col md={11}> 
                     <h1>Name of the posts</h1>
                     <ul>
                     {posts.map(post => (
