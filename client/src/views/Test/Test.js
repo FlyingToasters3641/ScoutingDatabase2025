@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Container, Row, Col } from "react-bootstrap";
+import BackButton from '../common/BackButton';
 
 const Test = () => {
     const [posts, setPosts] = useState([]);
@@ -14,6 +15,7 @@ const Test = () => {
     return (
         <Container>
             <Row>
+                <Col md={1}><BackButton /></Col>
                 <Col md={12}> 
                     <h1>Name of the posts</h1>
                     <ul>
