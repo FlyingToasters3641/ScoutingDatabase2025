@@ -4,6 +4,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
 import { APP_DATABASE_URL } from "../../constant/constant";
 import { arrayLookup } from "../../utils/common";
+import BackButton from '../common/BackButton';
 
 const Eventdetail = () => {
     const [event, setEvent] = useState([]);
@@ -28,14 +29,24 @@ const Eventdetail = () => {
         .catch(error => console.error('Error fetching data:', error));
         }, []);
     
+        const tdRight={
+            textAlign:'right'
+        };
     
     return (
         <Container>
             <Row>
-                <Col md={12}>
+                <Col md={1}><BackButton /></Col>
+                <Col md={11}>
                     <h1>{event.name}</h1>
-                    <hr></hr>
-                    <p>Search query: {eventid}</p>
+                </Col>
+                <hr></hr>
+                <p>Search query: {eventid}</p>
+            </Row>
+            <Row>
+                <Col md={1}>&nbsp;</Col>
+                <Col md={11} style={tdRight}>
+                    <Link to={`/dataimport`}><button type="button" class="btn btn-success">Import Data</button></Link>
                 </Col>
             </Row>
             <Row>
