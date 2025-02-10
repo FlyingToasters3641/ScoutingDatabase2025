@@ -10,6 +10,7 @@ const Content5 = () => <Text style={styles.contentText}>This is content for Save
 
 export default function App() {
   const [content, setContent] = useState(<Content1 />);
+  const [selectedContent, setSelectedContent] = useState('flex-start');
 
   // useEffect(() => {
   //   const changeScreenOrientation = async () => {
@@ -25,15 +26,40 @@ export default function App() {
   return (
     <View style={{padding: 0, flex: 1}}>
       <View style={[styles.topbar, styles.row]}>
-        <Text style={styles.title}>ToasterScouter</Text>
+        <Text style={styles.title}>TFT Scouter</Text>
       </View>
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
-          <Button style={styles.button} title="Setup" onPress={() => setContent(<Content1 />)} />
-          <Button title="Auto" onPress={() => setContent(<Content2 />)} />
-          <Button title="TeleOp" onPress={() => setContent(<Content3 />)} />
-          <Button title="End Game" onPress={() => setContent(<Content4 />)} />
-          <Button title="Save Match" onPress={() => setContent(<Content5 />)} />
+          <TouchableOpacity
+            key="MatchSelect"
+            onPress={() => setContent(<Content1 />)}
+            style={[styles.button,]}>
+            <Text style={[styles.buttonLabel,]}>Match Select</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            key="Auto"
+            onPress={() => setContent(<Content2 />)}
+            style={[styles.button,]}>
+            <Text style={[styles.buttonLabel,]}>Auto</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            key="TeleOp"
+            onPress={() => setContent(<Content3 />)}
+            style={[styles.button,]}>
+            <Text style={[styles.buttonLabel,]}>TeleOp</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            key="EndGame"
+            onPress={() => setContent(<Content4 />)}
+            style={[styles.button,]}>
+            <Text style={[styles.buttonLabel,]}>End Game</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            key="SaveMatch"
+            onPress={() => setContent(<Content5 />)}
+            style={[styles.button,]}>
+            <Text style={[styles.buttonLabel,]}>Save Match</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.contentContainer}>
           {content}
@@ -57,12 +83,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     padding: 0,
     backgroundColor: 'red',
-  },
-  button: {
-    color: 'black',
   },
   contentText: {
     fontSize: 22,
@@ -70,6 +93,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
   },
+  // Topbar styles
   topbar: {
     backgroundColor: 'black',
     padding: 10,
@@ -79,5 +103,31 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 24,
+  },
+  // Menu styles
+  button: {
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    // borderRadius: 4,
+    backgroundColor: 'oldlace',
+    alignSelf: 'flex-start',
+    // marginHorizontal: '1%',
+    // marginBottom: 6,
+    // minWidth: '98%',
+    textAlign: 'center',
+    height: 125,
+  },
+  selected: {
+    backgroundColor: 'coral',
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 24,
+    fontWeight: '500',
+    color: 'coral',
+    textAlign: 'center',
+  },
+  selectedLabel: {
+    color: 'white',
   },
 });
