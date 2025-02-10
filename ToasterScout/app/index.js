@@ -1,16 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { View, Button, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 // import * as ScreenOrientation from 'expo-screen-orientation';
+import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
 
-const Content1 = () => <Text style={styles.contentText}>This is content for Setup.</Text>;
-const Content2 = () => <Text style={styles.contentText}>This is content for Auto.</Text>;
+const Content1 = () => <Text style={styles.contentText}>This is content for Match Setup.</Text>;
+const Content2 = () => (
+  <>
+  <Text style={styles.contentText}>This is content for Auto.</Text>
+  <View
+        style={[
+          {
+            top: 100,
+            left: 10,
+            width: 50,
+            height: 50,
+            position: 'absolute',
+            backgroundColor: 'powderblue',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+        ]}
+      >
+        <Ionicons name="add" size={32} color="black" />
+      </View>
+  </>
+);
 const Content3 = () => <Text style={styles.contentText}>This is content for Teleop.</Text>;
-const Content4 = () => <Text style={styles.contentText}>This is content for End Game.</Text>;
+const Content4 = () => (
+  <>
+  <Text style={styles.contentText}>This is content for Endgame.</Text>
+
+  <View
+        style={[
+          {
+            top: 0,
+            left: 0,
+            width: 906,
+            height: 477,
+            position: 'absolute',
+            backgroundColor: 'powderblue',
+          },
+        ]}
+      />
+      <Text style={styles.contentText}>906px {"\n"}x {"\n"}477px</Text>
+  </>
+);
 const Content5 = () => <Text style={styles.contentText}>This is content for Save Match.</Text>;
 
 export default function App() {
   const [content, setContent] = useState(<Content1 />);
-  const [selectedContent, setSelectedContent] = useState('flex-start');
+  const [selectedContent, setSelectedContent] = useState('MatchSelect');
 
   // useEffect(() => {
   //   const changeScreenOrientation = async () => {
@@ -31,34 +70,39 @@ export default function App() {
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
+            activeOpacity={0.5}
             key="MatchSelect"
-            onPress={() => setContent(<Content1 />)}
-            style={[styles.button,]}>
-            <Text style={[styles.buttonLabel,]}>Match Select</Text>
+            onPress={() => {setContent(<Content1 />); setSelectedContent('MatchSelect');}}
+            style={[styles.button, selectedContent === 'MatchSelect' && styles.selectedContent]}>
+            <Text style={[styles.buttonLabel, selectedContent === 'MatchSelect' && styles.selectedLabel]}>Match{"\n"}Select</Text>
           </TouchableOpacity>
           <TouchableOpacity
+          activeOpacity={0.5}
             key="Auto"
-            onPress={() => setContent(<Content2 />)}
-            style={[styles.button,]}>
-            <Text style={[styles.buttonLabel,]}>Auto</Text>
+            onPress={() => {setContent(<Content2 />); setSelectedContent('Auto');}}
+            style={[styles.button, selectedContent === 'Auto' && styles.selectedContent]}>
+            <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Auto</Text>
           </TouchableOpacity>
           <TouchableOpacity
+          activeOpacity={0.5}
             key="TeleOp"
-            onPress={() => setContent(<Content3 />)}
-            style={[styles.button,]}>
-            <Text style={[styles.buttonLabel,]}>TeleOp</Text>
+            onPress={() => {setContent(<Content3 />); setSelectedContent('TeleOp');}}
+            style={[styles.button, selectedContent === 'TeleOp' && styles.selectedContent]}>
+            <Text style={[styles.buttonLabel, selectedContent === 'TeleOp' && styles.selectedLabel]}>TeleOp</Text>
           </TouchableOpacity>
           <TouchableOpacity
+          activeOpacity={0.5}
             key="EndGame"
-            onPress={() => setContent(<Content4 />)}
-            style={[styles.button,]}>
-            <Text style={[styles.buttonLabel,]}>End Game</Text>
+            onPress={() => {setContent(<Content4 />); setSelectedContent('EndGame');}}
+            style={[styles.button, selectedContent === 'EndGame' && styles.selectedContent]}>
+            <Text style={[styles.buttonLabel, selectedContent === 'EndGame' && styles.selectedLabel]}>End{"\n"}Game</Text>
           </TouchableOpacity>
           <TouchableOpacity
+          activeOpacity={0.5}
             key="SaveMatch"
-            onPress={() => setContent(<Content5 />)}
-            style={[styles.button,]}>
-            <Text style={[styles.buttonLabel,]}>Save Match</Text>
+            onPress={() => {setContent(<Content5 />); setSelectedContent('SaveMatch');}}
+            style={[styles.button, selectedContent === 'SaveMatch' && styles.selectedContent]}>
+            <Text style={[styles.buttonLabel, selectedContent === 'SaveMatch' && styles.selectedLabel]}>Save{"\n"}Match</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.contentContainer}>
@@ -78,15 +122,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'aliceblue',
   },
   contentContainer: {
-    flex: 5,
+    flex: 9,
     backgroundColor: 'coral',
   },
-  buttonContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    padding: 0,
-    backgroundColor: 'red',
-  },
+
   contentText: {
     fontSize: 22,
   },
@@ -105,29 +144,40 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   // Menu styles
-  button: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    // borderRadius: 4,
-    backgroundColor: 'oldlace',
-    alignSelf: 'flex-start',
-    // marginHorizontal: '1%',
-    // marginBottom: 6,
-    // minWidth: '98%',
-    textAlign: 'center',
-    height: 125,
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+    padding: 0,
+    backgroundColor: 'skyblue',
   },
-  selected: {
-    backgroundColor: 'coral',
-    borderWidth: 0,
+  button: {
+    // paddingHorizontal: 5,
+    paddingVertical: 2,
+    backgroundColor: 'skyblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 95,
+    width: 'auto',
+    // borderWidth: 2, // Set the border width
+    // borderColor: 'blue', // Set the border color
+    // borderRadius: 5, 
   },
   buttonLabel: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '500',
-    color: 'coral',
+    color: 'black',
     textAlign: 'center',
+  },
+  selectedContent: {
+    backgroundColor: 'blue',
+    borderRadius: 6,
   },
   selectedLabel: {
     color: 'white',
+  },
+  // testing to be removed in future
+  box: {
+    width: 100,
+    height: 100,
   },
 });
