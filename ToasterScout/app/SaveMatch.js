@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Text, StyleSheet } from 'react-native';
 
 
-const MatchSetup = () => {
+const SaveMatch = () => {
     return (
-        <Text style={styles.contentText}>This is content for Match Setup.</Text>
+        <Text style={styles.contentText}>This is content for Save Match.</Text>
     );
 }
 
@@ -14,4 +14,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MatchSetup;
+export default SaveMatch;
