@@ -1,54 +1,17 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Settings } from 'react-native';
 // import * as ScreenOrientation from 'expo-screen-orientation';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
+import MatchSetup from "@/app/MatchSetup";
+import Auto from "@/app/Auto";
+import TeleOp from "@/app/TeleOp";
+import CageResult from "@/app/CageResult";
+import SaveMatch from "@/app/SaveMatch";
+import AppSettings from "@/app/AppSettings";
 
-const Content1 = () => <Text style={styles.contentText}>This is content for Match Setup.</Text>;
-const Content2 = () => (
-  <>
-  <Text style={styles.contentText}>This is content for Auto.</Text>
-  <View
-        style={[
-          {
-            top: 100,
-            left: 10,
-            width: 50,
-            height: 50,
-            position: 'absolute',
-            backgroundColor: 'powderblue',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-        ]}
-      >
-        <Ionicons name="add" size={32} color="black" />
-      </View>
-  </>
-);
-const Content3 = () => <Text style={styles.contentText}>This is content for Teleop.</Text>;
-const Content4 = () => (
-  <>
-  <Text style={styles.contentText}>This is content for Endgame.</Text>
-
-  <View
-        style={[
-          {
-            top: 0,
-            left: 0,
-            width: 906,
-            height: 477,
-            position: 'absolute',
-            backgroundColor: 'powderblue',
-          },
-        ]}
-      />
-      <Text style={styles.contentText}>906px {"\n"}x {"\n"}477px</Text>
-  </>
-);
-const Content5 = () => <Text style={styles.contentText}>This is content for Save Match.</Text>;
 
 export default function App() {
-  const [content, setContent] = useState(<Content1 />);
+  const [content, setContent] = useState(<MatchSetup />);
   const [selectedContent, setSelectedContent] = useState('MatchSelect');
 
   // useEffect(() => {
@@ -66,41 +29,47 @@ export default function App() {
     <View style={{padding: 0, flex: 1}}>
       <View style={[styles.topbar, styles.row]}>
         <Text style={styles.title}>TFT Scouter</Text>
+        <TouchableOpacity
+            activeOpacity={0.5}
+            key="Settings"
+            onPress={() => {setContent(<AppSettings />); setSelectedContent('AppSettings');}}>
+            <Ionicons name="menu" size={32} color="white" />
+          </TouchableOpacity>
       </View>
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             activeOpacity={0.5}
             key="MatchSelect"
-            onPress={() => {setContent(<Content1 />); setSelectedContent('MatchSelect');}}
+            onPress={() => {setContent(<MatchSetup />); setSelectedContent('MatchSelect');}}
             style={[styles.button, selectedContent === 'MatchSelect' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'MatchSelect' && styles.selectedLabel]}>Match{"\n"}Select</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
             key="Auto"
-            onPress={() => {setContent(<Content2 />); setSelectedContent('Auto');}}
+            onPress={() => {setContent(<Auto />); setSelectedContent('Auto');}}
             style={[styles.button, selectedContent === 'Auto' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Auto</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
             key="TeleOp"
-            onPress={() => {setContent(<Content3 />); setSelectedContent('TeleOp');}}
+            onPress={() => {setContent(<TeleOp />); setSelectedContent('TeleOp');}}
             style={[styles.button, selectedContent === 'TeleOp' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'TeleOp' && styles.selectedLabel]}>TeleOp</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
-            key="EndGame"
-            onPress={() => {setContent(<Content4 />); setSelectedContent('EndGame');}}
-            style={[styles.button, selectedContent === 'EndGame' && styles.selectedContent]}>
-            <Text style={[styles.buttonLabel, selectedContent === 'EndGame' && styles.selectedLabel]}>End{"\n"}Game</Text>
+            key="CageResult"
+            onPress={() => {setContent(<CageResult />); setSelectedContent('CageResult');}}
+            style={[styles.button, selectedContent === 'CageResult' && styles.selectedContent]}>
+            <Text style={[styles.buttonLabel, selectedContent === 'CageResult' && styles.selectedLabel]}>Cage{"\n"}Result</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
             key="SaveMatch"
-            onPress={() => {setContent(<Content5 />); setSelectedContent('SaveMatch');}}
+            onPress={() => {setContent(<SaveMatch />); setSelectedContent('SaveMatch');}}
             style={[styles.button, selectedContent === 'SaveMatch' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'SaveMatch' && styles.selectedLabel]}>Save{"\n"}Match</Text>
           </TouchableOpacity>
@@ -125,10 +94,6 @@ const styles = StyleSheet.create({
     flex: 9,
     backgroundColor: 'coral',
   },
-
-  contentText: {
-    fontSize: 22,
-  },
   row: {
     flexDirection: 'row',
   },
@@ -148,12 +113,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     padding: 0,
-    backgroundColor: 'skyblue',
+    // backgroundColor: 'skyblue',
+    backgroundColor: 'black',
   },
   button: {
     // paddingHorizontal: 5,
     paddingVertical: 2,
-    backgroundColor: 'skyblue',
+    // backgroundColor: 'skyblue',
+    backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     height: 95,
@@ -165,7 +132,8 @@ const styles = StyleSheet.create({
   buttonLabel: {
     fontSize: 22,
     fontWeight: '500',
-    color: 'black',
+    // color: 'black',
+    color: 'white',
     textAlign: 'center',
   },
   selectedContent: {
@@ -176,8 +144,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   // testing to be removed in future
-  box: {
-    width: 100,
-    height: 100,
-  },
+
 });
