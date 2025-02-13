@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
 
 
 const MatchSetup = () => {
     return (
-        <Text style={styles.contentText}>This is content for Match Setup.</Text>
+        <View
+          style={[
+            {
+              top: 0,
+              left: 0,
+              width: 906,
+              height: 477,
+              position: 'absolute',
+              backgroundColor: 'powderblue',
+            },
+          ]}
+        />
     );
 }
 
