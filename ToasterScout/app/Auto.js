@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
+import image from "./img/Auton.pdf"; 
 
+function Component() {
+  return (
+    <div style={{ backgroundImage:`url(${image})` }}>
+      .
+    </div>
+  );
+}
+
+export { Component };
 
 const Auto = () => {
     return (
         <>
-        <Text style={styles.contentText}>This is content for Auto.</Text>
+        <Text style={styles.contentText}></Text>
         <View
               style={[
                 {
