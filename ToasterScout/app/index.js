@@ -13,6 +13,10 @@ import AppSettings from "@/app/AppSettings";
 export default function App() {
   const [content, setContent] = useState(<MatchSetup />);
   const [selectedContent, setSelectedContent] = useState('MatchSelect');
+  const [scoutLocation, setScoutLocation] = useState('Red 1'); // Info from the Setup view screen in future release
+  const [scoutName, setScoutName] = useState('ChrisK'); // Info from the Match Selectvview in future release
+  const [currentTeam, setCurrentTeam] = useState('33'); // Info from the Match Selectvview in future release
+  const [matchNumber, setMatchNumber] = useState('4'); // Info from the Match Selectvview in future release
 
   // useEffect(() => {
   //   const changeScreenOrientation = async () => {
@@ -28,13 +32,19 @@ export default function App() {
   return (
     <View style={{padding: 0, flex: 1}}>
       <View style={[styles.topbar, styles.row]}>
-        <Text style={styles.title}>TFT Scouter</Text>
-        <TouchableOpacity
-            activeOpacity={0.5}
-            key="Settings"
-            onPress={() => {setContent(<AppSettings />); setSelectedContent('AppSettings');}}>
-            <Ionicons name="menu" size={32} color="white" />
+        <View style={{flex: 2, flexDirection: 'row'}}>
+          <Ionicons name="eye" size={22} color="white" />
+          <Text style={[styles.title, {paddingRight: 20}]}> TFT Scouter</Text>
+          <Text style={[styles.title, scoutLocation[0] === 'B' ? styles.teamBlue : styles.teamRed]}>{scoutLocation}</Text></View>
+        <View style={{flex: 4, flexDirection: 'row-reverse'}}>
+          <TouchableOpacity
+              activeOpacity={0.5}
+              key="Settings"
+              onPress={() => {setContent(<AppSettings />); setSelectedContent('AppSettings');}}>
+              <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
+          <Text style={[styles.title, {paddingRight: 10}]}>Team: {currentTeam} | Match: {matchNumber} | {scoutName}</Text>
+        </View>
       </View>
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
@@ -107,6 +117,18 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 24,
+  },
+  teamBlue:{
+    backgroundColor: 'blue',
+    paddingRight: 10,
+    paddingLeft: 10,
+    justifyContent: 'center',
+  },
+  teamRed:{
+    backgroundColor: 'red',
+    paddingRight: 10,
+    paddingLeft: 10,
+    justifyContent: 'center',
   },
   // Menu styles
   buttonContainer: {
