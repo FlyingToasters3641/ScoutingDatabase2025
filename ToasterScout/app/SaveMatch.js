@@ -4,23 +4,23 @@ import QRCode from 'react-native-qrcode-svg';
 import MatchSetup from "@/app/MatchSetup";
 
 const SaveMatch = () => {
-  const [content, setContent] = useState(<SaveMatch />);
   const [pressed, setPressed] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [jsonData, setJsonData] = useState({});
+  const [qrCodeSize, setQrCodeSize] = useState(0);
 
   const handlePress1 = () => {
     setPressed(true);
     setJsonData({e :"2025event", sN :"Jacob K", mN:"qm1", rP:"R1", dP:"RD1", tN:"7553", mK :"2025event_qm1", sP :"000", dP :"000", cA :"0000", cB :"0000", cC :"0000", cD :"0000", cE :"0000", cF :"0000", cG :"0000", cH :"0000", cI :"0000", cJ :"0000", cK :"0000", cL :"0000", aG :"000000", cP :"000", gCI :4, pCI :2, cM :4, gAI :7, nS :4, pS :5});
+    setQrCodeSize(400);
     setIsButtonDisabled(false);
   };
   const handlePress2 = () => {
     setPressed(true);
-    setJsonData({});
     setIsButtonDisabled(true);
-    setContent(<MatchSetup />);
+    setJsonData({});
+    setQrCodeSize(0);
   };
-
 
   const qrCodeData = JSON.stringify(jsonData);
 
@@ -77,7 +77,7 @@ const SaveMatch = () => {
         >
           <QRCode 
             value={qrCodeData}
-            size={400} 
+            size={qrCodeSize} 
           />
         </View>
         </>
