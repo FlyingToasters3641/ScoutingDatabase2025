@@ -12,13 +12,13 @@ const CageResult = () => {
                     top: 0,
                     left: 0,
                     width: 906,
-                    height: 477,
+                    height: 508,
                     position: 'absolute',
                     backgroundColor: 'powderblue',
                   },
                 ]}
               />
-              <Text style={styles.contentText}>906px {"\n"}x {"\n"}477px</Text>
+              <Text style={styles.contentText}>906px {"\n"}x {"\n"}508px</Text>
           </>
     );
 }
