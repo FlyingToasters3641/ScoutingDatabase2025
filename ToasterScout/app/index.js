@@ -11,9 +11,9 @@ import AppSettings from "@/app/AppSettings";
 
 
 export default function App() {
-  const [content, setContent] = useState(<MatchSetup />);
+  
   const [selectedContent, setSelectedContent] = useState('MatchSelect');
-  const [scoutLocation, setScoutLocation] = useState('Red 1'); // Info from the Setup view screen in future release
+  const [scoutLocation, setScoutLocation] = useState('Rlue 1'); // Info from the Setup view screen in future release
   const [scoutName, setScoutName] = useState('ChrisK'); // Info from the Match Selectvview in future release
   const [currentTeam, setCurrentTeam] = useState('33'); // Info from the Match Selectvview in future release
   const [matchNumber, setMatchNumber] = useState('4'); // Info from the Match Selectvview in future release
@@ -27,7 +27,15 @@ export default function App() {
 
   // async function changeScreenOrientation() {
   //   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
-  // }
+  // }  {...{setScoutName}}
+
+
+  const handleScoutNameChange = (newScoutName) => {
+    setScoutName(newScoutName);
+  }
+
+
+  const [content, setContent] = useState(<MatchSetup scoutName={scoutName} onScoutNameChange={handleScoutNameChange}/>);
 
   return (
     <View style={{padding: 0, flex: 1}}>
@@ -51,7 +59,7 @@ export default function App() {
           <TouchableOpacity
             activeOpacity={0.5}
             key="MatchSelect"
-            onPress={() => {setContent(<MatchSetup />); setSelectedContent('MatchSelect');}}
+            onPress={() => {setContent(<MatchSetup scoutName={scoutName} onScoutNameChange={handleScoutNameChange} />); setSelectedContent('MatchSelect');}}
             style={[styles.button, selectedContent === 'MatchSelect' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'MatchSelect' && styles.selectedLabel]}>Match{"\n"}Select</Text>
           </TouchableOpacity>
