@@ -11,12 +11,12 @@ import AppSettings from "@/app/AppSettings";
 
 
 export default function App() {
-  const [content, setContent] = useState(<MatchSetup />);
+  
   const [selectedContent, setSelectedContent] = useState('MatchSelect');
-  const [scoutLocation, setScoutLocation] = useState('Red 1'); // Info from the Setup view screen in future release
-  const [scoutName, setScoutName] = useState('ChrisK'); // Info from the Match Selectvview in future release
-  const [currentTeam, setCurrentTeam] = useState('33'); // Info from the Match Selectvview in future release
-  const [matchNumber, setMatchNumber] = useState('4'); // Info from the Match Selectvview in future release
+  const [scoutLocation, setScoutLocation] = useState('Blue 1'); // Info from the Setup view screen in future release
+  const [scoutName, setScoutName] = useState('JacobK'); // Info from the Match Selectvview in future release
+  const [currentTeam, setCurrentTeam] = useState(3641); // Info from the Match Selectvview in future release
+  const [matchNumber, setMatchNumber] = useState(1); // Info from the Match Selectvview in future release
 
   // useEffect(() => {
   //   const changeScreenOrientation = async () => {
@@ -27,7 +27,20 @@ export default function App() {
 
   // async function changeScreenOrientation() {
   //   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
-  // }
+  // }  {...{setScoutName}}
+
+
+  const handleScoutNameChange = (newScoutName) => {
+    setScoutName(newScoutName);
+  }
+
+  const handleMatchChange = (newMatchNumber, newTeamNumber) => {
+    setCurrentTeam(newTeamNumber);
+    setMatchNumber(newMatchNumber);
+  }
+
+  // Default view when opening up the app.  Maybe future will open to Setup if match, teams, tablet are not set.
+  const [content, setContent] = useState(<MatchSetup currentScoutName={scoutName} currentMatchNumber={matchNumber} onScoutNameChange={handleScoutNameChange} onMatchChange={handleMatchChange} />);
 
   return (
     <View style={{padding: 0, flex: 1}}>
@@ -43,7 +56,7 @@ export default function App() {
               onPress={() => {setContent(<AppSettings />); setSelectedContent('AppSettings');}}>
               <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
-          <Text style={[styles.title, {paddingRight: 10}]}>Team: {currentTeam} | Match: {matchNumber} | {scoutName}</Text>
+          <Text style={[styles.title, {paddingRight: 10}]}>Match: {matchNumber} | Team: {currentTeam} | {scoutName}</Text>
         </View>
       </View>
       <View style={styles.container}>
@@ -51,7 +64,7 @@ export default function App() {
           <TouchableOpacity
             activeOpacity={0.5}
             key="MatchSelect"
-            onPress={() => {setContent(<MatchSetup />); setSelectedContent('MatchSelect');}}
+            onPress={() => {setContent(<MatchSetup currentScoutName={scoutName} currentMatchNumber={matchNumber}  onScoutNameChange={handleScoutNameChange} onMatchChange={handleMatchChange} />); setSelectedContent('MatchSelect');}}
             style={[styles.button, selectedContent === 'MatchSelect' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'MatchSelect' && styles.selectedLabel]}>Match{"\n"}Select</Text>
           </TouchableOpacity>
