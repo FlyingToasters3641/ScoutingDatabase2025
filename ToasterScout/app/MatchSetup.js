@@ -3,23 +3,22 @@ import { Text, StyleSheet, View, ScrollView, Modal, Pressable, TextInput } from 
 
 
 const MatchSetup = ({
-  currentScoutName, 
-  currentMatchNumber,
-  onScoutNameChange, 
-  onMatchChange
+  appData,
+  setAppData
 }) => {
 
-  const [displayScoutName, setDisplayScoutName] = useState(currentScoutName);
-  const [displayMatchNumber, setDisplayMatchNumber] = useState(currentMatchNumber);
+  const [displayScoutName, setDisplayScoutName] = useState(appData.currentScout);
+  const [displayMatchNumber, setDisplayMatchNumber] = useState(appData.currentMatch);
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [newScoutName, setNewScoutName] = React.useState(currentScoutName);
+  const [newScoutName, setNewScoutName] = useState(displayScoutName);
 
   // *** Process Scout Name changes ***
   const onUpdateScoutName = (action) => {
     if (action == 'save') {
       // Update the Scout Name for the application
-      onScoutNameChange(newScoutName);
+      //onScoutNameChange(newScoutName);
+      setAppData(prevAppData => ({...prevAppData, currentScout: newScoutName}));
       // update the scout name for this view
       setDisplayScoutName(newScoutName);
     }
@@ -32,7 +31,7 @@ const MatchSetup = ({
   
   // TODO: need move this data to match Add / Inport in the settings view
   const matchs = [
-    {matchId: "2024milac_qm1", matchNumber: 1,  teamNumber: 3641, matchStatus: 0},
+    {matchId: "2024milac_qm1", matchNumber: 1,  teamNumber: 3641, matchStatus: 1},
     {matchId: "2024milac_qm2", matchNumber: 2,  teamNumber: 1711, matchStatus: 0},
     {matchId: "2024milac_qm3", matchNumber: 3,  teamNumber: 1918, matchStatus: 0},
     {matchId: "2024milac_qm4", matchNumber: 4,  teamNumber: 5505, matchStatus: 0},
@@ -140,8 +139,12 @@ const MatchSetup = ({
             {matchs.map(value => (
               <Pressable
               key={value.matchId}
-              onPress={() => {console.log('Match: ' + value.matchNumber +  ` selected`); onMatchChange(value.matchNumber, value.teamNumber); setDisplayMatchNumber(value.matchNumber);}}
-              style={[styles.matchButton, displayMatchNumber === value.matchNumber && styles.matchSelected]}>
+              onPress={() => {console.log('Match: ' + value.matchNumber +  ` selected`); 
+                              setAppData(prevAppData => ({...prevAppData, currentMatch: value.matchNumber, currentTeam: value.teamNumber}));
+                              // setAppData({...appData, currentTeam: value.teamNumber});
+                              // onMatchChange(value.matchNumber, value.teamNumber); 
+                              setDisplayMatchNumber(value.matchNumber);}}
+              style={[styles.matchButton, value.matchStatus == 1 && styles.matchSaved, displayMatchNumber === value.matchNumber && styles.matchSelected]}>
               <Text style={[styles.buttonLabel]}>{value.matchNumber}{"\n"}{value.teamNumber}</Text>
             </Pressable>
             ))}
@@ -221,6 +224,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'coral',
     borderWidth: 0,
   },
+  matchSaved: {
+    backgroundColor: 'green',
+    borderWidth: 0,
+  },
   buttonLabel: {
     fontSize: 22,
     fontWeight: '500',
@@ -254,7 +261,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   input: {
-    height: 40,
+    height: 45,
     minWidth: '40%',
     margin: 12,
     borderWidth: 1,
