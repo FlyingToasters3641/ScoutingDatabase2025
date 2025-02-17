@@ -17,7 +17,7 @@
 	  }
 	},
 	"forwardPorts": [3000],
-	"postCreateCommand": "npm install && cd client && npm install",
+	"postCreateCommand": "npm run installall && cd ToasterScount && npm install",
 	"mounts": [
 	  "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
 	]
