@@ -129,7 +129,7 @@ const MatchSetup = ({
           key="changeScout"
           onPress={() => {console.log('Update Scout'); setModalVisible(true)}}
           style={[styles.button, styles.selected]}>
-          <Text style={styles.buttonLabel}>Not {displayScoutName}? Update</Text>
+          <Text style={styles.buttonLabel}>{displayScoutName ? `Not ${displayScoutName}? Update` : `Update Scount Name`}?</Text>
         </Pressable>
 
         {/* *** Listing of avalible matches *** */}
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 8,
     width: 'auto',
-    height: 60,
+    height: 55,
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 8,
     width: 80,
-    height: 60,
+    height: 55,
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
   buttonLabel: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '500',
     // color: 'coral',
     textAlign: 'center',

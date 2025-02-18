@@ -13,8 +13,19 @@ import AppSettings from "@/app/AppSettings";
 export default function App() {
   
   // Info from the Setup view screen in future release
-  const [appData, setAppData] = useState({scountLocation: 'Red 1', currentScout: 'JacobK', currentTeam: 3641, currentMatch: 2});
+  const [appData, setAppData] = useState({allianceLocation: '', fieldOrientation: '', currentScout: '', currentTeam: null, currentMatch: null});
+  
 
+ 
+  // Set the default screen to MatchSelect
+  const [selectedContent, setSelectedContent] = useState('MatchSelect');
+  const [content, setContent] = useState(<MatchSetup appData={appData} setAppData={setAppData} />);
+  if (appData.allianceLocation === '') {
+    // Alliance location is not set so we can set the default screen to AppSettings
+    setAppData(prevAppData => ({...prevAppData, allianceLocation: 'Select Alliance Team in Settings'}));
+    setSelectedContent('AppSettings');
+    setContent(<AppSettings appData={appData} setAppData={setAppData} />);
+  }
 
   // useEffect(() => {
   //   const changeScreenOrientation = async () => {
@@ -28,9 +39,7 @@ export default function App() {
   // }  {...{setScoutName}}
 
 
-  // Default view when opening up the app.  Maybe future will open to Setup if match, teams, tablet are not set.
-  const [selectedContent, setSelectedContent] = useState('MatchSelect');
-  const [content, setContent] = useState(<MatchSetup appData={appData} setAppData={setAppData} />);
+
 
   return (
     <View style={{padding: 0, flex: 1}}>
@@ -38,12 +47,12 @@ export default function App() {
         <View style={{flex: 2, flexDirection: 'row'}}>
           <Ionicons name="eye" size={22} color="white" />
           <Text style={[styles.title, {paddingRight: 20}]}> TFT Scouter</Text>
-          <Text style={[styles.title, appData.scountLocation[0] === 'B' ? styles.teamBlue : styles.teamRed]}>{appData.scountLocation}</Text></View>
+          <Text style={[styles.title, appData.allianceLocation[0] === 'B' ? styles.teamBlue : styles.teamRed]}>{appData.allianceLocation}</Text></View>
         <View style={{flex: 4, flexDirection: 'row-reverse'}}>
           <TouchableOpacity
               activeOpacity={0.5}
               key="Settings"
-              onPress={() => {setContent(<AppSettings />); setSelectedContent('AppSettings');}}>
+              onPress={() => {setContent(<AppSettings appData={appData} setAppData={setAppData} />); setSelectedContent('AppSettings');}}>
               <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
           <Text style={[styles.title, {paddingRight: 10}]}>Match: {appData.currentMatch} | Team: {appData.currentTeam} | {appData.currentScout}</Text>
@@ -126,12 +135,14 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingLeft: 10,
     justifyContent: 'center',
+    borderRadius: 1,
   },
   teamRed:{
     backgroundColor: 'red',
     paddingRight: 10,
     paddingLeft: 10,
     justifyContent: 'center',
+    borderRadius: 1,
   },
   // Menu styles
   buttonContainer: {
