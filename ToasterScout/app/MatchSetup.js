@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View, ScrollView, Modal, Pressable, TextInput } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
 
 
 const MatchSetup = ({
   appData,
-  setAppData
+  setAppData,
+  matchData,
+  setMatchData,
 }) => {
 
   const [displayScoutName, setDisplayScoutName] = useState(appData.currentScout);
   const [displayMatchNumber, setDisplayMatchNumber] = useState(appData.currentMatch);
 
+  // *** Process Scout Name changes ***
   const [modalVisible, setModalVisible] = useState(false);
   const [newScoutName, setNewScoutName] = useState(displayScoutName);
 
-  // *** Process Scout Name changes ***
   const onUpdateScoutName = (action) => {
     if (action == 'save') {
       // Update the Scout Name for the application
@@ -28,85 +31,137 @@ const MatchSetup = ({
     }
     setModalVisible(!modalVisible);
   }
+
+  // *** Process Match changes ***
+  const [addMatchModalVisible, setAddMatchModalVisible] = useState(false);
+  const [newMatchNumber, setNewMatchNumber] = useState('');
+  const [newTeamNumber, setNewTeamNumber] = useState('');
+  const [addMatchSuccess, setAddMatchSuccess] = useState(false);
+  const [addMatchError, setAddMatchError] = useState(false);
+  const [duplicateMatchError, setDuplicateMatchError] = useState(false);
+
+  const onAddMatch = () => {
+    if (newMatchNumber && newTeamNumber) {
+      const matchExists = matchData.some(match => match.matchNumber === parseInt(newMatchNumber));
+      if (matchExists) {
+        setDuplicateMatchError(true);
+        setAddMatchError(false);
+        setAddMatchSuccess(false);
+      } else {
+        const newMatch = {
+          matchId: `2024milac_qm${newMatchNumber}`,
+          matchNumber: parseInt(newMatchNumber),
+          teamNumber: parseInt(newTeamNumber),
+          matchStatus: 0
+        };
+        setMatchData(prevMatchData => ([...prevMatchData, newMatch]));
+        setAddMatchSuccess(true);
+        setAddMatchError(false);
+        setDuplicateMatchError(false);
+      }
+    } else {
+      setAddMatchError(true);
+      setAddMatchSuccess(false);
+      setDuplicateMatchError(false);
+    }
+  }
+
+  const closeAddMatchModal = () => {
+    setAddMatchModalVisible(false);
+    setNewMatchNumber('');
+    setNewTeamNumber('');
+    setAddMatchSuccess(false);
+    setAddMatchError(false);
+    setDuplicateMatchError(false);
+  }
+
+  // useEffect(() => {
+  //   // This effect will run whenever matchData changes
+  //   console.log('matchData updated:', matchData);
+  // }, [matchData]);
+
+  console.log('match lenght:', matchData.length);
+  console.log('matchData:', matchData);
+
   
   // TODO: need move this data to match Add / Inport in the settings view
-  const matchs = [
-    {matchId: "2024milac_qm1", matchNumber: 1,  teamNumber: 3641, matchStatus: 1},
-    {matchId: "2024milac_qm2", matchNumber: 2,  teamNumber: 1711, matchStatus: 0},
-    {matchId: "2024milac_qm3", matchNumber: 3,  teamNumber: 1918, matchStatus: 0},
-    {matchId: "2024milac_qm4", matchNumber: 4,  teamNumber: 5505, matchStatus: 0},
-    {matchId: "2024milac_qm5", matchNumber: 5,  teamNumber: 4003, matchStatus: 0},
-    {matchId: "2024milac_qm6", matchNumber: 6,  teamNumber: 6087, matchStatus: 0},
-    {matchId: "2024milac_qm7", matchNumber: 7,  teamNumber: 6642, matchStatus: 0},
-    {matchId: "2024milac_qm8", matchNumber: 8,  teamNumber: 5505, matchStatus: 0},
-    {matchId: "2024milac_qm9", matchNumber: 9,  teamNumber: 5982, matchStatus: 0},
-    {matchId: "2024milac_qm0", matchNumber: 10, teamNumber: 3603, matchStatus: 0},
-    {matchId: "2024milac_qm11", matchNumber: 11, teamNumber: 2137, matchStatus: 0},
-    {matchId: "2024milac_qm12", matchNumber: 12, teamNumber: 2246, matchStatus: 0},
-    {matchId: "2024milac_qm13", matchNumber: 13, teamNumber: 2619, matchStatus: 0},
-    {matchId: "2024milac_qm14", matchNumber: 14, teamNumber: 3536, matchStatus: 0},
-    {matchId: "2024milac_qm15", matchNumber: 15, teamNumber: 3603, matchStatus: 0},
-    {matchId: "2024milac_qm16", matchNumber: 16, teamNumber: 3618, matchStatus: 0},
-    {matchId: "2024milac_qm17", matchNumber: 17, teamNumber: 4003, matchStatus: 0},
-    {matchId: "2024milac_qm18", matchNumber: 18, teamNumber: 4422, matchStatus: 0},
-    {matchId: "2024milac_qm19", matchNumber: 19, teamNumber: 5086, matchStatus: 0},
-    {matchId: "2024milac_qm20", matchNumber: 20, teamNumber: 5110, matchStatus: 0},
-    {matchId: "2024milac_qm21", matchNumber: 21, teamNumber: 5166, matchStatus: 0},
-    {matchId: "2024milac_qm22", matchNumber: 22, teamNumber: 5216, matchStatus: 0},
-    {matchId: "2024milac_qm23", matchNumber: 23, teamNumber: 5247, matchStatus: 0},
-    {matchId: "2024milac_qm24", matchNumber: 24, teamNumber: 5505, matchStatus: 0},
-    {matchId: "2024milac_qm25", matchNumber: 25, teamNumber: 5509, matchStatus: 0},
-    {matchId: "2024milac_qm26", matchNumber: 26, teamNumber: 5525, matchStatus: 0},
-    {matchId: "2024milac_qm27", matchNumber: 27, teamNumber: 5547, matchStatus: 0},
-    {matchId: "2024milac_qm28", matchNumber: 28, teamNumber: 5980, matchStatus: 0},
-    {matchId: "2024milac_qm29", matchNumber: 29, teamNumber: 5982, matchStatus: 0},
-    {matchId: "2024milac_qm30", matchNumber: 30, teamNumber: 6033, matchStatus: 0},
-    {matchId: "2024milac_qm31", matchNumber: 31, teamNumber: 6077, matchStatus: 0},
-    {matchId: "2024milac_qm32", matchNumber: 32, teamNumber: 6087, matchStatus: 0},
-    {matchId: "2024milac_qm33", matchNumber: 33, teamNumber: 6121, matchStatus: 0},
-    {matchId: "2024milac_qm34", matchNumber: 34, teamNumber: 6642, matchStatus: 0},
-    {matchId: "2024milac_qm35", matchNumber: 35, teamNumber: 7155, matchStatus: 0},
-    {matchId: "2024milac_qm36", matchNumber: 36, teamNumber: 7794, matchStatus: 0},
-    {matchId: "2024milac_qm37", matchNumber: 37, teamNumber: 7808, matchStatus: 0},
-    {matchId: "2024milac_qm38", matchNumber: 38, teamNumber: 7855, matchStatus: 0},
-    {matchId: "2024milac_qm39", matchNumber: 39, teamNumber: 8041, matchStatus: 0},
-    {matchId: "2024milac_qm40", matchNumber: 40, teamNumber: 8873, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 96,  teamNumber: 6087, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 97,  teamNumber: 6642, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 98,  teamNumber: 5505, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 99,  teamNumber: 5982, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 910, teamNumber: 3603, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 911, teamNumber: 2137, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 912, teamNumber: 2246, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 913, teamNumber: 2619, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 914, teamNumber: 3536, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 915, teamNumber: 3603, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 916, teamNumber: 3618, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 917, teamNumber: 4003, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 918, teamNumber: 4422, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 919, teamNumber: 5086, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 920, teamNumber: 5110, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 921, teamNumber: 5166, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 922, teamNumber: 5216, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 923, teamNumber: 5247, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 924, teamNumber: 5505, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 925, teamNumber: 5509, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 926, teamNumber: 5525, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 927, teamNumber: 5547, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 928, teamNumber: 5980, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 929, teamNumber: 5982, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 930, teamNumber: 6033, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 931, teamNumber: 6077, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 932, teamNumber: 6087, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 933, teamNumber: 6121, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 934, teamNumber: 6642, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 935, teamNumber: 7155, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 936, teamNumber: 7794, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 937, teamNumber: 7808, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 938, teamNumber: 7855, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 939, teamNumber: 8041, matchStatus: 0},
-    // {matchId: "2024milac_sqm1", matchNumber: 940, teamNumber: 8873, matchStatus: 0},
-  ];
+  // const matchs = [
+  //   {matchId: "2024milac_qm1", matchNumber: 1,  teamNumber: 3641, matchStatus: 1},
+  //   {matchId: "2024milac_qm2", matchNumber: 2,  teamNumber: 1711, matchStatus: 0},
+  //   {matchId: "2024milac_qm3", matchNumber: 3,  teamNumber: 1918, matchStatus: 0},
+  //   {matchId: "2024milac_qm4", matchNumber: 4,  teamNumber: 5505, matchStatus: 0},
+  //   {matchId: "2024milac_qm5", matchNumber: 5,  teamNumber: 4003, matchStatus: 0},
+  //   {matchId: "2024milac_qm6", matchNumber: 6,  teamNumber: 6087, matchStatus: 0},
+  //   {matchId: "2024milac_qm7", matchNumber: 7,  teamNumber: 6642, matchStatus: 0},
+  //   {matchId: "2024milac_qm8", matchNumber: 8,  teamNumber: 5505, matchStatus: 0},
+  //   {matchId: "2024milac_qm9", matchNumber: 9,  teamNumber: 5982, matchStatus: 0},
+  //   {matchId: "2024milac_qm0", matchNumber: 10, teamNumber: 3603, matchStatus: 0},
+  //   {matchId: "2024milac_qm11", matchNumber: 11, teamNumber: 2137, matchStatus: 0},
+  //   {matchId: "2024milac_qm12", matchNumber: 12, teamNumber: 2246, matchStatus: 0},
+  //   {matchId: "2024milac_qm13", matchNumber: 13, teamNumber: 2619, matchStatus: 0},
+  //   {matchId: "2024milac_qm14", matchNumber: 14, teamNumber: 3536, matchStatus: 0},
+  //   {matchId: "2024milac_qm15", matchNumber: 15, teamNumber: 3603, matchStatus: 0},
+  //   {matchId: "2024milac_qm16", matchNumber: 16, teamNumber: 3618, matchStatus: 0},
+  //   {matchId: "2024milac_qm17", matchNumber: 17, teamNumber: 4003, matchStatus: 0},
+  //   {matchId: "2024milac_qm18", matchNumber: 18, teamNumber: 4422, matchStatus: 0},
+  //   {matchId: "2024milac_qm19", matchNumber: 19, teamNumber: 5086, matchStatus: 0},
+  //   {matchId: "2024milac_qm20", matchNumber: 20, teamNumber: 5110, matchStatus: 0},
+  //   {matchId: "2024milac_qm21", matchNumber: 21, teamNumber: 5166, matchStatus: 0},
+  //   {matchId: "2024milac_qm22", matchNumber: 22, teamNumber: 5216, matchStatus: 0},
+  //   {matchId: "2024milac_qm23", matchNumber: 23, teamNumber: 5247, matchStatus: 0},
+  //   {matchId: "2024milac_qm24", matchNumber: 24, teamNumber: 5505, matchStatus: 0},
+  //   {matchId: "2024milac_qm25", matchNumber: 25, teamNumber: 5509, matchStatus: 0},
+  //   {matchId: "2024milac_qm26", matchNumber: 26, teamNumber: 5525, matchStatus: 0},
+  //   {matchId: "2024milac_qm27", matchNumber: 27, teamNumber: 5547, matchStatus: 0},
+  //   {matchId: "2024milac_qm28", matchNumber: 28, teamNumber: 5980, matchStatus: 0},
+  //   {matchId: "2024milac_qm29", matchNumber: 29, teamNumber: 5982, matchStatus: 0},
+  //   {matchId: "2024milac_qm30", matchNumber: 30, teamNumber: 6033, matchStatus: 0},
+  //   {matchId: "2024milac_qm31", matchNumber: 31, teamNumber: 6077, matchStatus: 0},
+  //   {matchId: "2024milac_qm32", matchNumber: 32, teamNumber: 6087, matchStatus: 0},
+  //   {matchId: "2024milac_qm33", matchNumber: 33, teamNumber: 6121, matchStatus: 0},
+  //   {matchId: "2024milac_qm34", matchNumber: 34, teamNumber: 6642, matchStatus: 0},
+  //   {matchId: "2024milac_qm35", matchNumber: 35, teamNumber: 7155, matchStatus: 0},
+  //   {matchId: "2024milac_qm36", matchNumber: 36, teamNumber: 7794, matchStatus: 0},
+  //   {matchId: "2024milac_qm37", matchNumber: 37, teamNumber: 7808, matchStatus: 0},
+  //   {matchId: "2024milac_qm38", matchNumber: 38, teamNumber: 7855, matchStatus: 0},
+  //   {matchId: "2024milac_qm39", matchNumber: 39, teamNumber: 8041, matchStatus: 0},
+  //   {matchId: "2024milac_qm40", matchNumber: 40, teamNumber: 8873, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 96,  teamNumber: 6087, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 97,  teamNumber: 6642, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 98,  teamNumber: 5505, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 99,  teamNumber: 5982, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 910, teamNumber: 3603, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 911, teamNumber: 2137, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 912, teamNumber: 2246, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 913, teamNumber: 2619, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 914, teamNumber: 3536, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 915, teamNumber: 3603, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 916, teamNumber: 3618, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 917, teamNumber: 4003, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 918, teamNumber: 4422, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 919, teamNumber: 5086, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 920, teamNumber: 5110, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 921, teamNumber: 5166, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 922, teamNumber: 5216, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 923, teamNumber: 5247, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 924, teamNumber: 5505, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 925, teamNumber: 5509, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 926, teamNumber: 5525, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 927, teamNumber: 5547, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 928, teamNumber: 5980, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 929, teamNumber: 5982, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 930, teamNumber: 6033, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 931, teamNumber: 6077, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 932, teamNumber: 6087, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 933, teamNumber: 6121, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 934, teamNumber: 6642, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 935, teamNumber: 7155, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 936, teamNumber: 7794, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 937, teamNumber: 7808, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 938, teamNumber: 7855, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 939, teamNumber: 8041, matchStatus: 0},
+  //   // {matchId: "2024milac_sqm1", matchNumber: 940, teamNumber: 8873, matchStatus: 0},
+  // ];
 
     return (
       <>
@@ -125,18 +180,43 @@ const MatchSetup = ({
         />
 
         {/* *** Scout Name update button *** */}
+        <View style={{ flexDirection: 'row', /*justifyContent: 'space-between',*/ alignItems: 'center' }}>  
         <Pressable
           key="changeScout"
-          onPress={() => {console.log('Update Scout'); setModalVisible(true)}}
-          style={[styles.button, styles.selected]}>
-          <Text style={styles.buttonLabel}>{displayScoutName ? `Not ${displayScoutName}? Update` : `Update Scount Name`}?</Text>
+          onPress={() => {console.log('Update Scout'); setModalVisible(true); console.log('matchData:', matchData);}}
+          style={[styles.button, styles.selected, {flex: 3}]}>
+          <Text style={styles.buttonLabel}>{displayScoutName ? `Not ${displayScoutName}? Update` : `Press here to update Scount Name`}</Text>
         </Pressable>
+        <Pressable
+          key="addMatch"
+          onPress={() => {console.log('Add Match'); setAddMatchModalVisible(true);}}
+          style={[styles.button, styles.selected, {flex: 1}]}>
+          <Text style={styles.buttonLabel}>Add Match</Text>
+        </Pressable>
+        </View>
 
         {/* *** Listing of avalible matches *** */}
         <Text style={[styles.contentText, {backgroundColor: 'black', marginLeft: 10}]}>Select a match to scout:</Text>
         <ScrollView>
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-            {matchs.map(value => (
+          {matchData.length === 0 ? (
+            <View style={styles.noMatchesContainer}>
+              <Ionicons name="warning" size={32} color="white" />
+              <Text style={[styles.contentText,]}> No matches to scout! Select Add Match or Inport Matches in the settings menu.</Text>
+            </View>
+          ) : (
+            matchData.map(value => (
+              <Pressable
+                key={value.matchId}
+                onPress={() => {console.log('Match: ' + value.matchNumber +  ` selected`); 
+                                setAppData(prevAppData => ({...prevAppData, currentMatch: value.matchNumber, currentTeam: value.teamNumber}));
+                                setDisplayMatchNumber(value.matchNumber);}}
+                style={[styles.matchButton, value.matchStatus == 1 && styles.matchSaved, displayMatchNumber === value.matchNumber && styles.matchSelected]}>
+                <Text style={[styles.buttonLabel]}>{value.matchNumber}{"\n"}{value.teamNumber}</Text>
+              </Pressable>
+            ))
+          )}
+            {/* {matchData.map(value => (
               <Pressable
               key={value.matchId}
               onPress={() => {console.log('Match: ' + value.matchNumber +  ` selected`); 
@@ -147,9 +227,11 @@ const MatchSetup = ({
               style={[styles.matchButton, value.matchStatus == 1 && styles.matchSaved, displayMatchNumber === value.matchNumber && styles.matchSelected]}>
               <Text style={[styles.buttonLabel]}>{value.matchNumber}{"\n"}{value.teamNumber}</Text>
             </Pressable>
-            ))}
+            ))} */}
           </View>
         </ScrollView>
+          
+        {/* *** Modal to update Scout Name *** */} 
         <Modal
           animationType="fade"
           transparent={true}
@@ -178,6 +260,60 @@ const MatchSetup = ({
                   <Text style={styles.buttonLabel}>Cancel</Text>
                 </Pressable>
               </View>
+            </View>
+          </View>
+        </Modal>
+
+        {/* *** Modal to add a new match *** */}
+        <Modal
+        animationType="fade"
+        transparent={true}
+        visible={addMatchModalVisible}
+        onRequestClose={() => closeAddMatchModal()}>
+          <View style={styles.modalCenteredView}>
+            <View style={styles.modalView}>
+              {addMatchSuccess ? (
+                <>
+                  <Text style={styles.modalContentText}>Match added successfully!</Text>
+                  <Pressable
+                    style={[styles.button, styles.buttonSave]}
+                    onPress={() => closeAddMatchModal()}>
+                    <Text style={styles.buttonLabel}>Close</Text>
+                  </Pressable>
+                </>
+              ) : (
+                <>
+                  <Text style={styles.modalContentText}>Add New Match</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Match Number"
+                    keyboardType="numeric"
+                    onChangeText={setNewMatchNumber}
+                    value={newMatchNumber}
+                  />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Team Number"
+                    keyboardType="numeric"
+                    onChangeText={setNewTeamNumber}
+                    value={newTeamNumber}
+                  />
+                  {addMatchError && <Text style={styles.errorText}>Please enter valid match and team numbers.</Text>}
+                  {duplicateMatchError && <Text style={styles.errorText}>Match number already exists. Please enter a different match number.</Text>}
+                  <View style={{flexDirection: 'row'}}>
+                    <Pressable
+                      style={[styles.button, styles.buttonSave]}
+                      onPress={() => onAddMatch()}>
+                      <Text style={styles.buttonLabel}>Add</Text>
+                    </Pressable>
+                    <Pressable
+                      style={[styles.button, styles.buttonCancel]}
+                      onPress={() => closeAddMatchModal()}>
+                      <Text style={styles.buttonLabel}>Cancel</Text>
+                    </Pressable>
+                  </View>
+                </>
+              )}
             </View>
           </View>
         </Modal>
@@ -233,6 +369,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     // color: 'coral',
     textAlign: 'center',
+  },
+  noMatchesContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 10,
   },
   // modal styles
   modalCenteredView: {

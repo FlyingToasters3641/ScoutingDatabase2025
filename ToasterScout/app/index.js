@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Settings } from 'react-native';
 // import * as ScreenOrientation from 'expo-screen-orientation';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
@@ -13,18 +13,19 @@ import AppSettings from "@/app/AppSettings";
 export default function App() {
   
   // Info from the Setup view screen in future release
-  const [appData, setAppData] = useState({allianceLocation: '', fieldOrientation: '', currentScout: '', currentTeam: null, currentMatch: null});
+  const [appData, setAppData] = useState({allianceLocation: '', fieldOrientation: 'Spectator', currentScout: '', currentTeam: null, currentMatch: null});
+  const [matchData, setMatchData] = useState([]);
   
 
  
   // Set the default screen to MatchSelect
   const [selectedContent, setSelectedContent] = useState('MatchSelect');
-  const [content, setContent] = useState(<MatchSetup appData={appData} setAppData={setAppData} />);
+  const [content, setContent] = useState(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />);
   if (appData.allianceLocation === '') {
     // Alliance location is not set so we can set the default screen to AppSettings
     setAppData(prevAppData => ({...prevAppData, allianceLocation: 'Select Alliance Team in Settings'}));
     setSelectedContent('AppSettings');
-    setContent(<AppSettings appData={appData} setAppData={setAppData} />);
+    setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />);
   }
 
   // useEffect(() => {
@@ -38,6 +39,29 @@ export default function App() {
   //   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
   // }  {...{setScoutName}}
 
+  // useEffect(() => {
+  //   if (appData.allianceLocation === '') {
+  //     setAppData(prevAppData => ({ ...prevAppData, allianceLocation: 'Select Alliance Team in Settings' }));
+  //     setSelectedContent('AppSettings');
+  //     setContent(
+  //       <AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />
+  //     );
+  //   }
+  // }, [appData]);
+
+  // Prevents the MatchSetup view to load on initial render
+  const isInitialMount = useRef(true);
+  // Reloads the MatchSetup view when matchData is updated
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      console.log('matchData updated:', matchData);
+      setContent(
+        <MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />
+      );
+    }
+  }, [matchData]);
 
 
 
@@ -52,7 +76,7 @@ export default function App() {
           <TouchableOpacity
               activeOpacity={0.5}
               key="Settings"
-              onPress={() => {setContent(<AppSettings appData={appData} setAppData={setAppData} />); setSelectedContent('AppSettings');}}>
+              onPress={() => {setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData}/>); setSelectedContent('AppSettings');}}>
               <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
           <Text style={[styles.title, {paddingRight: 10}]}>Match: {appData.currentMatch} | Team: {appData.currentTeam} | {appData.currentScout}</Text>
@@ -63,7 +87,7 @@ export default function App() {
           <TouchableOpacity
             activeOpacity={0.5}
             key="MatchSelect"
-            onPress={() => {setContent(<MatchSetup appData={appData} setAppData={setAppData} />); setSelectedContent('MatchSelect');}}
+            onPress={() => {setContent(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('MatchSelect');}}
             style={[styles.button, selectedContent === 'MatchSelect' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'MatchSelect' && styles.selectedLabel]}>Match{"\n"}Select</Text>
           </TouchableOpacity>
