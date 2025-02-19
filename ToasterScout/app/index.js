@@ -169,7 +169,7 @@ export default function App() {
           <TouchableOpacity
           activeOpacity={0.5}
             key="SaveMatch"
-            onPress={() => {setContent(<SaveMatch />); setSelectedContent('SaveMatch');}}
+            onPress={() => {setContent(<SaveMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('SaveMatch');}}
             style={[styles.button, selectedContent === 'SaveMatch' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'SaveMatch' && styles.selectedLabel]}>Save{"\n"}Match</Text>
           </TouchableOpacity>
