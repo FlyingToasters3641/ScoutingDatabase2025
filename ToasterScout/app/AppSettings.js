@@ -44,30 +44,6 @@ const AppSettings = ({
       />
       <Text style={[styles.contentText, {backgroundColor: 'black', marginLeft: 10, fontWeight: 'bold', fontSize: 28,}]}>Settings</Text>
       <ScrollView>
-        <SettingsGroup title="Batch Add Matchs">
-          <Text style={[styles.contentTextInfo, ]}>The name of the scouter for this tablet. * Internet connected required.</Text>
-          <View style={{ flexDirection: 'row', /*justifyContent: 'space-between',*/ alignItems: 'center' }}>
-            <Pressable 
-                key='ImportQR'
-                onPress={() => {console.log(`Import from QR Code`); 
-                  // setAppData(prevAppData => ({...prevAppData, allianceLocation: 'Red 1'}));
-                  // setDisplayAllianceLocation('Red 1');
-                  }}
-                style={[styles.button, ]}>
-                <Text style={[styles.buttonLabel,]}>Import from QR Code</Text>
-              </Pressable>
-              <Pressable 
-                key='ImportTBA'
-                onPress={() => {console.log(`Inport from TBA`); 
-                  // setAppData(prevAppData => ({...prevAppData, allianceLocation: 'Red 1'}));
-                  // setDisplayAllianceLocation('Red 1');
-                }}
-                style={[styles.button,  ]}>
-                <Text style={[styles.buttonLabel, ]}>*Import from TBA</Text>
-              </Pressable>
-            </View>
-        </SettingsGroup>
-
         <SettingsGroup title="Alliance Team">
           <Text style={[styles.contentTextInfo, ]}>The Alliance Team for this tablet to scount - R1 is Red 1.</Text> 
           <View style={{ flexDirection: 'row', /*justifyContent: 'space-between',*/ alignItems: 'center' }}>
@@ -150,8 +126,32 @@ const AppSettings = ({
           </View>
         </SettingsGroup>
 
-        <SettingsGroup title="Advanced Settings">
+        <SettingsGroup title="Batch Add Matchs">
           <Text style={[styles.contentTextInfo, ]}>The name of the scouter for this tablet. * Internet connected required.</Text>
+          <View style={{ flexDirection: 'row', /*justifyContent: 'space-between',*/ alignItems: 'center' }}>
+            <Pressable 
+                key='ImportQR'
+                onPress={() => {console.log(`Import from QR Code`); 
+                  // setAppData(prevAppData => ({...prevAppData, allianceLocation: 'Red 1'}));
+                  // setDisplayAllianceLocation('Red 1');
+                  }}
+                style={[styles.button, ]}>
+                <Text style={[styles.buttonLabel,]}>Import from QR Code</Text>
+              </Pressable>
+              <Pressable 
+                key='ImportTBA'
+                onPress={() => {console.log(`Inport from TBA`); 
+                  // setAppData(prevAppData => ({...prevAppData, allianceLocation: 'Red 1'}));
+                  // setDisplayAllianceLocation('Red 1');
+                }}
+                style={[styles.button,  ]}>
+                <Text style={[styles.buttonLabel, ]}>*Import from TBA</Text>
+              </Pressable>
+            </View>
+        </SettingsGroup>
+
+        <SettingsGroup title="Advanced Settings">
+          <Text style={[styles.contentTextInfo, ]}>Options to Reset / Clear of TFT Scouter Data Stores.</Text>
           <View style={{ flexDirection: 'row', /*justifyContent: 'space-between',*/ alignItems: 'center' }}>
             <Pressable 
               key='DeleteAppData'

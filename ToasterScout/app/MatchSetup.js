@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet, View, ScrollView, Modal, Pressable, TextInput } from 'react-native';
+import { Text, StyleSheet, View, ScrollView, Modal, Pressable, TextInput, Alert } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
-
 
 const MatchSetup = ({
   appData,
@@ -19,14 +18,12 @@ const MatchSetup = ({
 
   const onUpdateScoutName = (action) => {
     if (action == 'save') {
-      // Update the Scout Name for the application
-      //onScoutNameChange(newScoutName);
+      // Update the Scout Name for the application and the settings view
       setAppData(prevAppData => ({...prevAppData, currentScout: newScoutName}));
-      // update the scout name for this view
       setDisplayScoutName(newScoutName);
     }
     else if (action === 'cancel') {
-      // Restore the orginal scouter name
+      // Restore the orginal scouter name due to canceling
       setNewScoutName(displayScoutName);
     }
     setModalVisible(!modalVisible);
@@ -39,22 +36,29 @@ const MatchSetup = ({
   const [addMatchSuccess, setAddMatchSuccess] = useState(false);
   const [addMatchError, setAddMatchError] = useState(false);
   const [duplicateMatchError, setDuplicateMatchError] = useState(false);
+  const [editingMatch, setEditingMatch] = useState(null);
 
   const onAddMatch = () => {
     if (newMatchNumber && newTeamNumber) {
       const matchExists = matchData.some(match => match.matchNumber === parseInt(newMatchNumber));
-      if (matchExists) {
+      if (matchExists && !editingMatch) {
         setDuplicateMatchError(true);
         setAddMatchError(false);
         setAddMatchSuccess(false);
-      } else {
+      } 
+      else {
         const newMatch = {
           matchId: `2024milac_qm${newMatchNumber}`,
           matchNumber: parseInt(newMatchNumber),
           teamNumber: parseInt(newTeamNumber),
           matchStatus: 0
         };
-        setMatchData(prevMatchData => ([...prevMatchData, newMatch]));
+        if (editingMatch) {
+          setMatchData(prevMatchData => prevMatchData.map(match => match.matchNumber === editingMatch.matchNumber ? newMatch : match));
+        } 
+        else {
+          setMatchData(prevMatchData => ([...prevMatchData, newMatch]));
+        }
         setAddMatchSuccess(true);
         setAddMatchError(false);
         setDuplicateMatchError(false);
@@ -73,15 +77,11 @@ const MatchSetup = ({
     setAddMatchSuccess(false);
     setAddMatchError(false);
     setDuplicateMatchError(false);
+    setEditingMatch(null);
   }
 
-  // useEffect(() => {
-  //   // This effect will run whenever matchData changes
-  //   console.log('matchData updated:', matchData);
-  // }, [matchData]);
-
-  console.log('match lenght:', matchData.length);
-  console.log('matchData:', matchData);
+  // console.log('match lenght:', matchData.length);
+  // console.log('matchData:', matchData);
 
   
   // TODO: need move this data to match Add / Inport in the settings view
@@ -211,23 +211,19 @@ const MatchSetup = ({
                 onPress={() => {console.log('Match: ' + value.matchNumber +  ` selected`); 
                                 setAppData(prevAppData => ({...prevAppData, currentMatch: value.matchNumber, currentTeam: value.teamNumber}));
                                 setDisplayMatchNumber(value.matchNumber);}}
+                onLongPress={value.matchStatus !== 1 ? () => {
+                  setEditingMatch(value);
+                  setNewMatchNumber(value.matchNumber.toString());
+                  setNewTeamNumber(value.teamNumber.toString());
+                  setAddMatchModalVisible(true);
+                } : null}
+                // onLongPress={() => Alert.alert('Match: ' + value.matchNumber +  ` selected`)}
+                delayLongPress={750}
                 style={[styles.matchButton, value.matchStatus == 1 && styles.matchSaved, displayMatchNumber === value.matchNumber && styles.matchSelected]}>
                 <Text style={[styles.buttonLabel]}>{value.matchNumber}{"\n"}{value.teamNumber}</Text>
               </Pressable>
             ))
           )}
-            {/* {matchData.map(value => (
-              <Pressable
-              key={value.matchId}
-              onPress={() => {console.log('Match: ' + value.matchNumber +  ` selected`); 
-                              setAppData(prevAppData => ({...prevAppData, currentMatch: value.matchNumber, currentTeam: value.teamNumber}));
-                              // setAppData({...appData, currentTeam: value.teamNumber});
-                              // onMatchChange(value.matchNumber, value.teamNumber); 
-                              setDisplayMatchNumber(value.matchNumber);}}
-              style={[styles.matchButton, value.matchStatus == 1 && styles.matchSaved, displayMatchNumber === value.matchNumber && styles.matchSelected]}>
-              <Text style={[styles.buttonLabel]}>{value.matchNumber}{"\n"}{value.teamNumber}</Text>
-            </Pressable>
-            ))} */}
           </View>
         </ScrollView>
           
@@ -264,7 +260,7 @@ const MatchSetup = ({
           </View>
         </Modal>
 
-        {/* *** Modal to add a new match *** */}
+        {/* *** Modal to add/edit a match *** */}
         <Modal
         animationType="fade"
         transparent={true}
@@ -274,7 +270,7 @@ const MatchSetup = ({
             <View style={styles.modalView}>
               {addMatchSuccess ? (
                 <>
-                  <Text style={styles.modalContentText}>Match added successfully!</Text>
+                  <Text style={styles.modalContentText}>Match {editingMatch ? 'updated' : 'added'} successfully!</Text>
                   <Pressable
                     style={[styles.button, styles.buttonSave]}
                     onPress={() => closeAddMatchModal()}>
@@ -283,13 +279,14 @@ const MatchSetup = ({
                 </>
               ) : (
                 <>
-                  <Text style={styles.modalContentText}>Add New Match</Text>
+                  <Text style={styles.modalContentText}>{editingMatch ? 'Edit Match' : 'Add New Match'}</Text>
                   <TextInput
                     style={styles.input}
                     placeholder="Match Number"
                     keyboardType="numeric"
                     onChangeText={setNewMatchNumber}
                     value={newMatchNumber}
+                    editable={!editingMatch} // Disable editing match number if editing
                   />
                   <TextInput
                     style={styles.input}
@@ -304,7 +301,7 @@ const MatchSetup = ({
                     <Pressable
                       style={[styles.button, styles.buttonSave]}
                       onPress={() => onAddMatch()}>
-                      <Text style={styles.buttonLabel}>Add</Text>
+                      <Text style={styles.buttonLabel}>{editingMatch ? 'Save' : 'Add'}</Text>
                     </Pressable>
                     <Pressable
                       style={[styles.button, styles.buttonCancel]}
