@@ -15,6 +15,10 @@ const AppSettings = ({
   const toggleOption1 = () => setOption1Enabled(!isOption1Enabled);
   const toggleOption2 = () => setOption2Enabled(!isOption2Enabled);
 
+  // *** default appData and matchData for deleting ***
+  const defaultAppData = {allianceLocation: 'Select Alliance Team in Settings', fieldOrientation: 'Spectator', currentScout: '', currentTeam: null, currentMatch: null};
+  const defaultMatchData = [];
+
 
   const [displayAllianceLocation, setDisplayAllianceLocation] = useState(appData.allianceLocation);
   const [displayfieldOrientation, setDisplayfieldOrientation] = useState(appData.fieldOrientation);
@@ -147,6 +151,29 @@ const AppSettings = ({
         </SettingsGroup>
 
         <SettingsGroup title="Advanced Settings">
+          <Text style={[styles.contentTextInfo, ]}>The name of the scouter for this tablet. * Internet connected required.</Text>
+          <View style={{ flexDirection: 'row', /*justifyContent: 'space-between',*/ alignItems: 'center' }}>
+            <Pressable 
+              key='DeleteAppData'
+              onPress={() => {console.log(`Delete App Data`);
+                setAppData(defaultAppData); 
+                setDisplayAllianceLocation('');
+                setDisplayfieldOrientation('Spectator');
+                }}
+              style={[styles.button, ]}>
+              <Text style={[styles.buttonLabel,]}>Reset Application Data</Text>
+            </Pressable>
+            <Pressable 
+              key='DeleteMatchData'
+              onPress={() => {console.log(`Delete Match Data`);
+                setMatchData(defaultMatchData); 
+              }}
+              style={[styles.button,  ]}>
+              <Text style={[styles.buttonLabel, ]}>Delete All Match Data</Text>
+            </Pressable>
+          </View>
+
+          <Text style={[styles.contentTextInfo, ]}>{"\n"}Test of Switches in React Native</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text style={[styles.contentText,]}>Option A</Text>
             <Switch 

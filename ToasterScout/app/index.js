@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Settings } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import * as ScreenOrientation from 'expo-screen-orientation';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
 import MatchSetup from "@/app/MatchSetup";
@@ -12,21 +13,89 @@ import AppSettings from "@/app/AppSettings";
 
 export default function App() {
   
-  // Info from the Setup view screen in future release
-  const [appData, setAppData] = useState({allianceLocation: '', fieldOrientation: 'Spectator', currentScout: '', currentTeam: null, currentMatch: null});
-  const [matchData, setMatchData] = useState([]);
+  // *** Initialize appData and matchData ***
+  const defaultAppData = {allianceLocation: 'Select Alliance Team in Settings', fieldOrientation: 'Spectator', currentScout: '', currentTeam: null, currentMatch: null};
+  const defaultMatchData = [];
   
+  const [appData, setAppData] = useState(defaultAppData);
+  const [matchData, setMatchData] = useState(defaultMatchData);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
+  // *** Load appData and matchData from AsyncStorage when the app loads ***
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const storedAppData = await AsyncStorage.getItem('appData');
+        const storedMatchData = await AsyncStorage.getItem('matchData');
+        if (storedAppData) {
+          const parsedAppData = JSON.parse(storedAppData);
+          setAppData(parsedAppData || defaultAppData);
+        } else {
+          setAppData(defaultAppData);
+        }
+        console.log('appData loaded (async):', appData);
+        if (storedMatchData) {
+          const parsedMatchData = JSON.parse(storedMatchData);
+          setMatchData(parsedMatchData || defaultMatchData);
+        } else {
+          setMatchData(defaultMatchData);
+        }
+        console.log('matchData loaded (async):', matchData);
+      } catch (error) {
+        console.error('Failed to load data from AsyncStorage', error);
+        setAppData(defaultAppData);
+        setMatchData(defaultMatchData);
+      } finally {
+        setDataLoaded(true);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  
+  // *** Save appData to AsyncStorage whenever it changes ***
+  useEffect(() => {
+    if (dataLoaded) {
+      AsyncStorage.setItem('appData', JSON.stringify(appData))
+        .catch(error => console.error('Failed to save appData to AsyncStorage', error))
+        .then(() => console.log('appData saved:', JSON.stringify(appData)));
+    }
+  }, [appData, dataLoaded]);
+
+  // *** Save matchData to AsyncStorage whenever it changes ***
+  useEffect(() => {
+    if (dataLoaded) {
+      AsyncStorage.setItem('matchData', JSON.stringify(matchData))
+        .catch(error => console.error('Failed to save matchData to AsyncStorage', error))
+        .then(() => console.log('matchData saved:', JSON.stringify(matchData)));
+    }
+  }, [matchData, dataLoaded]);
+  
  
-  // Set the default screen to MatchSelect
+  // *** Set the default screen to MatchSelect ***
   const [selectedContent, setSelectedContent] = useState('MatchSelect');
   const [content, setContent] = useState(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />);
-  if (appData.allianceLocation === '') {
-    // Alliance location is not set so we can set the default screen to AppSettings
-    setAppData(prevAppData => ({...prevAppData, allianceLocation: 'Select Alliance Team in Settings'}));
-    setSelectedContent('AppSettings');
-    setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />);
-  }
+  // if (appData.allianceLocation === 'Select Alliance Team in Settings') {
+  //   // Alliance location is not set so we can set the default screen to AppSettings
+  //  // setAppData(prevAppData => ({...prevAppData, allianceLocation: 'Select Alliance Team in Settings'}));
+  //   setSelectedContent('AppSettings');
+  //   setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />);
+  // }
+
+  // Prevents the MatchSetup view to load on initial render
+  //const isInitialMount = useRef(true);
+  // Reloads the MatchSetup view when matchData is updated
+  useEffect(() => {
+    if (dataLoaded) {
+      // if (isInitialMount.current) {
+      //   isInitialMount.current = false;
+      // } else {
+        console.log('matchData updated:', matchData);
+        setContent(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />);
+      // }
+    }
+  }, [matchData, dataLoaded]);
 
   // useEffect(() => {
   //   const changeScreenOrientation = async () => {
@@ -48,21 +117,6 @@ export default function App() {
   //     );
   //   }
   // }, [appData]);
-
-  // Prevents the MatchSetup view to load on initial render
-  const isInitialMount = useRef(true);
-  // Reloads the MatchSetup view when matchData is updated
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      console.log('matchData updated:', matchData);
-      setContent(
-        <MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />
-      );
-    }
-  }, [matchData]);
-
 
 
   return (
