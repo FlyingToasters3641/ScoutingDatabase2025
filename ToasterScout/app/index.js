@@ -68,11 +68,11 @@ export default function App() {
   return (
     <View style={{padding: 0, flex: 1}}>
       <View style={[styles.topbar, styles.row]}>
-        <View style={{flex: 2, flexDirection: 'row'}}>
-          <Ionicons name="eye" size={22} color="white" />
+        <View style={{flex: 2, flexDirection: 'row', alignItems: 'center',}}>
+          <Ionicons name="eye" size={26} color="white" />
           <Text style={[styles.title, {paddingRight: 20}]}> TFT Scouter</Text>
           <Text style={[styles.title, appData.allianceLocation[0] === 'B' ? styles.teamBlue : styles.teamRed]}>{appData.allianceLocation}</Text></View>
-        <View style={{flex: 4, flexDirection: 'row-reverse'}}>
+        <View style={{flex: 4, flexDirection: 'row-reverse', alignItems: 'center',}}>
           <TouchableOpacity
               activeOpacity={0.5}
               key="Settings"
