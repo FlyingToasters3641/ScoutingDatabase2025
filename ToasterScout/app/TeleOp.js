@@ -193,21 +193,65 @@ const TeleOp = () => {
 
     <TouchableOpacity
         style={[
-          styles.bigButton,
+          styles.sMidButton,
           {
             top: 10,
             left: 490,
           },
         ]}
         activeOpacity={0.5}>
-        <Entypo name="circle-with-plus" size={30} color="black" /><Text style={styles.bigButtonText}>Coral Scored</Text>
+        <Entypo name="circle-with-plus" size={30} color="black" /><Text style={styles.bigButtonText}>Level 1</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[
-          styles.bigButton,
+          styles.sMidButton,
           {
             top: 10,
-            left: 685,
+            left: 585,
+          },
+        ]}
+        activeOpacity={0.5}>
+        <Entypo name="circle-with-plus" size={30} color="black" /><Text style={styles.bigButtonText}>Level 2</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[
+          styles.sMidButton,
+          {
+            top: 10,
+            left: 680,
+          },
+        ]}
+        activeOpacity={0.5}>
+        <Entypo name="circle-with-plus" size={30} color="black" /><Text style={styles.bigButtonText}>Level 3</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[
+          styles.sMidButton,
+          {
+            top: 10,
+            left: 775,
+          },
+        ]}
+        activeOpacity={0.5}>
+        <Entypo name="circle-with-plus" size={30} color="black" /><Text style={styles.bigButtonText}>Level 4</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[
+          {
+            top: 187,
+            left: 143,
+            paddingHorizontal: 16,
+            paddingVertical: 12,
+            borderRadius: 8,
+            marginTop: 8,
+            marginBottom: 8,
+            width: 140,
+            height: 75,
+            position: 'absolute',
+            backgroundColor: 'oldlace',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
           },
         ]}
         activeOpacity={0.5}>
@@ -340,6 +384,20 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 8,
     width: 115,
+    height: 75,
+    position: 'absolute',
+    backgroundColor: 'oldlace',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  sMidButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 8,
+    marginTop: 8,
+    marginBottom: 8,
+    width: 91,
     height: 75,
     position: 'absolute',
     backgroundColor: 'oldlace',
