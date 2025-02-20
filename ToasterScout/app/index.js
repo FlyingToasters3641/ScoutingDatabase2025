@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Settings } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import * as ScreenOrientation from 'expo-screen-orientation';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
 import MatchSetup from "@/app/MatchSetup";
@@ -12,9 +13,89 @@ import AppSettings from "@/app/AppSettings";
 
 export default function App() {
   
-  // Info from the Setup view screen in future release
-  const [appData, setAppData] = useState({scountLocation: 'Red 1', currentScout: 'JacobK', currentTeam: 3641, currentMatch: 2});
+  // *** Initialize appData and matchData ***
+  const defaultAppData = {allianceLocation: 'Select Alliance Team in Settings', fieldOrientation: 'Spectator', currentScout: '', currentTeam: null, currentMatch: null};
+  const defaultMatchData = [];
+  
+  const [appData, setAppData] = useState(defaultAppData);
+  const [matchData, setMatchData] = useState(defaultMatchData);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
+  // *** Load appData and matchData from AsyncStorage when the app loads ***
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const storedAppData = await AsyncStorage.getItem('appData');
+        const storedMatchData = await AsyncStorage.getItem('matchData');
+        if (storedAppData) {
+          const parsedAppData = JSON.parse(storedAppData);
+          setAppData(parsedAppData || defaultAppData);
+        } else {
+          setAppData(defaultAppData);
+        }
+        console.log('appData loaded (async):', appData);
+        if (storedMatchData) {
+          const parsedMatchData = JSON.parse(storedMatchData);
+          setMatchData(parsedMatchData || defaultMatchData);
+        } else {
+          setMatchData(defaultMatchData);
+        }
+        console.log('matchData loaded (async):', matchData);
+      } catch (error) {
+        console.error('Failed to load data from AsyncStorage', error);
+        setAppData(defaultAppData);
+        setMatchData(defaultMatchData);
+      } finally {
+        setDataLoaded(true);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  
+  // *** Save appData to AsyncStorage whenever it changes ***
+  useEffect(() => {
+    if (dataLoaded) {
+      AsyncStorage.setItem('appData', JSON.stringify(appData))
+        .catch(error => console.error('Failed to save appData to AsyncStorage', error))
+        .then(() => console.log('appData saved:', JSON.stringify(appData)));
+    }
+  }, [appData, dataLoaded]);
+
+  // *** Save matchData to AsyncStorage whenever it changes ***
+  useEffect(() => {
+    if (dataLoaded) {
+      AsyncStorage.setItem('matchData', JSON.stringify(matchData))
+        .catch(error => console.error('Failed to save matchData to AsyncStorage', error))
+        .then(() => console.log('matchData saved:', JSON.stringify(matchData)));
+    }
+  }, [matchData, dataLoaded]);
+  
+ 
+  // *** Set the default screen to MatchSelect ***
+  const [selectedContent, setSelectedContent] = useState('MatchSelect');
+  const [content, setContent] = useState(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />);
+  // if (appData.allianceLocation === 'Select Alliance Team in Settings') {
+  //   // Alliance location is not set so we can set the default screen to AppSettings
+  //  // setAppData(prevAppData => ({...prevAppData, allianceLocation: 'Select Alliance Team in Settings'}));
+  //   setSelectedContent('AppSettings');
+  //   setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />);
+  // }
+
+  // Prevents the MatchSetup view to load on initial render
+  //const isInitialMount = useRef(true);
+  // Reloads the MatchSetup view when matchData is updated
+  useEffect(() => {
+    if (dataLoaded) {
+      // if (isInitialMount.current) {
+      //   isInitialMount.current = false;
+      // } else {
+        console.log('matchData updated:', matchData);
+        setContent(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />);
+      // }
+    }
+  }, [matchData, dataLoaded]);
 
   // useEffect(() => {
   //   const changeScreenOrientation = async () => {
@@ -27,23 +108,29 @@ export default function App() {
   //   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
   // }  {...{setScoutName}}
 
+  // useEffect(() => {
+  //   if (appData.allianceLocation === '') {
+  //     setAppData(prevAppData => ({ ...prevAppData, allianceLocation: 'Select Alliance Team in Settings' }));
+  //     setSelectedContent('AppSettings');
+  //     setContent(
+  //       <AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />
+  //     );
+  //   }
+  // }, [appData]);
 
-  // Default view when opening up the app.  Maybe future will open to Setup if match, teams, tablet are not set.
-  const [selectedContent, setSelectedContent] = useState('MatchSelect');
-  const [content, setContent] = useState(<MatchSetup appData={appData} setAppData={setAppData} />);
 
   return (
     <View style={{padding: 0, flex: 1}}>
       <View style={[styles.topbar, styles.row]}>
-        <View style={{flex: 2, flexDirection: 'row'}}>
-          <Ionicons name="eye" size={22} color="white" />
+        <View style={{flex: 2, flexDirection: 'row', alignItems: 'center',}}>
+          <Ionicons name="eye" size={26} color="white" />
           <Text style={[styles.title, {paddingRight: 20}]}> TFT Scouter</Text>
-          <Text style={[styles.title, appData.scountLocation[0] === 'B' ? styles.teamBlue : styles.teamRed]}>{appData.scountLocation}</Text></View>
-        <View style={{flex: 4, flexDirection: 'row-reverse'}}>
+          <Text style={[styles.title, appData.allianceLocation[0] === 'B' ? styles.teamBlue : styles.teamRed]}>{appData.allianceLocation}</Text></View>
+        <View style={{flex: 4, flexDirection: 'row-reverse', alignItems: 'center',}}>
           <TouchableOpacity
               activeOpacity={0.5}
               key="Settings"
-              onPress={() => {setContent(<AppSettings />); setSelectedContent('AppSettings');}}>
+              onPress={() => {setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData}/>); setSelectedContent('AppSettings');}}>
               <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
           <Text style={[styles.title, {paddingRight: 10}]}>Match: {appData.currentMatch} | Team: {appData.currentTeam} | {appData.currentScout}</Text>
@@ -54,7 +141,7 @@ export default function App() {
           <TouchableOpacity
             activeOpacity={0.5}
             key="MatchSelect"
-            onPress={() => {setContent(<MatchSetup appData={appData} setAppData={setAppData} />); setSelectedContent('MatchSelect');}}
+            onPress={() => {setContent(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('MatchSelect');}}
             style={[styles.button, selectedContent === 'MatchSelect' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'MatchSelect' && styles.selectedLabel]}>Match{"\n"}Select</Text>
           </TouchableOpacity>
@@ -82,7 +169,7 @@ export default function App() {
           <TouchableOpacity
           activeOpacity={0.5}
             key="SaveMatch"
-            onPress={() => {setContent(<SaveMatch />); setSelectedContent('SaveMatch');}}
+            onPress={() => {setContent(<SaveMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('SaveMatch');}}
             style={[styles.button, selectedContent === 'SaveMatch' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'SaveMatch' && styles.selectedLabel]}>Save{"\n"}Match</Text>
           </TouchableOpacity>
@@ -126,12 +213,14 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingLeft: 10,
     justifyContent: 'center',
+    borderRadius: 1,
   },
   teamRed:{
     backgroundColor: 'red',
     paddingRight: 10,
     paddingLeft: 10,
     justifyContent: 'center',
+    borderRadius: 1,
   },
   // Menu styles
   buttonContainer: {
