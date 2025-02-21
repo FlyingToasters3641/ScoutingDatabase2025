@@ -131,7 +131,7 @@ export default function App() {
           <TouchableOpacity
               activeOpacity={0.5}
               key="Settings"
-              onPress={() => {setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData}/>); setSelectedContent('AppSettings');}}>
+              onPress={() => {setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('AppSettings');}}>
               <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
           <Text style={[styles.title, {paddingRight: 10}]}>Match: {appData.currentMatch} | Team: {appData.currentTeam} | {appData.currentScout}</Text>
@@ -149,7 +149,7 @@ export default function App() {
           <TouchableOpacity
           activeOpacity={0.5}
             key="PreMatch"
-            onPress={() => {setContent(<PreMatch />); setSelectedContent('PreMatch');}}
+            onPress={() => {setContent(<PreMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('PreMatch');}}
             style={[styles.button, selectedContent === 'PreMatch' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Pre-{"\n"}match</Text>
           </TouchableOpacity>
