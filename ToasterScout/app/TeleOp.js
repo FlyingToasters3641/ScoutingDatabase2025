@@ -42,7 +42,7 @@ const TeleOp = () => {
           top: 0,
           left: 0,
           width: 906,
-          height: 477,
+          height: 508,
           position: 'absolute',
           backgroundColor: 'black',
         },
@@ -50,28 +50,15 @@ const TeleOp = () => {
     </View>
     <View>
       <Image
-        source={require('@/assets/images/g2025-fieldview-teleop-blue.png')} 
-        style={{ left: 10, width: 412, height: 470 }} 
+        source={require('@/assets/images/g2025-fieldview-teleop.png')} 
+        style={{ left: 10, width: 456, height: 478 }} 
       />
       <TouchableOpacity
         style={[
           styles.smallButton,
           {
-            top: 115,
-            left: 86,
-          },
-        ]}
-        activeOpacity={0.5}
-        key="plus1"
-        onPress={showAlert}>
-        <Entypo name="circle" size={24} color="black" />
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[
-          styles.smallButton,
-          {
-            top: 80,
-            left: 155,
+            top: 56,
+            left: 50,
           },
         ]}
         activeOpacity={0.5}>
@@ -81,8 +68,8 @@ const TeleOp = () => {
         style={[
           styles.smallButton,
           {
-            top: 80,
-            left: 218,
+            top: 7,
+            left: 143,
           },
         ]}
         activeOpacity={0.5}>
@@ -92,8 +79,19 @@ const TeleOp = () => {
         style={[
           styles.smallButton,
           {
-            top: 115,
-            left: 286,
+            top: 45,
+            left: 247,
+          },
+        ]}
+        activeOpacity={0.5}>
+        <Entypo name="circle" size={24} color="black" />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[
+          styles.smallButton,
+          {
+            top: 95,
+            left: 338,
           }
         ]}
         activeOpacity={0.5}
@@ -105,8 +103,8 @@ const TeleOp = () => {
         style={[
           styles.smallButton,
           {
-            top: 172,
-            left: 315,
+            top: 164,
+            left: 380,
           },
         ]}
         activeOpacity={0.5}>
@@ -116,8 +114,8 @@ const TeleOp = () => {
         style={[
           styles.smallButton,
           {
-            top: 243,
-            left: 315,
+            top: 261,
+            left: 380,
           },
         ]}
         activeOpacity={0.5}>
