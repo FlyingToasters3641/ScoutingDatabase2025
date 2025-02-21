@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 
 
-const CageResult = () => {
+const PostMatch = () => {
     return (
         <>
-          <Text style={styles.contentText}>This is content for Cage Result.</Text>
+          
           <View
                 style={[
                   {
@@ -18,6 +18,7 @@ const CageResult = () => {
                   },
                 ]}
               />
+              <Text style={styles.contentText}>This is content for Post Match Results.</Text>
               <Text style={styles.contentText}>906px {"\n"}x {"\n"}508px</Text>
           </>
     );
@@ -29,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CageResult;
+export default PostMatch;
