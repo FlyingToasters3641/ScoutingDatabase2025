@@ -25,11 +25,11 @@ const PreMatch = ({
     imageDisplay = RedSpectator;
     botLocation = styles.redSpectator;
   }
-  else if (appData.allianceLocation[0] == 'B' && appData.fieldOrientation == "Scoring Table") {
+  else if (appData.allianceLocation[0] == 'B' && appData.fieldOrientation == "Scoring") {
     imageDisplay = BlueScoringTable;
     botLocation = styles.blueScoring;
   }
-  else if (appData.allianceLocation[0] == 'R' && appData.fieldOrientation == "Scoring Table"){
+  else if (appData.allianceLocation[0] == 'R' && appData.fieldOrientation == "Scoring"){
     imageDisplay = RedScoringTable
     botLocation = styles.redScoring;
   }
