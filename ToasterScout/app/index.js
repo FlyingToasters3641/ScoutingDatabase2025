@@ -4,9 +4,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import * as ScreenOrientation from 'expo-screen-orientation';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
 import MatchSetup from "@/app/MatchSetup";
+import PreMatch from "@/app/PreMatch"
 import Auto from "@/app/Auto";
 import TeleOp from "@/app/TeleOp";
-import CageResult from "@/app/CageResult";
+import PostMatch from "@/app/PostMatch";
 import SaveMatch from "@/app/SaveMatch";
 import AppSettings from "@/app/AppSettings";
 
@@ -130,7 +131,7 @@ export default function App() {
           <TouchableOpacity
               activeOpacity={0.5}
               key="Settings"
-              onPress={() => {setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData}/>); setSelectedContent('AppSettings');}}>
+              onPress={() => {setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('AppSettings');}}>
               <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
           <Text style={[styles.title, {paddingRight: 10}]}>Match: {appData.currentMatch} | Team: {appData.currentTeam} | {appData.currentScout}</Text>
@@ -144,6 +145,13 @@ export default function App() {
             onPress={() => {setContent(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('MatchSelect');}}
             style={[styles.button, selectedContent === 'MatchSelect' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'MatchSelect' && styles.selectedLabel]}>Match{"\n"}Select</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+          activeOpacity={0.5}
+            key="PreMatch"
+            onPress={() => {setContent(<PreMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('PreMatch');}}
+            style={[styles.button, selectedContent === 'PreMatch' && styles.selectedContent]}>
+            <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Pre-{"\n"}match</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
@@ -161,10 +169,10 @@ export default function App() {
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
-            key="CageResult"
-            onPress={() => {setContent(<CageResult />); setSelectedContent('CageResult');}}
-            style={[styles.button, selectedContent === 'CageResult' && styles.selectedContent]}>
-            <Text style={[styles.buttonLabel, selectedContent === 'CageResult' && styles.selectedLabel]}>Cage{"\n"}Result</Text>
+            key="PostMatch"
+            onPress={() => {setContent(<PostMatch />); setSelectedContent('PostMatch');}}
+            style={[styles.button, selectedContent === 'PostMatch' && styles.selectedContent]}>
+            <Text style={[styles.buttonLabel, selectedContent === 'CageResult' && styles.selectedLabel]}>Post{"\n"}Match</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
@@ -237,7 +245,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 95,
+    height: 84,
     width: 'auto',
     // borderWidth: 2, // Set the border width
     // borderColor: 'blue', // Set the border color
