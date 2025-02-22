@@ -15,20 +15,27 @@ const PreMatch = ({
   const RedScoringTable = require('@/assets/images/Red, Scoring Table.png');
   const ERROR = require('@/assets/images/Error-Screen.png');
 
+  let botLocation = styles.hideBot;
+
   if (appData.allianceLocation[0] == 'B' && appData.fieldOrientation == "Spectator") {
     imageDisplay = BlueSpectator; 
+    botLocation = styles.blueSpectator;
   }
   else if (appData.allianceLocation[0] == 'R' && appData.fieldOrientation == "Spectator") {
     imageDisplay = RedSpectator;
+    botLocation = styles.redSpectator;
   }
   else if (appData.allianceLocation[0] == 'B' && appData.fieldOrientation == "Scoring Table") {
     imageDisplay = BlueScoringTable;
+    botLocation = styles.blueScoring;
   }
   else if (appData.allianceLocation[0] == 'R' && appData.fieldOrientation == "Scoring Table"){
     imageDisplay = RedScoringTable
+    botLocation = styles.redScoring;
   }
   else {
     imageDisplay = ERROR
+    botLocation = styles.hideBot;
   }
 
 
@@ -71,7 +78,7 @@ const PreMatch = ({
         <Text style={[styles.contentText, {backgroundColor: 'black',}]}>Select the starting location of the Robot:</Text>
         <Image source={imageDisplay}
                 style={{ width: 440, height: 400,}}/>
-        <View style={{position: 'absolute', top:40, left: 315, height:320, justifyContent: 'space-between'  }}>
+        <View style={[botLocation, {position: 'absolute', height:320, justifyContent: 'space-between'  }]}>
           <View style={[styles.box, {backgroundColor:'darkcyan', justifyContent: 'center', alignItems:'center'}]}><Text style={[styles.contentText,]}>Lt</Text></View>
           <View style={[styles.box, {backgroundColor:'darkseagreen', justifyContent: 'center', alignItems:'center'}]}><Text style={[styles.contentText,]}>Mid</Text></View>
           <View style={[styles.box, {backgroundColor:'lightskyblue', justifyContent: 'center', alignItems:'center'}]}><Text style={[styles.contentText,]}>Rt</Text></View>
@@ -206,6 +213,26 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     fontSize: 22,
+  },
+  blueSpectator: {
+    top:40,
+     left: 315
+  },
+  redSpectator: {
+    top:40,
+     left: 75
+  },
+  blueScoring: {
+    top:40,
+     left: 75
+  },
+  redScoring: {
+    top:40,
+     left: 315
+  },
+  hideBot: {
+    top:1000,
+     left: 1000
   },
 
   box: {
