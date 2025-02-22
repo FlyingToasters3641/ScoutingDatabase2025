@@ -6,14 +6,58 @@ import Entypo from '@expo/vector-icons/Entypo';
 const TeleOp = ({
   gameMode,
 }) => {
-
+  // Net
   const [displayNetScored, setDisplayNetScored] = useState(0);
   const [displayNetMissed, setDisplayNetMissed] = useState(0);
+
+  // Processor
   const [displayProcessorScored, setDisplayProcessorScored] = useState(0);
   const [displayProcessorMissed, setDisplayProcessorMissed] = useState(0);
+
+  // Intaking
   const [displayCoralGround, setDisplayCoralGround] = useState(0);
   const [displayCoralStation, setDisplayCoralStation] = useState(0);
   const [displayAlgaeIntake, setDisplayAlgaeIntake] = useState(0);
+
+  // Algae Toggles
+  const [algaeAToggled, setAlgaeAToggled] = useState(false);
+  const [algaeBToggled, setAlgaeBToggled] = useState(false);
+  const [algaeCToggled, setAlgaeCToggled] = useState(false);
+  const [algaeDToggled, setAlgaeDToggled] = useState(false);
+  const [algaeEToggled, setAlgaeEToggled] = useState(false);
+  const [algaeFToggled, setAlgaeFToggled] = useState(false);
+
+  // Algae Removal
+
+  // Algae A
+  const algaeAToggledButton = () => {
+    setAlgaeAToggled(!algaeAToggled);
+  };
+
+  // Algae B
+  const algaeBToggledButton = () => {
+    setAlgaeBToggled(!algaeBToggled);
+  };
+
+  // Algae C
+  const algaeCToggledButton = () => {
+    setAlgaeCToggled(!algaeCToggled);
+  };
+
+  // Algae D
+  const algaeDToggledButton = () => {
+    setAlgaeDToggled(!algaeDToggled);
+  };
+
+  // Algae E
+  const algaeEToggledButton = () => {
+    setAlgaeEToggled(!algaeEToggled);
+  };
+
+  // Algae F
+  const algaeFToggledButton = () => {
+    setAlgaeFToggled(!algaeFToggled);
+  };
 
   // Scoring functions
 
@@ -270,81 +314,81 @@ const TeleOp = ({
 
     {/* Algae Removed */}
 
-        {/* Location AA */}
+        {/* Location Algae A */}
         <TouchableOpacity
         style={[
-          styles.algaeSmallButton,
+          styles.algaeSmallButton, algaeAToggled && styles.algaeSmallButtonActive,
           {
             top: 215,
             left: 95,
           },
         ]}
-        activeOpacity={0.5}>
+        activeOpacity={0.5} onPress={algaeAToggledButton}>
         <Entypo name="circle" size={24} color="black" />
       </TouchableOpacity>
 
-      {/* location AB */}
-      <TouchableOpacity
+        {/* Location Algae B */}
+        <TouchableOpacity
         style={[
-          styles.algaeSmallButton,
+          styles.algaeSmallButton, algaeBToggled && styles.algaeSmallButtonActive,
           {
             top: 300,
             left: 155,
           },
         ]}
-        activeOpacity={0.5}>
+        activeOpacity={0.5} onPress={algaeBToggledButton}>
         <Entypo name="circle" size={24} color="black" />
       </TouchableOpacity>
-
-      {/* location AC */}
-      <TouchableOpacity
+      
+        {/* Location Algae C */}
+        <TouchableOpacity
         style={[
-          styles.algaeSmallButton,
+          styles.algaeSmallButton, algaeCToggled && styles.algaeSmallButtonActive,
           {
             top: 300,
             left: 265,
           },
         ]}
-        activeOpacity={0.5}>
+        activeOpacity={0.5} onPress={algaeCToggledButton}>
         <Entypo name="circle" size={24} color="black" />
       </TouchableOpacity>
 
-            {/* location AD */}
-            <TouchableOpacity
+        {/* Location Algae D */}
+        <TouchableOpacity
         style={[
-          styles.algaeSmallButton,
+          styles.algaeSmallButton, algaeDToggled && styles.algaeSmallButtonActive,
           {
             top: 215,
             left: 321,
           },
         ]}
-        activeOpacity={0.5}>
+        activeOpacity={0.5} onPress={algaeDToggledButton}>
         <Entypo name="circle" size={24} color="black" />
       </TouchableOpacity>
 
-      {/* location AE */}
-      <TouchableOpacity
+        {/* Location Algae E */}
+        <TouchableOpacity
         style={[
-          styles.algaeSmallButton,
+          styles.algaeSmallButton, algaeEToggled && styles.algaeSmallButtonActive,
           {
             top: 125,
             left: 265,
           },
         ]}
-        activeOpacity={0.5}>
+        activeOpacity={0.5} onPress={algaeEToggledButton}>
         <Entypo name="circle" size={24} color="black" />
       </TouchableOpacity>
 
-      {/* location AF */}
-      <TouchableOpacity
+        {/* Location Algae F */}
+        <TouchableOpacity
         style={[
-          styles.algaeSmallButton,
+          styles.algaeSmallButton, algaeFToggled && styles.algaeSmallButtonActive,
           {
             top: 125,
             left: 155,
           },
         ]}
-        activeOpacity={0.5}>
+        activeOpacity={0.5} onPress={algaeFToggledButton}>
         <Entypo name="circle" size={24} color="black" />
       </TouchableOpacity>
     </View>
@@ -543,6 +587,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'mediumaquamarine',
+  },
+  algaeSmallButtonActive: {
+    backgroundColor: 'limegreen',
   },
   bigButton: {
     paddingHorizontal: 16,
