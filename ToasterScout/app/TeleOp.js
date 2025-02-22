@@ -15,7 +15,50 @@ const TeleOp = ({
   const [displayCoralStation, setDisplayCoralStation] = useState(0);
   const [displayAlgaeIntake, setDisplayAlgaeIntake] = useState(0);
 
+  // Reef Select and scooring
+  const [displayReefSelect, setDisplayReefSelect] = useState('');
+  const [displayReefScore, setDisplayReefScore] = useState({l1A:0, l1C:0, l2A:0, l2C:0, l3A:0, l3C:0, l4A:0, l4C:0, });
+
   // Scoring functions
+
+  // Level 1 Scoring
+  const addReefLevel1 = () => {
+    if(displayReefSelect !== '') {
+      switch (displayReefSelect) {
+        case 'A':
+          setDisplayReefScore(prevAppData => ({...prevAppData, l1A: prevAppData.l1A + 1}));
+          break;
+        case 'C':
+          setDisplayReefScore(prevAppData => ({...prevAppData, l1C: prevAppData.l1C + 1}));
+          break;
+        default:
+          console.log('[33:33] oops!');
+      }
+      setDisplayReefSelect('');
+    }
+    
+  };
+  const subReefLevel1 = () => {
+    if(displayReefSelect !== '') {
+      switch (displayReefSelect) {
+        case 'A':
+          if (displayReefScore.l1A > 0) {
+            setDisplayReefScore(prevAppData => ({...prevAppData, l1A: prevAppData.l1A - 1}));
+          }
+          break;
+        case 'C':
+          if (displayReefScore.l1C > 0) {
+            setDisplayReefScore(prevAppData => ({...prevAppData, l1C: prevAppData.l1C - 1}));
+          }
+          break;
+        default:
+          console.log('[33:51] oops!');
+      }
+      setDisplayReefSelect('');
+
+
+    }
+  };
 
   // Net Scoring
   const addNetScored = () => {
@@ -99,7 +142,8 @@ const TeleOp = ({
           width: 906,
           height: 508,
           position: 'absolute',
-          backgroundColor: 'black',
+          // backgroundColor: 'black',
+          backgroundColor: 'blue',
         },
       ]}>
     </View>
@@ -230,12 +274,14 @@ const TeleOp = ({
 
       {/* location C */}
       <TouchableOpacity
+        onPress={() => {displayReefSelect === 'C' ? setDisplayReefSelect('') : setDisplayReefSelect('C');}}
         style={[
           styles.smallButton,
           {
             top: 380,
             left: 110,
           },
+          displayReefSelect === 'C' && styles.reefSelected,
         ]}
         activeOpacity={0.5}>
         <Entypo name="circle" size={24} color="black" />
@@ -256,12 +302,14 @@ const TeleOp = ({
 
       {/* location A */}
       <TouchableOpacity
+        onPress={() => {displayReefSelect === 'A' ? setDisplayReefSelect('') : setDisplayReefSelect('A');}}
         style={[
           styles.smallButton,
           {
             top: 215,
             left: 20,
           },
+          displayReefSelect === 'A' && styles.reefSelected,
         ]}
         activeOpacity={0.5}>
         <Entypo name="circle" size={24} color="black" />
@@ -361,9 +409,15 @@ const TeleOp = ({
 
       {/* Coral Level 1 */}
       <View style={[{flexDirection:'row', justifyContent:'space-between', width:150, paddingBottom: 5, paddingTop: 5}]}>
-        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 1{'\n'}{gameMode}</Text></View>
-        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+        <TouchableOpacity 
+          style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
+          onPress={subReefLevel1}
+        ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 1{'\n'}{gameMode}{'\n'}{displayReefScore.l1A}</Text></View>
+        <TouchableOpacity 
+          style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
+          onPress={addReefLevel1}
+        ><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
       </View>
 
       {/* Coral Level 2 */}
@@ -534,6 +588,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'oldlace',
+  },
+  reefSelected: {
+    backgroundColor: 'blue',
   },
   algaeSmallButton: {
     borderRadius: 8,
