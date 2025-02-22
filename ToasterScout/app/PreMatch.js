@@ -9,8 +9,30 @@ const PreMatch = ({
   setMatchData,
 }) => {
 
-  const [displayScoutName, setDisplayScoutName] = useState(appData.currentScout);
+  const BlueScoringTable = require('@/assets/images/Blue-Scoring Table.png');
+  const BlueSpectator = require('@/assets/images/Blue-Spectator.png');
+  const RedSpectator = require('@/assets/images/Red, Spectator.png');
+  const RedScoringTable = require('@/assets/images/Red, Scoring Table.png');
+  const ERROR = require('@/assets/images/Error-Screen.png');
 
+  if (appData.allianceLocation[0] == 'B' && appData.fieldOrientation == "Spectator") {
+    imageDisplay = BlueSpectator; 
+  }
+  else if (appData.allianceLocation[0] == 'R' && appData.fieldOrientation == "Spectator") {
+    imageDisplay = RedSpectator;
+  }
+  else if (appData.allianceLocation[0] == 'B' && appData.fieldOrientation == "Scoring Table") {
+    imageDisplay = BlueScoringTable;
+  }
+  else if (appData.allianceLocation[0] == 'R' && appData.fieldOrientation == "Scoring Table"){
+    imageDisplay = RedScoringTable
+  }
+  else {
+    imageDisplay = ERROR
+  }
+
+
+  const [displayScoutName, setDisplayScoutName] = useState(appData.currentScout);
   // *** Process Scout Name changes ***
   const [modalVisible, setModalVisible] = useState(false);
   const [newScoutName, setNewScoutName] = useState(displayScoutName);
@@ -47,10 +69,8 @@ const PreMatch = ({
     <View style={{padding: 0, flex: 1, flexDirection: 'row'}}>
       <View style={{ flex: 1, marginLeft: 10, }}>
         <Text style={[styles.contentText, {backgroundColor: 'black',}]}>Select the starting location of the Robot:</Text>
-        <Image
-          source={require('@/assets/images/g2025-fieldview-blue.png')} 
-          style={{ width: 440, height: 400, }} 
-        />
+        <Image source={imageDisplay}
+                style={{ width: 440, height: 400,}}/>
         <View style={{position: 'absolute', top:40, left: 315, height:320, justifyContent: 'space-between'  }}>
           <View style={[styles.box, {backgroundColor:'darkcyan', justifyContent: 'center', alignItems:'center'}]}><Text style={[styles.contentText,]}>Lt</Text></View>
           <View style={[styles.box, {backgroundColor:'darkseagreen', justifyContent: 'center', alignItems:'center'}]}><Text style={[styles.contentText,]}>Mid</Text></View>
