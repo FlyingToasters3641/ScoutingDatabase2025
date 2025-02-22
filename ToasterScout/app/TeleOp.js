@@ -3,7 +3,9 @@ import { Text, StyleSheet, View, Image, TouchableOpacity, Alert } from 'react-na
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
 import Entypo from '@expo/vector-icons/Entypo';
 
-const TeleOp = () => {
+const TeleOp = ({
+  gameMode,
+}) => {
 
   const showAlert = () =>
     Alert.alert(
@@ -307,7 +309,7 @@ const TeleOp = () => {
       {/* Coral Level 1 */}
       <View style={[{flexDirection:'row', justifyContent:'space-between', width:150, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 1</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 1{'\n'}{gameMode}</Text></View>
         <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
       </View>
 

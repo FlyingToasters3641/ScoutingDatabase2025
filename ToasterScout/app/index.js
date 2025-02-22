@@ -156,14 +156,14 @@ export default function App() {
           <TouchableOpacity
           activeOpacity={0.5}
             key="Auto"
-            onPress={() => {setContent(<Auto />); setSelectedContent('Auto');}}
+            onPress={() => {setContent(<TeleOp gameMode='Auto' />); setSelectedContent('Auto');}}
             style={[styles.button, selectedContent === 'Auto' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Auto</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
             key="TeleOp"
-            onPress={() => {setContent(<TeleOp />); setSelectedContent('TeleOp');}}
+            onPress={() => {setContent(<TeleOp gameMode='TeleOp' />); setSelectedContent('TeleOp');}}
             style={[styles.button, selectedContent === 'TeleOp' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'TeleOp' && styles.selectedLabel]}>TeleOp</Text>
           </TouchableOpacity>
