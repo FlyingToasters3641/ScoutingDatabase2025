@@ -7,6 +7,8 @@ const PreMatch = ({
   setAppData,
   matchData,
   setMatchData,
+  gameData,
+  setGameData,
 }) => {
 
   const [displayScoutName, setDisplayScoutName] = useState(appData.currentScout);

@@ -3,7 +3,10 @@ import { Text, StyleSheet, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
 
 
-const Auto = () => {
+const Auto = ({
+  gameData,
+  setGameData,
+}) => {
     return (
         <>
         <Text style={styles.contentText}>This is content for Auto.</Text>

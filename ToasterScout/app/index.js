@@ -10,6 +10,7 @@ import TeleOp from "@/app/TeleOp";
 import PostMatch from "@/app/PostMatch";
 import SaveMatch from "@/app/SaveMatch";
 import AppSettings from "@/app/AppSettings";
+import { defaultGameData } from "@/app/gameData2025"
 
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
   
   const [appData, setAppData] = useState(defaultAppData);
   const [matchData, setMatchData] = useState(defaultMatchData);
+  const [gameData, setGameData] = useState(defaultGameData);
   const [dataLoaded, setDataLoaded] = useState(false);
 
   // *** Load appData and matchData from AsyncStorage when the app loads ***
@@ -149,35 +151,35 @@ export default function App() {
           <TouchableOpacity
           activeOpacity={0.5}
             key="PreMatch"
-            onPress={() => {setContent(<PreMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('PreMatch');}}
+            onPress={() => {setContent(<PreMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} gameData={gameData} setGameData={setGameData} />); setSelectedContent('PreMatch');}}
             style={[styles.button, selectedContent === 'PreMatch' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Pre-{"\n"}match</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
             key="Auto"
-            onPress={() => {setContent(<TeleOp gameMode='Auto' />); setSelectedContent('Auto');}}
+            onPress={() => {setContent(<Auto gameData={gameData} setGameData={setGameData} />); setSelectedContent('Auto');}}
             style={[styles.button, selectedContent === 'Auto' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Auto</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
             key="TeleOp"
-            onPress={() => {setContent(<TeleOp gameMode='TeleOp' />); setSelectedContent('TeleOp');}}
+            onPress={() => {setContent(<TeleOp gameData={gameData} setGameData={setGameData} />); setSelectedContent('TeleOp');}}
             style={[styles.button, selectedContent === 'TeleOp' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'TeleOp' && styles.selectedLabel]}>TeleOp</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
             key="PostMatch"
-            onPress={() => {setContent(<PostMatch />); setSelectedContent('PostMatch');}}
+            onPress={() => {setContent(<PostMatch gameData={gameData} setGameData={setGameData} />); setSelectedContent('PostMatch');}}
             style={[styles.button, selectedContent === 'PostMatch' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'CageResult' && styles.selectedLabel]}>Post{"\n"}Match</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
             key="SaveMatch"
-            onPress={() => {setContent(<SaveMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('SaveMatch');}}
+            onPress={() => {setContent(<SaveMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} gameData={gameData} setGameData={setGameData} />); setSelectedContent('SaveMatch');}}
             style={[styles.button, selectedContent === 'SaveMatch' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'SaveMatch' && styles.selectedLabel]}>Save{"\n"}Match</Text>
           </TouchableOpacity>
