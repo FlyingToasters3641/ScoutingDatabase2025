@@ -299,51 +299,43 @@ const TeleOp = () => {
       styles.border,
         {
         top: 0,
-        left: 490,
+        left: 482,
         position: 'absolute',
         }
       ]}>
 
       {/* Coral Level 1 */}
-      <TouchableOpacity
-        style={[
-          styles.sMidButton
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle-with-plus" size={30} color="black" /><Text style={styles.bigButtonText}>Level 1</Text>
-      </TouchableOpacity>
+      <View style={[{flexDirection:'row', justifyContent:'space-between', width:150, paddingBottom: 5, paddingTop: 5}]}>
+        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 1</Text></View>
+        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+      </View>
 
       {/* Coral Level 2 */}
-      <TouchableOpacity
-        style={[
-          styles.sMidButton
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle-with-plus" size={30} color="black" /><Text style={styles.bigButtonText}>Level 2</Text>
-      </TouchableOpacity>
+      <View style={[{flexDirection:'row', justifyContent:'space-between', width:150, paddingBottom: 5, paddingTop: 5}]}>
+        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 2</Text></View>
+        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+      </View>
 
       {/* Coral Level 3 */}
-      <TouchableOpacity
-        style={[
-          styles.sMidButton,
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle-with-plus" size={30} color="black" /><Text style={styles.bigButtonText}>Level 3</Text>
-      </TouchableOpacity>
+      <View style={[{flexDirection:'row', justifyContent:'space-between', width:150, paddingBottom: 5, paddingTop: 5}]}>
+        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 3</Text></View>
+        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+      </View>
 
       {/* Coral Level 4 */}
-      <TouchableOpacity
-        style={[
-          styles.sMidButton,
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle-with-plus" size={30} color="black" /><Text style={styles.bigButtonText}>Level 4</Text>
-      </TouchableOpacity>
+      <View style={[{flexDirection:'row', justifyContent:'space-between', width:150, paddingBottom: 5, paddingTop: 5}]}>
+        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 4</Text></View>
+        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+      </View>
     </View>
     
 
       {/* Coral Missed */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={[
           {
             top: 180,
@@ -364,46 +356,52 @@ const TeleOp = () => {
         ]}
         activeOpacity={0.5}>
         <Entypo name="circle-with-cross" size={30} color="black" /><Text style={styles.bigButtonText}>Coral{'\n'} Missed</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <View style={[
+        {
+          top: 198,
+          left: 167,
+          position: 'absolute',
+        }
+        ]}>
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Coral Ground Pick-Up</Text></View>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+        </View>
+      </View>
+  
 
-      {/* Net Scoring */}
+      {/* Scoring */}
       <View style={[
       styles.border,
         {
         top: 0,
-        left: 650,
+        left: 675,
         position: 'absolute',
         alignItems: 'center',
         },
       ]}>
-        <View style={[{flexDirection:'row', justifyContent:'space-between', width:200, paddingBottom: 5, paddingTop: 5}]}>
+
+        {/* Net Scoring */}
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
           <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Net Scored</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
-        <View style={[{flexDirection:'row', justifyContent:'space-between', width:200, paddingBottom: 5, paddingTop: 5}]}>
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
           <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Net Missed</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
-      </View>
 
-      {/* Processor Scoring */}
-      <View style={[
-      styles.border,
-        {
-        top: 195,
-        left: 650,
-        position: 'absolute',
-        alignItems: 'center',
-        },
-      ]}>
-        <View style={[{flexDirection:'row', justifyContent:'space-between', width:200, paddingBottom: 5, paddingTop: 5}]}>
+        {/* Processor Scoring */}
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
           <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Processor Scored</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
-        <View style={[{flexDirection:'row', justifyContent:'space-between', width:200, paddingBottom: 5, paddingTop: 5}]}>
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
           <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Processor Missed</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
@@ -411,39 +409,51 @@ const TeleOp = () => {
       </View>
       
       {/* Intaking */}
-      <TouchableOpacity
-        style={[
-          styles.midButton,
-          {
-            top: 400,
-            left: 490,
-          },
-        ]}
-        activeOpacity={0.5}>
-        <Text style={styles.midButtonText}>Coral Ground Pick-Up</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[
-          styles.midButton,
-          {
-            top: 400,
-            left: 620,
-          },
-        ]}
-        activeOpacity={0.5}>
-        <Text style={styles.midButtonText}>Coral Station Pick-Up</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[
-          styles.midButton,
-          {
-            top: 400,
-            left: 750,
-          },
-        ]}
-        activeOpacity={0.5}>
-        <Text style={styles.midButtonText}>Algae Pick-Up</Text>
-      </TouchableOpacity>
+
+      {/* Coral Ground Pick-Up */}
+      <View style={[
+        {
+          top: 395,
+          left: 460,
+          position: 'absolute',
+        }
+        ]}>
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Coral Ground Pick-Up</Text></View>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Coral Station Pick-Up */}
+      <View style={[
+        {
+          top: 395,
+          left: 605,
+          position: 'absolute',
+        }
+        ]}>
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Coral Station Pick-Up</Text></View>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Algae Pick-Up */}
+      <View style={[
+        {
+          top: 395,
+          left: 750,
+          position: 'absolute',
+        }
+        ]}>
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Algae Pick-Up</Text></View>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+        </View>
+      </View>
   </>
 
   );
