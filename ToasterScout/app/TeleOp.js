@@ -4,7 +4,8 @@ import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Ind
 import Entypo from '@expo/vector-icons/Entypo';
 
 const TeleOp = ({
-  gameMode,
+  gameData,
+  setGameData,
 }) => {
   // Net
   const [displayNetScored, setDisplayNetScored] = useState(0);

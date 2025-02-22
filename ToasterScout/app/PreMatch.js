@@ -7,6 +7,8 @@ const PreMatch = ({
   setAppData,
   matchData,
   setMatchData,
+  gameData,
+  setGameData,
 }) => {
 
   const BlueScoringTable = require('@/assets/images/Blue-Scoring Table.png');
