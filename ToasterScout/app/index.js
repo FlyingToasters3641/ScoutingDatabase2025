@@ -10,7 +10,7 @@ import TeleOp from "@/app/TeleOp";
 import PostMatch from "@/app/PostMatch";
 import SaveMatch from "@/app/SaveMatch";
 import AppSettings from "@/app/AppSettings";
-import { defaultGameData } from "@/app/gameData2025"
+import defaultGameData from "@/app/gameData2025"
 
 
 export default function App() {
@@ -128,7 +128,9 @@ export default function App() {
         <View style={{flex: 2, flexDirection: 'row', alignItems: 'center',}}>
           <Ionicons name="eye" size={26} color="white" />
           <Text style={[styles.title, {paddingRight: 20}]}> TFT Scouter</Text>
-          <Text style={[styles.title, appData.allianceLocation[0] === 'B' ? styles.teamBlue : styles.teamRed]}>{appData.allianceLocation}</Text></View>
+          <Text style={[styles.title, appData.allianceLocation[0] === 'B' ? styles.teamBlue : styles.teamRed]}>{appData.allianceLocation}</Text>
+          <Text style={[styles.title]}>{gameData.name}</Text>
+          </View>
         <View style={{flex: 4, flexDirection: 'row-reverse', alignItems: 'center',}}>
           <TouchableOpacity
               activeOpacity={0.5}
