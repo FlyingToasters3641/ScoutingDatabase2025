@@ -4,11 +4,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import * as ScreenOrientation from 'expo-screen-orientation';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
 import MatchSetup from "@/app/MatchSetup";
+import PreMatch from "@/app/PreMatch"
 import Auto from "@/app/Auto";
 import TeleOp from "@/app/TeleOp";
-import CageResult from "@/app/CageResult";
+import PostMatch from "@/app/PostMatch";
 import SaveMatch from "@/app/SaveMatch";
 import AppSettings from "@/app/AppSettings";
+import defaultGameData from "@/app/gameData2025"
 
 
 export default function App() {
@@ -19,6 +21,7 @@ export default function App() {
   
   const [appData, setAppData] = useState(defaultAppData);
   const [matchData, setMatchData] = useState(defaultMatchData);
+  const [gameData, setGameData] = useState(defaultGameData);
   const [dataLoaded, setDataLoaded] = useState(false);
 
   // *** Load appData and matchData from AsyncStorage when the app loads ***
@@ -125,12 +128,13 @@ export default function App() {
         <View style={{flex: 2, flexDirection: 'row', alignItems: 'center',}}>
           <Ionicons name="eye" size={26} color="white" />
           <Text style={[styles.title, {paddingRight: 20}]}> TFT Scouter</Text>
-          <Text style={[styles.title, appData.allianceLocation[0] === 'B' ? styles.teamBlue : styles.teamRed]}>{appData.allianceLocation}</Text></View>
+          <Text style={[styles.title, appData.allianceLocation[0] === 'B' ? styles.teamBlue : styles.teamRed]}>{appData.allianceLocation}</Text>
+          </View>
         <View style={{flex: 4, flexDirection: 'row-reverse', alignItems: 'center',}}>
           <TouchableOpacity
               activeOpacity={0.5}
               key="Settings"
-              onPress={() => {setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData}/>); setSelectedContent('AppSettings');}}>
+              onPress={() => {setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('AppSettings');}}>
               <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
           <Text style={[styles.title, {paddingRight: 10}]}>Match: {appData.currentMatch} | Team: {appData.currentTeam} | {appData.currentScout}</Text>
@@ -147,29 +151,36 @@ export default function App() {
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
+            key="PreMatch"
+            onPress={() => {setContent(<PreMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} gameData={gameData} setGameData={setGameData} />); setSelectedContent('PreMatch');}}
+            style={[styles.button, selectedContent === 'PreMatch' && styles.selectedContent]}>
+            <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Pre-{"\n"}match</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+          activeOpacity={0.5}
             key="Auto"
-            onPress={() => {setContent(<Auto />); setSelectedContent('Auto');}}
+            onPress={() => {setContent(<Auto gameData={gameData} setGameData={setGameData} />); setSelectedContent('Auto');}}
             style={[styles.button, selectedContent === 'Auto' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Auto</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
             key="TeleOp"
-            onPress={() => {setContent(<TeleOp />); setSelectedContent('TeleOp');}}
+            onPress={() => {setContent(<TeleOp gameData={gameData} setGameData={setGameData} />); setSelectedContent('TeleOp');}}
             style={[styles.button, selectedContent === 'TeleOp' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'TeleOp' && styles.selectedLabel]}>TeleOp</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
-            key="CageResult"
-            onPress={() => {setContent(<CageResult />); setSelectedContent('CageResult');}}
-            style={[styles.button, selectedContent === 'CageResult' && styles.selectedContent]}>
-            <Text style={[styles.buttonLabel, selectedContent === 'CageResult' && styles.selectedLabel]}>Cage{"\n"}Result</Text>
+            key="PostMatch"
+            onPress={() => {setContent(<PostMatch gameData={gameData} setGameData={setGameData} />); setSelectedContent('PostMatch');}}
+            style={[styles.button, selectedContent === 'PostMatch' && styles.selectedContent]}>
+            <Text style={[styles.buttonLabel, selectedContent === 'CageResult' && styles.selectedLabel]}>Post{"\n"}Match</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
             key="SaveMatch"
-            onPress={() => {setContent(<SaveMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('SaveMatch');}}
+            onPress={() => {setContent(<SaveMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} gameData={gameData} setGameData={setGameData} />); setSelectedContent('SaveMatch');}}
             style={[styles.button, selectedContent === 'SaveMatch' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'SaveMatch' && styles.selectedLabel]}>Save{"\n"}Match</Text>
           </TouchableOpacity>
@@ -237,7 +248,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 95,
+    height: 84,
     width: 'auto',
     // borderWidth: 2, // Set the border width
     // borderColor: 'blue', // Set the border color

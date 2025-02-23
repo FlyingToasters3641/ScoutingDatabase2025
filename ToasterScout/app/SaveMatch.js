@@ -8,8 +8,8 @@ const SaveMatch = ({
   setAppData,
   matchData,
   setMatchData,
-  selectedContent,
-  setSelectedContent,
+  gameData,
+  setGameData,
 }) => {
   const [pressed, setPressed] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
