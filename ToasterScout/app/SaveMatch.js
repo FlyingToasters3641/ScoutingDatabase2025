@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { Text, StyleSheet, View, TouchableOpacity, Alert } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
+import RNFS from 'react-native-fs';
 
 const SaveMatch = ({
   appData,
@@ -14,6 +15,7 @@ const SaveMatch = ({
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [jsonData, setJsonData] = useState({});
   const [qrCodeSize, setQrCodeSize] = useState(0);
+  const qrCodeRef = useRef();
 
   const handlePress1 = async() => {
     setPressed(true);
@@ -27,6 +29,20 @@ const SaveMatch = ({
     setIsButtonDisabled(true);
     setJsonData({});
     setQrCodeSize(0);
+  };
+
+  const saveQrCodeToFile = () => {
+    qrCodeRef.current.toDataURL((dataURL) => {
+      const path = `${RNFS.PicturesDirectoryPath}/${appData.currentMatch}-${appData.currentTeam}-qrcode.png`;
+      RNFS.writeFile(path, dataURL, 'base64')
+        .then(() => {
+          console.log('QR code saved to', path);
+        })
+        .catch((error) => {
+          console.error('Failed to save QR code', error);
+        });
+    });
+    Alert.alert('QR Code Saved', 'QR Code saved to Pictures directory');
   };
 
   const qrCodeData = JSON.stringify(jsonData);
@@ -68,18 +84,35 @@ const SaveMatch = ({
         <Text style={styles.buttonText}>Generate QRCode</Text>
       </TouchableOpacity>
 
-        <TouchableOpacity style={[
+
+      <TouchableOpacity
+        style={[
           styles.largeButton,
           {
             top: 250,
             left: 70,
           },
         ]}
-        onPress={handlePress2} 
+        onPress={saveQrCodeToFile}
         disabled={isButtonDisabled}
-        >
-          <Text style={styles.buttonText}>New Match</Text>
-        </TouchableOpacity>
+      >
+        <Text style={styles.buttonText}>Save QRCode</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={[
+        styles.largeButton,
+        {
+          top: 400,
+          left: 70,
+        },
+      ]}
+      onPress={handlePress2} 
+      disabled={isButtonDisabled}
+      >
+        <Text style={styles.buttonText}>New Match</Text>
+      </TouchableOpacity>
+
+        
 
       <View
         style={[
@@ -95,6 +128,7 @@ const SaveMatch = ({
         <QRCode 
           value={qrCodeData}
           size={qrCodeSize}
+          getRef={(ref) => (qrCodeRef.current = ref)}
         />
       </View>
     </>
@@ -115,7 +149,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 8,
     width: 200,
-    height: 100,
+    height: 85,
     position: 'absolute',
     backgroundColor: 'oldlace',
     justifyContent: 'center',
