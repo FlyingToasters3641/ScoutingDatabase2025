@@ -475,8 +475,8 @@ const TeleOp = ({
           width: 906,
           height: 508,
           position: 'absolute',
-          backgroundColor: 'black',
-          // backgroundColor: 'blue',
+          // backgroundColor: 'black',
+          backgroundColor: 'midnightblue',
         },
       ]}>
     </View>
@@ -754,7 +754,7 @@ const TeleOp = ({
           onPress={subReefLevel4}
           style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 4{'\n'}{gameMode}{'\n'}{displayReefScore.l4A}|{displayReefScore.l4C}|{displayReefScore.l4E}|{displayReefScore.l4G}|{displayReefScore.l4I}|{displayReefScore.l4K}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 4{'\n'}{displayReefScore.l4A}|{displayReefScore.l4C}|{displayReefScore.l4E}|{displayReefScore.l4G}|{displayReefScore.l4I}|{displayReefScore.l4K}</Text></View>
         <TouchableOpacity 
           onPress={addReefLevel4}
           style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}

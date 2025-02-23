@@ -9,6 +9,18 @@ const Auto = ({
 }) => {
     return (
         <>
+        <View style={[
+            {
+              top: 0,
+              left: 0,
+              width: 906,
+              height: 508,
+              position: 'absolute',
+              // backgroundColor: 'black',
+              backgroundColor: 'olive',
+            },
+          ]}>
+        </View>
         <Text style={styles.contentText}>This is content for Auto.</Text>
         <View
               style={[
