@@ -474,7 +474,7 @@ const Auto = ({
           height: 508,
           position: 'absolute',
           backgroundColor: 'black',
-          // backgroundColor: 'blue',
+          // backgroundColor: 'olive',
         },
       ]}>
     </View>
@@ -921,7 +921,6 @@ const Auto = ({
         </View>
       </View>
   </>
-
     );
 }
 

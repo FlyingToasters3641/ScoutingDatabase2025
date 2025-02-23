@@ -475,8 +475,8 @@ const TeleOp = ({
           width: 906,
           height: 508,
           position: 'absolute',
-          backgroundColor: 'black',
-          // backgroundColor: 'blue',
+          // backgroundColor: 'black',
+          backgroundColor: 'midnightblue',
         },
       ]}>
     </View>

@@ -160,14 +160,14 @@ export default function App() {
           activeOpacity={0.5}
             key="Auto"
             onPress={() => {setContent(<Auto gameData={gameData} setGameData={setGameData} />); setSelectedContent('Auto');}}
-            style={[styles.button, selectedContent === 'Auto' && styles.selectedContent]}>
+            style={[styles.button, selectedContent === 'Auto' && styles.selectedContentAuto]}>
             <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Auto</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
             key="TeleOp"
             onPress={() => {setContent(<TeleOp gameData={gameData} setGameData={setGameData} />); setSelectedContent('TeleOp');}}
-            style={[styles.button, selectedContent === 'TeleOp' && styles.selectedContent]}>
+            style={[styles.button, selectedContent === 'TeleOp' && styles.selectedContentTeleop]}>
             <Text style={[styles.buttonLabel, selectedContent === 'TeleOp' && styles.selectedLabel]}>TeleOp</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -264,6 +264,16 @@ const styles = StyleSheet.create({
   selectedContent: {
     backgroundColor: 'blue',
     borderRadius: 6,
+  },
+  selectedContentAuto: {
+    backgroundColor: 'olive',
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6,
+  },
+  selectedContentTeleop: {
+    backgroundColor: 'midnightblue',
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6,
   },
   selectedLabel: {
     color: 'white',
