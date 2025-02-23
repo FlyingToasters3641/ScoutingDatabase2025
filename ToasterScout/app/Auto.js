@@ -473,8 +473,8 @@ const Auto = ({
           width: 906,
           height: 508,
           position: 'absolute',
-          backgroundColor: 'black',
-          // backgroundColor: 'olive',
+          // backgroundColor: 'black',
+          backgroundColor: 'olive',
         },
       ]}>
     </View>
