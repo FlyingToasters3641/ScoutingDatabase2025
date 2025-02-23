@@ -129,7 +129,6 @@ export default function App() {
           <Ionicons name="eye" size={26} color="white" />
           <Text style={[styles.title, {paddingRight: 20}]}> TFT Scouter</Text>
           <Text style={[styles.title, appData.allianceLocation[0] === 'B' ? styles.teamBlue : styles.teamRed]}>{appData.allianceLocation}</Text>
-          <Text style={[styles.title]}>{gameData.name}</Text>
           </View>
         <View style={{flex: 4, flexDirection: 'row-reverse', alignItems: 'center',}}>
           <TouchableOpacity
