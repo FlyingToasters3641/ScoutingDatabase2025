@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Text, StyleSheet, View, Image, Pressable, Modal, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, StyleSheet, View, Image, Pressable, Modal, TextInput, Alert } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
 import Entypo from '@expo/vector-icons/Entypo';
 
@@ -14,10 +14,10 @@ const PreMatch = ({
 }) => {
 
   // *** Process Robot Placement changes ***
-  const [displayRobotPlacement, setdisplayRobotPlacement] = useState('none');
-  const [placementTopToggled, setPlacementTopToggled] = useState(false);
-  const [placementMidToggled, setPlacementMidToggled] = useState(false);
-  const [placementBtmToggled, setPlacementBtmToggled] = useState(false);
+  const [displayRobotPlacement, setdisplayRobotPlacement] = useState(gameData.sl); // Starting Location 0=None, 1=Top, 2=Center, 3=Bottom
+  let botLocationEnum = [];
+  const botLocationViewSbEnum = ['None', 'Left', 'Center', 'Right']; // Scoring Blue, Spectator Red
+  const botLocationViewSrEnum = ['None', 'Right', 'Center', 'Left']; // Scoring Red, Spectator Blue
 
   // *** Field Orientation images ***
   const BlueScoringTable = require('@/assets/images/blue-scoring.png');
@@ -32,18 +32,22 @@ const PreMatch = ({
   if (appData.allianceLocation[0] == 'B' && appData.fieldOrientation == "Spectator") {
     imageDisplay = BlueSpectator; 
     botLocation = styles.blueSpectator;
+    botLocationEnum = [...botLocationViewSrEnum]; // Spectator Blue using Scoring Red, Spectator Blue
   }
   else if (appData.allianceLocation[0] == 'R' && appData.fieldOrientation == "Spectator") {
     imageDisplay = RedSpectator;
     botLocation = styles.redSpectator;
+    botLocationEnum = [...botLocationViewSbEnum]; // Spectator Red using Scoring Blue, Spectator Red
   }
   else if (appData.allianceLocation[0] == 'B' && appData.fieldOrientation == "Scoring") {
     imageDisplay = BlueScoringTable;
     botLocation = styles.blueScoring;
+    botLocationEnum = [...botLocationViewSbEnum]; 
   }
   else if (appData.allianceLocation[0] == 'R' && appData.fieldOrientation == "Scoring"){
     imageDisplay = RedScoringTable
     botLocation = styles.redScoring;
+    botLocationEnum = [...botLocationViewSrEnum]; // 
   }
 
 
@@ -65,6 +69,11 @@ const PreMatch = ({
     setModalVisible(!modalVisible);
   }
 
+  // *** Update gameData when Robot Placement has changed ***
+  useEffect(() => {
+      setGameData(prevGameData => ({...prevGameData, sl: displayRobotPlacement}));
+  }, [displayRobotPlacement]);
+
   return (
   <>
     <View
@@ -82,33 +91,33 @@ const PreMatch = ({
     />
     {/* <Text style={styles.contentText}>906px {"\n"}x {"\n"}508px</Text> */}
     <View style={{padding: 0, flex: 1, flexDirection: 'row'}}>
-      <View style={{ flex: 1, marginLeft: 10, }}>
+      <View style={{marginLeft: 10, }}>
         <Text style={[styles.contentText,]}>1. Select the starting location of the Robot below:</Text>
         <Image source={imageDisplay}
                 style={{ width: 480, height: 400,}}/>
         <View style={[{position: 'absolute', height:355, justifyContent: 'space-between',}, botLocation]}>
           <Pressable 
             key = "Top"
-            onPress={() => {console.log('Top'); setdisplayRobotPlacement('top');}}
-            style={[styles.box, { justifyContent: 'center', alignItems:'center'}, displayRobotPlacement === 'top' && styles.placementActive,]}>
-            <Text style={[styles.contentText,]}>{displayRobotPlacement === 'top' ? <Ionicons name="checkmark-circle-outline" size={32} color="white" /> : <Entypo name="circle" size={24} color="white" />}</Text>
+            onPress={() => {console.log('Top'); setdisplayRobotPlacement(1);}}
+            style={[styles.box, { justifyContent: 'center', alignItems:'center'}, displayRobotPlacement === 1 && styles.placementActive,]}>
+            <Text style={[styles.contentText,]}>{displayRobotPlacement === 1 ? <Ionicons name="checkmark-circle-outline" size={32} color="white" /> : <Entypo name="circle" size={24} color="white" />}</Text>
           </Pressable>
           <Pressable 
             key = "Mid"
-            onPress={() => {console.log('Middle'); setdisplayRobotPlacement('mid');}}
-            style={[styles.box, { justifyContent: 'center', alignItems:'center'}, displayRobotPlacement === 'mid' && styles.placementActive,]}>
-            <Text style={[styles.contentText,]}>{displayRobotPlacement === 'mid' ? <Ionicons name="checkmark-circle-outline" size={32} color="white" /> : <Entypo name="circle" size={24} color="white" />}</Text>
+            onPress={() => {console.log('Middle'); setdisplayRobotPlacement(2);}}
+            style={[styles.box, { justifyContent: 'center', alignItems:'center'}, displayRobotPlacement === 2 && styles.placementActive,]}>
+            <Text style={[styles.contentText,]}>{displayRobotPlacement === 2 ? <Ionicons name="checkmark-circle-outline" size={32} color="white" /> : <Entypo name="circle" size={24} color="white" />}</Text>
           </Pressable>
           <Pressable 
             key = "Btm"
-            onPress={() => {console.log('Bottom'); setdisplayRobotPlacement('btm');}}
-            style={[styles.box, { justifyContent: 'center', alignItems:'center'}, displayRobotPlacement === 'btm' && styles.placementActive,]}>
-              <Text style={[styles.contentText,]}>{displayRobotPlacement === 'btm' ? <Ionicons name="checkmark-circle-outline" size={32} color="white" /> : <Entypo name="circle" size={24} color="white" />}</Text>
+            onPress={() => {console.log('Bottom'); setdisplayRobotPlacement(3);}}
+            style={[styles.box, { justifyContent: 'center', alignItems:'center'}, displayRobotPlacement === 3 && styles.placementActive,]}>
+              <Text style={[styles.contentText,]}>{displayRobotPlacement === 3 ? <Ionicons name="checkmark-circle-outline" size={32} color="white" /> : <Entypo name="circle" size={24} color="white" />}</Text>
           </Pressable>
         </View>
       </View>
 
-      <View style={{ flex: 1, marginLeft: 10, }}>
+      <View style={{marginLeft: 30, }}>
         <View style={{ flex: 3, }}>
           {/* <Text style={styles.contentText}>906px x 508px</Text> */}
           <Text style={[styles.contentText,]}>2. Verify the following are correct:</Text>
@@ -124,6 +133,7 @@ const PreMatch = ({
             Scout Name: {displayScoutName}{'\n'}
             Match: {appData.currentMatch}{'\n'}
             Team: {appData.currentTeam}{'\n'}
+            Robot Start: {botLocationEnum[displayRobotPlacement]}{'\n'}
           </Text>
         </View>
         <View style={{ flex: 2, }}>

@@ -2,7 +2,7 @@ const defaultGameData = {
     // *** Version ***
     v: '2025.1.0', // Version Number
     // *** Pre Match ***
-    sl: 0, // Starting Location 1=Top, 2=Middle, 3=Bottom
+    sl: 0, // Starting Location 0=None, 1=Top, 2=Center, 3=Bottom
 
     // *** Autonomous ***
     acm: 0, // Auto Coral Missed
