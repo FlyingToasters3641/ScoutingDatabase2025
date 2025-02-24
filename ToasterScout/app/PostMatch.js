@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, View, Image, Pressable } from 'react-native';
 
 
@@ -8,7 +8,7 @@ const PostMatch = ({
 }) => {
 
 // Climb
-const [displayClimbSelect, setDisplayClimbSelect] = useState('');
+const [displayClimbSelect, setDisplayClimbSelect] = useState(gameData.bzl); // Barge Zone Location
 
 // information
 const [info1Toggled, setInfo1Toggled] = useState(false);
@@ -28,116 +28,127 @@ const infoToggled3 = () => {
   setInfo3Toggled(!info3Toggled);
 };
 
+// *** Update gameData when Post Match data has changed ***
+  useEffect(() => {
+      setGameData(prevGameData => ({...prevGameData, bzl: displayClimbSelect}));
+      var tempGameData = `${info1Toggled},${info2Toggled},${info3Toggled}`;
+        setGameData(prevGameData => ({...prevGameData, snp: tempGameData}));
+  }, [displayClimbSelect, info1Toggled, info2Toggled, info3Toggled]);
 
 
-    return (
-      <>
-        <View
-          style={[
-            {
-              top: 0,
-              left: 0,
-              width: 906,
-              height: 508,
-              position: 'absolute',
-              backgroundColor: 'black',
-            },
-          ]}
-        />
-        <View>
-          <Image
-            source={require('@/assets/images/Cage.png')} 
-            style={{ left: 100, width: 268.4, height: 429 }} 
-          />
-          <Pressable
-            onPress={() => {displayClimbSelect === 'H' ? setDisplayClimbSelect('') : setDisplayClimbSelect('H');}}
-            style={[styles.button,
-              {
-                left: 57,
-                top: 110,
-              },
-              displayClimbSelect === 'H' && styles.selected,
-            ]}
-          >
-            <Text style={styles.contentText}>High Climb</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {displayClimbSelect === 'L' ? setDisplayClimbSelect('') : setDisplayClimbSelect('L');}}
-            style={[styles.button,
-              {
-                left: 255,
-                top: 302,
-              },
-              displayClimbSelect === 'L' && styles.selected,
-            ]}
-          >
-            <Text style={styles.contentText}>Low Climb</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {displayClimbSelect === 'P' ? setDisplayClimbSelect('') : setDisplayClimbSelect('P');}}
-            style={[styles.button,
-              {
-                left: 75,
-                top: 433,
-              },
-              displayClimbSelect === 'P' && styles.selected,
-            ]}
-          >
-            <Text style={styles.contentText}>Park</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {displayClimbSelect === 'N' ? setDisplayClimbSelect('') : setDisplayClimbSelect('N');}}
-            style={[styles.button,
-              {
-                left: 250,
-                top: 433,
-              },
-              displayClimbSelect === 'N' && styles.selected,
-            ]}
-          >
-            <Text style={styles.contentText}>No Attempt</Text>
-          </Pressable>
-        </View>
 
-        {/* Statements */}
-        <View style={[
-          styles.border,
-            {
+  return (
+    <>
+      <View
+        style={[
+          {
             top: 0,
-            left: 465,
+            left: 0,
+            width: 906,
+            height: 508,
             position: 'absolute',
-            width: 420,
-            }
-          ]}>
-            <Pressable 
-              style={[styles.buttonAuto, info1Toggled && styles.selected,]} 
-              onPress={infoToggled1}>
-              <Text style={styles.contentText}>
-                Preformed Defense
-              </Text>
-            </Pressable>
-            <Pressable
-              style={[styles.buttonAuto, info2Toggled && styles.selected,]} 
-              onPress={infoToggled2}>
-              <Text style={styles.contentText}>
-                Stopped Mid-Match
-              </Text>
-            </Pressable>
-            <Pressable
-              style={[styles.buttonAuto, info3Toggled && styles.selected,]} 
-              onPress={infoToggled3}>
-              <Text style={styles.contentText}>
-                No Auto
-              </Text>
-            </Pressable>
-        </View>
-      </>
-    );
+            backgroundColor: 'black',
+          },
+        ]}
+      />
+      <View>
+        <Image
+          source={require('@/assets/images/Cage.png')} 
+          style={{ left: 100, width: 268.4, height: 429 }} 
+        />
+        <Pressable
+          onPress={() => {displayClimbSelect === 'H' ? setDisplayClimbSelect('') : setDisplayClimbSelect('H');}}
+          style={[styles.button,
+            {
+              left: 57,
+              top: 110,
+            },
+            displayClimbSelect === 'H' && styles.selected,
+          ]}
+        >
+          <Text style={styles.contentText}>High Climb</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {displayClimbSelect === 'L' ? setDisplayClimbSelect('') : setDisplayClimbSelect('L');}}
+          style={[styles.button,
+            {
+              left: 255,
+              top: 302,
+            },
+            displayClimbSelect === 'L' && styles.selected,
+          ]}
+        >
+          <Text style={styles.contentText}>Low Climb</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {displayClimbSelect === 'P' ? setDisplayClimbSelect('') : setDisplayClimbSelect('P');}}
+          style={[styles.button,
+            {
+              left: 75,
+              top: 433,
+            },
+            displayClimbSelect === 'P' && styles.selected,
+          ]}
+        >
+          <Text style={styles.contentText}>Park</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {displayClimbSelect === 'N' ? setDisplayClimbSelect('') : setDisplayClimbSelect('N');}}
+          style={[styles.button,
+            {
+              left: 250,
+              top: 433,
+            },
+            displayClimbSelect === 'N' && styles.selected,
+          ]}
+        >
+          <Text style={styles.contentText}>No Attempt</Text>
+        </Pressable>
+      </View>
+
+      {/* Statements */}
+      <View style={[
+        styles.border,
+          {
+          top: 0,
+          left: 465,
+          position: 'absolute',
+          width: 420,
+          }
+        ]}>
+        <Pressable 
+          style={[styles.buttonAuto, info1Toggled && styles.selected,]} 
+          onPress={infoToggled1}>
+          <Text style={styles.contentText}>
+            Preformed Defense
+          </Text>
+        </Pressable>
+        <Pressable
+          style={[styles.buttonAuto, info2Toggled && styles.selected,]} 
+          onPress={infoToggled2}>
+          <Text style={styles.contentText}>
+            Stopped Mid-Match
+          </Text>
+        </Pressable>
+        <Pressable
+          style={[styles.buttonAuto, info3Toggled && styles.selected,]} 
+          onPress={infoToggled3}>
+          <Text style={styles.contentText}>
+            No Auto
+          </Text>
+        </Pressable>
+      </View>
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
   contentText: {
     fontSize: 22,
+  },
+  contentTextInfo: {
+    fontSize: 18,
+    color: 'white',
   },
   button: {
     paddingHorizontal: 8,
