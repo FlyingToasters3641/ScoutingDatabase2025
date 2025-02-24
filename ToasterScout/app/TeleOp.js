@@ -742,7 +742,7 @@ const TeleOp = ({
     <View style={[
       styles.border,
         {
-        top: 0,
+        top: 5,
         left: 482,
         position: 'absolute',
         }
@@ -844,7 +844,7 @@ const TeleOp = ({
       <View style={[
       styles.border,
         {
-        top: 0,
+        top: 5,
         left: 675,
         position: 'absolute',
         alignItems: 'center',
@@ -1009,7 +1009,7 @@ const styles = StyleSheet.create({
   },
   border: {
     borderWidth: 2,
-    borderColor: 'gray', // Change color to your desired border color
+    borderColor: 'white', // Change color to your desired border color
     borderRadius: 8,
     padding: 10,
   }

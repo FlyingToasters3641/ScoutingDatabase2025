@@ -740,7 +740,7 @@ const Auto = ({
     <View style={[
       styles.border,
         {
-        top: 0,
+        top: 5,
         left: 482,
         position: 'absolute',
         }
@@ -842,7 +842,7 @@ const Auto = ({
       <View style={[
       styles.border,
         {
-        top: 0,
+        top: 5,
         left: 675,
         position: 'absolute',
         alignItems: 'center',
@@ -901,7 +901,7 @@ const Auto = ({
         ]}>
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralStation}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Coral Station Pick-Up{'\n'}{displayCoralStation}</Text></View>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Station Coral Pick-Up{'\n'}{displayCoralStation}</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralStation}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
       </View>
@@ -1006,7 +1006,7 @@ const styles = StyleSheet.create({
   },
   border: {
     borderWidth: 2,
-    borderColor: 'gray', // Change color to your desired border color
+    borderColor: 'white', // Change color to your desired border color
     borderRadius: 8,
     padding: 10,
   }

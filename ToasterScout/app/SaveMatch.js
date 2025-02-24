@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Text, StyleSheet, View, TouchableOpacity, Alert } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import RNFS from 'react-native-fs';
+import defaultGameData from "@/app/gameData2025"
 
 const SaveMatch = ({
   appData,
@@ -28,6 +29,7 @@ const SaveMatch = ({
     setPressed(true);
     setIsButtonDisabled(true);
     setJsonData({});
+    setGameData(defaultGameData)
     setQrCodeSize(0);
   };
 
@@ -130,6 +132,7 @@ const SaveMatch = ({
           size={qrCodeSize}
           getRef={(ref) => (qrCodeRef.current = ref)}
         />
+        <Text style={styles.contentTextInfo}>{JSON.stringify(gameData)}</Text>
       </View>
     </>
   );
@@ -138,6 +141,10 @@ const SaveMatch = ({
 const styles = StyleSheet.create({
   contentText: {
     fontSize: 22,
+  },
+  contentTextInfo: {
+    fontSize: 18,
+    color: 'white',
   },
   buttonText: {
     fontSize: 20,

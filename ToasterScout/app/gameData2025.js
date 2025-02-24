@@ -45,7 +45,7 @@ const defaultGameData = {
     talA:0, talC:0, talE:0, talG:0, talI:0, talK:0,
 
     // *** Post Match ***
-    bzl: 0, // Barge Zone Location (1=No Attempt, 2=Parked, 3=High Climbed, 4=Low Climbed)
+    bzl: 'U', // Barge Zone Location (U=None, N=No Attempt, P=Parked, H=High Climbed, L=Low Climbed)
     snp: '', // Scouter Notes Picklist - note: list of picklist items
     sno: '', // Scouter Notes Other - note: base64 encoded string
   };
