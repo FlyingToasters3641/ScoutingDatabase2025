@@ -669,7 +669,7 @@ const TeleOp = ({
           },
         ]}
         activeOpacity={0.5} onPress={algaeAToggledButton}>
-        <Entypo name="circle" size={24} color="black" />
+        {algaeAToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
       </TouchableOpacity>
 
         {/* Location Algae B */}
@@ -682,7 +682,7 @@ const TeleOp = ({
           },
         ]}
         activeOpacity={0.5} onPress={algaeBToggledButton}>
-        <Entypo name="circle" size={24} color="black" />
+        {algaeBToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
       </TouchableOpacity>
       
         {/* Location Algae C */}
@@ -695,7 +695,7 @@ const TeleOp = ({
           },
         ]}
         activeOpacity={0.5} onPress={algaeCToggledButton}>
-        <Entypo name="circle" size={24} color="black" />
+        {algaeCToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
       </TouchableOpacity>
 
         {/* Location Algae D */}
@@ -708,7 +708,7 @@ const TeleOp = ({
           },
         ]}
         activeOpacity={0.5} onPress={algaeDToggledButton}>
-        <Entypo name="circle" size={24} color="black" />
+        {algaeDToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
       </TouchableOpacity>
 
         {/* Location Algae E */}
@@ -721,7 +721,7 @@ const TeleOp = ({
           },
         ]}
         activeOpacity={0.5} onPress={algaeEToggledButton}>
-        <Entypo name="circle" size={24} color="black" />
+        {algaeEToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
       </TouchableOpacity>
 
         {/* Location Algae F */}
@@ -734,7 +734,7 @@ const TeleOp = ({
           },
         ]}
         activeOpacity={0.5} onPress={algaeFToggledButton}>
-        <Entypo name="circle" size={24} color="black" />
+        {algaeFToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
       </TouchableOpacity>
     </View>
 
