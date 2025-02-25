@@ -30,6 +30,9 @@ const TeleOp = ({
     l4A:0, l4C:0, l4E:0, l4G:0, l4I:0, l4K:0
   });
 
+  // Coral Missed 
+  const [displayCoralMissed, setDisplayCoralMissed] = useState(0);
+
   // Algae Toggles
   const [algaeAToggled, setAlgaeAToggled] = useState(false);
   const [algaeBToggled, setAlgaeBToggled] = useState(false);
@@ -432,7 +435,15 @@ const TeleOp = ({
       setDisplayProcessorMissed(displayProcessorMissed - 1);
     } 
   };
-  
+  // Coral Missed
+  const addCoralMissed = () => {
+    setDisplayCoralMissed(displayCoralMissed + 1);
+  };
+  const subCoralMissed = () => {
+    if (displayCoralMissed > 0) {
+      setDisplayCoralMissed(displayCoralMissed - 1)
+    }
+  };
   // Intaking
   
   // Ground Coral Intake
@@ -803,28 +814,6 @@ const TeleOp = ({
     
 
       {/* Coral Missed */}
-      {/* <TouchableOpacity
-        style={[
-          {
-            top: 180,
-            left: 185,
-            paddingHorizontal: 16,
-            paddingVertical: 12,
-            borderRadius: 8,
-            marginTop: 8,
-            marginBottom: 8,
-            width: 100,
-            height: 100,
-            position: 'absolute',
-            backgroundColor: 'oldlace',
-            justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'center',
-          },
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle-with-cross" size={30} color="black" /><Text style={styles.bigButtonText}>Coral{'\n'} Missed</Text>
-      </TouchableOpacity> */}
       <View style={[
         {
           top: 198,
@@ -833,9 +822,9 @@ const TeleOp = ({
         }
         ]}>
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
-          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Coral Missed</Text></View>
-          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralMissed}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Coral Missed{'\n'}{displayCoralMissed}</Text></View>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralMissed}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
       </View>
   
