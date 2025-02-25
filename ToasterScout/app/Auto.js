@@ -29,6 +29,9 @@ const Auto = ({
       l3A:0, l3C:0, l3E:0, l3G:0, l3I:0, l3K:0,
       l4A:0, l4C:0, l4E:0, l4G:0, l4I:0, l4K:0
     });
+
+    // Coral Missed 
+      const [displayCoralMissed, setDisplayCoralMissed] = useState(0);
   
     // Algae Toggles
     const [algaeAToggled, setAlgaeAToggled] = useState(false);
@@ -432,6 +435,16 @@ const Auto = ({
         setDisplayProcessorMissed(displayProcessorMissed - 1);
       } 
     };
+
+    // Coral Missed
+  const addCoralMissed = () => {
+    setDisplayCoralMissed(displayCoralMissed + 1);
+  };
+  const subCoralMissed = () => {
+    if (displayCoralMissed > 0) {
+      setDisplayCoralMissed(displayCoralMissed - 1)
+    }
+  };
     
     // Intaking
     
@@ -831,9 +844,9 @@ const Auto = ({
         }
         ]}>
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
-          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Coral Missed</Text></View>
-          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralMissed}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Coral Missed{'\n'}{displayCoralMissed}</Text></View>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralMissed}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
       </View>
   
