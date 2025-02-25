@@ -11,9 +11,10 @@ const PostMatch = ({
 const [displayClimbSelect, setDisplayClimbSelect] = useState(gameData.bzl); // Barge Zone Location
 
 // information
-const [info1Toggled, setInfo1Toggled] = useState(false);
-const [info2Toggled, setInfo2Toggled] = useState(false);
-const [info3Toggled, setInfo3Toggled] = useState(false);
+let tempinfo= gameData.snp.split(',');
+const [info1Toggled, setInfo1Toggled] = useState(tempinfo[0] === 'true');
+const [info2Toggled, setInfo2Toggled] = useState(tempinfo[1] === 'true');
+const [info3Toggled, setInfo3Toggled] = useState(tempinfo[2] === 'true');
 
 const infoToggled1 = () => {
   setInfo1Toggled(!info1Toggled);
