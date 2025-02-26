@@ -165,8 +165,28 @@ const AppSettings = ({
             </Pressable>
             <Pressable 
               key='DeleteMatchData'
-              onPress={() => {console.log(`Delete Match Data`);
-                setMatchData(defaultMatchData); 
+                // script.js
+                document.addEventListener('DOMContentLoaded', function() {
+                  var modal = document.getElementById("myModal");
+                  var openModalBtn = document.getElementById("openModalBtn");
+                  var closeBtn = document.getElementsByClassName("closeBtn")[0];
+
+                  openModalBtn.onPress = function() {
+                    modal.style.display = "block"
+                  }
+
+                  closeBtn.onPress = function() {
+                    modal.style.display = "none"
+                  }
+
+                  window.onPress = function(event) {
+                    if (event.target == modal) {
+                      modal.style.display = "none"
+                    }
+                  }
+                });
+                //onPress={() => {console.log(`Delete Match Data`);
+                //setMatchData(defaultMatchData); 
               }}
               style={[styles.button,  ]}>
               <Text style={[styles.buttonLabel, ]}>Delete All Match Data</Text>
