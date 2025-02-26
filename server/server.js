@@ -2,6 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { Sequelize, Model, DataTypes } = require('sequelize');
+const sequelize = require('./database');
+
+const { getMatchDataModelByYear } = require('./models/getMatchDataModelByYear');
 
 const app = express();
 const port = 3001;
@@ -10,11 +13,11 @@ const port = 3001;
 //app.use(cors(corsOptions));
 app.use(cors());
 
-// Create Sequelize instance
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: './database.sqlite'
-  });
+// // Create Sequelize instance
+// const sequelize = new Sequelize({
+//     dialect: 'sqlite',
+//     storage: './database.sqlite'
+//   });
 
 // ######################################################################
 // Database models Definitions
@@ -24,14 +27,6 @@ const sequelize = new Sequelize({
 // | |_| | (_| | || (_| | |_) | (_| \__ \  __/ | |  | | (_) | (_| |  __/ \__ \
 // |____/ \__,_|\__\__,_|_.__/ \__,_|___/\___| |_|  |_|\___/ \__,_|\___|_|___/
                                                                           
-// // Define User model
-// class User extends Model {}
-// User.init({
-//   name: DataTypes.STRING,
-//   email: DataTypes.STRING,
-//   password: DataTypes.STRING
-// }, { sequelize, modelName: 'user' });
-
 // Define FRCEvents model
 class FRCEvents extends Model {}
 FRCEvents.init({
@@ -75,18 +70,9 @@ Match.init({
   event_id: DataTypes.INTEGER
 }, { sequelize, modelName: 'matches' });
 
-// Define match model
-class MatchData extends Model {}
-MatchData.init({
-  scouterName: DataTypes.STRING,
-  matchNumber: DataTypes.INTEGER,
-  teamNumber: DataTypes.INTEGER,
-  eventKey: DataTypes.STRING,
-  matchKey: DataTypes.STRING,
-  event_id: DataTypes.INTEGER,
-  position: DataTypes.STRING,
-  uniqueId: DataTypes.STRING
-}, { sequelize, modelName: 'matchdata' });
+// // Define MatchData model 
+/* ********** moved to models folder ********** */
+
 
 // ######################################################################
 
@@ -107,50 +93,6 @@ app.get('/', (req, res) => {
   });
 // ######################################################################
 
-// ######################################################################
-// CRUD routes for User model
-//  _   _                    _    ____ ___     
-// | | | |___  ___ _ __     / \  |  _ \_ _|___ 
-// | | | / __|/ _ \ '__|   / _ \ | |_) | |/ __|
-// | |_| \__ \  __/ |     / ___ \|  __/| |\__ \
-//  \___/|___/\___|_|    /_/   \_\_|  |___|___/
-
-// app.get('/api/v1/users', async (req, res) => {
-//     const users = await User.findAll();
-//     res.json(users);
-//   });
-
-// app.get('/api/v1/users/:id', async (req, res) => {
-//     const user = await User.findByPk(req.params.id);
-//     res.json(user);
-//   });
-  
-// app.post('/api/v1/users', async (req, res) => {
-//     const user = await User.create(req.body);
-//     res.json(user);
-//   });
-  
-// app.put('/api/v1/users/:id', async (req, res) => {
-//     const user = await User.findByPk(req.params.id);
-//     if (user) {
-//       await user.update(req.body);
-//       res.json(user);
-//     } else {
-//       res.status(404).json({ message: 'User not found' });
-//     }
-//   });
-  
-// app.delete('/api/v1/users/:id', async (req, res) => {
-//     const user = await User.findByPk(req.params.id);
-//     if (user) {
-//       await user.destroy();
-//       res.json({ message: 'User deleted' });
-//     } else {
-//       res.status(404).json({ message: 'User not found' });
-//     }
-//   });
-
-// ######################################################################
 
 // ######################################################################
 // CRUD routes for FRCEvent model
@@ -324,55 +266,85 @@ if (match) {
 // | |  | | (_| | || (__| | | | |_| | (_| | || (_| |   / ___ \|  __/| |\__ \
 // |_|  |_|\__,_|\__\___|_| |_|____/ \__,_|\__\__,_|  /_/   \_\_|  |___|___/
 
-app.get('/api/v1/matchData', async (req, res) => {
-  const matchdata = await MatchData.findAll();
-  res.json(matchdata);
+app.get('/api/v1/matchData/:year', async (req, res) => {
+  try {
+    const MatchData = getMatchDataModelByYear(req.params.year);
+    const matchdata = await MatchData.findAll();
+    res.json(matchdata);
+  } catch (error) {
+    res.status(404).json({ message: 'MatchData not found', message: error.message });
+  }
 });
 
-app.get('/api/v1/matchData/:id', async (req, res) => {
-const matchdata = await MatchData.findByPk(req.params.id);
-res.json(matchdata);
+app.get('/api/v1/matchData/:year/:id', async (req, res) => {
+  try {
+    const MatchData = getMatchDataModelByYear(req.params.year);
+    const matchdata = await MatchData.findByPk(req.params.id);
+    res.json(matchdata);
+  } catch (error) {
+    res.status(400).json({ message: 'MatchData not found', message: error.message });
+  }
 });
 
-app.get('/api/v1/matchData/uniqueid/:id', async (req, res) => {
-  const matchdata = await MatchData.findAll({
-    where: {
-      uniqueId: req.params.id,
-    },
-  });
-  res.json(matchdata);
+app.get('/api/v1/matchData/:year/uniqueid/:id', async (req, res) => {
+  try {
+    const MatchData = getMatchDataModelByYear(req.params.year);
+    const matchdata = await MatchData.findAll({
+      where: {
+        uniqueId: req.params.id,
+      },
+    });
+    res.json(matchdata);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
 
-app.get('/api/v1/matchData/matchkey/:id', async (req, res) => {
-  const matchdata = await MatchData.findAll({
-    where: {
-      matchKey: req.params.id,
-    },
-    order: [
-      ['position', 'ASC'],
-    ],
-  });
-  res.json(matchdata);
+app.get('/api/v1/matchData/:year/matchkey/:id', async (req, res) => {
+  try {
+    const MatchData = getMatchDataModelByYear(req.params.year);
+    const matchdata = await MatchData.findAll({
+      where: {
+        matchKey: req.params.id,
+      },
+      order: [
+        ['position', 'ASC'],
+      ],
+    });
+    res.json(matchdata);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
 
-app.post('/api/v1/matchData', async (req, res) => {
-  const matchdata = await MatchData.create(req.body);
-  res.json(matchdata);
+app.post('/api/v1/matchData/:year', async (req, res) => {
+  try {
+    const MatchData = getMatchDataModelByYear(req.params.year);
+    const matchdata = await MatchData.create(req.body);
+    res.json(matchdata);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
 
-app.delete('/api/v1/matchData/:id', async (req, res) => {
-const matchdata = await matchdata.findByPk(req.params.id);
-if (matchdata) {
-  await matchdata.destroy();
-  res.json({ message: 'MatchData deleted' });
-} else {
-  res.status(404).json({ message: 'MatchData not found' });
-}
+app.delete('/api/v1/matchData/:year/:id', async (req, res) => {
+  try {
+    const MatchData = getMatchDataModelByYear(req.params.year);
+    const matchdata = await MatchData.findByPk(req.params.id);
+    if (matchdata) {
+      await matchdata.destroy();
+      res.json({ message: 'MatchData deleted' });
+    } else {
+      res.status(404).json({ message: 'MatchData not found' });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
-
 // ######################################################################
 
-// Start server
+
+/* *** Start server *** */
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });

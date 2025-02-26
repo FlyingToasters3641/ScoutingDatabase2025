@@ -7,33 +7,33 @@ GET http://localhost:3001/
 ###
 
 // List all the matchData currently in the database
-GET http://localhost:3001/api/v1/matchData
+GET http://localhost:3001/api/v1/matchData/2024
 
 ###
 
 // List uniqueid in matchData currently in the database
-GET http://localhost:3001/api/v1/matchData/uniqueid/50c0056e143043b839605250bc6686b8624ea177
+GET http://localhost:3001/api/v1/matchData/2024/uniqueid/50c0056e143043b839605250bc6686b8624ea177
 
 ###
 
 // List match number in matchData currently in the database
-GET http://localhost:3001/api/v1/matchData/matchkey/"2024iawesdd_qm1"
+GET http://localhost:3001/api/v1/matchData/2024/matchkey/2024iawesdd_qm1
 
 ###
 
 // List matchData by ID 
-GET http://localhost:3001/api/v1/matchData/1
+GET http://localhost:3001/api/v1/matchData/2024/1
 
 ###
 
 // Adds a matchData to the database
-POST http://localhost:3001/api/v1/matchData
+POST http://localhost:3001/api/v1/matchData/2024
 content-type: application/json
 
 {
     "scouterName": "Jane Doe",
-    "matchNumber": "42",
-    "teamNumber": "3641",
+    "matchNumber": 42,
+    "teamNumber": 3641,
     "eventKey": "2024iawesdd",
     "matchKey": "2024iawesdd_qm42",
     "event_id": 1,
@@ -44,6 +44,6 @@ content-type: application/json
 ###
 
 // Adds a matchData to the database
-DELETE http://localhost:3001/api/v1/matchData/2
+DELETE http://localhost:3001/api/v1/matchData/2024/4
 
 

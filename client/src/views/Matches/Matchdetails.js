@@ -28,7 +28,7 @@ const Matchdetails = () => {
 
 
     useEffect(() => {
-        axios.get(`${APP_DATABASE_URL}/matchData/matchkey/${match.matchKey}`)
+        axios.get(`${APP_DATABASE_URL}/matchData/2024/matchkey/${match.matchKey}`)
         .then(response => setMatchdata(response.data))
         .catch(error => console.error('Error fetching data:', error));
         }, [match]);
