@@ -12,7 +12,7 @@ const defaultGameData = {
     apm: 0, // Auto Processor Missed
     acgp: 0, // Auto Coral Ground Pickup
     acsp: 0, // Auto Coral Station Pickup
-    aap: 0, // Auto Alge Pick
+    aap: 0, // Auto Algae Pickup
     // Auto Reef positions Coral
     //  al1A = (a)uto - (l)evel (1) - Reef Location (A)
     al1A:0, al1C:0, al1E:0, al1G:0, al1I:0, al1K:0,
@@ -20,7 +20,7 @@ const defaultGameData = {
     al3A:0, al3C:0, al3E:0, al3G:0, al3I:0, al3K:0,
     al4A:0, al4C:0, al4E:0, al4G:0, al4I:0, al4K:0,
     acm: 0, // Auto Coral Missed
-    //Auto Reef positions Alge
+    //Auto Reef positions Algae
     // aalA = (a)uto - (a)lge - Reef Location (A)
     aalA:0, aalC:0, aa1E:0, aa1G:0, aa1I:0, aa1K:0,
 
@@ -32,7 +32,7 @@ const defaultGameData = {
     tpm: 0, // Teleop Processor Missed
     tcgp: 0, // Teleop Coral Ground Pickup
     tcsp: 0, // Teleop Coral Station Pickup
-    tap: 0, // Teleop Alge Pickup
+    tap: 0, // Teleop Algae Pickup
     // Teleop Reef positions Coral
     //  tl1A = (t)eleOp - (l)evel (1) - Reef Location (A)
     tl1A:0, tl1C:0, tl1E:0, tl1G:0, tl1I:0, tl1K:0,
@@ -40,7 +40,7 @@ const defaultGameData = {
     tl3A:0, tl3C:0, tl3E:0, tl3G:0, tl3I:0, tl3K:0,
     tl4A:0, tl4C:0, tl4E:0, tl4G:0, tl4I:0, tl4K:0,
     tcm: 0, // Teleop Coral Missed
-    // Teleop Reef positions Alge
+    // Teleop Reef positions Algae
     // talA = (t)eleOp - (a)lge - Reef Location (A)
     talA:0, talC:0, talE:0, talG:0, talI:0, talK:0,
 

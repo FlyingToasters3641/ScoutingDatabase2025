@@ -92,7 +92,7 @@ const PreMatch = ({
     {/* <Text style={styles.contentText}>906px {"\n"}x {"\n"}508px</Text> */}
     <View style={{padding: 0, flex: 1, flexDirection: 'row'}}>
       <View style={{marginLeft: 10, }}>
-        <Text style={[styles.contentText,]}>1. Select the starting location of the Robot below:</Text>
+        <Text style={[styles.contentText,]}>1. Select the starting position of the robot below:</Text>
         <Image source={imageDisplay}
                 style={{ width: 480, height: 400,}}/>
         <View style={[{position: 'absolute', height:355, justifyContent: 'space-between',}, botLocation]}>
@@ -133,7 +133,7 @@ const PreMatch = ({
             Scout Name: {displayScoutName}{'\n'}
             Match: {appData.currentMatch}{'\n'}
             Team: {appData.currentTeam}{'\n'}
-            Robot Start: {botLocationEnum[displayRobotPlacement]}{'\n'}
+            Auton Position: {botLocationEnum[displayRobotPlacement]}{'\n'}
           </Text>
         </View>
         <View style={{ flex: 2, }}>

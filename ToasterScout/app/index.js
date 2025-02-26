@@ -161,7 +161,7 @@ export default function App() {
             key="Auto"
             onPress={() => {setContent(<Auto gameData={gameData} setGameData={setGameData} />); setSelectedContent('Auto');}}
             style={[styles.button, selectedContent === 'Auto' && styles.selectedContentAuto]}>
-            <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Auto</Text>
+            <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Auton</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
