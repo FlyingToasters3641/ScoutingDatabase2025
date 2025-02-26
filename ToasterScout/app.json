@@ -16,7 +16,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.ToasterScout"
+      "package": "org.theflyingtoasters.scout.toasterscout"
     },
     "web": {
       "bundler": "metro",

@@ -44,7 +44,7 @@ const SaveMatch = ({
 
   const saveQrCodeToFile = () => {
     qrCodeRef.current.toDataURL((dataURL) => {
-      const path = `${RNFS.PicturesDirectoryPath}/match${appData.currentMatch}-team${appData.currentTeam}-qrcode.png`;
+      const path = `${RNFS.PicturesDirectoryPath}/2025-match${appData.currentMatch}-team${appData.currentTeam}.png`;
       RNFS.writeFile(path, dataURL, 'base64')
         .then(() => {
           console.log('QR code saved to', path);
@@ -139,6 +139,7 @@ const SaveMatch = ({
         <QRCode 
           value={qrCodeData}
           size={qrCodeSize}
+          quietZone={10}
           getRef={(ref) => (qrCodeRef.current = ref)}
         />
         <Text style={styles.contentTextInfo}>{'\n\n'}{JSON.stringify(gameData)}</Text>
