@@ -16,7 +16,7 @@ const Dataimport = () => {
     const [scannedState, setScannedState] = useState('Waitting...');
     
     useEffect(() => {
-        axios.get(`${APP_DATABASE_URL}/matchData/uniqueid/${scannedDataSHA1}`)
+        axios.get(`${APP_DATABASE_URL}/matchData/2024/uniqueid/${scannedDataSHA1}`)
         .then(response => {
             console.log("UniqueId Result:"+JSON.stringify(response.data))
             if (response.data.length > 0) {
@@ -24,7 +24,7 @@ const Dataimport = () => {
             }
             else {
                 setScannedState('Not in database');
-                axios.post(`${APP_DATABASE_URL}/matchData`,
+                axios.post(`${APP_DATABASE_URL}/matchData/2024`,
                     {
                         "uniqueId": scannedDataSHA1
                     },
