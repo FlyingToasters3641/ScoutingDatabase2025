@@ -23,6 +23,7 @@ const SaveMatch = ({
 
   const handlePress1 = async() => {
     let defaultQRCodeData = {schemaVar: '1.0.0', dataSHA1:'', data: gameData};
+    defaultQRCodeData={...defaultQRCodeData, data: {...defaultQRCodeData.data, ...appData}}
     let sataSHA1 = await sha1(JSON.stringify(gameData));
     defaultQRCodeData.dataSHA1 = sataSHA1;
     setPressed(true);
