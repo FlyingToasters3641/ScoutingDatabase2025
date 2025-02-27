@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View, ScrollView, Modal, Pressable, TextInput, Alert } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
+import defaultGameData from "@/app/gameData2025";
 
 const MatchSetup = ({
   appData,
   setAppData,
   matchData,
   setMatchData,
+  gameData,
+  setGameData,
 }) => {
 
   const [displayScoutName, setDisplayScoutName] = useState(appData.currentScout);
@@ -210,7 +213,8 @@ const MatchSetup = ({
                 key={value.matchId}
                 onPress={() => {console.log('Match: ' + value.matchNumber +  ` selected`); 
                                 setAppData(prevAppData => ({...prevAppData, currentMatch: value.matchNumber, currentTeam: value.teamNumber}));
-                                setDisplayMatchNumber(value.matchNumber);}}
+                                setDisplayMatchNumber(value.matchNumber);
+                                setGameData(defaultGameData);}}
                 onLongPress={value.matchStatus !== 1 ? () => {
                   setEditingMatch(value);
                   setNewMatchNumber(value.matchNumber.toString());
