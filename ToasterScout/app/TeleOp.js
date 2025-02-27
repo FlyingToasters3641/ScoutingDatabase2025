@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, View, Image, TouchableOpacity, Alert } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
 import Entypo from '@expo/vector-icons/Entypo';
@@ -8,39 +8,108 @@ const TeleOp = ({
   setGameData,
 }) => {
   // Net
-  const [displayNetScored, setDisplayNetScored] = useState(0);
-  const [displayNetMissed, setDisplayNetMissed] = useState(0);
-
-  // Processor
-  const [displayProcessorScored, setDisplayProcessorScored] = useState(0);
-  const [displayProcessorMissed, setDisplayProcessorMissed] = useState(0);
-
-  // Intaking
-  const [displayCoralGround, setDisplayCoralGround] = useState(0);
-  const [displayCoralStation, setDisplayCoralStation] = useState(0);
-  const [displayAlgaeIntake, setDisplayAlgaeIntake] = useState(0);
-
-
-  // Reef Select and scooring
-  const [displayReefSelect, setDisplayReefSelect] = useState('');
-  const [displayReefScore, setDisplayReefScore] = useState({
-    l1A:0, l1C:0, l1E:0, l1G:0, l1I:0, l1K:0,
-    l2A:0, l2C:0, l2E:0, l2G:0, l2I:0, l2K:0,
-    l3A:0, l3C:0, l3E:0, l3G:0, l3I:0, l3K:0,
-    l4A:0, l4C:0, l4E:0, l4G:0, l4I:0, l4K:0
-  });
-
-  // Coral Missed 
-  const [displayCoralMissed, setDisplayCoralMissed] = useState(0);
-
-  // Algae Toggles
-  const [algaeAToggled, setAlgaeAToggled] = useState(false);
-  const [algaeBToggled, setAlgaeBToggled] = useState(false);
-  const [algaeCToggled, setAlgaeCToggled] = useState(false);
-  const [algaeDToggled, setAlgaeDToggled] = useState(false);
-  const [algaeEToggled, setAlgaeEToggled] = useState(false);
-  const [algaeFToggled, setAlgaeFToggled] = useState(false);
-
+      const [displayNetScored, setDisplayNetScored] = useState(gameData.tns);
+      const [displayNetMissed, setDisplayNetMissed] = useState(gameData.tnm);
+  
+      // *** Update gameData when Net data has changed ***
+        useEffect(() => {
+          setGameData(prevGameData => ({...prevGameData, tns: displayNetScored}));
+          setGameData(prevGameData => ({...prevGameData, tnm: displayNetMissed}));
+        }, [displayNetScored, displayNetMissed]);
+    
+      // Processor
+      const [displayProcessorScored, setDisplayProcessorScored] = useState(gameData.tps);
+      const [displayProcessorMissed, setDisplayProcessorMissed] = useState(gameData.tpm);
+  
+      // *** Update gameData when Processor data has changed ***
+        useEffect(() => {
+          setGameData(prevGameData => ({...prevGameData, tps: displayProcessorScored}));
+          setGameData(prevGameData => ({...prevGameData, tpm: displayProcessorMissed}));
+        }, [displayProcessorScored, displayProcessorMissed]);
+    
+      // Intaking
+      const [displayCoralGround, setDisplayCoralGround] = useState(gameData.tcgp);
+      const [displayCoralStation, setDisplayCoralStation] = useState(gameData.tcsp);
+      const [displayAlgaeIntake, setDisplayAlgaeIntake] = useState(gameData.tap);
+  
+      // *** Update gameData when Intaking data has changed ***
+        useEffect(() => {
+          setGameData(prevGameData => ({...prevGameData, tcgp: displayCoralGround}));
+          setGameData(prevGameData => ({...prevGameData, tcsp: displayCoralStation}));
+          setGameData(prevGameData => ({...prevGameData, tap: displayAlgaeIntake}));
+        }, [displayCoralGround, displayCoralStation, displayAlgaeIntake]);
+    
+      // Reef Select and scooring
+      const [displayReefSelect, setDisplayReefSelect] = useState('');
+      const [displayReefScore, setDisplayReefScore] = useState({
+        l1A:gameData.tl1A, l1C:gameData.tl1C, l1E:gameData.tl1E, l1G:gameData.tl1G, l1I:gameData.tl1I, l1K:gameData.tl1K,
+        l2A:gameData.tl2A, l2C:gameData.tl2C, l2E:gameData.tl2E, l2G:gameData.tl2G, l2I:gameData.tl2I, l2K:gameData.tl2K,
+        l3A:gameData.tl3A, l3C:gameData.tl3C, l3E:gameData.tl3E, l3G:gameData.tl3G, l3I:gameData.tl3I, l3K:gameData.tl3K,
+        l4A:gameData.tl4A, l4C:gameData.tl4C, l4E:gameData.tl4E, l4G:gameData.tl4G, l4I:gameData.tl4I, l4K:gameData.tl4K
+      });
+  
+      // Coral Missed 
+        const [displayCoralMissed, setDisplayCoralMissed] = useState(gameData.tcm);
+    
+  
+      // *** Update gameData when Reef data has changed ***
+      useEffect(() => {
+  
+        // Level 1
+        setGameData(prevGameData => ({...prevGameData, tl1A: displayReefScore.l1A}));
+        setGameData(prevGameData => ({...prevGameData, tl1C: displayReefScore.l1C}));
+        setGameData(prevGameData => ({...prevGameData, tl1E: displayReefScore.l1E}));
+        setGameData(prevGameData => ({...prevGameData, tl1G: displayReefScore.l1G}));
+        setGameData(prevGameData => ({...prevGameData, tl1I: displayReefScore.l1I}));
+        setGameData(prevGameData => ({...prevGameData, tl1K: displayReefScore.l1K}));
+  
+        // Level 2
+        setGameData(prevGameData => ({...prevGameData, tl2A: displayReefScore.l2A}));
+        setGameData(prevGameData => ({...prevGameData, tl2C: displayReefScore.l2C}));
+        setGameData(prevGameData => ({...prevGameData, tl2E: displayReefScore.l2E}));
+        setGameData(prevGameData => ({...prevGameData, tl2G: displayReefScore.l2G}));
+        setGameData(prevGameData => ({...prevGameData, tl2I: displayReefScore.l2I}));
+        setGameData(prevGameData => ({...prevGameData, tl2K: displayReefScore.l2K}));
+  
+        // Level 3
+        setGameData(prevGameData => ({...prevGameData, tl3A: displayReefScore.l3A}));
+        setGameData(prevGameData => ({...prevGameData, tl3C: displayReefScore.l3C}));
+        setGameData(prevGameData => ({...prevGameData, tl3E: displayReefScore.l3E}));
+        setGameData(prevGameData => ({...prevGameData, tl3G: displayReefScore.l3G}));
+        setGameData(prevGameData => ({...prevGameData, tl3I: displayReefScore.l3I}));
+        setGameData(prevGameData => ({...prevGameData, tl3K: displayReefScore.l3K}));
+  
+        // Level 4
+        setGameData(prevGameData => ({...prevGameData, tl4A: displayReefScore.l4A}));
+        setGameData(prevGameData => ({...prevGameData, tl4C: displayReefScore.l4C}));
+        setGameData(prevGameData => ({...prevGameData, tl4E: displayReefScore.l4E}));
+        setGameData(prevGameData => ({...prevGameData, tl4G: displayReefScore.l4G}));
+        setGameData(prevGameData => ({...prevGameData, tl4I: displayReefScore.l4I}));
+        setGameData(prevGameData => ({...prevGameData, tl4K: displayReefScore.l4K}));
+  
+        setGameData(prevGameData => ({...prevGameData, tcm: displayCoralMissed}));
+  
+      }, [displayReefScore, displayCoralMissed]);
+  
+      // Algae Toggles
+      // TODO: update from gameData on load
+      const [algaeAToggled, setAlgaeAToggled] = useState(false);
+      const [algaeBToggled, setAlgaeBToggled] = useState(false);
+      const [algaeCToggled, setAlgaeCToggled] = useState(false);
+      const [algaeDToggled, setAlgaeDToggled] = useState(false);
+      const [algaeEToggled, setAlgaeEToggled] = useState(false);
+      const [algaeFToggled, setAlgaeFToggled] = useState(false);
+  
+      // *** Update gameData when Algae data has changed ***
+      useEffect(() => {
+        setGameData(prevGameData => ({...prevGameData, talA: algaeAToggled}));
+        setGameData(prevGameData => ({...prevGameData, talB: algaeBToggled}));
+        setGameData(prevGameData => ({...prevGameData, talC: algaeCToggled}));
+        setGameData(prevGameData => ({...prevGameData, talD: algaeDToggled}));
+        setGameData(prevGameData => ({...prevGameData, talE: algaeEToggled}));
+        setGameData(prevGameData => ({...prevGameData, talF: algaeFToggled}));
+      }, [algaeAToggled, algaeBToggled, algaeCToggled, algaeDToggled, algaeEToggled, algaeFToggled]);
+      
   // Algae Removal
 
   // Algae A
