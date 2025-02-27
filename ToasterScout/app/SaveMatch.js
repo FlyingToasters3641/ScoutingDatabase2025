@@ -32,6 +32,7 @@ const SaveMatch = ({
     setQrCodeSize(400);
     // onQrCodeGenerated();
     setIsButtonDisabled(false);
+    console.log('QR Code Data:', JSON.stringify(defaultQRCodeData));
   };
 
   const handlePress2 = async() => {

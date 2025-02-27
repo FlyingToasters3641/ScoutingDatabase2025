@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View, ScrollView, Pressable, Image, Switch, Alert  } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 
 const AppSettings = ({

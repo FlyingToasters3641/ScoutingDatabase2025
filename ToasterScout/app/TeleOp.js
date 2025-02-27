@@ -91,14 +91,14 @@ const TeleOp = ({
   
       }, [displayReefScore, displayCoralMissed]);
   
-      // Algae Toggles
+      // Algae Removal Toggles
       // TODO: update from gameData on load
-      const [algaeAToggled, setAlgaeAToggled] = useState(false);
-      const [algaeBToggled, setAlgaeBToggled] = useState(false);
-      const [algaeCToggled, setAlgaeCToggled] = useState(false);
-      const [algaeDToggled, setAlgaeDToggled] = useState(false);
-      const [algaeEToggled, setAlgaeEToggled] = useState(false);
-      const [algaeFToggled, setAlgaeFToggled] = useState(false);
+      const [algaeAToggled, setAlgaeAToggled] = useState(gameData.talA);
+      const [algaeBToggled, setAlgaeBToggled] = useState(gameData.talB);
+      const [algaeCToggled, setAlgaeCToggled] = useState(gameData.talC);
+      const [algaeDToggled, setAlgaeDToggled] = useState(gameData.talD);
+      const [algaeEToggled, setAlgaeEToggled] = useState(gameData.talE);
+      const [algaeFToggled, setAlgaeFToggled] = useState(gameData.talF);
   
       // *** Update gameData when Algae data has changed ***
       useEffect(() => {
@@ -110,38 +110,6 @@ const TeleOp = ({
         setGameData(prevGameData => ({...prevGameData, talF: algaeFToggled}));
       }, [algaeAToggled, algaeBToggled, algaeCToggled, algaeDToggled, algaeEToggled, algaeFToggled]);
       
-  // Algae Removal
-
-  // Algae A
-  const algaeAToggledButton = () => {
-    setAlgaeAToggled(!algaeAToggled);
-  };
-
-  // Algae B
-  const algaeBToggledButton = () => {
-    setAlgaeBToggled(!algaeBToggled);
-  };
-
-  // Algae C
-  const algaeCToggledButton = () => {
-    setAlgaeCToggled(!algaeCToggled);
-  };
-
-  // Algae D
-  const algaeDToggledButton = () => {
-    setAlgaeDToggled(!algaeDToggled);
-  };
-
-  // Algae E
-  const algaeEToggledButton = () => {
-    setAlgaeEToggled(!algaeEToggled);
-  };
-
-  // Algae F
-  const algaeFToggledButton = () => {
-    setAlgaeFToggled(!algaeFToggled);
-  };
-
 
   // Scoring functions
 
@@ -748,7 +716,7 @@ const TeleOp = ({
             left: 95,
           },
         ]}
-        activeOpacity={0.5} onPress={algaeAToggledButton}>
+        activeOpacity={0.5} onPress={() => setAlgaeAToggled(!algaeAToggled)}>
         {algaeAToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
       </TouchableOpacity>
 
@@ -761,7 +729,7 @@ const TeleOp = ({
             left: 155,
           },
         ]}
-        activeOpacity={0.5} onPress={algaeBToggledButton}>
+        activeOpacity={0.5} onPress={() => setAlgaeBToggled(!algaeBToggled)}>
         {algaeBToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
       </TouchableOpacity>
       
@@ -774,7 +742,7 @@ const TeleOp = ({
             left: 265,
           },
         ]}
-        activeOpacity={0.5} onPress={algaeCToggledButton}>
+        activeOpacity={0.5} onPress={() => setAlgaeCToggled(!algaeCToggled)}>
         {algaeCToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
       </TouchableOpacity>
 
@@ -787,7 +755,7 @@ const TeleOp = ({
             left: 321,
           },
         ]}
-        activeOpacity={0.5} onPress={algaeDToggledButton}>
+        activeOpacity={0.5} onPress={() => setAlgaeDToggled(!algaeDToggled)}>
         {algaeDToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
       </TouchableOpacity>
 
@@ -800,7 +768,7 @@ const TeleOp = ({
             left: 265,
           },
         ]}
-        activeOpacity={0.5} onPress={algaeEToggledButton}>
+        activeOpacity={0.5} onPress={() => setAlgaeEToggled(!algaeEToggled)}>
         {algaeEToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
       </TouchableOpacity>
 
@@ -813,7 +781,7 @@ const TeleOp = ({
             left: 155,
           },
         ]}
-        activeOpacity={0.5} onPress={algaeFToggledButton}>
+        activeOpacity={0.5} onPress={() => setAlgaeFToggled(!algaeFToggled)}>
         {algaeFToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
       </TouchableOpacity>
     </View>
@@ -828,13 +796,13 @@ const TeleOp = ({
         }
       ]}>
 
-      {/* Coral Level 1 */}
+      {/* Coral Level 4 */}
       <View style={[{flexDirection:'row', justifyContent:'space-between', width:150, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity 
           onPress={subReefLevel4}
           style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 4{'\n'}{displayReefScore.l4A}|{displayReefScore.l4C}|{displayReefScore.l4E}|{displayReefScore.l4G}|{displayReefScore.l4I}|{displayReefScore.l4K}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center',}}>Level 4{'\n'}{displayReefScore.l4K}    {displayReefScore.l4I}{'\n'}{displayReefScore.l4A}            {displayReefScore.l4G}{'\n'}{displayReefScore.l4C}    {displayReefScore.l4E}</Text></View>
         <TouchableOpacity 
           onPress={addReefLevel4}
           style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
@@ -847,7 +815,7 @@ const TeleOp = ({
         onPress={subReefLevel3}
         style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 3{'\n'}{displayReefScore.l3A}|{displayReefScore.l3C}|{displayReefScore.l3E}|{displayReefScore.l3G}|{displayReefScore.l3I}|{displayReefScore.l3K}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center',}}>Level 3{'\n'}{displayReefScore.l3K}    {displayReefScore.l3I}{'\n'}{displayReefScore.l3A}            {displayReefScore.l3G}{'\n'}{displayReefScore.l3C}    {displayReefScore.l3E}</Text></View>
         <TouchableOpacity
         onPress={addReefLevel3}
         style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
@@ -860,7 +828,7 @@ const TeleOp = ({
         onPress={subReefLevel2}
         style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 2{'\n'}{displayReefScore.l2A}|{displayReefScore.l2C}|{displayReefScore.l2E}|{displayReefScore.l2G}|{displayReefScore.l2I}|{displayReefScore.l2K}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center',}}>Level 2{'\n'}{displayReefScore.l2K}    {displayReefScore.l2I}{'\n'}{displayReefScore.l2A}            {displayReefScore.l2G}{'\n'}{displayReefScore.l2C}    {displayReefScore.l2E}</Text></View>
         <TouchableOpacity
         onPress={addReefLevel2}
         style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
@@ -873,7 +841,7 @@ const TeleOp = ({
         style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         onPress={subReefLevel1}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Level 1{'\n'}{displayReefScore.l1A}|{displayReefScore.l1C}|{displayReefScore.l1E}|{displayReefScore.l1G}|{displayReefScore.l1I}|{displayReefScore.l1K}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center',}}>Level 1{'\n'}{displayReefScore.l1K}    {displayReefScore.l1I}{'\n'}{displayReefScore.l1A}            {displayReefScore.l1G}{'\n'}{displayReefScore.l1C}    {displayReefScore.l1E}</Text></View>
         <TouchableOpacity 
         style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         onPress={addReefLevel1}
@@ -912,24 +880,24 @@ const TeleOp = ({
         {/* Net Scoring */}
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subNetScored}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Net Scored{'\n'}{displayNetScored}</Text></View>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Net Scored{'\n'}{displayNetScored}</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addNetScored}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subNetMissed}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Net Missed{'\n'}{displayNetMissed}</Text></View>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Net Missed{'\n'}{displayNetMissed}</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}  onPress={addNetMissed}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
 
         {/* Processor Scoring */}
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subProcessorScored}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Processor Scored{'\n'}{displayProcessorScored}</Text></View>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Processor Scored{'\n'}{displayProcessorScored}</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addProcessorScored}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subProcessorMissed}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} ><Text>Processor Missed{'\n'}{displayProcessorMissed}</Text></View>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} ><Text style={styles.buttonLabel}>Processor Missed{'\n'}{displayProcessorMissed}</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addProcessorMissed}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
       </View>
@@ -961,7 +929,7 @@ const TeleOp = ({
         ]}>
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralStation}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Coral Station Pick-Up{'\n'}{displayCoralStation}</Text></View>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Station Coral Pick-Up{'\n'}{displayCoralStation}</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralStation}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
       </View>
@@ -976,7 +944,7 @@ const TeleOp = ({
         ]}>
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subAlgaeIntake}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Algae Pick-Up{'\n'}{displayAlgaeIntake}</Text></View>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Algae Pick-Up{'\n'}{displayAlgaeIntake}</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addAlgaeIntake}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
       </View>
@@ -1005,6 +973,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'oldlace',
+  },
+  buttonLabel: {
+    fontSize: 18,
+    // fontWeight: '100',
+    // color: 'coral',
+    textAlign: 'center',
   },
   reefSelected: {
     backgroundColor: 'blue',
