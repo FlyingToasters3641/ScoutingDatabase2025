@@ -8,8 +8,8 @@ const Auto = ({
   setGameData,
 }) => {
     // Net
-    const [displayNetScored, setDisplayNetScored] = useState(0);
-    const [displayNetMissed, setDisplayNetMissed] = useState(0);
+    const [displayNetScored, setDisplayNetScored] = useState(gameData.ans);
+    const [displayNetMissed, setDisplayNetMissed] = useState(gameData.anm);
 
     // *** Update gameData when Net data has changed ***
       useEffect(() => {
@@ -18,8 +18,8 @@ const Auto = ({
       }, [displayNetScored, displayNetMissed]);
   
     // Processor
-    const [displayProcessorScored, setDisplayProcessorScored] = useState(0);
-    const [displayProcessorMissed, setDisplayProcessorMissed] = useState(0);
+    const [displayProcessorScored, setDisplayProcessorScored] = useState(gameData.aps);
+    const [displayProcessorMissed, setDisplayProcessorMissed] = useState(gameData.apm);
 
     // *** Update gameData when Processor data has changed ***
       useEffect(() => {
@@ -28,9 +28,9 @@ const Auto = ({
       }, [displayProcessorScored, displayProcessorMissed]);
   
     // Intaking
-    const [displayCoralGround, setDisplayCoralGround] = useState(0);
-    const [displayCoralStation, setDisplayCoralStation] = useState(0);
-    const [displayAlgaeIntake, setDisplayAlgaeIntake] = useState(0);
+    const [displayCoralGround, setDisplayCoralGround] = useState(gameData.acgp);
+    const [displayCoralStation, setDisplayCoralStation] = useState(gameData.acsp);
+    const [displayAlgaeIntake, setDisplayAlgaeIntake] = useState(gameData.aap);
 
     // *** Update gameData when Intaking data has changed ***
       useEffect(() => {
@@ -42,14 +42,14 @@ const Auto = ({
     // Reef Select and scooring
     const [displayReefSelect, setDisplayReefSelect] = useState('');
     const [displayReefScore, setDisplayReefScore] = useState({
-      l1A:0, l1C:0, l1E:0, l1G:0, l1I:0, l1K:0,
-      l2A:0, l2C:0, l2E:0, l2G:0, l2I:0, l2K:0,
-      l3A:0, l3C:0, l3E:0, l3G:0, l3I:0, l3K:0,
-      l4A:0, l4C:0, l4E:0, l4G:0, l4I:0, l4K:0
+      l1A:gameData.al1A, l1C:gameData.al1C, l1E:gameData.al1E, l1G:gameData.al1G, l1I:gameData.al1I, l1K:gameData.al1K,
+      l2A:gameData.al2A, l2C:gameData.al2C, l2E:gameData.al2E, l2G:gameData.al2G, l2I:gameData.al2I, l2K:gameData.al2K,
+      l3A:gameData.al3A, l3C:gameData.al3C, l3E:gameData.al3E, l3G:gameData.al3G, l3I:gameData.al3I, l3K:gameData.al3K,
+      l4A:gameData.al4A, l4C:gameData.al4C, l4E:gameData.al4E, l4G:gameData.al4G, l4I:gameData.al4I, l4K:gameData.al4K
     });
 
     // Coral Missed 
-      const [displayCoralMissed, setDisplayCoralMissed] = useState(0);
+      const [displayCoralMissed, setDisplayCoralMissed] = useState(gameData.acm);
   
 
     // *** Update gameData when Reef data has changed ***
@@ -92,6 +92,7 @@ const Auto = ({
     }, [displayReefScore, displayCoralMissed]);
 
     // Algae Toggles
+    // TODO: update from gameData on load
     const [algaeAToggled, setAlgaeAToggled] = useState(false);
     const [algaeBToggled, setAlgaeBToggled] = useState(false);
     const [algaeCToggled, setAlgaeCToggled] = useState(false);
