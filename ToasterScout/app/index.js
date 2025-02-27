@@ -72,7 +72,7 @@ export default function App() {
     if (dataLoaded) {
       AsyncStorage.setItem('matchData', JSON.stringify(matchData))
         .catch(error => console.error('Failed to save matchData to AsyncStorage', error))
-        //.then(() => console.log('matchData saved:', JSON.stringify(matchData)));
+        .then(() => console.log('matchData saved:', JSON.stringify(matchData)));
     }
   }, [matchData]);
   
@@ -85,7 +85,8 @@ export default function App() {
   // Prevents the MatchSetup view to load on initial render
   // Reloads the MatchSetup view when matchData is updated if on MatchSelect view 
   useEffect(() => {
-    if (dataLoaded && selectedContent === 'MatchSelect') {
+    if (dataLoaded && (selectedContent === 'MatchSelect' || selectedContent === 'SaveMatch')) {
+      setSelectedContent('MatchSelect');
       setContent(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} gameData={gameData} setGameData={setGameData} />);
     }
   }, [matchData]);

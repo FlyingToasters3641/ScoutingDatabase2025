@@ -126,9 +126,9 @@ const AppSettings = ({
           </View>
         </SettingsGroup>
 
-        <SettingsGroup title="Batch Add Matchs">
+        {/* <SettingsGroup title="Batch Add Matchs">
           <Text style={[styles.contentTextInfo, ]}>The name of the scouter for this tablet. * Internet connected required.</Text>
-          <View style={{ flexDirection: 'row', /*justifyContent: 'space-between',*/ alignItems: 'center' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Pressable 
                 key='ImportQR'
                 onPress={() => {console.log(`Import from QR Code`); 
@@ -148,7 +148,7 @@ const AppSettings = ({
                 <Text style={[styles.buttonLabel, ]}>*Import from TBA</Text>
               </Pressable>
             </View>
-        </SettingsGroup>
+        </SettingsGroup> */}
 
         <SettingsGroup title="Advanced Settings">
           <Text style={[styles.contentTextInfo, ]}>Options to Reset / Clear of TFT Scouter Data Stores.</Text>
@@ -182,7 +182,7 @@ const AppSettings = ({
             </Pressable>
           </View>
 
-          <Text style={[styles.contentTextInfo, ]}>{"\n"}Test of Switches in React Native</Text>
+          {/* <Text style={[styles.contentTextInfo, ]}>{"\n"}Test of Switches in React Native</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text style={[styles.contentText,]}>Option A</Text>
             <Switch 
@@ -196,7 +196,7 @@ const AppSettings = ({
               onValueChange={toggleOption2}
               value={isOption2Enabled}
             />
-          </View>
+          </View> */}
         </SettingsGroup>
 
       </ScrollView>
