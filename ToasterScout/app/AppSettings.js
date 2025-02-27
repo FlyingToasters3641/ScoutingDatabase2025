@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet, View, ScrollView, Pressable, Image, Switch  } from 'react-native';
+import { Text, StyleSheet, View, ScrollView, Pressable, Image, Switch, Alert  } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 
 const AppSettings = ({
@@ -163,10 +164,19 @@ const AppSettings = ({
               style={[styles.button, ]}>
               <Text style={[styles.buttonLabel,]}>Reset Application Data</Text>
             </Pressable>
-            <Pressable 
+            <Pressable
               key='DeleteMatchData'
-              onPress={() => {console.log(`Delete Match Data`);
-                setMatchData(defaultMatchData); 
+                // script.js
+                onPress={() => {console.log(`Delete Match Data`);
+          
+                    Alert.alert('CAUTION!!!!', 'Are You Sure Bruh?', [
+                      {
+                        text: 'Cancel',
+                        onPress: () => console.log('Cancel Pressed'),
+                        style: 'cancel',
+                      },
+                      {text: 'OK', onPress: () => setMatchData(defaultMatchData)},
+                    ]); 
               }}
               style={[styles.button,  ]}>
               <Text style={[styles.buttonLabel, ]}>Delete All Match Data</Text>
