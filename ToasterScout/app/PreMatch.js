@@ -11,6 +11,7 @@ const PreMatch = ({
   setMatchData,
   gameData,
   setGameData,
+  setStartScouting,
 }) => {
 
   // *** Process Robot Placement changes ***
@@ -68,6 +69,17 @@ const PreMatch = ({
     }
     setModalVisible(!modalVisible);
   }
+
+  const startScouting = () => {
+    if (appData.allianceLocation[0] === 'S' || !displayScoutName || !appData.currentMatch || !appData.currentTeam || displayRobotPlacement === 0) {
+      Alert.alert('Error', 'Please ensure all fields are set: Field Orientation, Alliance Location, Scout Name, Match, Team, or Robot Position.');
+      return;
+    }
+    // Transition to Auton View
+    setStartScouting(true);
+  };
+
+
 
   // *** Update gameData when Robot Placement has changed ***
   useEffect(() => {
@@ -140,7 +152,7 @@ const PreMatch = ({
         <Text style={[styles.contentText, ]}>3. Starting Scouting</Text>
           <Pressable
             key="startScouting"
-            onPress={() => { console.log('Start Match');}}
+            onPress={startScouting}
             style={[styles.button, styles.selected,]}>
             <Text style={styles.buttonLabel}>Start Scouting</Text>
           </Pressable>

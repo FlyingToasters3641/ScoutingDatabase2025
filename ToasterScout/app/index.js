@@ -23,6 +23,7 @@ export default function App() {
   const [matchData, setMatchData] = useState(defaultMatchData);
   const [gameData, setGameData] = useState(defaultGameData);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [startScouting, setStartScouting] = useState(false);
 
   // *** Load appData and matchData from AsyncStorage when the app loads ***
   useEffect(() => {
@@ -36,14 +37,14 @@ export default function App() {
         } else {
           setAppData(defaultAppData);
         }
-        console.log('appData loaded (async):', appData);
+        // console.log('appData loaded (async):', appData);
         if (storedMatchData) {
           const parsedMatchData = JSON.parse(storedMatchData);
           setMatchData(parsedMatchData || defaultMatchData);
         } else {
           setMatchData(defaultMatchData);
         }
-        console.log('matchData loaded (async):', matchData);
+        // console.log('matchData loaded (async):', matchData);
       } catch (error) {
         console.error('Failed to load data from AsyncStorage', error);
         setAppData(defaultAppData);
@@ -62,43 +63,46 @@ export default function App() {
     if (dataLoaded) {
       AsyncStorage.setItem('appData', JSON.stringify(appData))
         .catch(error => console.error('Failed to save appData to AsyncStorage', error))
-        .then(() => console.log('appData saved:', JSON.stringify(appData)));
+        //.then(() => console.log('appData saved:', JSON.stringify(appData)));
     }
-  }, [appData, dataLoaded]);
+  }, [appData]);
 
   // *** Save matchData to AsyncStorage whenever it changes ***
   useEffect(() => {
     if (dataLoaded) {
       AsyncStorage.setItem('matchData', JSON.stringify(matchData))
         .catch(error => console.error('Failed to save matchData to AsyncStorage', error))
-        .then(() => console.log('matchData saved:', JSON.stringify(matchData)));
+        //.then(() => console.log('matchData saved:', JSON.stringify(matchData)));
     }
-  }, [matchData, dataLoaded]);
+  }, [matchData]);
   
  
   // *** Set the default screen to MatchSelect ***
   const [selectedContent, setSelectedContent] = useState('MatchSelect');
-  const [content, setContent] = useState(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />);
-  // if (appData.allianceLocation === 'Select Alliance Team in Settings') {
-  //   // Alliance location is not set so we can set the default screen to AppSettings
-  //  // setAppData(prevAppData => ({...prevAppData, allianceLocation: 'Select Alliance Team in Settings'}));
-  //   setSelectedContent('AppSettings');
-  //   setContent(<AppSettings appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />);
-  // }
+  const [content, setContent] = useState(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} gameData={gameData} setGameData={setGameData}  />);
+
 
   // Prevents the MatchSetup view to load on initial render
-  //const isInitialMount = useRef(true);
-  // Reloads the MatchSetup view when matchData is updated
+  // Reloads the MatchSetup view when matchData is updated if on MatchSelect view 
   useEffect(() => {
-    if (dataLoaded) {
-      // if (isInitialMount.current) {
-      //   isInitialMount.current = false;
-      // } else {
-        console.log('matchData updated:', matchData);
-        setContent(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />);
-      // }
+    if (dataLoaded && selectedContent === 'MatchSelect') {
+      setContent(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} gameData={gameData} setGameData={setGameData} />);
     }
-  }, [matchData, dataLoaded]);
+  }, [matchData]);
+
+
+  // Jump to Auton when startScouting is true
+  useEffect(() => {
+    if (startScouting) {
+      console.log('Jumping to Auton');
+      setContent(<Auto gameData={gameData} setGameData={setGameData} />);
+      setSelectedContent('Auto');
+    }
+    else {
+      console.log('Not Jumping to Auton');
+    }
+    setStartScouting(false);
+  }, [startScouting]);
 
   // useEffect(() => {
   //   const changeScreenOrientation = async () => {
@@ -145,14 +149,14 @@ export default function App() {
           <TouchableOpacity
             activeOpacity={0.5}
             key="MatchSelect"
-            onPress={() => {setContent(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} />); setSelectedContent('MatchSelect');}}
+            onPress={() => {setContent(<MatchSetup appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} gameData={gameData} setGameData={setGameData}  />); setSelectedContent('MatchSelect');}}
             style={[styles.button, selectedContent === 'MatchSelect' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'MatchSelect' && styles.selectedLabel]}>Match{"\n"}Select</Text>
           </TouchableOpacity>
           <TouchableOpacity
           activeOpacity={0.5}
             key="PreMatch"
-            onPress={() => {setContent(<PreMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} gameData={gameData} setGameData={setGameData} />); setSelectedContent('PreMatch');}}
+            onPress={() => {setContent(<PreMatch appData={appData} setAppData={setAppData} matchData={matchData} setMatchData={setMatchData} gameData={gameData} setGameData={setGameData} setStartScouting={setStartScouting} />); setSelectedContent('PreMatch');}}
             style={[styles.button, selectedContent === 'PreMatch' && styles.selectedContent]}>
             <Text style={[styles.buttonLabel, selectedContent === 'Auto' && styles.selectedLabel]}>Pre-{"\n"}match</Text>
           </TouchableOpacity>
