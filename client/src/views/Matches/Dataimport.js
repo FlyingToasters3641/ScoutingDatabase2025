@@ -83,10 +83,10 @@ const Dataimport = () => {
                 <Col><h3>{ scannedState }</h3></Col>
             </Row>
             <Row>
-                {/* <Col>
+                <Col>
                     <p>scannedData:<br></br><textarea value={scannedData} className="resizable-textarea" /></p>
                     <p>SHA1:<br></br><textarea value={scannedDataSHA1} className="resizable-textarea" /></p>
-                </Col>   */}
+                </Col>  
             </Row>  
         </Container>
     );
