@@ -11,7 +11,7 @@ const Navigationbar = () => {
                 <Navbar.Toggle aria-controls="navbarScroll" data-bs-target="#navbarScroll" />
                     <Nav>
                         <NavLink eventKey="1" as={Link} to="/about">About</NavLink>
-                        <NavLink eventKey="2" as={Link} to="/test">Test</NavLink>
+                        {/* <NavLink eventKey="2" as={Link} to="/test">Test</NavLink> */}
                         <NavLink eventKey="3" as={Link} to="/admin"><RiAdminFill /></NavLink>
                     </Nav>
             </div>

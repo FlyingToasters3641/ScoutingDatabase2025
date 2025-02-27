@@ -41,7 +41,7 @@ const Eventdetail = () => {
                     <h1>{event.name}</h1>
                 </Col>
                 <hr></hr>
-                <p>Search query: {eventid}</p>
+                {/* <p>Search query: {eventid}</p> */}
             </Row>
             <Row>
                 <Col md={1}>&nbsp;</Col>

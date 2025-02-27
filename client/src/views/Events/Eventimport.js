@@ -6,7 +6,7 @@ import "./Events.css";
 import BackButton from '../common/BackButton';
 
 const Eventimport = () => {
-    const [eventkey, setEventkey] = useState("2024milac");
+    const [eventkey, setEventkey] = useState();
     const [importStatus, setImportStatus] = useState("Waiting to Import");
     const [progress, setProgress] = useState(0);
 
