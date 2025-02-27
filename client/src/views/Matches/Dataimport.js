@@ -16,7 +16,7 @@ const Dataimport = () => {
     const [scannedState, setScannedState] = useState('Waitting...');
     
     useEffect(() => {
-        axios.get(`${APP_DATABASE_URL}/matchData/2024/uniqueid/${scannedDataSHA1}`)
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/uniqueid/${scannedDataSHA1}`)
         .then(response => {
             console.log("UniqueId Result:"+JSON.stringify(response.data))
             if (response.data.length > 0) {
@@ -24,11 +24,14 @@ const Dataimport = () => {
             }
             else {
                 setScannedState('Not in database');
-                axios.post(`${APP_DATABASE_URL}/matchData/2024`,
+                alert("Not in database, importing data...");
+                axios.post(`${APP_DATABASE_URL}/matchData/2025`,
                     {
-                        "uniqueId": scannedDataSHA1
+                        "scouterName": scannedData.data.currentScout,
+                        "uniqueId": scannedDataSHA1,
                     },
                     { headers: { 'Content-Type': 'application/json' } })
+                    alert("Data imported");
             }
         })
         .catch(error => console.error('Error fetching data:', error));
@@ -73,7 +76,7 @@ const Dataimport = () => {
                     <h3>Scan QR Codes to import data:</h3>
                     <Html5QrcodePlugin
                         fps={10}
-                        qrbox={500}
+                        qrbox={600}
                         disableFlip={false}
                         qrCodeSuccessCallback={onNewScanResult}
                     />
