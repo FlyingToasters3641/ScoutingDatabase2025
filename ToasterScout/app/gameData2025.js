@@ -5,7 +5,6 @@ const defaultGameData = {
     sl: 0, // Starting Location 0=None, 1=Top, 2=Center, 3=Bottom
 
     // *** Autonomous ***
-    acm: 0, // Auto Coral Missed
     ans: 0, // Auto Net Scored
     anm: 0, // Auto Net Missed
     aps: 0, // Auto Processor Scored
@@ -22,10 +21,9 @@ const defaultGameData = {
     acm: 0, // Auto Coral Missed
     //Auto Reef positions Algae
     // aalA = (a)uto - (a)lge - Reef Location (A)
-    aalA:0, aalC:0, aa1E:0, aa1G:0, aa1I:0, aa1K:0,
+    aalA:'false', aalC:'false', aa1E:'false', aa1G:'false', aa1I:'false', aa1K:'false',
 
     // *** TeleOp ***
-    tcm: 0, // Teleop Coral Missed
     tns: 0, // Teleop Net Scored
     tnm: 0, // Teleop Net Missed
     tps: 0, // Teleop Processor Scored
@@ -42,7 +40,7 @@ const defaultGameData = {
     tcm: 0, // Teleop Coral Missed
     // Teleop Reef positions Algae
     // talA = (t)eleOp - (a)lge - Reef Location (A)
-    talA:0, talC:0, talE:0, talG:0, talI:0, talK:0,
+    talA:'false', talC:'false', talE:'false', talG:'false', talI:'false', talK:'false',
 
     // *** Post Match ***
     bzl: 'U', // Barge Zone Location (U=None, N=No Attempt, P=Parked, H=High Climbed, L=Low Climbed)
