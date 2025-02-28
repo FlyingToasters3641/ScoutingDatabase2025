@@ -17,10 +17,12 @@ GET http://localhost:3001/api/v1/matchData/2025/uniqueid/e576ae7b0b11df918ecfe66
 ###
 
 // List match number in matchData currently in the database
-GET http://localhost:3001/api/v1/matchData/2024/matchkey/2024iawesdd_qm1
+GET http://localhost:3001/api/v1/matchData/2025/matchkey/2025mimil_qm1
+
+###
 
 // List match number in matchData currently in the database
-GET http://localhost:3001/api/v1/matchData/2024/eventkey/2024iawesdd
+GET http://localhost:3001/api/v1/matchData/2025/eventkey/2024iawesdd
 
 ###
 

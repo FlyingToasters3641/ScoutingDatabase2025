@@ -308,7 +308,7 @@ app.get('/api/v1/matchData/:year/matchkey/:id', async (req, res) => {
         matchKey: req.params.id,
       },
       order: [
-        ['position', 'ASC'],
+        ['allianceLocation', 'ASC'],
       ],
     });
     res.json(matchdata);
