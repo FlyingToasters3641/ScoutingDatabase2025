@@ -10,6 +10,7 @@ import Eventimport from "./views/Events/Eventimport.js";
 import Dataimport from "./views/Matches/Dataimport.js";
 import Matchdetails from "./views/Matches/Matchdetails.js";
 import Admin from "./views/Admin/Adminpg.js";
+import Eventdata from "./views/Events/Eventdata.js";
 
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
                 <Route path='/team' component={Team}/>
                 <Route path='/matchdetails' component={Matchdetails}/>
                 <Route path='/admin' component={Admin}/>
+                <Route path='/eventdata' component={Eventdata}/>
             </Switch>
         </Router>
     </div>

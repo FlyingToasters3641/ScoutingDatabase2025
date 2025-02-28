@@ -5,6 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { APP_DATABASE_URL } from "../../constant/constant";
 import { arrayLookup } from "../../utils/common";
 import BackButton from '../common/BackButton';
+import { RiTrophyLine, RiAddCircleLine } from "react-icons/ri";
 
 const Eventdetail = () => {
     const [event, setEvent] = useState([]);
@@ -46,7 +47,9 @@ const Eventdetail = () => {
             <Row>
                 <Col md={1}>&nbsp;</Col>
                 <Col md={11} style={tdRight}>
-                    <Link to={`/dataimport`}><button type="button" class="btn btn-success">Import Data</button></Link>
+                    <Link to={`/eventdata/?eventId=${event.id}`}><button type="button" class="btn btn-primary"><RiTrophyLine /> Pick List</button></Link>
+                    <text>&nbsp;</text>
+                    <Link to={`/dataimport`}><button type="button" class="btn btn-success"><RiAddCircleLine /> Import Data</button></Link>
                 </Col>
             </Row>
             <Row>
@@ -95,8 +98,11 @@ const Eventdetail = () => {
                         <tbody>
                         {team.map(team => (
                             <tr key={team.teamNumber}>
-                                <td><Link to={`/team/?teamId=${team.id}`}>{team.teamNumber}</Link></td>
+                                <td>{team.teamNumber}</td>
                                 <td>{team.nickname}</td>
+                                <td style={tdRight}>
+                                <Link to={`/team/?teamId=${team.id}`}><button className="btn btn-primary">View</button></Link>
+                                </td>
                             </tr>
                         ))}
                         </tbody>

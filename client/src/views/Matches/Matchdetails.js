@@ -79,7 +79,19 @@ const Matchdetails = () => {
                             <tr>
                                 <th>Team Number</th>
                                 <th>Scouter</th>
+                                <th>Position</th>
                                 <th>Robot Position</th>
+                                <th>Auton Coral</th>
+                                <th>Auton Processor</th>
+                                <th>Auton Net</th>
+                                <th>TeleOp Coral</th>
+                                <th>TeleOp Processor</th>
+                                <th>TeleOp Net</th>
+                                <th>Alage Removed</th>
+                                <th>Climb Position</th>
+                                <th>Coral Ground Pick-Up</th>
+                                <th>Coral Station Pick-Up</th>
+                                <th>Algae Pick-Up</th>
                             </tr>
                         </thead>
                         <tbody>
