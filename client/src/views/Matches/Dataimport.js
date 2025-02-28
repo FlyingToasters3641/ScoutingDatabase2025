@@ -14,28 +14,68 @@ const Dataimport = () => {
     const [scannedData, setScannedData] = useState('');
     const [scannedDataSHA1, setScannedDataSHA1] = useState('');
     const [scannedState, setScannedState] = useState('Waitting...');
-    
-    useEffect(() => {
-        axios.get(`${APP_DATABASE_URL}/matchData/2025/uniqueid/${scannedDataSHA1}`)
-        .then(response => {
-            console.log("UniqueId Result:"+JSON.stringify(response.data))
-            if (response.data.length > 0) {
-                setScannedState('Already in database');
-            }
-            else {
-                setScannedState('Not in database');
-                alert("Not in database, importing data...");
-                axios.post(`${APP_DATABASE_URL}/matchData/2025`,
+
+    // This useEffect is for importing data from QR code scanned
+    useEffect(() => { 
+        const inportQRdata = async () => {
+            // Calculate SHA1 of scannedData
+            let scannedDataSHA1 = sha1(scannedData);
+            setScannedDataSHA1(scannedDataSHA1);
+
+            // Check if this QR code is already in database
+            let inDatabase = false
+            await axios.get(`${APP_DATABASE_URL}/matchData/2025/uniqueid/${scannedDataSHA1}`)
+            .then(response => {
+                if (response.data.length > 0) {
+                    inDatabase = true;
+                    setScannedState('Already in database');
+                    console.log("Already in databaseUnique: Id Result:"+scannedDataSHA1)
+                }
+            })
+
+            if(!inDatabase){
+                // Import data to database
+                let data = JSON.parse(scannedData);
+                // alert(data.schemaVar);
+                await axios.post(`${APP_DATABASE_URL}/matchData/2025`,
                     {
-                        "scouterName": scannedData.data.currentScout,
-                        "uniqueId": scannedDataSHA1,
+                        scouterName: data.data.currentScout,
+                        matchNumber: data.data.currentMatch,
+                        teamNumber: data.data.currentTeam,
+                        eventKey: '2025mimil',
+                        matchKey: '2025mimil_qm' + data.data.currentMatch,
+                        event_id: 1,
+                        // position: AKA Red 1
+                        autonPosition: data.data.sl,
+                        //autonReefTotal: 
+                        autonProcessorScored: data.data.aps,
+                        autonNetScored: data.data.ans,
+                        //teleopReefTotal:
+                        teleopProcessorScored: data.data.tps,
+                        teleopNetScored: data.data.tns,
+                        //totalAlgeaRemoved:
+                        bargeZonLocation: data.data.bzl,
+                        //totalCoralGroundPickup:
+                        //totalCoralStationPickup:
+                        //totalAlgaePickup:
+
+
+                        uniqueId: scannedDataSHA1,
                     },
                     { headers: { 'Content-Type': 'application/json' } })
-                    alert("Data imported");
             }
-        })
-        .catch(error => console.error('Error fetching data:', error));
-    }, [scannedDataSHA1]);
+            setScannedState('Data imported');
+            setProgress(126);
+        }
+
+        // Execute inportQRdata() only if scannedData is not empty
+        if(scannedData !== '') {
+            inportQRdata();
+        }
+        
+
+    }, [scannedData]);
+
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -53,9 +93,6 @@ const Dataimport = () => {
 
     const onNewScanResult = (decodedText, decodedResult) => {
         setScannedData(decodedText);
-        setScannedDataSHA1(sha1(decodedText));
-        setProgress(126);
-
         console.log(`Scan result:${scannedDataSHA1}| ${decodedText}`);
     };
 
@@ -72,7 +109,7 @@ const Dataimport = () => {
                 <Col><ProgressBar variant="success" now={progress}/></Col>
             </Row>
             <Row>
-                <Col md={12}>
+                <Col md={9}>
                     <h3>Scan QR Codes to import data:</h3>
                     <Html5QrcodePlugin
                         fps={10}
@@ -81,6 +118,7 @@ const Dataimport = () => {
                         qrCodeSuccessCallback={onNewScanResult}
                     />
                 </Col>
+                <Col md={3}></Col>
             </Row>
             <Row>
                 <Col><h3>{ scannedState }</h3></Col>
