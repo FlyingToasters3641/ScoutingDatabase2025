@@ -1,6 +1,34 @@
-{
-  "expo": {
-    "name": "ToasterScout",
+import { ExpoConfig, ConfigContext } from '@expo/config';
+
+const IS_DEV = process.env.APP_VARIANT === 'development';
+const IS_PREVIEW = process.env.APP_VARIANT === 'preview';
+
+const getUniqueIdentifier = () => {
+  if (IS_DEV) {
+    return 'org.theflyingtoasters.scout.toasterscout.dev';
+  }
+  if (IS_PREVIEW) {
+    return 'org.theflyingtoasters.scout.toasterscout.preview';
+  }
+  return 'org.theflyingtoasters.scout.toasterscout';
+};
+
+const getAppName = () => {
+  if (IS_DEV) {
+    return 'ToasterScout (Dev)';
+  }
+
+  if (IS_PREVIEW) {
+    return 'ToasterScout';
+  }
+
+  return 'ToasterScout (What)';
+};
+
+
+export default ({ config }) => ( {
+  ...config,
+    "name": getAppName(),
     "slug": "toasterscout",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -16,7 +44,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "org.theflyingtoasters.scout.toasterscout"
+      "package": getUniqueIdentifier(),
     },
     "web": {
       "bundler": "metro",
@@ -47,5 +75,4 @@
       }
     },
     "owner": "frc-tft-3641"
-  }
-}
+  });

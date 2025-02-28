@@ -39,3 +39,6 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
     }
 }
+
+// added below line
+implementation project(':react-native-async-storage_async-storage')
