@@ -28,7 +28,7 @@ const Matchdetails = () => {
 
 
     useEffect(() => {
-        axios.get(`${APP_DATABASE_URL}/matchData/2024/matchkey/${match.matchKey}`)
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/matchkey/${match.matchKey}`)
         .then(response => setMatchdata(response.data))
         .catch(error => console.error('Error fetching data:', error));
         }, [match]);
@@ -98,8 +98,20 @@ const Matchdetails = () => {
                             {matchdata.map(matchdata => (
                                 <tr key= {matchdata.teamNumber}>
                                     <td><Link to={`/team/?teamId=${arrayLookup(matchdata.teamNumber, team, "teamNumber", "id")}`}> {matchdata.teamNumber}</Link></td>
-                                    <td> {matchdata.scouterName}</td>
-                                    <td> {matchdata.position}</td>
+                                    <td>{matchdata.scouterName}</td>
+                                    <td>{matchdata.allianceLocation}</td>
+                                    <td>{matchdata.autonPosition}</td>
+                                    <td>Auton Coral</td>
+                                    <td>Auton Processor</td>
+                                    <td>Auton Net</td>
+                                    <td>TeleOp Coral</td>
+                                    <td>TeleOp Processor</td>
+                                    <td>TeleOp Net</td>
+                                    <td>Alage Removed</td>
+                                    <td>{matchdata.bargeZonLocation}</td>
+                                    <td>{matchdata.totalCoralGroundPickup}</td>
+                                    <td>{matchdata.totalCoralStationPickup}</td>
+                                    <td>{matchdata.totalAlgaePickup}</td>
                                 </tr>
                             ))}
                         </tbody>
