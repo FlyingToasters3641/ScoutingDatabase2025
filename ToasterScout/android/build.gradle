@@ -25,6 +25,18 @@ apply plugin: "com.facebook.react.rootproject"
 
 allprojects {
     repositories {
+        // I added the following
+        exclusiveContent {
+           filter {
+               includeGroup "com.facebook.react"
+           }
+           forRepository {
+               maven {
+                   url "$rootDir/../node_modules/react-native/android"
+               }
+           }
+        }
+        // End of what I added
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url(new File(['node', '--print', "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim(), '../android'))
@@ -39,6 +51,3 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
     }
 }
-
-// added below line
-implementation project(':react-native-async-storage_async-storage')

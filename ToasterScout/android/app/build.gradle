@@ -173,4 +173,7 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    // // added below line
+    // implementation project(':react-native-async-storage_async-storage')
 }
