@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ToasterScout",
-    "slug": "ToasterScout",
+    "slug": "toasterscout",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -37,6 +37,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "a99cd494-3c64-406f-a2b5-dc5e4f8f872a"
+      }
+    },
+    "owner": "frc-tft-3641"
   }
 }
