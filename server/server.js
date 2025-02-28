@@ -317,6 +317,20 @@ app.get('/api/v1/matchData/:year/matchkey/:id', async (req, res) => {
   }
 });
 
+app.get('/api/v1/matchData/:year/eventkey/:id', async (req, res) => {
+  try {
+    const MatchData = getMatchDataModelByYear(req.params.year);
+    const matchdata = await MatchData.findAll({
+      where: {
+        eventKey: req.params.id,
+      },
+    });
+    res.json(matchdata);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 app.post('/api/v1/matchData/:year', async (req, res) => {
   try {
     const MatchData = getMatchDataModelByYear(req.params.year);
