@@ -802,7 +802,7 @@ const TeleOp = ({
           onPress={subReefLevel4}
           style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center',}}>Level 4{'\n'}{displayReefScore.l4K}    {displayReefScore.l4I}{'\n'}{displayReefScore.l4A}            {displayReefScore.l4G}{'\n'}{displayReefScore.l4C}    {displayReefScore.l4E}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l4K}   {displayReefScore.l4I}{'\n'}{displayReefScore.l4A}  L4  {displayReefScore.l4G}{'\n'}{displayReefScore.l4C}   {displayReefScore.l4E}</Text></View>
         <TouchableOpacity 
           onPress={addReefLevel4}
           style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
@@ -815,7 +815,7 @@ const TeleOp = ({
         onPress={subReefLevel3}
         style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center',}}>Level 3{'\n'}{displayReefScore.l3K}    {displayReefScore.l3I}{'\n'}{displayReefScore.l3A}            {displayReefScore.l3G}{'\n'}{displayReefScore.l3C}    {displayReefScore.l3E}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l3K}   {displayReefScore.l3I}{'\n'}{displayReefScore.l3A}  L3  {displayReefScore.l3G}{'\n'}{displayReefScore.l3C}   {displayReefScore.l3E}</Text></View>
         <TouchableOpacity
         onPress={addReefLevel3}
         style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
@@ -828,7 +828,7 @@ const TeleOp = ({
         onPress={subReefLevel2}
         style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center',}}>Level 2{'\n'}{displayReefScore.l2K}    {displayReefScore.l2I}{'\n'}{displayReefScore.l2A}            {displayReefScore.l2G}{'\n'}{displayReefScore.l2C}    {displayReefScore.l2E}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l2K}   {displayReefScore.l2I}{'\n'}{displayReefScore.l1A}  L2  {displayReefScore.l2G}{'\n'}{displayReefScore.l2C}   {displayReefScore.l2E}</Text></View>
         <TouchableOpacity
         onPress={addReefLevel2}
         style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
@@ -841,7 +841,7 @@ const TeleOp = ({
         style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         onPress={subReefLevel1}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center',}}>Level 1{'\n'}{displayReefScore.l1K}    {displayReefScore.l1I}{'\n'}{displayReefScore.l1A}            {displayReefScore.l1G}{'\n'}{displayReefScore.l1C}    {displayReefScore.l1E}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l1K}   {displayReefScore.l1I}{'\n'}{displayReefScore.l1A}  L1  {displayReefScore.l1G}{'\n'}{displayReefScore.l1C}   {displayReefScore.l1E}</Text></View>
         <TouchableOpacity 
         style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         onPress={addReefLevel1}
