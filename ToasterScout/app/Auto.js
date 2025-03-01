@@ -828,7 +828,7 @@ const Auto = ({
         onPress={subReefLevel2}
         style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l2K}   {displayReefScore.l2I}{'\n'}{displayReefScore.l1A}  L2  {displayReefScore.l2G}{'\n'}{displayReefScore.l2C}   {displayReefScore.l2E}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l2K}   {displayReefScore.l2I}{'\n'}{displayReefScore.l2A}  L2  {displayReefScore.l2G}{'\n'}{displayReefScore.l2C}   {displayReefScore.l2E}</Text></View>
         <TouchableOpacity
         onPress={addReefLevel2}
         style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
