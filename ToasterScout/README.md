@@ -16,11 +16,21 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    ```bash
    npm install
    ```
+   to updaged the npm packages, use the following:
+   ```bash
+   npm upgrade
+   ```
+   to list the current version of installed packages, use the following:
+   ```bash
+   npm list
+   ```
 
 3. Start the app
+   For the first time or if made changes to app.json or app.config.js 
 
+   NOTE: delete android folder first
    ```bash
-    npx expo start
+    npx expo run:android
    ```
    Or (to install app on Android Emulated Device or Scouting Tablet Galaxy A7 Lite)
 

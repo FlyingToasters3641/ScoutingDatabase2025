@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "ToasterScout",
+    "name": "TFT Scout (Dev)",
     "slug": "toasterscout",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "landscape",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -13,10 +13,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/icon-tft.png",
+        "backgroundColor": "#000099"
       },
-      "package": "org.theflyingtoasters.scout.toasterscout"
+      "package": "org.theflyingtoasters.scout.toasterscout.dev"
     },
     "web": {
       "bundler": "metro",
@@ -28,10 +28,10 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/splash-icon-tft.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#000000"
         }
       ]
     ],
