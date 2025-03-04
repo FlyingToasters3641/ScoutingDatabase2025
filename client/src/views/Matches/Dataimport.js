@@ -9,7 +9,7 @@ import BackButton from '../common/BackButton';
 
 const Dataimport = () => {
 
-    const [progress, setProgress] = useState(0);
+    const [progressBarStatus, setProgressBarStatus] = useState(0);
 
     const [scannedData, setScannedData] = useState('');
     const [scannedDataSHA1, setScannedDataSHA1] = useState('');
@@ -37,115 +37,130 @@ const Dataimport = () => {
                 // Import data to database
                 let data = JSON.parse(scannedData);
                 // alert(data.schemaVar);
-                await axios.post(`${APP_DATABASE_URL}/matchData/2025`,
-                    {
-                        scouterName: data.data.currentScout,
-                        matchNumber: data.data.currentMatch,
-                        teamNumber: data.data.currentTeam,
-                        eventKey: '2025mimil',
-                        matchKey: '2025mimil_qm' + data.data.currentMatch,
-                        event_id: 1,
-                        allianceLocation: data.data.allianceLocation,
-                        autonPosition: data.data.sl,
-                        //autonReefTotal: 
-                        autonProcessorScored: data.data.aps,
-                        autonNetScored: data.data.ans,
-                        //teleopReefTotal:
-                        teleopProcessorScored: data.data.tps,
-                        teleopNetScored: data.data.tns,
-                        //totalAlgeaRemoved:
-                        bargeZonLocation: data.data.bzl,
-                        totalCoralGroundPickup: data.data.acgp + data.data.tcgp,
-                        totalCoralStationPickup: data.data.acsp + data.data.tcsp,
-                        totalAlgaePickup: data.data.aap + data.data.tap,
+                let matchData = data.data;
+                let autonReefTotal = matchData.al1A + matchData.al2A + matchData.al3A + matchData.al4A + matchData.al1C + matchData.al2C + matchData.al3C + matchData.al4C + matchData.al1E + matchData.al2E + matchData.al3E + matchData.al4E + matchData.al1G + matchData.al2G + matchData.al3G + matchData.al4G + matchData.al1I + matchData.al2I + matchData.al3I + matchData.al4I + matchData.al1K + matchData.al2K + matchData.al3K + matchData.al4K;
+                let autonAlgeaRemovedTotal = matchData.aalA + matchData.aalB + matchData.aalC + matchData.aalD + matchData.aalE + matchData.aalF;
+                let teleopReefTotal = matchData.tl1A + matchData.tl2A + matchData.tl3A + matchData.tl4A + matchData.tl1C + matchData.tl2C + matchData.tl3C + matchData.tl4C + matchData.tl1E + matchData.tl2E + matchData.tl3E + matchData.tl4E + matchData.tl1G + matchData.tl2G + matchData.tl3G + matchData.tl4G + matchData.tl1I + matchData.tl2I + matchData.tl3I + matchData.tl4I + matchData.tl1K + matchData.tl2K + matchData.tl3K + matchData.tl4K;
+                let teleopAlgeaRemovedTotal = matchData.talA + matchData.talB + matchData.talC + matchData.talD + matchData.talE + matchData.talF;
+                
+                let totalReef = autonReefTotal + teleopReefTotal;
+                let totalAlgeaRemoved = autonAlgeaRemovedTotal + teleopAlgeaRemovedTotal;
 
-                        // Rest of the data
-                        fieldOrientation: data.data.fieldOrientation,
-                        autonCoralMissed: data.data.acm,
-                        autonNetScored: data.data.ans,
-                        autonNetMissed: data.data.anm,
-                        autonProcessorScored: data.data.aps,
-                        autonProcessorMissed: data.data.apm,
-                        autonCoralGroundPickup: data.data.acgp,
-                        autonCoralStationPickup: data.data.acsp,
-                        autonAlgaePickup: data.data.aap,
-                        autonReefLevel1A: data.data.al1A,
-                        autonReefLevel2A: data.data.al2A,
-                        autonReefLevel3A: data.data.al3A,
-                        autonReefLevel4A: data.data.al4A,
-                        autonReefLevel1C: data.data.al1C,
-                        autonReefLevel2C: data.data.al2C,
-                        autonReefLevel3C: data.data.al3C,
-                        autonReefLevel4C: data.data.al4C,
-                        autonReefLevel1E: data.data.al1E,
-                        autonReefLevel2E: data.data.al2E,
-                        autonReefLevel3E: data.data.al3E,
-                        autonReefLevel4E: data.data.al4E,
-                        autonReefLevel1G: data.data.al1G,
-                        autonReefLevel2G: data.data.al2G,
-                        autonReefLevel3G: data.data.al3G,
-                        autonReefLevel4G: data.data.al4G,
-                        autonReefLevel1I: data.data.al1I,
-                        autonReefLevel2I: data.data.al2I,
-                        autonReefLevel3I: data.data.al3I,
-                        autonReefLevel4I: data.data.al4I,
-                        autonReefLevel1K: data.data.al1K,
-                        autonReefLevel2K: data.data.al2K,
-                        autonReefLevel3K: data.data.al3K,
-                        autonReefLevel4K: data.data.al4K,
-                        autoAlgaeRemovedA: data.data.aalA,
-                        autoAlgaeRemovedC: data.data.aalC,
-                        autoAlgaeRemovedE: data.data.aalE,
-                        autoAlgaeRemovedG: data.data.aalG,
-                        autoAlgaeRemovedI: data.data.aalI,
-                        autoAlgaeRemovedK: data.data.aalK,
-                        teleopCoralMissed: data.data.tcm,
-                        teleopNetScored: data.data.tns,
-                        teleopNetMissed: data.data.tnm,
-                        teleopProcessorScored: data.data.tps,
-                        teleopProcessorMissed: data.data.tpm,
-                        teleopCoralGroundPickup: data.data.tcgp,
-                        teleopCoralStationPickup: data.data.tcsp,
-                        teleopAlgaePickup: data.data.tap,
-                        teleopReefLevel1A: data.data.tl1A,
-                        teleopReefLevel2A: data.data.tl2A,
-                        teleopReefLevel3A: data.data.tl3A,
-                        teleopReefLevel4A: data.data.tl4A,
-                        teleopReefLevel1C: data.data.tl1C,
-                        teleopReefLevel2C: data.data.tl2C,
-                        teleopReefLevel3C: data.data.tl3C,
-                        teleopReefLevel4C: data.data.tl4C,
-                        teleopReefLevel1E: data.data.tl1E,
-                        teleopReefLevel2E: data.data.tl2E,
-                        teleopReefLevel3E: data.data.tl3E,
-                        teleopReefLevel4E: data.data.tl4E,
-                        teleopReefLevel1G: data.data.tl1G,
-                        teleopReefLevel2G: data.data.tl2G,
-                        teleopReefLevel3G: data.data.tl3G,
-                        teleopReefLevel4G: data.data.tl4G,
-                        teleopReefLevel1I: data.data.tl1I,
-                        teleopReefLevel2I: data.data.tl2I,
-                        teleopReefLevel3I: data.data.tl3I,
-                        teleopReefLevel4I: data.data.tl4I,
-                        teleopReefLevel1K: data.data.tl1K,
-                        teleopReefLevel2K: data.data.tl2K,
-                        teleopReefLevel3K: data.data.tl3K,
-                        teleopReefLevel4K: data.data.tl4K,
-                        teleopAlgaeRemovedA: data.data.talA,
-                        teleopAlgaeRemovedC: data.data.talC,
-                        teleopAlgaeRemovedE: data.data.talE,
-                        teleopAlgaeRemovedG: data.data.talG,
-                        teleopAlgaeRemovedI: data.data.talI,
-                        teleopAlgaeRemovedK: data.data.talK,
-                        bargeZonLocation: data.data.bzl,
-                        scouterNotesPicklist: data.data.snp,
-                        scouterNotesOther: data.data.sno,
-                        uniqueId: scannedDataSHA1,
-                    },
-                    { headers: { 'Content-Type': 'application/json' } })
+                await axios.post(`${APP_DATABASE_URL}/matchData/2025`,
+                {
+                    scouterName: matchData.currentScout,
+                    matchNumber: matchData.currentMatch,
+                    teamNumber: matchData.currentTeam,
+                    eventKey: '2025mimil',
+                    matchKey: '2025mimil_qm' + matchData.currentMatch,
+                    event_id: 1,
+                    allianceLocation: matchData.allianceLocation,
+                    fieldOrientation: matchData.fieldOrientation,
+                    
+                    // calculated data
+                    totalReef: totalReef,
+                    totalAlgeaRemoved: totalAlgeaRemoved,
+                    totalCoralGroundPickup: matchData.acgp + matchData.tcgp,
+                    totalCoralStationPickup: matchData.acsp + matchData.tcsp,
+                    totalAlgaePickup: matchData.aap + matchData.tap,
+                    
+                    // Auton data
+                    autonPosition: matchData.sl,
+                    autonCoralMissed: matchData.acm,
+                    autonNetScored: matchData.ans,
+                    autonNetMissed: matchData.anm,
+                    autonProcessorScored: matchData.aps,
+                    autonProcessorMissed: matchData.apm,
+                    autonCoralGroundPickup: matchData.acgp,
+                    autonCoralStationPickup: matchData.acsp,
+                    autonAlgaePickup: matchData.aap,
+                    autonReefLevel1A: matchData.al1A,
+                    autonReefLevel2A: matchData.al2A,
+                    autonReefLevel3A: matchData.al3A,
+                    autonReefLevel4A: matchData.al4A,
+                    autonReefLevel1C: matchData.al1C,
+                    autonReefLevel2C: matchData.al2C,
+                    autonReefLevel3C: matchData.al3C,
+                    autonReefLevel4C: matchData.al4C,
+                    autonReefLevel1E: matchData.al1E,
+                    autonReefLevel2E: matchData.al2E,
+                    autonReefLevel3E: matchData.al3E,
+                    autonReefLevel4E: matchData.al4E,
+                    autonReefLevel1G: matchData.al1G,
+                    autonReefLevel2G: matchData.al2G,
+                    autonReefLevel3G: matchData.al3G,
+                    autonReefLevel4G: matchData.al4G,
+                    autonReefLevel1I: matchData.al1I,
+                    autonReefLevel2I: matchData.al2I,
+                    autonReefLevel3I: matchData.al3I,
+                    autonReefLevel4I: matchData.al4I,
+                    autonReefLevel1K: matchData.al1K,
+                    autonReefLevel2K: matchData.al2K,
+                    autonReefLevel3K: matchData.al3K,
+                    autonReefLevel4K: matchData.al4K,
+                    autonReefTotal: autonReefTotal,
+                    autoAlgaeRemovedA: matchData.aalA,
+                    autoAlgaeRemovedB: matchData.aalB,
+                    autoAlgaeRemovedC: matchData.aalC,
+                    autoAlgaeRemovedD: matchData.aalD,
+                    autoAlgaeRemovedE: matchData.aalE,
+                    autoAlgaeRemovedF: matchData.aalF,
+                    autonAlgeaRemovedTotal: autonAlgeaRemovedTotal,
+
+                    // Teleop data
+                    teleopCoralMissed: matchData.tcm,
+                    teleopNetScored: matchData.tns,
+                    teleopNetMissed: matchData.tnm,
+                    teleopProcessorScored: matchData.tps,
+                    teleopProcessorMissed: matchData.tpm,
+                    teleopCoralGroundPickup: matchData.tcgp,
+                    teleopCoralStationPickup: matchData.tcsp,
+                    teleopAlgaePickup: matchData.tap,
+                    teleopReefLevel1A: matchData.tl1A,
+                    teleopReefLevel2A: matchData.tl2A,
+                    teleopReefLevel3A: matchData.tl3A,
+                    teleopReefLevel4A: matchData.tl4A,
+                    teleopReefLevel1C: matchData.tl1C,
+                    teleopReefLevel2C: matchData.tl2C,
+                    teleopReefLevel3C: matchData.tl3C,
+                    teleopReefLevel4C: matchData.tl4C,
+                    teleopReefLevel1E: matchData.tl1E,
+                    teleopReefLevel2E: matchData.tl2E,
+                    teleopReefLevel3E: matchData.tl3E,
+                    teleopReefLevel4E: matchData.tl4E,
+                    teleopReefLevel1G: matchData.tl1G,
+                    teleopReefLevel2G: matchData.tl2G,
+                    teleopReefLevel3G: matchData.tl3G,
+                    teleopReefLevel4G: matchData.tl4G,
+                    teleopReefLevel1I: matchData.tl1I,
+                    teleopReefLevel2I: matchData.tl2I,
+                    teleopReefLevel3I: matchData.tl3I,
+                    teleopReefLevel4I: matchData.tl4I,
+                    teleopReefLevel1K: matchData.tl1K,
+                    teleopReefLevel2K: matchData.tl2K,
+                    teleopReefLevel3K: matchData.tl3K,
+                    teleopReefLevel4K: matchData.tl4K,
+                    teleopReefTotal: teleopReefTotal,
+                    teleopAlgaeRemovedA: matchData.talA,
+                    teleopAlgaeRemovedB: matchData.talB,
+                    teleopAlgaeRemovedC: matchData.talC,
+                    teleopAlgaeRemovedD: matchData.talD,
+                    teleopAlgaeRemovedE: matchData.talE,
+                    teleopAlgaeRemovedF: matchData.talF,
+                    teleopAlgeaRemovedTotal: teleopAlgeaRemovedTotal,
+
+                    // The rest of the data
+                    bargeZonLocation: matchData.bzl,
+                    scouterNotesPicklist: matchData.snp,
+                    scouterNotesOther: matchData.sno,
+                    uniqueId: scannedDataSHA1,
+                },
+                { headers: { 'Content-Type': 'application/json' } })
+            
+                // Import data to database complete
+                setScannedState('Data imported');
+                setProgressBarStatus(105);
             }
-            setScannedState('Data imported');
-            setProgress(126);
         }
 
         // Execute inportQRdata() only if scannedData is not empty
@@ -156,20 +171,24 @@ const Dataimport = () => {
 
     }, [scannedData]);
 
-
+    // This useEffect is for progress bar
     useEffect(() => {
-        const intervalId = setInterval(() => {
-          setProgress((prevProgress) => {
-            if (prevProgress > 0){
-              return prevProgress - 1;
-            }
-            clearInterval(intervalId);
-            return prevProgress;
-          });
-        }, 50);
-    
-        return () => clearInterval(intervalId);
-      });
+        let timer = setTimeout(() => {
+            setProgressBarStatus((prevProgress) => {
+                if (prevProgress > 10) {
+                    return prevProgress - 10;
+                }
+                return 0;
+            });
+        }, 500);
+        // console.log('ProgressBarStatus: ', progressBarStatus);
+        if(progressBarStatus === 0) {
+            setScannedData('');
+            setScannedDataSHA1('');
+            setScannedState('Waitting...');
+        }
+        return () => clearTimeout(timer);
+    }, [progressBarStatus]);
 
     const onNewScanResult = (decodedText, decodedResult) => {
         setScannedData(decodedText);
@@ -186,29 +205,23 @@ const Dataimport = () => {
                 <hr></hr>
             </Row>
             <Row>
-                <Col><ProgressBar variant="success" now={progress}/></Col>
+                <Col><ProgressBar variant="success" now={progressBarStatus}/></Col>
             </Row>
             <Row>
-                <Col md={9}>
-                    <h3>Scan QR Codes to import data:</h3>
+                <Col md={8}>
+                    <h3>Scan QR Codes to import data: {scannedState}</h3>
                     <Html5QrcodePlugin
                         fps={10}
-                        qrbox={600}
+                        qrbox={550}
                         disableFlip={false}
                         qrCodeSuccessCallback={onNewScanResult}
                     />
                 </Col>
-                <Col md={3}></Col>
-            </Row>
-            <Row>
-                <Col><h3>{ scannedState }</h3></Col>
-            </Row>
-            <Row>
-                <Col>
+                <Col md={4}>
                     <p>scannedData:<br></br><textarea value={scannedData} className="resizable-textarea" /></p>
                     <p>SHA1:<br></br><textarea value={scannedDataSHA1} className="resizable-textarea" /></p>
-                </Col>  
-            </Row>  
+                </Col>
+            </Row>
         </Container>
     );
 }
