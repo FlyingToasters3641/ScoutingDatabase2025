@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext  } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+import { AppContext } from "../common/AppContext.js";
 import { Container, Row, Col } from "react-bootstrap";
 import { APP_DATABASE_URL } from "../../constant/constant";
 import { RiAddCircleLine, RiEyeLine } from "react-icons/ri";
 
 const Home = () => {
     const [events, setPosts] = useState([]);
+
+    const { appData } = useContext(AppContext);
 
     useEffect(() => {
         axios.get(`${APP_DATABASE_URL}/events`)
@@ -53,6 +56,9 @@ const Home = () => {
                         </tbody>
                     </table>
                 </Col>
+            </Row>
+            <Row>
+                <Col><h5>{appData.name}</h5></Col>
             </Row>
         </Container>
     );

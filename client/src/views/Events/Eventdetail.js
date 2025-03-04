@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
+import { AppContext } from "../common/AppContext.js";
 import { Container, Row, Col } from "react-bootstrap";
 import { APP_DATABASE_URL } from "../../constant/constant";
 import { arrayLookup } from "../../utils/common";
@@ -8,6 +9,8 @@ import BackButton from '../common/BackButton';
 import { RiTrophyLine, RiAddCircleLine } from "react-icons/ri";
 
 const Eventdetail = () => {
+    const { appData } = useContext(AppContext);
+
     const [event, setEvent] = useState([]);
     const [team, setTeam] = useState([]);
     const [match, setMatch] = useState([]);
@@ -39,10 +42,11 @@ const Eventdetail = () => {
             <Row>
                 <Col md={1}><BackButton /></Col>
                 <Col md={11}>
-                    <h1>{event.name}</h1>
+                    <h2>{event.name}</h2>
                 </Col>
                 <hr></hr>
                 {/* <p>Search query: {eventid}</p> */}
+                <p>Event Year: {appData.currentEventYear}; Event Key: {appData.currentEventKey}; Event Id (serverDV): {appData.currentEventID}; <em><b>{appData.name}</b></em></p>
             </Row>
             <Row>
                 <Col md={1}>&nbsp;</Col>

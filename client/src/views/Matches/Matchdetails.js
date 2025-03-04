@@ -101,13 +101,13 @@ const Matchdetails = () => {
                                     <td>{matchdata.scouterName}</td>
                                     <td>{matchdata.allianceLocation}</td>
                                     <td>{matchdata.autonPosition}</td>
-                                    <td>Auton Coral</td>
-                                    <td>Auton Processor</td>
-                                    <td>Auton Net</td>
-                                    <td>TeleOp Coral</td>
-                                    <td>TeleOp Processor</td>
-                                    <td>TeleOp Net</td>
-                                    <td>Alage Removed</td>
+                                    <td>{matchdata.autonReefTotal}</td>
+                                    <td>{matchdata.autonProcessorScored}</td>
+                                    <td>{matchdata.autonNetScored}</td>
+                                    <td>{matchdata.teleopReefTotal}</td>
+                                    <td>{matchdata.teleopProcessorScored}</td>
+                                    <td>{matchdata.teleopNetScored}</td>
+                                    <td>{matchdata.totalAlgeaRemoved}</td>
                                     <td>{matchdata.bargeZonLocation}</td>
                                     <td>{matchdata.totalCoralGroundPickup}</td>
                                     <td>{matchdata.totalCoralStationPickup}</td>
