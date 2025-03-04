@@ -1,5 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { AppProvider } from "./views/common/AppContext.js";
 import Navigationbar from "./views/common/Navigationbar.js";
 import Home from "./views/Home/Home.js";
 import About from "./views/About/About.js";
@@ -16,6 +17,7 @@ import Eventdata from "./views/Events/Eventdata.js";
 const App = () => {
   return (
     <div className="App">
+      <AppProvider>
         <Router>
             <Navigationbar />
             <Switch>
@@ -31,6 +33,7 @@ const App = () => {
                 <Route path='/eventdata' component={Eventdata}/>
             </Switch>
         </Router>
+      </AppProvider>
     </div>
       );
   };
