@@ -13,7 +13,7 @@ const Dataimport = () => {
 
     const [scannedData, setScannedData] = useState('');
     const [scannedDataSHA1, setScannedDataSHA1] = useState('');
-    const [scannedState, setScannedState] = useState('Waitting...');
+    const [scannedState, setScannedState] = useState('Waiting...');
 
     // This useEffect is for importing data from QR code scanned
     useEffect(() => { 
@@ -185,7 +185,7 @@ const Dataimport = () => {
         if(progressBarStatus === 0) {
             setScannedData('');
             setScannedDataSHA1('');
-            setScannedState('Waitting...');
+            setScannedState('Waiting...');
         }
         return () => clearTimeout(timer);
     }, [progressBarStatus]);
