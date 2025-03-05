@@ -15,7 +15,7 @@ MatchData2025.init({
     uniqueId: DataTypes.STRING,
     fieldOrientation: DataTypes.STRING,
 
-    autonPosition: DataTypes.INTEGER,
+    autonPosition: DataTypes.STRING,
     autonLeave: DataTypes.BOOLEAN,
     autonCoralMissed: DataTypes.INTEGER,
     autonNetScored: DataTypes.INTEGER,
