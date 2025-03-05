@@ -42,9 +42,34 @@ const Dataimport = () => {
                 let autonAlgeaRemovedTotal = matchData.aalA + matchData.aalB + matchData.aalC + matchData.aalD + matchData.aalE + matchData.aalF;
                 let teleopReefTotal = matchData.tl1A + matchData.tl2A + matchData.tl3A + matchData.tl4A + matchData.tl1C + matchData.tl2C + matchData.tl3C + matchData.tl4C + matchData.tl1E + matchData.tl2E + matchData.tl3E + matchData.tl4E + matchData.tl1G + matchData.tl2G + matchData.tl3G + matchData.tl4G + matchData.tl1I + matchData.tl2I + matchData.tl3I + matchData.tl4I + matchData.tl1K + matchData.tl2K + matchData.tl3K + matchData.tl4K;
                 let teleopAlgeaRemovedTotal = matchData.talA + matchData.talB + matchData.talC + matchData.talD + matchData.talE + matchData.talF;
-                
+
                 let totalReef = autonReefTotal + teleopReefTotal;
                 let totalAlgeaRemoved = autonAlgeaRemovedTotal + teleopAlgeaRemovedTotal;
+
+                let autonReefLevel1A = matchData.al1A;
+                let autonReefLevel2A = matchData.al2A;
+                let autonReefLevel3A = matchData.al3A;
+                let autonReefLevel4A = matchData.al4A;
+                let autonReefLevel1C = matchData.al1C;
+                let autonReefLevel2C = matchData.al2C;
+                let autonReefLevel3C = matchData.al3C;
+                let autonReefLevel4C = matchData.al4C;
+                let autonReefLevel1E = matchData.al1E;
+                let autonReefLevel2E = matchData.al2E;
+                let autonReefLevel3E = matchData.al3E;
+                let autonReefLevel4E = matchData.al4E;
+                let autonReefLevel1G = matchData.al1G;
+                let autonReefLevel2G = matchData.al2G;
+                let autonReefLevel3G = matchData.al3G;
+                let autonReefLevel4G = matchData.al4G;
+                let autonReefLevel1I = matchData.al1I;
+                let autonReefLevel2I = matchData.al2I;
+                let autonReefLevel3I = matchData.al3I;
+                let autonReefLevel4I = matchData.al4I;
+                let autonReefLevel1K = matchData.al1K;
+                let autonReefLevel2K = matchData.al2K;
+                let autonReefLevel3K = matchData.al3K;
+                let autonReefLevel4K = matchData.al4K;
 
                 await axios.post(`${APP_DATABASE_URL}/matchData/2025`,
                 {
@@ -74,30 +99,30 @@ const Dataimport = () => {
                     autonCoralGroundPickup: matchData.acgp,
                     autonCoralStationPickup: matchData.acsp,
                     autonAlgaePickup: matchData.aap,
-                    autonReefLevel1A: matchData.al1A,
-                    autonReefLevel2A: matchData.al2A,
-                    autonReefLevel3A: matchData.al3A,
-                    autonReefLevel4A: matchData.al4A,
-                    autonReefLevel1C: matchData.al1C,
-                    autonReefLevel2C: matchData.al2C,
-                    autonReefLevel3C: matchData.al3C,
-                    autonReefLevel4C: matchData.al4C,
-                    autonReefLevel1E: matchData.al1E,
-                    autonReefLevel2E: matchData.al2E,
-                    autonReefLevel3E: matchData.al3E,
-                    autonReefLevel4E: matchData.al4E,
-                    autonReefLevel1G: matchData.al1G,
-                    autonReefLevel2G: matchData.al2G,
-                    autonReefLevel3G: matchData.al3G,
-                    autonReefLevel4G: matchData.al4G,
-                    autonReefLevel1I: matchData.al1I,
-                    autonReefLevel2I: matchData.al2I,
-                    autonReefLevel3I: matchData.al3I,
-                    autonReefLevel4I: matchData.al4I,
-                    autonReefLevel1K: matchData.al1K,
-                    autonReefLevel2K: matchData.al2K,
-                    autonReefLevel3K: matchData.al3K,
-                    autonReefLevel4K: matchData.al4K,
+                    autonReefLevel1A: autonReefLevel1A,
+                    autonReefLevel2A: autonReefLevel2A,
+                    autonReefLevel3A: autonReefLevel3A,
+                    autonReefLevel4A: autonReefLevel4A,
+                    autonReefLevel1C: autonReefLevel1C,
+                    autonReefLevel2C: autonReefLevel2C,
+                    autonReefLevel3C: autonReefLevel3C,
+                    autonReefLevel4C: autonReefLevel4C,
+                    autonReefLevel1E: autonReefLevel1E,
+                    autonReefLevel2E: autonReefLevel2E,
+                    autonReefLevel3E: autonReefLevel3E,
+                    autonReefLevel4E: autonReefLevel4E,
+                    autonReefLevel1G: autonReefLevel1G,
+                    autonReefLevel2G: autonReefLevel2G,
+                    autonReefLevel3G: autonReefLevel3G,
+                    autonReefLevel4G: autonReefLevel4G,
+                    autonReefLevel1I: autonReefLevel1I,
+                    autonReefLevel2I: autonReefLevel2I,
+                    autonReefLevel3I: autonReefLevel3I,
+                    autonReefLevel4I: autonReefLevel4I,
+                    autonReefLevel1K: autonReefLevel1K,
+                    autonReefLevel2K: autonReefLevel2K,
+                    autonReefLevel3K: autonReefLevel3K,
+                    autonReefLevel4K: autonReefLevel4K,
                     autonReefTotal: autonReefTotal,
                     autoAlgaeRemovedA: matchData.aalA,
                     autoAlgaeRemovedB: matchData.aalB,
