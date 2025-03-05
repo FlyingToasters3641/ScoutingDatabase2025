@@ -42,10 +42,34 @@ const Dataimport = () => {
                 let autonAlgeaRemovedTotal = matchData.aalA + matchData.aalB + matchData.aalC + matchData.aalD + matchData.aalE + matchData.aalF;
                 let teleopReefTotal = matchData.tl1A + matchData.tl2A + matchData.tl3A + matchData.tl4A + matchData.tl1C + matchData.tl2C + matchData.tl3C + matchData.tl4C + matchData.tl1E + matchData.tl2E + matchData.tl3E + matchData.tl4E + matchData.tl1G + matchData.tl2G + matchData.tl3G + matchData.tl4G + matchData.tl1I + matchData.tl2I + matchData.tl3I + matchData.tl4I + matchData.tl1K + matchData.tl2K + matchData.tl3K + matchData.tl4K;
                 let teleopAlgeaRemovedTotal = matchData.talA + matchData.talB + matchData.talC + matchData.talD + matchData.talE + matchData.talF;
-                
+
                 let totalReef = autonReefTotal + teleopReefTotal;
                 let totalAlgeaRemoved = autonAlgeaRemovedTotal + teleopAlgeaRemovedTotal;
 
+                let botLocationEnum = [];
+                const botLocationViewSbEnum = ['None', 'Left', 'Center', 'Right']; // Scoring Blue, Spectator Red
+                const botLocationViewSrEnum = ['None', 'Right', 'Center', 'Left']; // Scoring Red, Spectator Blue
+
+                // leftFieldOrientation is used to determine mapping for Reef scouted data to reference to the field orientation
+                //  and will be used to determine the mapping of the data to the database
+                // For Reef Coral, 
+                //  - Left: A->A, C->C, E->E, G->G, I->I, K->K (Scoring, Blue; Spectator, Red)
+                //  - Right: A->G, C->I, E->K, G->A, I->C, K->E (Scoring, Red; Spectator, Blue)
+                // For Reef Algea,
+                //  - Left: A->A, B->B, C->C, D->D, E->E, F->F (Scoring, Blue; Spectator, Red)
+                //  - Right: A->D, B->E, C->F, D->A, E->B, F->C (Scoring, Red; Spectator, Blue)
+                let leftFieldOrientation = true;
+                if ( (matchData.allianceLocation[0] === 'R' && matchData.fieldOrientation === "Scoring") ||
+                     (matchData.allianceLocation[0] === 'B' && matchData.fieldOrientation === "Spectator") ) {
+                    leftFieldOrientation = false;
+                    botLocationEnum = [...botLocationViewSrEnum]; // Scoring Red, Spectator Blue
+                }
+                else {
+                    leftFieldOrientation = true
+                    botLocationEnum = [...botLocationViewSbEnum]; // Scoring Blue, Spectator Red
+                }
+
+                // Entering the data from the scanned QR code to the database
                 await axios.post(`${APP_DATABASE_URL}/matchData/2025`,
                 {
                     scouterName: matchData.currentScout,
@@ -65,7 +89,7 @@ const Dataimport = () => {
                     totalAlgaePickup: matchData.aap + matchData.tap,
                     
                     // Auton data
-                    autonPosition: matchData.sl,
+                    autonPosition: botLocationEnum[matchData.sl],
                     autonCoralMissed: matchData.acm,
                     autonNetScored: matchData.ans,
                     autonNetMissed: matchData.anm,
@@ -74,37 +98,37 @@ const Dataimport = () => {
                     autonCoralGroundPickup: matchData.acgp,
                     autonCoralStationPickup: matchData.acsp,
                     autonAlgaePickup: matchData.aap,
-                    autonReefLevel1A: matchData.al1A,
-                    autonReefLevel2A: matchData.al2A,
-                    autonReefLevel3A: matchData.al3A,
-                    autonReefLevel4A: matchData.al4A,
-                    autonReefLevel1C: matchData.al1C,
-                    autonReefLevel2C: matchData.al2C,
-                    autonReefLevel3C: matchData.al3C,
-                    autonReefLevel4C: matchData.al4C,
-                    autonReefLevel1E: matchData.al1E,
-                    autonReefLevel2E: matchData.al2E,
-                    autonReefLevel3E: matchData.al3E,
-                    autonReefLevel4E: matchData.al4E,
-                    autonReefLevel1G: matchData.al1G,
-                    autonReefLevel2G: matchData.al2G,
-                    autonReefLevel3G: matchData.al3G,
-                    autonReefLevel4G: matchData.al4G,
-                    autonReefLevel1I: matchData.al1I,
-                    autonReefLevel2I: matchData.al2I,
-                    autonReefLevel3I: matchData.al3I,
-                    autonReefLevel4I: matchData.al4I,
-                    autonReefLevel1K: matchData.al1K,
-                    autonReefLevel2K: matchData.al2K,
-                    autonReefLevel3K: matchData.al3K,
-                    autonReefLevel4K: matchData.al4K,
+                    autonReefLevel1A: leftFieldOrientation ? matchData.al1A : matchData.al1G,
+                    autonReefLevel2A: leftFieldOrientation ? matchData.al2A : matchData.al2G,
+                    autonReefLevel3A: leftFieldOrientation ? matchData.al3A : matchData.al3G,
+                    autonReefLevel4A: leftFieldOrientation ? matchData.al4A : matchData.al4G,
+                    autonReefLevel1C: leftFieldOrientation ? matchData.al1C : matchData.al1I,
+                    autonReefLevel2C: leftFieldOrientation ? matchData.al2C : matchData.al2I,
+                    autonReefLevel3C: leftFieldOrientation ? matchData.al3C : matchData.al3I,
+                    autonReefLevel4C: leftFieldOrientation ? matchData.al4C : matchData.al4I,
+                    autonReefLevel1E: leftFieldOrientation ? matchData.al1E : matchData.al1K,
+                    autonReefLevel2E: leftFieldOrientation ? matchData.al2E : matchData.al2K,
+                    autonReefLevel3E: leftFieldOrientation ? matchData.al3E : matchData.al3K,
+                    autonReefLevel4E: leftFieldOrientation ? matchData.al4E : matchData.al4K,
+                    autonReefLevel1G: leftFieldOrientation ? matchData.al1G : matchData.al1A,
+                    autonReefLevel2G: leftFieldOrientation ? matchData.al2G : matchData.al2A,
+                    autonReefLevel3G: leftFieldOrientation ? matchData.al3G : matchData.al3A,
+                    autonReefLevel4G: leftFieldOrientation ? matchData.al4G : matchData.al4A,
+                    autonReefLevel1I: leftFieldOrientation ? matchData.al1I : matchData.al1C,
+                    autonReefLevel2I: leftFieldOrientation ? matchData.al2I : matchData.al2C,
+                    autonReefLevel3I: leftFieldOrientation ? matchData.al3I : matchData.al3C,
+                    autonReefLevel4I: leftFieldOrientation ? matchData.al4I : matchData.al4C,
+                    autonReefLevel1K: leftFieldOrientation ? matchData.al1K : matchData.al1E,
+                    autonReefLevel2K: leftFieldOrientation ? matchData.al2K : matchData.al2E,
+                    autonReefLevel3K: leftFieldOrientation ? matchData.al3K : matchData.al3E,
+                    autonReefLevel4K: leftFieldOrientation ? matchData.al4K : matchData.al4E,
                     autonReefTotal: autonReefTotal,
-                    autoAlgaeRemovedA: matchData.aalA,
-                    autoAlgaeRemovedB: matchData.aalB,
-                    autoAlgaeRemovedC: matchData.aalC,
-                    autoAlgaeRemovedD: matchData.aalD,
-                    autoAlgaeRemovedE: matchData.aalE,
-                    autoAlgaeRemovedF: matchData.aalF,
+                    autoAlgaeRemovedA: leftFieldOrientation ? matchData.aalA : matchData.aalD,
+                    autoAlgaeRemovedB: leftFieldOrientation ? matchData.aalB : matchData.aalE,
+                    autoAlgaeRemovedC: leftFieldOrientation ? matchData.aalC : matchData.aalF,
+                    autoAlgaeRemovedD: leftFieldOrientation ? matchData.aalD : matchData.aalA,
+                    autoAlgaeRemovedE: leftFieldOrientation ? matchData.aalE : matchData.aalB,
+                    autoAlgaeRemovedF: leftFieldOrientation ? matchData.aalF : matchData.aalC,
                     autonAlgeaRemovedTotal: autonAlgeaRemovedTotal,
 
                     // Teleop data
@@ -116,37 +140,37 @@ const Dataimport = () => {
                     teleopCoralGroundPickup: matchData.tcgp,
                     teleopCoralStationPickup: matchData.tcsp,
                     teleopAlgaePickup: matchData.tap,
-                    teleopReefLevel1A: matchData.tl1A,
-                    teleopReefLevel2A: matchData.tl2A,
-                    teleopReefLevel3A: matchData.tl3A,
-                    teleopReefLevel4A: matchData.tl4A,
-                    teleopReefLevel1C: matchData.tl1C,
-                    teleopReefLevel2C: matchData.tl2C,
-                    teleopReefLevel3C: matchData.tl3C,
-                    teleopReefLevel4C: matchData.tl4C,
-                    teleopReefLevel1E: matchData.tl1E,
-                    teleopReefLevel2E: matchData.tl2E,
-                    teleopReefLevel3E: matchData.tl3E,
-                    teleopReefLevel4E: matchData.tl4E,
-                    teleopReefLevel1G: matchData.tl1G,
-                    teleopReefLevel2G: matchData.tl2G,
-                    teleopReefLevel3G: matchData.tl3G,
-                    teleopReefLevel4G: matchData.tl4G,
-                    teleopReefLevel1I: matchData.tl1I,
-                    teleopReefLevel2I: matchData.tl2I,
-                    teleopReefLevel3I: matchData.tl3I,
-                    teleopReefLevel4I: matchData.tl4I,
-                    teleopReefLevel1K: matchData.tl1K,
-                    teleopReefLevel2K: matchData.tl2K,
-                    teleopReefLevel3K: matchData.tl3K,
-                    teleopReefLevel4K: matchData.tl4K,
+                    teleopReefLevel1A: leftFieldOrientation ? matchData.tl1A : matchData.tl1G,
+                    teleopReefLevel2A: leftFieldOrientation ? matchData.tl2A : matchData.tl2G,
+                    teleopReefLevel3A: leftFieldOrientation ? matchData.tl3A : matchData.tl3G,
+                    teleopReefLevel4A: leftFieldOrientation ? matchData.tl4A : matchData.tl4G,
+                    teleopReefLevel1C: leftFieldOrientation ? matchData.tl1C : matchData.tl1I,
+                    teleopReefLevel2C: leftFieldOrientation ? matchData.tl2C : matchData.tl2I,
+                    teleopReefLevel3C: leftFieldOrientation ? matchData.tl3C : matchData.tl3I,
+                    teleopReefLevel4C: leftFieldOrientation ? matchData.tl4C : matchData.tl4I,
+                    teleopReefLevel1E: leftFieldOrientation ? matchData.tl1E : matchData.tl1K,
+                    teleopReefLevel2E: leftFieldOrientation ? matchData.tl2E : matchData.tl2K,
+                    teleopReefLevel3E: leftFieldOrientation ? matchData.tl3E : matchData.tl3K,
+                    teleopReefLevel4E: leftFieldOrientation ? matchData.tl4E : matchData.tl4K,
+                    teleopReefLevel1G: leftFieldOrientation ? matchData.tl1G : matchData.tl1A,
+                    teleopReefLevel2G: leftFieldOrientation ? matchData.tl2G : matchData.tl2A,
+                    teleopReefLevel3G: leftFieldOrientation ? matchData.tl3G : matchData.tl3A,
+                    teleopReefLevel4G: leftFieldOrientation ? matchData.tl4G : matchData.tl4A,
+                    teleopReefLevel1I: leftFieldOrientation ? matchData.tl1I : matchData.tl1C,
+                    teleopReefLevel2I: leftFieldOrientation ? matchData.tl2I : matchData.tl2C,
+                    teleopReefLevel3I: leftFieldOrientation ? matchData.tl3I : matchData.tl3C,
+                    teleopReefLevel4I: leftFieldOrientation ? matchData.tl4I : matchData.tl4C,
+                    teleopReefLevel1K: leftFieldOrientation ? matchData.tl1K : matchData.tl1E,
+                    teleopReefLevel2K: leftFieldOrientation ? matchData.tl2K : matchData.tl2E,
+                    teleopReefLevel3K: leftFieldOrientation ? matchData.tl3K : matchData.tl3E,
+                    teleopReefLevel4K: leftFieldOrientation ? matchData.tl4K : matchData.tl4E,
                     teleopReefTotal: teleopReefTotal,
-                    teleopAlgaeRemovedA: matchData.talA,
-                    teleopAlgaeRemovedB: matchData.talB,
-                    teleopAlgaeRemovedC: matchData.talC,
-                    teleopAlgaeRemovedD: matchData.talD,
-                    teleopAlgaeRemovedE: matchData.talE,
-                    teleopAlgaeRemovedF: matchData.talF,
+                    teleopAlgaeRemovedA: leftFieldOrientation ? matchData.talA : matchData.talD,
+                    teleopAlgaeRemovedB: leftFieldOrientation ? matchData.talB : matchData.talE,
+                    teleopAlgaeRemovedC: leftFieldOrientation ? matchData.talC : matchData.talF,
+                    teleopAlgaeRemovedD: leftFieldOrientation ? matchData.talD : matchData.talA,
+                    teleopAlgaeRemovedE: leftFieldOrientation ? matchData.talE : matchData.talB,
+                    teleopAlgaeRemovedF: leftFieldOrientation ? matchData.talF : matchData.talC,
                     teleopAlgeaRemovedTotal: teleopAlgeaRemovedTotal,
 
                     // The rest of the data
