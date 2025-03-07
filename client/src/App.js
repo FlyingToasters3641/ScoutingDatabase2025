@@ -1,5 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import './app.css';
 import { AppProvider } from "./views/common/AppContext.js";
 import Navigationbar from "./views/common/Navigationbar.js";
 import Home from "./views/Home/Home.js";
