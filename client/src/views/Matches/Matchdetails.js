@@ -74,6 +74,11 @@ const Matchdetails = () => {
             </Row>
             <Row>
                 <Col>
+                    <Link to={`/robotsummary/?matchId=${match.id}`}><button className="btn btn-primary">Robot Summary</button></Link>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                     <table className="table"> 
                         <thead>
                             <tr>
