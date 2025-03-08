@@ -98,9 +98,9 @@ const Eventdetail = () => {
                         // },
                     }}
                     slots={{
-                        0: (data) => {
+                        0: (data, row) => {
                             return (
-                                <div onClick={() => handleViewItem(`/matchdetails/?matchId=${data}`)}><OverlayTrigger placement="top" overlay={renderTooltip({ text: 'View Match' })}><MdOutlinePreview size='2em' /></OverlayTrigger></div>
+                                <div onClick={() => handleViewItem(`/matchdetails/?matchId=${row.id}`)}><OverlayTrigger placement="top" overlay={renderTooltip({ text: 'View Match' })}><MdOutlinePreview size='2em' /></OverlayTrigger></div>
                             );
                         },
                     }}
