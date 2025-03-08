@@ -1071,10 +1071,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    backgroundColor: 'limegreen',
+    backgroundColor: 'oldlace',
   },
   leaveSelected: {
-    backgroundColor: 'oldlace',
+    backgroundColor: 'limegreen',
   }
 });
 

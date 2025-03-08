@@ -22,7 +22,7 @@ const defaultGameData = {
     //Auto Reef positions Algae
     // aalA = (a)uto - (a)lge - Reef Location (A)
     aalA:false, aalB:false, aalC:false, aalD:false, aalE:false, aalF:false,
-    aL:true,
+    aL:false,
 
     // *** TeleOp ***
     tns: 0, // Teleop Net Scored
