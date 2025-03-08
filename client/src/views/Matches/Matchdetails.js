@@ -5,9 +5,10 @@ import BackButton from '../common/BackButton';
 import { Col, Container, Row } from "react-bootstrap";
 import { APP_DATABASE_URL } from "../../constant/constant";
 import { arrayLookup } from "../../utils/common";
+import { FaCircleInfo } from "react-icons/fa6";
 
 const Matchdetails = () => {
-    const [match, setMatch] = useState([]);
+    const [match, setMatch] = useState(null);
     const [matchdata, setMatchdata] = useState([]);
     const [team, setTeam] = useState([]);
 
@@ -28,18 +29,23 @@ const Matchdetails = () => {
 
 
     useEffect(() => {
-        axios.get(`${APP_DATABASE_URL}/matchData/2025/matchkey/${match.matchKey}`)
-        .then(response => setMatchdata(response.data))
-        .catch(error => console.error('Error fetching data:', error));
-        }, [match]);
+        if (match && match.matchKey) {
+            axios.get(`${APP_DATABASE_URL}/matchData/2025/matchkey/${match.matchKey}`)
+            .then(response => setMatchdata(response.data))
+            .catch(error => console.error('Error fetching data:', error));
+        }
+    }, [match]);
+
 
     return (
         <Container>
             <Row>
                 <Col md={1}><BackButton /></Col>
-                <Col md={11}><h1> {match.matchKey}</h1></Col>
+                <Col md={11}><h2>{match ? match.matchKey : matchId}</h2></Col>
             </Row>
             <Row><hr></hr></Row>
+            {match ? (
+                <>
             <Row>
                 <Col>
                     <table className="table table-bordered">
@@ -59,12 +65,12 @@ const Matchdetails = () => {
                         <tbody>
                             <tr key={match.matchNumber}>
                                 <td>{match.matchNumber}</td>
-                                <td class="bg-primary bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.blueOneTeamNumber, team, "teamNumber", "id")}`}>{match.blueOneTeamNumber}</Link></td>
-                                <td class="bg-primary bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.blueTwoTeamNumber, team, "teamNumber", "id")}`}>{match.blueTwoTeamNumber}</Link></td>
-                                <td class="bg-primary bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.blueThreeTeamNumber, team, "teamNumber", "id")}`}>{match.blueThreeTeamNumber}</Link></td>
-                                <td class="bg-danger bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.redOneTeamNumber, team, "teamNumber", "id")}`}>{match.redOneTeamNumber}</Link></td>
-                                <td class="bg-danger bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.redTwoTeamNumber, team, "teamNumber", "id")}`}>{match.redTwoTeamNumber}</Link></td>
-                                <td class="bg-danger bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.redThreeTeamNumber, team, "teamNumber", "id")}`}>{match.redThreeTeamNumber}</Link></td>
+                                <td className="bg-primary bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.blueOneTeamNumber, team, "teamNumber", "id")}`}>{match.blueOneTeamNumber}</Link></td>
+                                <td className="bg-primary bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.blueTwoTeamNumber, team, "teamNumber", "id")}`}>{match.blueTwoTeamNumber}</Link></td>
+                                <td className="bg-primary bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.blueThreeTeamNumber, team, "teamNumber", "id")}`}>{match.blueThreeTeamNumber}</Link></td>
+                                <td className="bg-danger bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.redOneTeamNumber, team, "teamNumber", "id")}`}>{match.redOneTeamNumber}</Link></td>
+                                <td className="bg-danger bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.redTwoTeamNumber, team, "teamNumber", "id")}`}>{match.redTwoTeamNumber}</Link></td>
+                                <td className="bg-danger bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.redThreeTeamNumber, team, "teamNumber", "id")}`}>{match.redThreeTeamNumber}</Link></td>
                                 <td>{match.blueScore}</td>
                                 <td>{match.redScore}</td>
                             </tr>
@@ -118,6 +124,14 @@ const Matchdetails = () => {
                     </table>
                 </Col>
             </Row>
+            </>
+            ) : (
+                <Row>
+                    <Col>
+                        <h3><FaCircleInfo className='react-icons' size='1.5em' /> No data available for this match.</h3>
+                    </Col>
+                </Row>
+            )}
         </Container>
     );
 }

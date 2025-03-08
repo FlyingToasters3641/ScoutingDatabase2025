@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useHistory } from 'react-router-dom';
 import { AppContext } from "../common/AppContext.js";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { APP_DATABASE_URL } from "../../constant/constant";
-import { arrayLookup } from "../../utils/common";
 import BackButton from '../common/BackButton';
 import { RiTrophyLine, RiAddCircleLine } from "react-icons/ri";
+import { MdOutlinePreview } from "react-icons/md";
+import DataTable from '../../components/DataTableNetBase.js';
 
 const Eventdetail = () => {
     const { appData } = useContext(AppContext);
-
     const [event, setEvent] = useState([]);
     const [team, setTeam] = useState([]);
     const [match, setMatch] = useState([]);
-
     const location = useLocation();
+    const history = useHistory();
     const searchParams = new URLSearchParams(location.search);
     const eventid = searchParams.get('eventId');
 
@@ -31,12 +31,18 @@ const Eventdetail = () => {
         axios.get(`${APP_DATABASE_URL}/matches/${eventid}`)
         .then(response => setMatch(response.data))
         .catch(error => console.error('Error fetching data:', error));
-        }, []);
-    
-        const tdRight={
-            textAlign:'right'
-        };
-    
+    }, [eventid]);
+
+    const tdRight = {
+        textAlign: 'right'
+    };
+
+    const handleViewItem = (pushTo) => {
+        history.push(pushTo);
+    };
+
+    const renderTooltip = (props) => (<Tooltip {...props}>{props.text}</Tooltip>);
+
     return (
         <Container>
             <Row>
@@ -45,23 +51,63 @@ const Eventdetail = () => {
                     <h2>{event.name}</h2>
                 </Col>
                 <hr></hr>
-                {/* <p>Search query: {eventid}</p> */}
                 <p>Event Year: {appData.currentEventYear}; Event Key: {appData.currentEventKey}; Event Id (serverDV): {appData.currentEventID}; <em><b>{appData.name}</b></em></p>
             </Row>
             <Row>
                 <Col md={1}>&nbsp;</Col>
                 <Col md={11} style={tdRight}>
-                    <Link to={`/eventdata/?eventId=${event.id}`}><button type="button" class="btn btn-primary"><RiTrophyLine /> Pick List</button></Link>
+                    <Link to={`/eventdata/?eventId=${event.id}`}><button type="button" className="btn btn-primary"><RiTrophyLine /> Pick List</button></Link>
                     <text>&nbsp;</text>
-                    <Link to={`/dataimport`}><button type="button" class="btn btn-success"><RiAddCircleLine /> Import Data</button></Link>
+                    <Link to={`/dataimport`}><button type="button" className="btn btn-success"><RiAddCircleLine /> Import Data</button></Link>
+                </Col>
+            </Row>
+            <Row>
+                <Col md={12}>
+                    <hr></hr>
                 </Col>
             </Row>
             <Row>
                 <Col md={7}>
                     <h2>Matches:</h2>
-                    <table className="table table-bordered">
-                        <thead>
+                    <DataTable 
+                    data={match} 
+                    options={{
+                        columns: [
+                            { data: 'matchKey', searchable: false, orderable: false, },
+                            { data: 'matchKey' },
+                            { data: 'blueOneTeamNumber', className: 'bg-primary bg-opacity-10', },
+                            { data: 'blueTwoTeamNumber', className: 'bg-primary bg-opacity-10', },
+                            { data: 'blueThreeTeamNumber', className: 'bg-primary bg-opacity-10', },
+                            { data: 'redOneTeamNumber', className: 'bg-danger bg-opacity-10', },
+                            { data: 'redTwoTeamNumber', className: 'bg-danger bg-opacity-10', },
+                            { data: 'redThreeTeamNumber', className: 'bg-danger bg-opacity-10', },
+                            { data: 'blueScore', searchable: false, orderable: false, },
+                            { data: 'redScore', searchable: false, orderable: false, },
+                        ],
+                        responsive: true,
+                        order: [], // Prevent initial sorting
+                        // searching: true,
+                        // info: false,
+                        // scrollX: true,
+                        // scrollY: '50vh',
+                        // scrollCollapse: true,
+                        // fixedColumns: true,
+                        // fixedColumns: {
+                        //     leftColumns: 1,
+                        //     rightColumns: 1
+                        // },
+                    }}
+                    slots={{
+                        0: (data) => {
+                            return (
+                                <div onClick={() => handleViewItem(`/matchdetails/?matchId=${data}`)}><OverlayTrigger placement="top" overlay={renderTooltip({ text: 'View Match' })}><MdOutlinePreview size='2em' /></OverlayTrigger></div>
+                            );
+                        },
+                    }}
+                    >
+                    <thead>
                             <tr>
+                                <th>View</th>
                                 <th>Match Key</th>
                                 <th>Blue 1</th>
                                 <th>Blue 2</th>
@@ -72,45 +118,38 @@ const Eventdetail = () => {
                                 <th>Blue Score</th>
                                 <th>Red Score</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {match.map(match => (
-                                <tr key={match.matchKey}>
-                                    <td><Link to={`/matchdetails/?matchId=${match.id}`}>{match.matchKey}</Link></td>
-                                    <td class="bg-primary bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.blueOneTeamNumber, team, "teamNumber", "id")}`}>{match.blueOneTeamNumber}</Link></td>
-                                    <td class="bg-primary bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.blueTwoTeamNumber, team, "teamNumber", "id")}`}>{match.blueTwoTeamNumber}</Link></td>
-                                    <td class="bg-primary bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.blueThreeTeamNumber, team, "teamNumber", "id")}`}>{match.blueThreeTeamNumber}</Link></td>
-                                    <td class="bg-danger bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.redOneTeamNumber, team, "teamNumber", "id")}`}>{match.redOneTeamNumber}</Link></td>
-                                    <td class="bg-danger bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.redTwoTeamNumber, team, "teamNumber", "id")}`}>{match.redTwoTeamNumber}</Link></td>
-                                    <td class="bg-danger bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.redThreeTeamNumber, team, "teamNumber", "id")}`}>{match.redThreeTeamNumber}</Link></td>
-                                    <td>{match.blueScore}</td>
-                                    <td>{match.redScore}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    </thead>
+                    </DataTable>
                 </Col>
                 <Col md={5}>
                     <h2>Team List:</h2>
-                    <table className="table"> 
+                    <DataTable
+                        data={team}
+                        options={{
+                            columns: [
+                                { data: 'teamNumber', className: 'text-start' },
+                                { data: 'nickname',  },
+                                { data: 'id', searchable: false, orderable: false, defaultContent: '', className: 'text-end',},
+                            ],
+                            responsive: true,
+                            order: [], // Prevent initial sorting
+                        }}
+                        slots={{
+                            2: (data, row) => {
+                                return (
+                                    <div onClick={() => handleViewItem(`/team/?teamId=${data}`)}><OverlayTrigger placement="top" overlay={renderTooltip({ text: 'View Team' })}><MdOutlinePreview size='2em' /></OverlayTrigger></div>
+                                );
+                            },
+                        }}
+                    >
                         <thead>
                             <tr>
-                                <th>Teams Number</th>
-                                <th>Team Name</th>
+                                <th>Number</th>
+                                <th>Name</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        {team.map(team => (
-                            <tr key={team.teamNumber}>
-                                <td>{team.teamNumber}</td>
-                                <td>{team.nickname}</td>
-                                <td style={tdRight}>
-                                <Link to={`/team/?teamId=${team.id}`}><button className="btn btn-primary">View</button></Link>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                    </DataTable>
                 </Col>
             </Row>
         </Container>

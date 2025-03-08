@@ -7,12 +7,12 @@ const Navigationbar = () => {
     return (
         <Navbar expand="sm" bg="primary" variant="dark">
             <div className="container">
-                <Link to="/" className="navbar-brand"><PiBreadBold /> Toaster's Scouting</Link>
+                <Link to="/" className="navbar-brand"><PiBreadBold className='react-icons' size='1.75em' /> Toaster's Scouting</Link>
                 <Navbar.Toggle aria-controls="navbarScroll" data-bs-target="#navbarScroll" />
                     <Nav>
                         <NavLink eventKey="1" as={Link} to="/about">About</NavLink>
                         {/* <NavLink eventKey="2" as={Link} to="/test">Test</NavLink> */}
-                        <NavLink eventKey="3" as={Link} to="/admin"><RiAdminFill /></NavLink>
+                        <NavLink eventKey="3" as={Link} to="/admin"><RiAdminFill className='react-icons' size='1.75em'/></NavLink>
                     </Nav>
             </div>
         </Navbar>
