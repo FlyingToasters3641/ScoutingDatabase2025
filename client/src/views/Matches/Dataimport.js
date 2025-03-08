@@ -90,6 +90,7 @@ const Dataimport = () => {
                     
                     // Auton data
                     autonPosition: botLocationEnum[matchData.sl],
+                    autonLeave: matchData.aL,
                     autonCoralMissed: matchData.acm,
                     autonNetScored: matchData.ans,
                     autonNetMissed: matchData.anm,
