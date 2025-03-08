@@ -8,7 +8,9 @@ import { Col, Container, Row } from "react-bootstrap";
 
 const Eventdata = () => {
     const [event, setEvent] = useState([]);
+    const teamAverageDefault = [{avgAutonReefTotal: -1, avgAutonNetScored: -1, avgAutonProcessorScored: -1, avgTeleopReefTotal: -1, avgTeleopNetScored: -1, avgTeleopProcessorScored: -1, avgTotalAlgaePickup: -1, avgTotalAlgeaRemoved: -1, avgTotalCoralGroundPickup: -1, avgTotalCoralStationPickup: -1}];
     const [matchData, setMatchData] = useState([]);
+    const [teamAverage, setTeamAverage] = useState(teamAverageDefault);
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -25,6 +27,15 @@ const Eventdata = () => {
         .then(response => setMatchData(response.data))
         .catch(error => console.error('Error fetching data:', error));
     }, [event]);
+
+    useEffect(() => {
+        if(teamAverage){
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${matchData.teamNumber}`)
+        .then(response => setTeamAverage(response.data))
+        .catch(error => console.error('Error fetching data:', error));
+    }
+    }, [teamAverage]);
+
 
     return (
         <Container>
@@ -60,6 +71,20 @@ const Eventdata = () => {
                             {matchData.map((matchData) => (
                                 <tr key={matchData.teamNumber}>
                                     <td>{matchData.teamNumber}</td>
+                                    <td>???</td>
+                                    <td>???</td>
+                                    <td>???</td>
+                                    <td>???</td>
+                                    <td>???</td>
+                                    <td>???</td>
+                                    <td>{teamAverage[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverage[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverage[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverage[0].avgAutonNetScored}</td>
+                                    <td>{teamAverage[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverage[0].avgTeleopProcessorScored}</td>
+                                    <td>{teamAverage[0].avgTeleopNetScored}</td>
                                 </tr>
                             ))}
                         </tbody>
