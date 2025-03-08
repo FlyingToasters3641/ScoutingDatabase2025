@@ -114,7 +114,7 @@ const Auto = ({
 
   useEffect(() => {
     setGameData(prevGameData => ({...prevGameData, aL:leave}))
-  })
+  }, [leave]);
 
   // Scoring functions
 
