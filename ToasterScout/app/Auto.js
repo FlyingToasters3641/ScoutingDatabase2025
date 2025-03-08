@@ -112,6 +112,10 @@ const Auto = ({
   
   const [leave, setLeave] = useState(gameData.aL)
 
+  useEffect(() => {
+    setGameData(prevGameData => ({...prevGameData, aL:leave}))
+  })
+
   // Scoring functions
 
   // Level 1 Scoring
@@ -957,7 +961,7 @@ const Auto = ({
       </View>
 
       {/* Leave */}
-      <Pressable style={[styles.leaveButton, leave && styles.algaeSmallButtonActive]} onPress={leaveToggle}>
+      <Pressable style={[styles.leaveButton, leave && styles.leaveSelected]} onPress={leaveToggle}>
         <Text styles={styles.buttonLabel}>Leave</Text>
       </Pressable>
   </>
@@ -1067,6 +1071,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
+    backgroundColor: 'limegreen',
+  },
+  leaveSelected: {
     backgroundColor: 'oldlace',
   }
 });
