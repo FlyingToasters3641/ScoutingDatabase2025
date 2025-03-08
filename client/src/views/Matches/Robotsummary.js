@@ -1,0 +1,240 @@
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import { useLocation, Link } from 'react-router-dom';
+import BackButton from '../common/BackButton';
+import { Col, Container, Row } from "react-bootstrap";
+import { APP_DATABASE_URL } from "../../constant/constant";
+import { arrayLookup } from "../../utils/common";
+
+const Robotsummary = () => {
+    const [match, setMatch] = useState([]);
+    const teamAverageDefault = [{avgAutonReefTotal: -1, avgAutonNetScored: -1, avgAutonProcessorScored: -1, avgTeleopReefTotal: -1, avgTeleopNetScored: -1, avgTeleopProcessorScored: -1, avgTotalAlgaePickup: -1, avgTotalAlgeaRemoved: -1, avgTotalCoralGroundPickup: -1, avgTotalCoralStationPickup: -1}];
+    const [teamAverageBlueOne, setTeamAverageBlueOne] = useState(teamAverageDefault);
+    const [teamAverageBlueTwo, setTeamAverageBlueTwo] = useState(teamAverageDefault);
+    const [teamAverageBlueThree, setTeamAverageBlueThree] = useState(teamAverageDefault);
+    const [teamAverageRedOne, setTeamAverageRedOne] = useState(teamAverageDefault);
+    const [teamAverageRedTwo, setTeamAverageRedTwo] = useState(teamAverageDefault);
+    const [teamAverageRedThree, setTeamAverageRedThree] = useState(teamAverageDefault);
+    const [team, setTeam] = useState([]);
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const matchId = searchParams.get('matchId');
+
+    useEffect(() => {
+        axios.get(`${APP_DATABASE_URL}/match/${matchId}`)
+        .then(response => setMatch(response.data))
+        .catch(error => console.error('Error fetching data:', error));
+        
+        axios.get(`${APP_DATABASE_URL}/teams`)
+        .then(response => setTeam(response.data))
+        .catch(error => console.error('Error fetching data:', error));
+        
+        }, [matchId]);
+
+
+    useEffect(() => {
+        if(match){
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.blueOneTeamNumber}`)
+        .then(response => setTeamAverageBlueOne(response.data))
+        .catch(error => console.error('Error fetching data:', error));
+
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.blueTwoTeamNumber}`)
+        .then(response => setTeamAverageBlueTwo(response.data))
+        .catch(error => console.error('Error fetching data:', error));
+
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.blueThreeTeamNumber}`)
+        .then(response => setTeamAverageBlueThree(response.data))
+        .catch(error => console.error('Error fetching data:', error));
+
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.redOneTeamNumber}`)
+        .then(response => setTeamAverageRedOne(response.data))
+        .catch(error => console.error('Error fetching data:', error));
+
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.redTwoTeamNumber}`)
+        .then(response => setTeamAverageRedTwo(response.data))
+        .catch(error => console.error('Error fetching data:', error));
+
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.redThreeTeamNumber}`)
+        .then(response => setTeamAverageRedThree(response.data))
+        .catch(error => console.error('Error fetching data:', error));
+        }
+    }, [match]);
+
+    return (
+        <Container>
+            <Row>
+                <Col md={1}><BackButton /></Col>
+                <Col md={11}><h1> Match {match.matchNumber} Robot Summary</h1></Col>
+            </Row>
+            <Row><hr></hr></Row>
+            <Row>
+                <Col>
+                    <table className="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Blue 1</th>
+                                <th>Blue 2</th>
+                                <th>Blue 3</th>
+                                <th>Red 1</th>
+                                <th>Red 2</th>
+                                <th>Red 3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="bg-primary bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.blueOneTeamNumber, team, "teamNumber", "id")}`}>{match.blueOneTeamNumber}</Link></td>
+                                <td class="bg-primary bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.blueTwoTeamNumber, team, "teamNumber", "id")}`}>{match.blueTwoTeamNumber}</Link></td>
+                                <td class="bg-primary bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.blueThreeTeamNumber, team, "teamNumber", "id")}`}>{match.blueThreeTeamNumber}</Link></td>
+                                <td class="bg-danger bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.redOneTeamNumber, team, "teamNumber", "id")}`}>{match.redOneTeamNumber}</Link></td>
+                                <td class="bg-danger bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.redTwoTeamNumber, team, "teamNumber", "id")}`}>{match.redTwoTeamNumber}</Link></td>
+                                <td class="bg-danger bg-opacity-10"><Link to={`/team/?teamId=${arrayLookup(match.redThreeTeamNumber, team, "teamNumber", "id")}`}>{match.redThreeTeamNumber}</Link></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <table className="table"> 
+                        <thead>
+                            <tr>
+                                <th>Team Number</th>
+                                <th>Auton Coral</th>
+                                <th>Auton Net</th>
+                                <th>Auton Processor</th>
+                                <th>TeleOp Coral</th>
+                                <th>TeleOp Net</th>
+                                <th>TeleOp Processor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr class="bg-primary bg-opacity-10">
+                                    <td>{match.blueOneTeamNumber}</td>
+                                    <td>{teamAverageBlueOne[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverageBlueOne[0].avgAutonNetScored}</td>
+                                    <td>{teamAverageBlueOne[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageBlueOne[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverageBlueOne[0].avgTeleopNetScored}</td>
+                                    <td>{teamAverageBlueOne[0].avgTeleopProcessorScored}</td>
+                                </tr>
+                                <tr class="bg-primary bg-opacity-10">
+                                    <td>{match.blueTwoTeamNumber}</td>
+                                    <td>{teamAverageBlueTwo[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverageBlueTwo[0].avgAutonNetScored}</td>
+                                    <td>{teamAverageBlueTwo[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTeleopNetScored}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTeleopProcessorScored}</td>
+                                </tr>
+                                <tr class="bg-primary bg-opacity-10">
+                                    <td>{match.blueThreeTeamNumber}</td>
+                                    <td>{teamAverageBlueThree[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverageBlueThree[0].avgAutonNetScored}</td>
+                                    <td>{teamAverageBlueThree[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageBlueThree[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverageBlueThree[0].avgTeleopNetScored}</td>
+                                    <td>{teamAverageBlueThree[0].avgTeleopProcessorScored}</td>
+                                </tr>
+                                <tr class="bg-danger bg-opacity-10">
+                                    <td>{match.redOneTeamNumber}</td>
+                                    <td>{teamAverageRedOne[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverageRedOne[0].avgAutonNetScored}</td>
+                                    <td>{teamAverageRedOne[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageRedOne[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverageRedOne[0].avgTeleopNetScored}</td>
+                                    <td>{teamAverageRedOne[0].avgTeleopProcessorScored}</td>
+                                </tr>
+                                <tr class="bg-danger bg-opacity-10">
+                                    <td>{match.redTwoTeamNumber}</td>
+                                    <td>{teamAverageRedTwo[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverageRedTwo[0].avgAutonNetScored}</td>
+                                    <td>{teamAverageRedTwo[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageRedTwo[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverageRedTwo[0].avgTeleopNetScored}</td>
+                                    <td>{teamAverageRedTwo[0].avgTeleopProcessorScored}</td>
+                                </tr>
+                                <tr class="bg-danger bg-opacity-10">
+                                    <td>{match.redThreeTeamNumber}</td>
+                                    <td>{teamAverageRedThree[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverageRedThree[0].avgAutonNetScored}</td>
+                                    <td>{teamAverageRedThree[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageRedThree[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverageRedThree[0].avgTeleopNetScored}</td>
+                                    <td>{teamAverageRedThree[0].avgTeleopProcessorScored}</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <table className="table"> 
+                        <thead>
+                            <tr>
+                                <th>Team Number</th>
+                                <th>Algae Pick-Up</th>
+                                <th>Alage Removed</th>
+                                <th>Climb Position</th>
+                                <th>Coral Ground Pick-Up</th>
+                                <th>Coral Station Pick-Up</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr class="bg-primary bg-opacity-10">
+                                    <td >{match.blueOneTeamNumber}</td>
+                                    <td>{teamAverageBlueOne[0].avgTotalAlgaePickup}</td>
+                                    <td>{teamAverageBlueOne[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverageBlueOne[0].avgTotalCoralGroundPickup}</td>
+                                    <td>{teamAverageBlueOne[0].avgTotalCoralStationPickup}</td>
+                                </tr>
+                                <tr class="bg-primary bg-opacity-10">
+                                    <td>{match.blueTwoTeamNumber}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTotalAlgaePickup}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverageBlueTwo[0].avgTotalCoralGroundPickup}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTotalCoralStationPickup}</td>
+                                </tr>
+                                <tr class="bg-primary bg-opacity-10">
+                                    <td>{match.blueThreeTeamNumber}</td>
+                                    <td>{teamAverageBlueThree[0].avgTotalAlgaePickup}</td>
+                                    <td>{teamAverageBlueThree[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverageBlueThree[0].avgTotalCoralGroundPickup}</td>
+                                    <td>{teamAverageBlueThree[0].avgTotalCoralStationPickup}</td>
+                                </tr>
+                                <tr class="bg-danger bg-opacity-10">
+                                    <td>{match.redOneTeamNumber}</td>
+                                    <td>{teamAverageRedOne[0].avgTotalAlgaePickup}</td>
+                                    <td>{teamAverageRedOne[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverageRedOne[0].avgTotalCoralGroundPickup}</td>
+                                    <td>{teamAverageRedOne[0].avgTotalCoralStationPickup}</td>
+                                </tr>
+                                <tr class="bg-danger bg-opacity-10">
+                                    <td>{match.redTwoTeamNumber}</td>
+                                    <td>{teamAverageRedTwo[0].avgTotalAlgaePickup}</td>
+                                    <td>{teamAverageRedTwo[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverageRedTwo[0].avgTotalCoralGroundPickup}</td>
+                                    <td>{teamAverageRedTwo[0].avgTotalCoralStationPickup}</td>
+                                </tr>
+                                <tr class="bg-danger bg-opacity-10">
+                                    <td>{match.redThreeTeamNumber}</td>
+                                    <td>{teamAverageRedThree[0].avgTotalAlgaePickup}</td>
+                                    <td>{teamAverageRedThree[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverageRedThree[0].avgTotalCoralGroundPickup}</td>
+                                    <td>{teamAverageRedThree[0].avgTotalCoralStationPickup}</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </Col>
+            </Row>
+        </Container>
+    );
+}
+
+export default Robotsummary;

@@ -13,6 +13,7 @@ import Dataimport from "./views/Matches/Dataimport.js";
 import Matchdetails from "./views/Matches/Matchdetails.js";
 import Admin from "./views/Admin/Adminpg.js";
 import Eventdata from "./views/Events/Eventdata.js";
+import Robotsummary from "./views/Matches/Robotsummary.js";
 
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
                 <Route path='/matchdetails' component={Matchdetails}/>
                 <Route path='/admin' component={Admin}/>
                 <Route path='/eventdata' component={Eventdata}/>
+                <Route path='/robotsummary' component={Robotsummary}/>
             </Switch>
         </Router>
       </AppProvider>

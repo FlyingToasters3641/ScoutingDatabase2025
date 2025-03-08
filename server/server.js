@@ -331,6 +331,32 @@ app.get('/api/v1/matchData/:year/eventkey/:id', async (req, res) => {
   }
 });
 
+app.get('/api/v1/matchData/:year/team/:id', async (req, res) => {
+  try {
+    const MatchData = getMatchDataModelByYear(req.params.year);
+    const matchdata = await MatchData.findAll({
+      attributes: [
+        [Sequelize.fn('AVG', Sequelize.col('autonReefTotal')), 'avgAutonReefTotal'],
+        [Sequelize.fn('AVG', Sequelize.col('autonNetScored')), 'avgAutonNetScored'],
+        [Sequelize.fn('AVG', Sequelize.col('autonProcessorScored')), 'avgAutonProcessorScored'],
+        [Sequelize.fn('AVG', Sequelize.col('teleopReefTotal')), 'avgTeleopReefTotal'],
+        [Sequelize.fn('AVG', Sequelize.col('teleopNetScored')), 'avgTeleopNetScored'],
+        [Sequelize.fn('AVG', Sequelize.col('teleopProcessorScored')), 'avgTeleopProcessorScored'],
+        [Sequelize.fn('AVG', Sequelize.col('totalAlgaePickup')), 'avgTotalAlgaePickup'],
+        [Sequelize.fn('AVG', Sequelize.col('totalAlgeaRemoved')), 'avgTotalAlgeaRemoved'],
+        [Sequelize.fn('AVG', Sequelize.col('totalCoralGroundPickup')), 'avgTotalCoralGroundPickup'],
+        [Sequelize.fn('AVG', Sequelize.col('totalCoralStationPickup')), 'avgTotalCoralStationPickup'],
+      ],
+      where: {
+        teamNumber: req.params.id,
+      },
+    });
+    res.json(matchdata);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 app.post('/api/v1/matchData/:year', async (req, res) => {
   try {
     const MatchData = getMatchDataModelByYear(req.params.year);
