@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, StyleSheet, View, Image, TouchableOpacity, Alert } from 'react-native';
+import { Text, StyleSheet, View, Image, TouchableOpacity, Alert, Pressable } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons'; //https://icons.expo.fyi/Index
 import Entypo from '@expo/vector-icons/Entypo';
 
@@ -110,6 +110,7 @@ const Auto = ({
     setGameData(prevGameData => ({...prevGameData, aalF: algaeFToggled}));
   }, [algaeAToggled, algaeBToggled, algaeCToggled, algaeDToggled, algaeEToggled, algaeFToggled]);
   
+  const [leave, setLeave] = useState(gameData.aL)
 
   // Scoring functions
 
@@ -511,6 +512,12 @@ const Auto = ({
     if (displayAlgaeIntake > 0) {
       setDisplayAlgaeIntake(displayAlgaeIntake - 1);
     } 
+  };
+
+  // Leave
+  const leaveToggle = () => {
+    setLeave(!leave);
+    console.log(leave);
   };
 
 
@@ -948,6 +955,11 @@ const Auto = ({
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addAlgaeIntake}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
       </View>
+
+      {/* Leave */}
+      <Pressable style={[styles.leaveButton, leave && styles.algaeSmallButtonActive]} onPress={leaveToggle}>
+        <Text styles={styles.buttonLabel}>Leave</Text>
+      </Pressable>
   </>
 
   );
@@ -1044,6 +1056,18 @@ const styles = StyleSheet.create({
     borderColor: 'white', // Change color to your desired border color
     borderRadius: 8,
     padding: 10,
+  },
+  leaveButton: {
+    top: 405,
+    left: 385,
+    height: 65,
+    width: 65,
+    borderRadius: 8,
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    backgroundColor: 'oldlace',
   }
 });
 
