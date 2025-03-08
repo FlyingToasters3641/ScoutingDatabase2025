@@ -8,12 +8,13 @@ import { arrayLookup } from "../../utils/common";
 
 const Robotsummary = () => {
     const [match, setMatch] = useState([]);
-    const [teamAverageBlueOne, setTeamAverageBlueOne] = useState([]);
-    const [teamAverageBlueTwo, setTeamAverageBlueTwo] = useState([]);
-    const [teamAverageBlueThree, setTeamAverageBlueThree] = useState([]);
-    const [teamAverageRedOne, setTeamAverageRedOne] = useState([]);
-    const [teamAverageRedTwo, setTeamAverageRedTwo] = useState([]);
-    const [teamAverageRedThree, setTeamAverageRedThree] = useState([]);
+    const teamAverageDefault = [{avgAutonReefTotal: -1, avgAutonNetScored: -1, avgAutonProcessorScored: -1, avgTeleopReefTotal: -1, avgTeleopNetScored: -1, avgTeleopProcessorScored: -1, avgTotalAlgaePickup: -1, avgTotalAlgeaRemoved: -1, avgTotalCoralGroundPickup: -1, avgTotalCoralStationPickup: -1}];
+    const [teamAverageBlueOne, setTeamAverageBlueOne] = useState(teamAverageDefault);
+    const [teamAverageBlueTwo, setTeamAverageBlueTwo] = useState(teamAverageDefault);
+    const [teamAverageBlueThree, setTeamAverageBlueThree] = useState(teamAverageDefault);
+    const [teamAverageRedOne, setTeamAverageRedOne] = useState(teamAverageDefault);
+    const [teamAverageRedTwo, setTeamAverageRedTwo] = useState(teamAverageDefault);
+    const [teamAverageRedThree, setTeamAverageRedThree] = useState(teamAverageDefault);
     const [team, setTeam] = useState([]);
 
     const location = useLocation();
@@ -33,6 +34,7 @@ const Robotsummary = () => {
 
 
     useEffect(() => {
+        if(match){
         axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.blueOneTeamNumber}`)
         .then(response => setTeamAverageBlueOne(response.data))
         .catch(error => console.error('Error fetching data:', error));
@@ -56,7 +58,7 @@ const Robotsummary = () => {
         axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.redThreeTeamNumber}`)
         .then(response => setTeamAverageRedThree(response.data))
         .catch(error => console.error('Error fetching data:', error));
-        
+        }
     }, [match]);
 
     return (
@@ -109,57 +111,57 @@ const Robotsummary = () => {
                         <tbody>
                                 <tr class="bg-primary bg-opacity-10">
                                     <td>{match.blueOneTeamNumber}</td>
-                                    <td>{teamAverageBlueOne.autonReefTotal}</td>
-                                    <td>{teamAverageBlueOne.autonNetScored}</td>
-                                    <td>{teamAverageBlueOne.autonProcessorScored}</td>
-                                    <td>{teamAverageBlueOne.teleopReefTotal}</td>
-                                    <td>{teamAverageBlueOne.teleopNetScored}</td>
-                                    <td>{teamAverageBlueOne.teleopProcessorScored}</td>
+                                    <td>{teamAverageBlueOne[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverageBlueOne[0].avgAutonNetScored}</td>
+                                    <td>{teamAverageBlueOne[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageBlueOne[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverageBlueOne[0].avgTeleopNetScored}</td>
+                                    <td>{teamAverageBlueOne[0].avgTeleopProcessorScored}</td>
                                 </tr>
                                 <tr class="bg-primary bg-opacity-10">
                                     <td>{match.blueTwoTeamNumber}</td>
-                                    <td>{teamAverageBlueTwo.autonReefTotal}</td>
-                                    <td>{teamAverageBlueTwo.autonNetScored}</td>
-                                    <td>{teamAverageBlueTwo.autonProcessorScored}</td>
-                                    <td>{teamAverageBlueTwo.teleopReefTotal}</td>
-                                    <td>{teamAverageBlueTwo.teleopNetScored}</td>
-                                    <td>{teamAverageBlueTwo.teleopProcessorScored}</td>
+                                    <td>{teamAverageBlueTwo[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverageBlueTwo[0].avgAutonNetScored}</td>
+                                    <td>{teamAverageBlueTwo[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTeleopNetScored}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTeleopProcessorScored}</td>
                                 </tr>
                                 <tr class="bg-primary bg-opacity-10">
                                     <td>{match.blueThreeTeamNumber}</td>
-                                    <td>{teamAverageBlueThree.autonReefTotal}</td>
-                                    <td>{teamAverageBlueThree.autonNetScored}</td>
-                                    <td>{teamAverageBlueThree.autonProcessorScored}</td>
-                                    <td>{teamAverageBlueThree.teleopReefTotal}</td>
-                                    <td>{teamAverageBlueThree.teleopNetScored}</td>
-                                    <td>{teamAverageBlueThree.teleopProcessorScored}</td>
+                                    <td>{teamAverageBlueThree[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverageBlueThree[0].avgAutonNetScored}</td>
+                                    <td>{teamAverageBlueThree[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageBlueThree[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverageBlueThree[0].avgTeleopNetScored}</td>
+                                    <td>{teamAverageBlueThree[0].avgTeleopProcessorScored}</td>
                                 </tr>
                                 <tr class="bg-danger bg-opacity-10">
                                     <td>{match.redOneTeamNumber}</td>
-                                    <td>{teamAverageRedOne.autonReefTotal}</td>
-                                    <td>{teamAverageRedOne.autonNetScored}</td>
-                                    <td>{teamAverageRedOne.autonProcessorScored}</td>
-                                    <td>{teamAverageRedOne.teleopReefTotal}</td>
-                                    <td>{teamAverageRedOne.teleopNetScored}</td>
-                                    <td>{teamAverageRedOne.teleopProcessorScored}</td>
+                                    <td>{teamAverageRedOne[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverageRedOne[0].avgAutonNetScored}</td>
+                                    <td>{teamAverageRedOne[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageRedOne[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverageRedOne[0].avgTeleopNetScored}</td>
+                                    <td>{teamAverageRedOne[0].avgTeleopProcessorScored}</td>
                                 </tr>
                                 <tr class="bg-danger bg-opacity-10">
                                     <td>{match.redTwoTeamNumber}</td>
-                                    <td>{teamAverageRedTwo.autonReefTotal}</td>
-                                    <td>{teamAverageRedTwo.autonNetScored}</td>
-                                    <td>{teamAverageRedTwo.autonProcessorScored}</td>
-                                    <td>{teamAverageRedTwo.teleopReefTotal}</td>
-                                    <td>{teamAverageRedTwo.teleopNetScored}</td>
-                                    <td>{teamAverageRedTwo.teleopProcessorScored}</td>
+                                    <td>{teamAverageRedTwo[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverageRedTwo[0].avgAutonNetScored}</td>
+                                    <td>{teamAverageRedTwo[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageRedTwo[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverageRedTwo[0].avgTeleopNetScored}</td>
+                                    <td>{teamAverageRedTwo[0].avgTeleopProcessorScored}</td>
                                 </tr>
                                 <tr class="bg-danger bg-opacity-10">
                                     <td>{match.redThreeTeamNumber}</td>
-                                    <td>{teamAverageRedThree.autonReefTotal}</td>
-                                    <td>{teamAverageRedThree.autonNetScored}</td>
-                                    <td>{teamAverageRedThree.autonProcessorScored}</td>
-                                    <td>{teamAverageRedThree.teleopReefTotal}</td>
-                                    <td>{teamAverageRedThree.teleopNetScored}</td>
-                                    <td>{teamAverageRedThree.teleopProcessorScored}</td>
+                                    <td>{teamAverageRedThree[0].avgAutonReefTotal}</td>
+                                    <td>{teamAverageRedThree[0].avgAutonNetScored}</td>
+                                    <td>{teamAverageRedThree[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageRedThree[0].avgTeleopReefTotal}</td>
+                                    <td>{teamAverageRedThree[0].avgTeleopNetScored}</td>
+                                    <td>{teamAverageRedThree[0].avgTeleopProcessorScored}</td>
                                 </tr>
                         </tbody>
                     </table>
@@ -181,51 +183,51 @@ const Robotsummary = () => {
                         <tbody>
                                 <tr class="bg-primary bg-opacity-10">
                                     <td >{match.blueOneTeamNumber}</td>
-                                    <td>{teamAverageBlueOne.totalAlgaePickup}</td>
-                                    <td>{teamAverageBlueOne.totalAlgeaRemoved}</td>
-                                    <td>{teamAverageBlueOne.bargeZonLocation}</td>
-                                    <td>{teamAverageBlueOne.totalCoralGroundPickup}</td>
-                                    <td>{teamAverageBlueOne.totalCoralStationPickup}</td>
+                                    <td>{teamAverageBlueOne[0].avgTotalAlgaePickup}</td>
+                                    <td>{teamAverageBlueOne[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverageBlueOne[0].avgTotalCoralGroundPickup}</td>
+                                    <td>{teamAverageBlueOne[0].avgTotalCoralStationPickup}</td>
                                 </tr>
                                 <tr class="bg-primary bg-opacity-10">
                                     <td>{match.blueTwoTeamNumber}</td>
-                                    <td>{teamAverageBlueTwo.totalAlgaePickup}</td>
-                                    <td>{teamAverageBlueTwo.totalAlgeaRemoved}</td>
-                                    <td>{teamAverageBlueTwo.bargeZonLocation}</td>
-                                    <td>{teamAverageBlueTwo.totalCoralGroundPickup}</td>
-                                    <td>{teamAverageBlueTwo.totalCoralStationPickup}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTotalAlgaePickup}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverageBlueTwo[0].avgTotalCoralGroundPickup}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTotalCoralStationPickup}</td>
                                 </tr>
                                 <tr class="bg-primary bg-opacity-10">
                                     <td>{match.blueThreeTeamNumber}</td>
-                                    <td>{teamAverageBlueThree.totalAlgaePickup}</td>
-                                    <td>{teamAverageBlueThree.totalAlgeaRemoved}</td>
-                                    <td>{teamAverageBlueThree.bargeZonLocation}</td>
-                                    <td>{teamAverageBlueThree.totalCoralGroundPickup}</td>
-                                    <td>{teamAverageBlueThree.totalCoralStationPickup}</td>
+                                    <td>{teamAverageBlueThree[0].avgTotalAlgaePickup}</td>
+                                    <td>{teamAverageBlueThree[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverageBlueThree[0].avgTotalCoralGroundPickup}</td>
+                                    <td>{teamAverageBlueThree[0].avgTotalCoralStationPickup}</td>
                                 </tr>
                                 <tr class="bg-danger bg-opacity-10">
                                     <td>{match.redOneTeamNumber}</td>
-                                    <td>{teamAverageRedOne.totalAlgaePickup}</td>
-                                    <td>{teamAverageRedOne.totalAlgeaRemoved}</td>
-                                    <td>{teamAverageRedOne.bargeZonLocation}</td>
-                                    <td>{teamAverageRedOne.totalCoralGroundPickup}</td>
-                                    <td>{teamAverageRedOne.totalCoralStationPickup}</td>
+                                    <td>{teamAverageRedOne[0].avgTotalAlgaePickup}</td>
+                                    <td>{teamAverageRedOne[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverageRedOne[0].avgTotalCoralGroundPickup}</td>
+                                    <td>{teamAverageRedOne[0].avgTotalCoralStationPickup}</td>
                                 </tr>
                                 <tr class="bg-danger bg-opacity-10">
                                     <td>{match.redTwoTeamNumber}</td>
-                                    <td>{teamAverageRedTwo.totalAlgaePickup}</td>
-                                    <td>{teamAverageRedTwo.totalAlgeaRemoved}</td>
-                                    <td>{teamAverageRedTwo.bargeZonLocation}</td>
-                                    <td>{teamAverageRedTwo.totalCoralGroundPickup}</td>
-                                    <td>{teamAverageRedTwo.totalCoralStationPickup}</td>
+                                    <td>{teamAverageRedTwo[0].avgTotalAlgaePickup}</td>
+                                    <td>{teamAverageRedTwo[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverageRedTwo[0].avgTotalCoralGroundPickup}</td>
+                                    <td>{teamAverageRedTwo[0].avgTotalCoralStationPickup}</td>
                                 </tr>
                                 <tr class="bg-danger bg-opacity-10">
                                     <td>{match.redThreeTeamNumber}</td>
-                                    <td>{teamAverageRedThree.totalAlgaePickup}</td>
-                                    <td>{teamAverageRedThree.totalAlgeaRemoved}</td>
-                                    <td>{teamAverageRedThree.bargeZonLocation}</td>
-                                    <td>{teamAverageRedThree.totalCoralGroundPickup}</td>
-                                    <td>{teamAverageRedThree.totalCoralStationPickup}</td>
+                                    <td>{teamAverageRedThree[0].avgTotalAlgaePickup}</td>
+                                    <td>{teamAverageRedThree[0].avgTotalAlgeaRemoved}</td>
+                                    <td>???</td>
+                                    <td>{teamAverageRedThree[0].avgTotalCoralGroundPickup}</td>
+                                    <td>{teamAverageRedThree[0].avgTotalCoralStationPickup}</td>
                                 </tr>
                         </tbody>
                     </table>
