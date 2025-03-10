@@ -8,7 +8,7 @@ import { arrayLookup } from "../../utils/common";
 
 const Robotsummary = () => {
     const [match, setMatch] = useState([]);
-    const teamAverageDefault = [{avgAutonReefTotal: -1, avgAutonNetScored: -1, avgAutonProcessorScored: -1, avgTeleopReefTotal: -1, avgTeleopNetScored: -1, avgTeleopProcessorScored: -1, avgTotalAlgaePickup: -1, avgTotalAlgeaRemoved: -1, avgTotalCoralGroundPickup: -1, avgTotalCoralStationPickup: -1}];
+    const teamAverageDefault = [{avgAutonReefTotal: null, avgAutonNetScored: null, avgAutonProcessorScored: -1, avgTeleopReefTotal: -1, avgTeleopNetScored: -1, avgTeleopProcessorScored: -1, avgTotalAlgaePickup: -1, avgTotalAlgeaRemoved: -1, avgTotalCoralGroundPickup: -1, avgTotalCoralStationPickup: -1, catBargeZonLocation: '',}];
     const [teamAverageBlueOne, setTeamAverageBlueOne] = useState(teamAverageDefault);
     const [teamAverageBlueTwo, setTeamAverageBlueTwo] = useState(teamAverageDefault);
     const [teamAverageBlueThree, setTeamAverageBlueThree] = useState(teamAverageDefault);
@@ -185,7 +185,7 @@ const Robotsummary = () => {
                                     <td >{match.blueOneTeamNumber}</td>
                                     <td>{teamAverageBlueOne[0].avgTotalAlgaePickup}</td>
                                     <td>{teamAverageBlueOne[0].avgTotalAlgeaRemoved}</td>
-                                    <td>???</td>
+                                    <td>{teamAverageBlueOne[0].catBargeZonLocation}</td>
                                     <td>{teamAverageBlueOne[0].avgTotalCoralGroundPickup}</td>
                                     <td>{teamAverageBlueOne[0].avgTotalCoralStationPickup}</td>
                                 </tr>
@@ -193,7 +193,7 @@ const Robotsummary = () => {
                                     <td>{match.blueTwoTeamNumber}</td>
                                     <td>{teamAverageBlueTwo[0].avgTotalAlgaePickup}</td>
                                     <td>{teamAverageBlueTwo[0].avgTotalAlgeaRemoved}</td>
-                                    <td>???</td>
+                                    <td>{teamAverageBlueTwo[0].catBargeZonLocation}</td>
                                     <td>{teamAverageBlueTwo[0].avgTotalCoralGroundPickup}</td>
                                     <td>{teamAverageBlueTwo[0].avgTotalCoralStationPickup}</td>
                                 </tr>
@@ -201,7 +201,7 @@ const Robotsummary = () => {
                                     <td>{match.blueThreeTeamNumber}</td>
                                     <td>{teamAverageBlueThree[0].avgTotalAlgaePickup}</td>
                                     <td>{teamAverageBlueThree[0].avgTotalAlgeaRemoved}</td>
-                                    <td>???</td>
+                                    <td>{teamAverageBlueThree[0].catBargeZonLocation}</td>
                                     <td>{teamAverageBlueThree[0].avgTotalCoralGroundPickup}</td>
                                     <td>{teamAverageBlueThree[0].avgTotalCoralStationPickup}</td>
                                 </tr>
@@ -209,7 +209,7 @@ const Robotsummary = () => {
                                     <td>{match.redOneTeamNumber}</td>
                                     <td>{teamAverageRedOne[0].avgTotalAlgaePickup}</td>
                                     <td>{teamAverageRedOne[0].avgTotalAlgeaRemoved}</td>
-                                    <td>???</td>
+                                    <td>{teamAverageRedOne[0].catBargeZonLocation}</td>
                                     <td>{teamAverageRedOne[0].avgTotalCoralGroundPickup}</td>
                                     <td>{teamAverageRedOne[0].avgTotalCoralStationPickup}</td>
                                 </tr>
@@ -217,7 +217,7 @@ const Robotsummary = () => {
                                     <td>{match.redTwoTeamNumber}</td>
                                     <td>{teamAverageRedTwo[0].avgTotalAlgaePickup}</td>
                                     <td>{teamAverageRedTwo[0].avgTotalAlgeaRemoved}</td>
-                                    <td>???</td>
+                                    <td>{teamAverageRedTwo[0].catBargeZonLocation}</td>
                                     <td>{teamAverageRedTwo[0].avgTotalCoralGroundPickup}</td>
                                     <td>{teamAverageRedTwo[0].avgTotalCoralStationPickup}</td>
                                 </tr>
@@ -225,7 +225,7 @@ const Robotsummary = () => {
                                     <td>{match.redThreeTeamNumber}</td>
                                     <td>{teamAverageRedThree[0].avgTotalAlgaePickup}</td>
                                     <td>{teamAverageRedThree[0].avgTotalAlgeaRemoved}</td>
-                                    <td>???</td>
+                                    <td>{teamAverageRedThree[0].catBargeZonLocation}</td>
                                     <td>{teamAverageRedThree[0].avgTotalCoralGroundPickup}</td>
                                     <td>{teamAverageRedThree[0].avgTotalCoralStationPickup}</td>
                                 </tr>
