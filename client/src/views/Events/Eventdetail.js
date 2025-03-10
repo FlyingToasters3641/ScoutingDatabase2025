@@ -57,7 +57,7 @@ const Eventdetail = () => {
                 <Col md={1}>&nbsp;</Col>
                 <Col md={11} style={tdRight}>
                     <Link to={`/eventdata/?eventId=${event.id}`}><button type="button" className="btn btn-primary"><RiTrophyLine /> Pick List</button></Link>
-                    <text>&nbsp;</text>
+                    &nbsp;
                     <Link to={`/dataimport`}><button type="button" className="btn btn-success"><RiAddCircleLine /> Import Data</button></Link>
                 </Col>
             </Row>

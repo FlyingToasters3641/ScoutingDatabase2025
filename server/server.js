@@ -77,7 +77,8 @@ Match.init({
 // ######################################################################
 
 // Sync models with database
-sequelize.sync(); // sequelize.sync({ force: true })
+sequelize.sync(); 
+// sequelize.sync({ force: true })
 
 // Middleware for parsing request body
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -337,6 +338,7 @@ app.get('/api/v1/matchData/:year/team/:ids', async (req, res) => {
     const matchdata = await MatchData.findAll({
       attributes: [
         'teamNumber',
+        [Sequelize.fn('COUNT', Sequelize.col('teamNumber')), 'matchCount'],
         [Sequelize.literal('ROUND(AVG(autonReefTotal), 2)'), 'avgAutonReefTotal'],
         [Sequelize.literal('ROUND(AVG(autonNetScored), 2)'), 'avgAutonNetScored'],
         [Sequelize.literal('ROUND(AVG(autonProcessorScored), 2)'), 'avgAutonProcessorScored'],
