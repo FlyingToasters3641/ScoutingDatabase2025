@@ -38,9 +38,17 @@ const Dataimport = () => {
                 let data = JSON.parse(scannedData);
                 // alert(data.schemaVar);
                 let matchData = data.data;
-                let autonReefTotal = matchData.al1A + matchData.al2A + matchData.al3A + matchData.al4A + matchData.al1C + matchData.al2C + matchData.al3C + matchData.al4C + matchData.al1E + matchData.al2E + matchData.al3E + matchData.al4E + matchData.al1G + matchData.al2G + matchData.al3G + matchData.al4G + matchData.al1I + matchData.al2I + matchData.al3I + matchData.al4I + matchData.al1K + matchData.al2K + matchData.al3K + matchData.al4K;
+                let autonReefLevel1Total = matchData.al1A + matchData.al1C + matchData.al1E + matchData.al1G + matchData.al1I + matchData.al1K; //n
+                let autonReefLevel2Total = matchData.al2A + matchData.al2C + matchData.al2E + matchData.al2G + matchData.al2I + matchData.al2K; //n
+                let autonReefLevel3Total = matchData.al3A + matchData.al3C + matchData.al3E + matchData.al3G + matchData.al3I + matchData.al3K; //n
+                let autonReefLevel4Total = matchData.al4A + matchData.al4C + matchData.al4E + matchData.al4G + matchData.al4I + matchData.al4K; //n
+                let autonReefTotal = autonReefLevel1Total + autonReefLevel2Total + autonReefLevel3Total + autonReefLevel4Total;
                 let autonAlgeaRemovedTotal = matchData.aalA + matchData.aalB + matchData.aalC + matchData.aalD + matchData.aalE + matchData.aalF;
-                let teleopReefTotal = matchData.tl1A + matchData.tl2A + matchData.tl3A + matchData.tl4A + matchData.tl1C + matchData.tl2C + matchData.tl3C + matchData.tl4C + matchData.tl1E + matchData.tl2E + matchData.tl3E + matchData.tl4E + matchData.tl1G + matchData.tl2G + matchData.tl3G + matchData.tl4G + matchData.tl1I + matchData.tl2I + matchData.tl3I + matchData.tl4I + matchData.tl1K + matchData.tl2K + matchData.tl3K + matchData.tl4K;
+                let teleopReefLevel1Total = matchData.tl1A + matchData.tl1C + matchData.tl1E + matchData.tl1G + matchData.tl1I + matchData.tl1K; //n
+                let teleopReefLevel2Total = matchData.tl2A + matchData.tl2C + matchData.tl2E + matchData.tl2G + matchData.tl2I + matchData.tl2K; //n
+                let teleopReefLevel3Total = matchData.tl3A + matchData.tl3C + matchData.tl3E + matchData.tl3G + matchData.tl3I + matchData.tl3K; //n
+                let teleopReefLevel4Total = matchData.tl4A + matchData.tl4C + matchData.tl4E + matchData.tl4G + matchData.tl4I + matchData.tl4K; //n
+                let teleopReefTotal = teleopReefLevel1Total + teleopReefLevel2Total + teleopReefLevel3Total + teleopReefLevel4Total;
                 let teleopAlgeaRemovedTotal = matchData.talA + matchData.talB + matchData.talC + matchData.talD + matchData.talE + matchData.talF;
 
                 let totalReef = autonReefTotal + teleopReefTotal;
@@ -123,6 +131,10 @@ const Dataimport = () => {
                     autonReefLevel2K: leftFieldOrientation ? matchData.al2K : matchData.al2E,
                     autonReefLevel3K: leftFieldOrientation ? matchData.al3K : matchData.al3E,
                     autonReefLevel4K: leftFieldOrientation ? matchData.al4K : matchData.al4E,
+                    autonReefLevel1Total: autonReefLevel1Total,
+                    autonReefLevel2Total: autonReefLevel2Total,
+                    autonReefLevel3Total: autonReefLevel3Total,
+                    autonReefLevel4Total: autonReefLevel4Total,
                     autonReefTotal: autonReefTotal,
                     autoAlgaeRemovedA: leftFieldOrientation ? matchData.aalA : matchData.aalD,
                     autoAlgaeRemovedB: leftFieldOrientation ? matchData.aalB : matchData.aalE,
@@ -165,6 +177,10 @@ const Dataimport = () => {
                     teleopReefLevel2K: leftFieldOrientation ? matchData.tl2K : matchData.tl2E,
                     teleopReefLevel3K: leftFieldOrientation ? matchData.tl3K : matchData.tl3E,
                     teleopReefLevel4K: leftFieldOrientation ? matchData.tl4K : matchData.tl4E,
+                    teleopReefLevel1Total: teleopReefLevel1Total,
+                    teleopReefLevel2Total: teleopReefLevel2Total,
+                    teleopReefLevel3Total: teleopReefLevel3Total,
+                    teleopReefLevel4Total: teleopReefLevel4Total,
                     teleopReefTotal: teleopReefTotal,
                     teleopAlgaeRemovedA: leftFieldOrientation ? matchData.talA : matchData.talD,
                     teleopAlgaeRemovedB: leftFieldOrientation ? matchData.talB : matchData.talE,
