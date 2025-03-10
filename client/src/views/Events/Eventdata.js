@@ -9,7 +9,7 @@ import { Col, Container, Row } from "react-bootstrap";
 const Eventdata = () => {
     const [event, setEvent] = useState([]);
     const teamAverageDefault = [{avgAutonReefTotal: -1, avgAutonNetScored: -1, avgAutonProcessorScored: -1, avgTeleopReefTotal: -1, avgTeleopNetScored: -1, avgTeleopProcessorScored: -1, avgTotalAlgaePickup: -1, avgTotalAlgeaRemoved: -1, avgTotalCoralGroundPickup: -1, avgTotalCoralStationPickup: -1}];
-    const [matchData, setMatchData] = useState([]);
+    // const [matchData, setMatchData] = useState([]);
     const [teamAverage, setTeamAverage] = useState(teamAverageDefault);
 
     const location = useLocation();
@@ -20,21 +20,21 @@ const Eventdata = () => {
         axios.get(`${APP_DATABASE_URL}/events/${eventid}`)
         .then(response => setEvent(response.data))
         .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    }, [eventid]);
 
     useEffect(() => {
         axios.get(`${APP_DATABASE_URL}/matchData/2025/eventkey/${event.key}`)
-        .then(response => setMatchData(response.data))
+        .then(response => setTeamAverage(response.data))
         .catch(error => console.error('Error fetching data:', error));
     }, [event]);
 
-    useEffect(() => {
-        if(teamAverage){
-        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${matchData.teamNumber}`)
-        .then(response => setTeamAverage(response.data))
-        .catch(error => console.error('Error fetching data:', error));
-    }
-    }, [teamAverage]);
+    // useEffect(() => {
+    //     if(teamAverage){
+    //     axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${matchData.teamNumber}`)
+    //     .then(response => setTeamAverage(response.data))
+    //     .catch(error => console.error('Error fetching data:', error));
+    // }
+    // }, [teamAverage]);
 
 
     return (
@@ -51,6 +51,7 @@ const Eventdata = () => {
                         <thead>
                             <tr>
                                 <th>Team Number</th>
+                                <th>Total Matches</th>
                                 <th>Total Coral</th>
                                 <th>Total Coral Missed</th>
                                 <th>Total Processor</th>
@@ -68,23 +69,24 @@ const Eventdata = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {matchData.map((matchData) => (
+                            {teamAverage.map((matchData) => (
                                 <tr key={matchData.teamNumber}>
                                     <td>{matchData.teamNumber}</td>
+                                    <td>{matchData.matchCount}</td>
+                                    <td>{matchData.avgAutonReefTotal}</td>
                                     <td>???</td>
-                                    <td>???</td>
-                                    <td>???</td>
-                                    <td>???</td>
-                                    <td>???</td>
-                                    <td>???</td>
-                                    <td>{teamAverage[0].avgTotalAlgeaRemoved}</td>
-                                    <td>???</td>
-                                    <td>{teamAverage[0].avgAutonReefTotal}</td>
-                                    <td>{teamAverage[0].avgAutonProcessorScored}</td>
-                                    <td>{teamAverage[0].avgAutonNetScored}</td>
-                                    <td>{teamAverage[0].avgTeleopReefTotal}</td>
-                                    <td>{teamAverage[0].avgTeleopProcessorScored}</td>
-                                    <td>{teamAverage[0].avgTeleopNetScored}</td>
+                                    <td>{matchData.avgAutonProcessorScored}</td>
+                                    <td>{matchData.avgAutonProcessorMissed}</td>
+                                    <td>{matchData.avgAutonNetScored}</td>
+                                    <td>{matchData.avgAutonNetMissed}</td>
+                                    <td>{matchData.avgTotalAlgeaRemoved}</td>
+                                    <td>{matchData.catBargeZonLocation}</td>
+                                    <td>{matchData.avgAutonReefTotal}</td>
+                                    <td>{matchData.avgAutonProcessorScored}</td>
+                                    <td>{matchData.avgAutonNetScored}</td>
+                                    <td>{matchData.avgTeleopReefTotal}</td>
+                                    <td>{matchData.avgTeleopProcessorScored}</td>
+                                    <td>{matchData.avgTeleopNetScored}</td>
                                 </tr>
                             ))}
                         </tbody>
