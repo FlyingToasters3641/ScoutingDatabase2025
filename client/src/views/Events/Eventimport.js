@@ -7,6 +7,11 @@ import BackButton from '../common/BackButton';
 
 const Eventimport = () => {
     const [eventkey, setEventkey] = useState();
+
+    const [eventkeyb, setEventkeyb] = useState();
+    const [eventname, setEventname] = useState();
+    const [eventyear, setEventyear] = useState();
+
     const [importStatus, setImportStatus] = useState("Waiting to Import");
     const [progress, setProgress] = useState(0);
 
@@ -189,9 +194,23 @@ const Eventimport = () => {
         console.log("DONE: Teams added if needed");
         setImportStatus("Done");
         setProgress(100);
-    
     }
 
+    async function handleSubmitManuall (event) {
+        event.preventDefault();
+
+        await axios.post(`${APP_DATABASE_URL}/events`,
+            {
+                "name": eventname, 
+                "key": eventkeyb,
+                "year": eventyear
+            }, 
+            { 
+                headers: {'Content-Type': 'application/json'}
+            }
+        )
+
+    }
 
     
     return (
@@ -224,6 +243,40 @@ const Eventimport = () => {
             <Row>
                 <Col>
                 <ProgressBar animated now={progress} label={`${importStatus}`} />
+                </Col>
+            </Row>
+            <Row><Col>&nbsp;</Col></Row>
+            <Row>
+                <Col><h1>Manually Add Event</h1></Col>
+                <hr></hr>
+            </Row>
+            <Row>
+                <Col>
+                    <h3>Manually add events. Teams and Matches are added in event view</h3>
+                    <form onSubmit={handleSubmitManuall}>
+                        <label>Event Name:
+                            <input 
+                                type="text" 
+                                value={eventname}
+                                onChange={(e) => setEventname(e.target.value)}
+                            />
+                        </label>
+                        <label>Event Key:
+                            <input 
+                                type="text" 
+                                value={eventkeyb}
+                                onChange={(e) => setEventkeyb(e.target.value)}
+                            />
+                        </label>
+                        <label>Event Year:
+                            <input 
+                                type="text" 
+                                value={eventyear}
+                                onChange={(e) => setEventyear(e.target.value)}
+                            />
+                        </label>
+                        <input className="btn btn-primary" type="submit" value="Submit"/>
+                    </form>
                 </Col>
             </Row>
         </Container>
