@@ -8,7 +8,6 @@ DataTable.use(DT);
 const DataTableNetBase = (props) => {
 
     // const [tableData, setTableData] = useState(props.data);
-
     return (
         <>
         <DataTable 
