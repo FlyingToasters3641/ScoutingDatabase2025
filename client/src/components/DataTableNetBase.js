@@ -9,7 +9,7 @@ const DataTableNetBase = (props) => {
 
     // const [tableData, setTableData] = useState(props.data);
 
-     console.log('DataTableNetBase props.data:', props.data);
+    //  console.log('DataTableNetBase props.data:', props.data);
     // console.log('DataTableNetBase tableData:', tableData);
 
 
