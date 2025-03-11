@@ -4,6 +4,9 @@ const sequelize = require('../database'); // Adjust the path as needed
 
 class MatchData2025 extends Model {}
 
+// Changes
+// v1: Initial version
+// v2: Added autonReefLevel1Total-autonReefLevel4Total, teleopReefLevel1Total-teleopReefLevel4Total, totalReefLevel1-totalReefLevel4
 MatchData2025.init({
     scouterName: DataTypes.STRING,
     matchNumber: DataTypes.INTEGER,
@@ -49,6 +52,10 @@ MatchData2025.init({
     autonReefLevel2K: DataTypes.INTEGER,
     autonReefLevel3K: DataTypes.INTEGER,
     autonReefLevel4K: DataTypes.INTEGER,
+    autonReefLevel1Total: DataTypes.INTEGER,
+    autonReefLevel2Total: DataTypes.INTEGER,  
+    autonReefLevel3Total: DataTypes.INTEGER,
+    autonReefLevel4Total: DataTypes.INTEGER,
     autonReefTotal: DataTypes.INTEGER,
     autoAlgaeRemovedA: DataTypes.BOOLEAN,
     autoAlgaeRemovedB: DataTypes.BOOLEAN,
@@ -90,6 +97,10 @@ MatchData2025.init({
     teleopReefLevel2K: DataTypes.INTEGER,
     teleopReefLevel3K: DataTypes.INTEGER,
     teleopReefLevel4K: DataTypes.INTEGER,
+    teleopReefLevel1Total: DataTypes.INTEGER,
+    teleopReefLevel2Total: DataTypes.INTEGER,
+    teleopReefLevel3Total: DataTypes.INTEGER,
+    teleopReefLevel4Total: DataTypes.INTEGER,
     teleopReefTotal: DataTypes.INTEGER,
     teleopAlgaeRemovedA: DataTypes.BOOLEAN,
     teleopAlgaeRemovedB: DataTypes.BOOLEAN,
@@ -103,6 +114,10 @@ MatchData2025.init({
     scouterNotesPicklist: DataTypes.STRING,
     scouterNotesOther: DataTypes.STRING,
 
+    totalReefLevel1: DataTypes.INTEGER,
+    totalReefLevel2: DataTypes.INTEGER,
+    totalReefLevel3: DataTypes.INTEGER,
+    totalReefLevel4: DataTypes.INTEGER,
     totalReef: DataTypes.INTEGER,
     totalAlgeaRemoved: DataTypes.INTEGER,
     totalCoralGroundPickup: DataTypes.INTEGER,

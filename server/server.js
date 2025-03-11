@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { Sequelize, Model, DataTypes } = require('sequelize');
+const { Sequelize, Model, DataTypes, Op } = require('sequelize');
 const sequelize = require('./database');
 
 const { getMatchDataModelByYear } = require('./models/getMatchDataModelByYear');
@@ -77,7 +77,8 @@ Match.init({
 // ######################################################################
 
 // Sync models with database
-sequelize.sync();
+sequelize.sync(); 
+// sequelize.sync({ force: true })
 
 // Middleware for parsing request body
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -350,31 +351,39 @@ app.get('/api/v1/matchData/:year/eventkey/:id', async (req, res) => {
   }
 });
 
-app.get('/api/v1/matchData/:year/team/:id', async (req, res) => {
+app.get('/api/v1/matchData/:year/team/:ids', async (req, res) => {
   try {
     const MatchData = getMatchDataModelByYear(req.params.year);
     const matchdata = await MatchData.findAll({
       attributes: [
-        [Sequelize.fn('AVG', Sequelize.col('autonReefTotal')), 'avgAutonReefTotal'],
-        [Sequelize.fn('AVG', Sequelize.col('autonNetScored')), 'avgAutonNetScored'],
-        [Sequelize.fn('AVG', Sequelize.col('autonProcessorScored')), 'avgAutonProcessorScored'],
-        [Sequelize.fn('AVG', Sequelize.col('teleopReefTotal')), 'avgTeleopReefTotal'],
-        [Sequelize.fn('AVG', Sequelize.col('teleopNetScored')), 'avgTeleopNetScored'],
-        [Sequelize.fn('AVG', Sequelize.col('teleopProcessorScored')), 'avgTeleopProcessorScored'],
-        [Sequelize.fn('AVG', Sequelize.col('totalAlgaePickup')), 'avgTotalAlgaePickup'],
-        [Sequelize.fn('AVG', Sequelize.col('totalAlgeaRemoved')), 'avgTotalAlgeaRemoved'],
-        [Sequelize.fn('AVG', Sequelize.col('totalCoralGroundPickup')), 'avgTotalCoralGroundPickup'],
-        [Sequelize.fn('AVG', Sequelize.col('totalCoralStationPickup')), 'avgTotalCoralStationPickup'],
+        'teamNumber',
+        [Sequelize.fn('COUNT', Sequelize.col('teamNumber')), 'matchCount'],
+        [Sequelize.literal('ROUND(AVG(autonReefTotal), 2)'), 'avgAutonReefTotal'],
+        [Sequelize.literal('ROUND(AVG(autonNetScored), 2)'), 'avgAutonNetScored'],
+        [Sequelize.literal('ROUND(AVG(autonProcessorScored), 2)'), 'avgAutonProcessorScored'],
+        [Sequelize.literal('ROUND(AVG(teleopReefTotal), 2)'), 'avgTeleopReefTotal'],
+        [Sequelize.literal('ROUND(AVG(teleopNetScored), 2)'), 'avgTeleopNetScored'],
+        [Sequelize.literal('ROUND(AVG(teleopProcessorScored), 2)'), 'avgTeleopProcessorScored'],
+        [Sequelize.literal('ROUND(AVG(totalAlgaePickup), 2)'), 'avgTotalAlgaePickup'],
+        [Sequelize.literal('ROUND(AVG(totalAlgeaRemoved), 2)'), 'avgTotalAlgeaRemoved'],
+        [Sequelize.literal('ROUND(AVG(totalCoralGroundPickup), 2)'), 'avgTotalCoralGroundPickup'],
+        [Sequelize.literal('ROUND(AVG(totalCoralStationPickup), 2)'), 'avgTotalCoralStationPickup'],
+        [Sequelize.fn('GROUP_CONCAT', Sequelize.col('bargeZonLocation')), 'catBargeZonLocation'],
       ],
       where: {
-        teamNumber: req.params.id,
+        teamNumber: req.params.ids
+        // {
+        //   [Op.in]: req.params.ids ? req.params.ids.split(',') : null,
+        // }
       },
+      //group: ['teamNumber']
     });
     res.json(matchdata);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
+
 
 app.post('/api/v1/matchData/:year', async (req, res) => {
   try {
