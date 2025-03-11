@@ -337,6 +337,7 @@ app.get('/api/v1/matchData/:year/eventkey/:id', async (req, res) => {
         [Sequelize.fn('GROUP_CONCAT', Sequelize.col('bargeZonLocation')), 'catBargeZonLocation'],
         [Sequelize.literal('ROUND(AVG(autonProcessorMissed), 2)'), 'avgAutonProcessorMissed'],
         [Sequelize.literal('ROUND(AVG(autonNetMissed), 2)'), 'avgAutonNetMissed'],
+        [Sequelize.literal('ROUND(AVG(totalReef), 2)'), 'avgTotalReef'],
       ],
       where: {
         eventKey: req.params.id,
