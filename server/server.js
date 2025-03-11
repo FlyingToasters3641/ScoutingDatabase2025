@@ -339,6 +339,11 @@ app.get('/api/v1/matchData/:year/eventkey/:id', async (req, res) => {
         [Sequelize.literal('ROUND(AVG(autonProcessorMissed), 2)'), 'avgAutonProcessorMissed'],
         [Sequelize.literal('ROUND(AVG(autonNetMissed), 2)'), 'avgAutonNetMissed'],
         [Sequelize.literal('ROUND(AVG(totalReef), 2)'), 'avgTotalReef'],
+        [Sequelize.literal('ROUND(AVG(totalCoralMissed), 2)'), 'totalCoralMissed'],
+        [Sequelize.literal('ROUND(AVG(totalNetScored), 2)'), 'totalNetScored'],
+        [Sequelize.literal('ROUND(AVG(totalNetMissed), 2)'), 'totalNetMissed'],
+        [Sequelize.literal('ROUND(AVG(totalProcessorScored), 2)'), 'totalProcessorScored'],
+        [Sequelize.literal('ROUND(AVG(totalProcessorMissed), 2)'), 'totalProcessorMissed'],
       ],
       where: {
         eventKey: req.params.id,

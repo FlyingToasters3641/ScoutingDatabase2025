@@ -119,6 +119,14 @@ MatchData2025.init({
     totalReefLevel3: DataTypes.INTEGER,
     totalReefLevel4: DataTypes.INTEGER,
     totalReef: DataTypes.INTEGER,
+
+    totalCoralMissed: DataTypes.INTEGER,
+    totalNetScored: DataTypes.INTEGER,
+    totalNetMissed: DataTypes.INTEGER,
+    totalProcessorScored: DataTypes.INTEGER,
+    totalProcessorMissed: DataTypes.INTEGER,
+
+
     totalAlgeaRemoved: DataTypes.INTEGER,
     totalCoralGroundPickup: DataTypes.INTEGER,
     totalCoralStationPickup: DataTypes.INTEGER,

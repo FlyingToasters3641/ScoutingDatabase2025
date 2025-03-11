@@ -51,9 +51,6 @@ const Dataimport = () => {
                 let teleopReefTotal = teleopReefLevel1Total + teleopReefLevel2Total + teleopReefLevel3Total + teleopReefLevel4Total;
                 let teleopAlgeaRemovedTotal = matchData.talA + matchData.talB + matchData.talC + matchData.talD + matchData.talE + matchData.talF;
 
-                let totalReef = autonReefTotal + teleopReefTotal;
-                let totalAlgeaRemoved = autonAlgeaRemovedTotal + teleopAlgeaRemovedTotal;
-
                 let botLocationEnum = [];
                 const botLocationViewSbEnum = ['None', 'Left', 'Center', 'Right']; // Scoring Blue, Spectator Red
                 const botLocationViewSrEnum = ['None', 'Right', 'Center', 'Left']; // Scoring Red, Spectator Blue
@@ -90,8 +87,13 @@ const Dataimport = () => {
                     fieldOrientation: matchData.fieldOrientation,
                     
                     // calculated data
-                    totalReef: totalReef,
-                    totalAlgeaRemoved: totalAlgeaRemoved,
+                    totalReef: autonReefTotal + teleopReefTotal,
+                    totalAlgeaRemoved: autonAlgeaRemovedTotal + teleopAlgeaRemovedTotal,
+                    totalCoralMissed: matchData.acm + matchData.tcm,
+                    totalNetScored: matchData.ans + matchData.tns,
+                    totalNetMissed: matchData.anm + matchData.tnm,
+                    totalProcessorScored: matchData.aps + matchData.tps,
+                    totalProcessorMissed: matchData.apm + matchData.tpm,
                     totalCoralGroundPickup: matchData.acgp + matchData.tcgp,
                     totalCoralStationPickup: matchData.acsp + matchData.tcsp,
                     totalAlgaePickup: matchData.aap + matchData.tap,
