@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from 'axios';
+import { AppContext } from "../common/AppContext.js";
 import Html5QrcodePlugin from "../../components/Html5QrcodePlugin.js";
 import { Container, Row, Col, ProgressBar } from "react-bootstrap";
 import { sha1 } from "js-sha1";
@@ -8,6 +9,8 @@ import './Matches.css';
 import BackButton from '../common/BackButton';
 
 const Dataimport = () => {
+
+    const { appData } = useContext(AppContext);
 
     const [progressBarStatus, setProgressBarStatus] = useState(0);
 
@@ -83,9 +86,9 @@ const Dataimport = () => {
                     scouterName: matchData.currentScout,
                     matchNumber: matchData.currentMatch,
                     teamNumber: matchData.currentTeam,
-                    eventKey: '2025mimil',
-                    matchKey: '2025mimil_qm' + matchData.currentMatch,
-                    event_id: 1,
+                    eventKey: appData.currentEventKey,
+                    matchKey: appData.currentEventKey + '_qm' + matchData.currentMatch,
+                    event_id: appData.currentEventID,
                     allianceLocation: matchData.allianceLocation,
                     fieldOrientation: matchData.fieldOrientation,
                     
@@ -244,6 +247,7 @@ const Dataimport = () => {
                     <h1>Import Scouting Data</h1>
                 </Col>
                 <hr></hr>
+                <p>Event Year: {appData.currentEventYear}; Event Key: {appData.currentEventKey}; Event Id (serverDV): {appData.currentEventID};</p>
             </Row>
             <Row>
                 <Col><ProgressBar variant="success" now={progressBarStatus}/></Col>
