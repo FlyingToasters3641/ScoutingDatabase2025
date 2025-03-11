@@ -55,7 +55,7 @@ const Eventdata = () => {
 
 
     return (
-        <Container>
+        <Container fluid>
             <Row>
                 <Col md={1}><BackButton /></Col>
                 <Col md={11}>

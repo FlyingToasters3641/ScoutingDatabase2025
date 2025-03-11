@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext  } from "react";
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { AppContext } from "../common/AppContext.js";
 import { Container, Row, Col } from "react-bootstrap";
 import { APP_DATABASE_URL } from "../../constant/constant";
@@ -8,8 +8,8 @@ import { RiAddCircleLine, RiEyeLine } from "react-icons/ri";
 
 const Home = () => {
     const [events, setPosts] = useState([]);
-
-    const { appData } = useContext(AppContext);
+    const { appData, setAppData } = useContext(AppContext);
+    const history = useHistory();
 
     useEffect(() => {
         axios.get(`${APP_DATABASE_URL}/events`)
@@ -19,6 +19,17 @@ const Home = () => {
 
     const tdRight={
         textAlign:'right'
+    };
+
+    async function handleViewEvent(event) {
+        await setAppData({
+            ...appData,
+            name: event.name,
+            currentEventID: event.id,
+            currentEventKey: event.key,
+            currentEventYear: event.year
+        });
+        history.push(`/eventdetail/?eventId=${event.id}`);
     };
 
 
@@ -48,8 +59,7 @@ const Home = () => {
                                 <td>{event.key}</td>
                                 <td>{event.year}</td>
                                 <td style={tdRight}>
-                                    {/* <Link to={`/eventdetail/?eventId=${event.id}`}><button className="btn btn-primary">Edit</button></Link>&nbsp; */}
-                                    <Link to={`/eventdetail/?eventId=${event.id}`}><button className="btn btn-primary"><RiEyeLine /> View</button></Link>
+                                    <button className="btn btn-primary" onClick={() => handleViewEvent(event)}><RiEyeLine /> View</button>
                                 </td>
                             </tr>
                         ))}
@@ -58,7 +68,7 @@ const Home = () => {
                 </Col>
             </Row>
             <Row>
-                <Col><h5>{appData.name}</h5></Col>
+                <Col><p>Currently Selected: {appData.name}</p></Col>
             </Row>
         </Container>
     );
