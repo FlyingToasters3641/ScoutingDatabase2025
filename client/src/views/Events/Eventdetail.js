@@ -9,7 +9,9 @@ import { RiTrophyLine, RiAddCircleLine } from "react-icons/ri";
 import { MdOutlinePreview } from "react-icons/md";
 import DataTable from '../../components/DataTableNetBase.js';
 import { Dropdown } from 'primereact/dropdown';
-import { count } from "../../../../server/models/matchData2024.js";
+import { Dialog } from 'primereact/dialog';
+import { Chips } from 'primereact/chips';
+import './Events.css'; // Import the custom CSS file
 
 const Eventdetail = () => {
     const { appData } = useContext(AppContext);
@@ -18,13 +20,18 @@ const Eventdetail = () => {
     const [match, setMatch] = useState([]);
     
     const [showAddTeam, setShowAddTeam] = useState(false);
-    const [selectedTeam, setSelectedTeam] = useState([]);
     const [allTeams, setAllTeams] = useState([]);
-    const [teamnumber, setTeamnumber] = useState('');
-    const [teamnickname, setTeamnickname] = useState('');
-    const [teamcity, setTeamcity] = useState('');
-    const [teamstateprov, setTeamstateprov] = useState('');
-    const [teamcountry, setTeamcountry] = useState('');
+
+    const [selectedTeams, setSelectedTeams] = useState([]);
+    const [chipsValue, setChipsValue] = useState([]);
+
+    const [newTeam, setNewTeam] = useState({
+        teamNumber: '',
+        nickname: '',
+        city: '',
+        state_prov: '',
+        country: ''
+    });
 
     const location = useLocation();
     const history = useHistory();
@@ -59,9 +66,68 @@ const Eventdetail = () => {
 
     const renderTooltip = (props) => (<Tooltip {...props}>{props.text}</Tooltip>);
 
-    async function addTeam (team) {
-        team.preventDefault();
-    }
+    const handleDropdownChange = (e) => {
+        if (e.value && !chipsValue.some(chip => chip.id === e.value)) {
+            const selectedTeam = allTeams.find(team => team.id === e.value);
+            setChipsValue([...chipsValue, { id: e.value, teamNumber: selectedTeam.teamNumber }]);
+        }
+        setSelectedTeams(null); // Reset the dropdown selection
+    };
+
+    const handleNewTeamChange = (e) => {
+        const { name, value } = e.target;
+        setNewTeam(prevState => ({ ...prevState, [name]: value }));
+    };
+
+    const handleAddNewTeam = () => {
+        if (newTeam.teamNumber && !chipsValue.some(chip => chip.teamNumber === newTeam.teamNumber)) {
+            setChipsValue([...chipsValue, { 
+                teamNumber: newTeam.teamNumber,
+                nickname: newTeam.nickname,
+                city: newTeam.city,
+                state_prov: newTeam.state_prov,
+                country: newTeam.country
+            }]);
+            setNewTeam({ teamNumber: '', nickname: '', city: '', state_prov: '', country: '' });
+        }
+        // setShowAddTeam(false);
+    };
+    
+    const handleAddTeamCancel = () => {
+        setShowAddTeam(false);  
+        setChipsValue([]);
+        setNewTeam({ teamNumber: '', nickname: '', city: '', state_prov: '', country: '' });
+        setShowAddTeam(false);
+    };
+
+    const addTeamFooterContent = (
+        <>
+        <button className="btn btn-success" onClick={() => setShowAddTeam(false)}>Save</button>&nbsp;
+        <button className="btn btn-primary" onClick={() => handleAddTeamCancel()}>Cancel</button>
+        
+        </>
+    );
+
+    const teamItemTemplate = (option) => {
+        return (
+          <div className="flex align-items-center">
+            <div>
+              {option.teamNumber} - {option.nickname}
+            </div>
+          </div>
+        );
+      };
+    
+      const teamValueTemplate = (option, props) => {
+        if (option) {
+          return (
+            <div className="flex align-items-center">
+              {option.teamNumber} - {option.nickname}
+            </div>
+          );
+        }
+        return <span>{props.placeholder}</span>;
+      };
 
     return (
         <Container>
@@ -146,73 +212,92 @@ const Eventdetail = () => {
                     <button onClick={() => setShowAddTeam(true)} className="btn btn-success">
                         <RiAddCircleLine /> Add Team
                     </button>
-                    <Modal
-                        size="lg"
-                        show={showAddTeam}
-                        backdrop="static"
-                        onHide={() => showAddTeam(false)}
-                    >
-                        <Modal.Header>Add Team</Modal.Header>
-                        <Modal.Body>
-                        {/* <form onSubmit={addTeam}>
-                            <label>Team Number:
-                                <input 
-                                    type="text" 
-                                    value={teamnumber}
-                                    onChange={(e) => setTeamnumber(e.target.value)}
+                    <Dialog header="Add Team" visible={showAddTeam} modal footer={addTeamFooterContent} style={{ width: '50vw' }} onHide={() => {if (!showAddTeam) return; setShowAddTeam(false); }}>
+                        <Row>
+                            <Col md={6}>
+                                <h5>Existing Teams:</h5>
+                                <Dropdown 
+                                    value={selectedTeams} 
+                                    onChange={handleDropdownChange}
+                                    options={allTeams} 
+                                    optionLabel="teamNumber"
+                                    optionValue="id"
+                                    placeholder="Select a Team"
+                                    itemTemplate={teamItemTemplate}
+                                    valueTemplate={teamValueTemplate}
+                                    className="w-full" 
+                                    filter
                                 />
-                            </label>
-                            <label>Team Name:
-                                <input 
-                                    type="text" 
-                                    value={teamnickname}
-                                    onChange={(e) => setTeamnickname(e.target.value)}
+                            </Col>
+                            <Col md={6}>    
+                                <h5>Or Add New Team:</h5>
+                                <div class="mb-3 mt-3">
+                                    <input 
+                                        type="text" 
+                                        name="teamNumber"
+                                        className="form-control"
+                                        value={newTeam.teamNumber}
+                                        onChange={handleNewTeamChange}
+                                        placeholder="Team Number - Ex. 3641"
+                                    />
+                                </div>
+                                <div class="mb-3 mt-3">
+                                    <input 
+                                        type="text" 
+                                        name="nickname"
+                                        className="form-control"
+                                        value={newTeam.nickname}
+                                        onChange={handleNewTeamChange}
+                                        placeholder="Nickname - Ex. The Flying Toasters"
+                                    />
+                                </div>
+                                <div class="mb-3 mt-3">
+                                    <input 
+                                        type="text" 
+                                        name="city"
+                                        className="form-control"
+                                        value={newTeam.city}
+                                        onChange={handleNewTeamChange}
+                                        placeholder="City - Ex. South Lyon"
+                                    />
+                                </div>
+                                <div class="mb-3 mt-3">
+                                    <input 
+                                        type="text" 
+                                        name="state_prov"
+                                        className="form-control"
+                                        value={newTeam.state_prov}
+                                        onChange={handleNewTeamChange}
+                                        placeholder="State/Province - Ex. Michigan"
+                                    />
+                                </div>
+                                <div class="mb-3 mt-3">
+                                    <input 
+                                        type="text" 
+                                        name="country"
+                                        className="form-control"
+                                        value={newTeam.country}
+                                        onChange={handleNewTeamChange}
+                                        placeholder="Country - Ex. USA"
+                                    />
+                                </div>
+                                <button className="btn btn-success" onClick={handleAddNewTeam}>Add New Team</button>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={12}>
+                                <h5>Selected Teams:</h5>
+                                <Chips 
+                                    value={chipsValue} 
+                                    onChange={(e) => setChipsValue(e.value)} 
+                                    itemTemplate={(item) => <span>{item.teamNumber}</span>} 
                                 />
-                            </label>
-                            <label>Team City:
-                                <input 
-                                    type="text" 
-                                    value={teamcity}
-                                    onChange={(e) => setTeamcity(e.target.value)}
-                                />
-                            </label>
-                            <label>Team State/Province:
-                                <input 
-                                    type="text" 
-                                    value={teamstateprov}
-                                    onChange={(e) => setTeamstateprov(e.target.value)}
-                                />
-                            </label>
-                            <label>Team City:
-                                <input 
-                                    type="text" 
-                                    value={teamcountry}
-                                    onChange={(e) => setTeamcountry(e.target.value)}
-                                />
-                            </label>
-                            <input className="btn btn-primary" type="submit" value="Submit"/>
-                        </form> */}
-                        </Modal.Body>
-
-                        {/* <Modal.Body>   
-                        <Dropdown 
-                            value={selectedTeam} 
-                            onChange={(e) => setSelectedTeam(e.value)} 
-                            options={allTeams} 
-                            optionLabel="name" 
-                            placeholder="Select a Team" 
-                            className="w-full md:w-14rem" 
-                        />
-                        </Modal.Body> */}
-                        <Modal.Footer>
-                            <button className="btn btn-primary" onClick={() => setShowAddTeam(false)}>
-                            Close
-                            </button>
-                            <button className="btn btn-success" onClick={() => setShowAddTeam(false)}>
-                            Save
-                            </button>
-                        </Modal.Footer>
-                    </Modal>
+                                <br />
+                                {chipsValue ? JSON.stringify(chipsValue) : 'none'}
+                            </Col>
+                        </Row>
+                    </Dialog>
+                    
                     
                     <DataTable
                         data={team}
