@@ -3,13 +3,16 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import BackButton from '../common/BackButton';
 import { APP_DATABASE_URL } from "../../constant/constant";
-// import { arrayLookup } from "../../utils/common";
 import { Col, Container, Row } from "react-bootstrap";
 import DataTable from '../../components/DataTableNetBase.js';
+import { FaEdit } from 'react-icons/fa'; // Import edit icon
 
 const Eventdata = () => {
     const [event, setEvent] = useState([]);
     const [teamAverage, setTeamAverage] = useState([]);
+    const [title, setTitle] = useState('Printable Pick List'); // State to handle title
+    const [isEditing, setIsEditing] = useState(false); // State to handle editing
+    const [newTitle, setNewTitle] = useState(title); // State to handle new title
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -27,6 +30,16 @@ const Eventdata = () => {
         .catch(error => console.error('Error fetching data:', error));
     }, [event]);
 
+    const handleTitleChange = (e) => {
+        if (e.target.value.length <= 100) {
+            setNewTitle(e.target.value);
+        }
+    };
+
+    const saveTitle = () => {
+        setTitle(newTitle);
+        setIsEditing(false);
+    };
 
     return (
         <Container fluid>
@@ -36,7 +49,26 @@ const Eventdata = () => {
                     <h1>{event.name} Pick List</h1>
                 </Col>
             </Row>
-            <Row><hr></hr></Row>
+            <Row><Col><hr></hr></Col></Row>
+            <Row>
+                <Col>
+                    <h3>
+                        {isEditing ? (
+                            <input 
+                                type="text" 
+                                value={newTitle} 
+                                onChange={handleTitleChange} 
+                                onBlur={saveTitle} 
+                                autoFocus 
+                            />
+                        ) : (
+                            <>
+                                {title} <FaEdit onClick={() => setIsEditing(true)} />
+                            </>
+                        )}
+                    </h3>
+                </Col>
+            </Row>
             <Row>
                 <DataTable
                     data={teamAverage}
