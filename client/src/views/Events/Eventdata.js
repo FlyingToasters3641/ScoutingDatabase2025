@@ -9,24 +9,6 @@ import DataTable from '../../components/DataTableNetBase.js';
 
 const Eventdata = () => {
     const [event, setEvent] = useState([]);
-    // const teamAverageDefault = [{
-    //     teamNumber: null,
-    //     matchCount: -1,
-    //     avgAutonReefTotal: -1,
-    //     avgAutonNetScored: -1,
-    //     avgAutonProcessorScored: -1,
-    //     avgTeleopReefTotal: -1,
-    //     avgTeleopNetScored: -1,
-    //     avgTeleopProcessorScored: -1,
-    //     avgTotalAlgaePickup: -1,
-    //     avgTotalAlgeaRemoved: -1,
-    //     avgTotalCoralGroundPickup: -1,
-    //     avgTotalCoralStationPickup: -1,
-    //     catBargeZonLocation: "",
-    //     avgAutonProcessorMissed: -1,
-    //     avgAutonNetMissed: -1,
-    // }];
-    // const [matchData, setMatchData] = useState([]);
     const [teamAverage, setTeamAverage] = useState([]);
 
     const location = useLocation();

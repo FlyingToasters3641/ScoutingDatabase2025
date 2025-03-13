@@ -12,7 +12,7 @@ const DataTableNetBase = (props) => {
         <>
         <DataTable 
             data={props.data} 
-            className="table table-bordered table-striped table-hover"
+            className="table table-bordered table-striped table-hover table-sm"
             options={{
                 paging: false,
                 ...props.options

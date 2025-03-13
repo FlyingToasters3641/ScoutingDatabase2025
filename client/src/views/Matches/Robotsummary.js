@@ -100,6 +100,7 @@ const Robotsummary = () => {
                         <thead>
                             <tr>
                                 <th>Team Number</th>
+                                <th>Match Cnt</th>
                                 <th>Auton Coral</th>
                                 <th>Auton Net</th>
                                 <th>Auton Processor</th>
@@ -110,7 +111,8 @@ const Robotsummary = () => {
                         </thead>
                         <tbody>
                                 <tr className="bg-primary bg-opacity-10">
-                                    <td>{match.blueOneTeamNumber} - {teamAverageBlueOne[0].matchCount} Cnt</td>
+                                    <td>{match.blueOneTeamNumber}</td>
+                                    <td>{teamAverageBlueOne[0].matchCount}</td>
                                     <td>{teamAverageBlueOne[0].avgAutonReefTotal}</td>
                                     <td>{teamAverageBlueOne[0].avgAutonNetScored}</td>
                                     <td>{teamAverageBlueOne[0].avgAutonProcessorScored}</td>
@@ -119,7 +121,8 @@ const Robotsummary = () => {
                                     <td>{teamAverageBlueOne[0].avgTeleopProcessorScored}</td>
                                 </tr>
                                 <tr className="bg-primary bg-opacity-10">
-                                    <td>{match.blueTwoTeamNumber} - {teamAverageBlueTwo[0].matchCount} Cnt</td>
+                                    <td>{match.blueTwoTeamNumber}</td>
+                                    <td>{teamAverageBlueTwo[0].matchCount}</td>
                                     <td>{teamAverageBlueTwo[0].avgAutonReefTotal}</td>
                                     <td>{teamAverageBlueTwo[0].avgAutonNetScored}</td>
                                     <td>{teamAverageBlueTwo[0].avgAutonProcessorScored}</td>
@@ -128,7 +131,8 @@ const Robotsummary = () => {
                                     <td>{teamAverageBlueTwo[0].avgTeleopProcessorScored}</td>
                                 </tr>
                                 <tr className="bg-primary bg-opacity-10">
-                                    <td>{match.blueThreeTeamNumber} - {teamAverageBlueThree[0].matchCount} Cnt</td>
+                                    <td>{match.blueThreeTeamNumber}</td>
+                                    <td>{teamAverageBlueThree[0].matchCount}</td>
                                     <td>{teamAverageBlueThree[0].avgAutonReefTotal}</td>
                                     <td>{teamAverageBlueThree[0].avgAutonNetScored}</td>
                                     <td>{teamAverageBlueThree[0].avgAutonProcessorScored}</td>
@@ -137,7 +141,8 @@ const Robotsummary = () => {
                                     <td>{teamAverageBlueThree[0].avgTeleopProcessorScored}</td>
                                 </tr>
                                 <tr className="bg-danger bg-opacity-10">
-                                    <td>{match.redOneTeamNumber} - {teamAverageRedOne[0].matchCount} Cnt</td>
+                                    <td>{match.redOneTeamNumber}</td>
+                                    <td>{teamAverageRedOne[0].matchCount}</td>
                                     <td>{teamAverageRedOne[0].avgAutonReefTotal}</td>
                                     <td>{teamAverageRedOne[0].avgAutonNetScored}</td>
                                     <td>{teamAverageRedOne[0].avgAutonProcessorScored}</td>
@@ -146,7 +151,8 @@ const Robotsummary = () => {
                                     <td>{teamAverageRedOne[0].avgTeleopProcessorScored}</td>
                                 </tr>
                                 <tr className="bg-danger bg-opacity-10">
-                                    <td>{match.redTwoTeamNumber} - {teamAverageRedTwo[0].matchCount} Cnt</td>
+                                    <td>{match.redTwoTeamNumber}</td>
+                                    <td>{teamAverageRedTwo[0].matchCount}</td>
                                     <td>{teamAverageRedTwo[0].avgAutonReefTotal}</td>
                                     <td>{teamAverageRedTwo[0].avgAutonNetScored}</td>
                                     <td>{teamAverageRedTwo[0].avgAutonProcessorScored}</td>
@@ -155,7 +161,8 @@ const Robotsummary = () => {
                                     <td>{teamAverageRedTwo[0].avgTeleopProcessorScored}</td>
                                 </tr>
                                 <tr className="bg-danger bg-opacity-10">
-                                    <td>{match.redThreeTeamNumber} - {teamAverageRedThree[0].matchCount} Cnt</td>
+                                    <td>{match.redThreeTeamNumber}</td>
+                                    <td>{teamAverageRedThree[0].matchCount}</td>
                                     <td>{teamAverageRedThree[0].avgAutonReefTotal}</td>
                                     <td>{teamAverageRedThree[0].avgAutonNetScored}</td>
                                     <td>{teamAverageRedThree[0].avgAutonProcessorScored}</td>
@@ -173,6 +180,7 @@ const Robotsummary = () => {
                         <thead>
                             <tr>
                                 <th>Team Number</th>
+                                <th>Match Cnt</th>
                                 <th>Algae Pick-Up</th>
                                 <th>Alage Removed</th>
                                 <th>Climb Position</th>
@@ -182,7 +190,8 @@ const Robotsummary = () => {
                         </thead>
                         <tbody>
                                 <tr className="bg-primary bg-opacity-10">
-                                    <td >{match.blueOneTeamNumber} - {teamAverageBlueOne[0].matchCount} Cnt</td>
+                                    <td>{match.blueOneTeamNumber}</td>
+                                    <td >{teamAverageBlueOne[0].matchCount}</td>
                                     <td>{teamAverageBlueOne[0].avgTotalAlgaePickup}</td>
                                     <td>{teamAverageBlueOne[0].avgTotalAlgeaRemoved}</td>
                                     <td>{teamAverageBlueOne[0].catBargeZonLocation}</td>
@@ -190,7 +199,8 @@ const Robotsummary = () => {
                                     <td>{teamAverageBlueOne[0].avgTotalCoralStationPickup}</td>
                                 </tr>
                                 <tr className="bg-primary bg-opacity-10">
-                                    <td>{match.blueTwoTeamNumber} - {teamAverageBlueTwo[0].matchCount} Cnt</td>
+                                    <td>{match.blueTwoTeamNumber}</td>
+                                    <td>{teamAverageBlueTwo[0].matchCount}</td>
                                     <td>{teamAverageBlueTwo[0].avgTotalAlgaePickup}</td>
                                     <td>{teamAverageBlueTwo[0].avgTotalAlgeaRemoved}</td>
                                     <td>{teamAverageBlueTwo[0].catBargeZonLocation}</td>
@@ -198,7 +208,8 @@ const Robotsummary = () => {
                                     <td>{teamAverageBlueTwo[0].avgTotalCoralStationPickup}</td>
                                 </tr>
                                 <tr className="bg-primary bg-opacity-10">
-                                    <td>{match.blueThreeTeamNumber} - {teamAverageBlueThree[0].matchCount} Cnt</td>
+                                    <td>{match.blueThreeTeamNumber}</td>
+                                    <td>{teamAverageBlueThree[0].matchCount}</td>
                                     <td>{teamAverageBlueThree[0].avgTotalAlgaePickup}</td>
                                     <td>{teamAverageBlueThree[0].avgTotalAlgeaRemoved}</td>
                                     <td>{teamAverageBlueThree[0].catBargeZonLocation}</td>
@@ -206,7 +217,8 @@ const Robotsummary = () => {
                                     <td>{teamAverageBlueThree[0].avgTotalCoralStationPickup}</td>
                                 </tr>
                                 <tr className="bg-danger bg-opacity-10">
-                                    <td>{match.redOneTeamNumber} - {teamAverageRedOne[0].matchCount} Cnt</td>
+                                    <td>{match.redOneTeamNumber}</td>
+                                    <td>{teamAverageRedOne[0].matchCount}</td>
                                     <td>{teamAverageRedOne[0].avgTotalAlgaePickup}</td>
                                     <td>{teamAverageRedOne[0].avgTotalAlgeaRemoved}</td>
                                     <td>{teamAverageRedOne[0].catBargeZonLocation}</td>
@@ -214,7 +226,8 @@ const Robotsummary = () => {
                                     <td>{teamAverageRedOne[0].avgTotalCoralStationPickup}</td>
                                 </tr>
                                 <tr className="bg-danger bg-opacity-10">
-                                    <td>{match.redTwoTeamNumber} - {teamAverageRedTwo[0].matchCount} Cnt</td>
+                                    <td>{match.redTwoTeamNumber}</td>
+                                    <td>{teamAverageRedTwo[0].matchCount}</td>
                                     <td>{teamAverageRedTwo[0].avgTotalAlgaePickup}</td>
                                     <td>{teamAverageRedTwo[0].avgTotalAlgeaRemoved}</td>
                                     <td>{teamAverageRedTwo[0].catBargeZonLocation}</td>
@@ -222,7 +235,8 @@ const Robotsummary = () => {
                                     <td>{teamAverageRedTwo[0].avgTotalCoralStationPickup}</td>
                                 </tr>
                                 <tr className="bg-danger bg-opacity-10">
-                                    <td>{match.redThreeTeamNumber} - {teamAverageRedThree[0].matchCount} Cnt</td>
+                                    <td>{match.redThreeTeamNumber}</td>
+                                    <td>{teamAverageRedThree[0].matchCount}</td>
                                     <td>{teamAverageRedThree[0].avgTotalAlgaePickup}</td>
                                     <td>{teamAverageRedThree[0].avgTotalAlgeaRemoved}</td>
                                     <td>{teamAverageRedThree[0].catBargeZonLocation}</td>
