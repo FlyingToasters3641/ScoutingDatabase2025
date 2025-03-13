@@ -2,12 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios';
 import { useLocation, Link, useHistory } from 'react-router-dom';
 import { AppContext } from "../common/AppContext.js";
-import { Container, Row, Col, OverlayTrigger, Tooltip, Modal } from "react-bootstrap";
+import { Container, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { APP_DATABASE_URL } from "../../constant/constant";
 import BackButton from '../common/BackButton';
 import { RiTrophyLine, RiAddCircleLine } from "react-icons/ri";
 import { MdOutlinePreview } from "react-icons/md";
 import DataTable from '../../components/DataTableNetBase.js';
+import { ListBox } from 'primereact/listbox';
 import { Dropdown } from 'primereact/dropdown';
 import { Dialog } from 'primereact/dialog';
 import { Chips } from 'primereact/chips';
@@ -71,7 +72,7 @@ const Eventdetail = () => {
     const handleDropdownChange = (e) => {
         if (e.value && !chipsValue.some(chip => chip.id === e.value)) {
             const selectedTeam = allTeams.find(team => team.id === e.value);
-            setChipsValue([...chipsValue, { id: e.value, teamNumber: selectedTeam.teamNumber }]);
+            setChipsValue([...chipsValue, { id: e.value, teamNumber: selectedTeam.teamNumber, nickname: selectedTeam.nickname }]);
         }
         setSelectedTeams(null); // Reset the dropdown selection
     };
@@ -101,9 +102,46 @@ const Eventdetail = () => {
         setShowAddTeam(false);
     };
 
+    const handleSaveTeams = async () => {
+        try {
+            const updatedChipsValue = await Promise.all(chipsValue.map(async (chip) => {
+                if (!chip.id) {
+                    const response = await axios.post(`${APP_DATABASE_URL}/teams`, {
+                        teamNumber: chip.teamNumber,
+                        nickname: chip.nickname,
+                        city: chip.city,
+                        state_prov: chip.state_prov,
+                        country: chip.country
+                    }, {
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    return { ...chip, id: response.data.id };
+                }
+                return chip;
+            }));
+
+            await Promise.all(updatedChipsValue.map(async (chip) => {
+                if (!team.some(t => t.id === chip.id)) {
+                    await axios.post('http://localhost:3001/api/v1/eventteams', {
+                        event_id: eventid,
+                        team_id: chip.id
+                    }, {
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                }
+            }));
+
+            setChipsValue(updatedChipsValue);
+            setTeam([...team, ...updatedChipsValue.filter(chip => !team.some(t => t.id === chip.id))]);
+            setShowAddTeam(false);
+        } catch (error) {
+            console.error('Error saving teams:', error);
+        }
+    };
+
     const addTeamFooterContent = (
         <>
-        <button className="btn btn-success" onClick={() => setShowAddTeam(false)}>Save</button>&nbsp;
+        <button className="btn btn-success" onClick={handleSaveTeams}>Save</button>&nbsp;
         <button className="btn btn-primary" onClick={() => handleAddTeamCancel()}>Cancel</button>
         
         </>
@@ -242,6 +280,7 @@ const Eventdetail = () => {
                 </Col>
             </Row>
             <Row>
+                {/* #################### Matches #################### */}
                 <Col md={7}>
                     <Row>
                         <Col><h2>Matches:</h2></Col>
@@ -251,6 +290,7 @@ const Eventdetail = () => {
                             <Row>
                                 <Col md={12}>
                                     <h5>Match Details:</h5>
+                                    <form className="was-validated">
                                     <div class="mb-3 mt-3">
                                         <input 
                                             type="text" 
@@ -259,6 +299,7 @@ const Eventdetail = () => {
                                             value={newMatch.matchNumber}
                                             onChange={handleNewMatchChange}
                                             placeholder="Match Number - Ex. 1"
+                                            required
                                         />
                                     </div>
                                     <div class="mb-3 mt-3">
@@ -269,8 +310,10 @@ const Eventdetail = () => {
                                             value={newMatch.matchType}
                                             onChange={handleNewMatchChange}
                                             placeholder={eventKeyText}
+                                            required
                                         />
                                     </div>
+                                    </form>
                                 </Col>
                             </Row>
                             <Row>
@@ -279,7 +322,7 @@ const Eventdetail = () => {
                                     <Dropdown 
                                         value={newMatch.blueOne} 
                                         onChange={(e) => handleMatchDropdownChange(e, 'blueOne')}
-                                        options={allTeams} 
+                                        options={team} 
                                         optionLabel="teamNumber"
                                         optionValue="teamNumber"
                                         placeholder="Select Blue 1"
@@ -292,7 +335,7 @@ const Eventdetail = () => {
                                     <Dropdown 
                                         value={newMatch.blueTwo} 
                                         onChange={(e) => handleMatchDropdownChange(e, 'blueTwo')}
-                                        options={allTeams} 
+                                        options={team} 
                                         optionLabel="teamNumber"
                                         optionValue="teamNumber"
                                         placeholder="Select Blue 2"
@@ -305,7 +348,7 @@ const Eventdetail = () => {
                                     <Dropdown 
                                         value={newMatch.blueThree} 
                                         onChange={(e) => handleMatchDropdownChange(e, 'blueThree')}
-                                        options={allTeams} 
+                                        options={team} 
                                         optionLabel="teamNumber"
                                         optionValue="teamNumber"
                                         placeholder="Select Blue 3"
@@ -321,7 +364,7 @@ const Eventdetail = () => {
                                     <Dropdown 
                                         value={newMatch.redOne} 
                                         onChange={(e) => handleMatchDropdownChange(e, 'redOne')}
-                                        options={allTeams} 
+                                        options={team} 
                                         optionLabel="teamNumber"
                                         optionValue="teamNumber"
                                         placeholder="Select Red 1"
@@ -334,7 +377,7 @@ const Eventdetail = () => {
                                     <Dropdown 
                                         value={newMatch.redTwo} 
                                         onChange={(e) => handleMatchDropdownChange(e, 'redTwo')}
-                                        options={allTeams} 
+                                        options={team} 
                                         optionLabel="teamNumber"
                                         optionValue="teamNumber"
                                         placeholder="Select Red 2"
@@ -347,7 +390,7 @@ const Eventdetail = () => {
                                     <Dropdown 
                                         value={newMatch.redThree} 
                                         onChange={(e) => handleMatchDropdownChange(e, 'redThree')}
-                                        options={allTeams} 
+                                        options={team} 
                                         optionLabel="teamNumber"
                                         optionValue="teamNumber"
                                         placeholder="Select Red 3"
@@ -418,6 +461,7 @@ const Eventdetail = () => {
                         </Col>
                     </Row>
                 </Col>
+                {/* #################### Team List #################### */}
                 <Col md={5}>
                     <Row>
                         <Col><h2>Team List:</h2></Col>
@@ -427,7 +471,7 @@ const Eventdetail = () => {
                                 <Row>
                                     <Col md={6}>
                                         <h5>Existing Teams:</h5>
-                                        <Dropdown 
+                                        <ListBox 
                                             value={selectedTeams} 
                                             onChange={handleDropdownChange}
                                             options={allTeams} 
@@ -437,10 +481,13 @@ const Eventdetail = () => {
                                             itemTemplate={teamItemTemplate}
                                             valueTemplate={teamValueTemplate}
                                             className="w-full" 
+                                            listStyle={{ maxHeight: '300px' }}
                                             filter
                                         />
+                                        <br />
                                     </Col>
-                                    <Col md={6}>    
+                                    <Col md={6}>   
+                                        <form className="was-validated">
                                         <h5>Or Add New Team:</h5>
                                         <div class="mb-3 mt-3">
                                             <input 
@@ -450,6 +497,7 @@ const Eventdetail = () => {
                                                 value={newTeam.teamNumber}
                                                 onChange={handleNewTeamChange}
                                                 placeholder="Team Number - Ex. 3641"
+                                                required
                                             />
                                         </div>
                                         <div class="mb-3 mt-3">
@@ -460,6 +508,7 @@ const Eventdetail = () => {
                                                 value={newTeam.nickname}
                                                 onChange={handleNewTeamChange}
                                                 placeholder="Nickname - Ex. The Flying Toasters"
+                                                required
                                             />
                                         </div>
                                         <div class="mb-3 mt-3">
@@ -470,6 +519,7 @@ const Eventdetail = () => {
                                                 value={newTeam.city}
                                                 onChange={handleNewTeamChange}
                                                 placeholder="City - Ex. South Lyon"
+                                                required
                                             />
                                         </div>
                                         <div class="mb-3 mt-3">
@@ -480,6 +530,7 @@ const Eventdetail = () => {
                                                 value={newTeam.state_prov}
                                                 onChange={handleNewTeamChange}
                                                 placeholder="State/Province - Ex. Michigan"
+                                                required
                                             />
                                         </div>
                                         <div class="mb-3 mt-3">
@@ -490,8 +541,10 @@ const Eventdetail = () => {
                                                 value={newTeam.country}
                                                 onChange={handleNewTeamChange}
                                                 placeholder="Country - Ex. USA"
+                                                required
                                             />
                                         </div>
+                                        </form> 
                                         <button className="btn btn-success" onClick={handleAddNewTeam}>Add New Team</button>
                                     </Col>
                                 </Row>
@@ -504,7 +557,7 @@ const Eventdetail = () => {
                                             itemTemplate={(item) => <span>{item.teamNumber}</span>} 
                                         />
                                         <br />
-                                        {chipsValue ? JSON.stringify(chipsValue) : 'none'}
+                                        {/* {chipsValue ? JSON.stringify(chipsValue) : 'none'} */}
                                     </Col>
                                 </Row>
                             </Dialog>
@@ -539,6 +592,7 @@ const Eventdetail = () => {
                                     </tr>
                                 </thead>
                             </DataTable>
+                            {/* <p>{JSON.stringify(team)}</p> */}
                         </Col>
                     </Row> 
                 </Col>
