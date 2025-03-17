@@ -79,16 +79,18 @@ const Eventdata = () => {
                             { data: 'avgTotalReef' },
                             { data: 'totalCoralMissed' },
                             { data: 'totalProcessorScored' },
-                            { data: 'totalProcessorMissed' },
                             { data: 'totalNetScored' },
                             { data: 'totalNetMissed' },
                             { data: 'avgTotalAlgeaRemoved' },
                             { data: 'catBargeZonLocation' },
+                            { data: 'avgAutonReefLevel1Total' },
+                            { data: 'avgAutonReefLevel4Total' },
                             { data: 'avgAutonReefTotal' },
-                            { data: 'avgAutonProcessorScored' },
                             { data: 'avgAutonNetScored' },
+                            { data: 'avgTeleopReefLevel1Total' },
+                            { data: 'avgTeleopReefLevel3Total' },
+                            { data: 'avgTeleopReefLevel4Total' },
                             { data: 'avgTeleopReefTotal' },
-                            { data: 'avgTeleopProcessorScored' },
                             { data: 'avgTeleopNetScored' }
                         ],
                         responsive: false,
@@ -101,16 +103,18 @@ const Eventdata = () => {
                             <th>Total Coral</th>
                             <th>Total Coral Missed</th>
                             <th>Total Processor</th>
-                            <th>Total Processor Missed</th>
                             <th>Total Net</th>
                             <th>Total Net Missed</th>
                             <th>Total Alage Removed</th>
                             <th>Climb Position</th>
+                            <th>Auton Coral L1</th>
+                            <th>Auton Coral L4</th>
                             <th>Auton Coral</th>
-                            <th>Auton Processor</th>
                             <th>Auton Net</th>
+                            <th>TeleOp Coral L1</th>
+                            <th>TeleOp Coral L3</th>
+                            <th>TeleOp Coral L4</th>
                             <th>TeleOp Coral</th>
-                            <th>TeleOp Processor</th>
                             <th>TeleOp Net</th>
                         </tr>
                     </thead>
