@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios';
 import { useLocation, Link } from 'react-router-dom';
 import BackButton from '../common/BackButton';
@@ -6,7 +6,11 @@ import { Col, Container, Row } from "react-bootstrap";
 import { APP_DATABASE_URL } from "../../constant/constant";
 import { arrayLookup } from "../../utils/common";
 
+import { AppContext } from "../common/AppContext.js";
+
 const Robotsummary = () => {
+    const { appData } = useContext(AppContext);
+
     const [match, setMatch] = useState([]);
     const teamAverageDefault = [{avgAutonReefTotal: null, avgAutonNetScored: null, avgAutonProcessorScored: -1, avgTeleopReefTotal: -1, avgTeleopNetScored: -1, avgTeleopProcessorScored: -1, avgTotalAlgaePickup: -1, avgTotalAlgeaRemoved: -1, avgTotalCoralGroundPickup: -1, avgTotalCoralStationPickup: -1, catBargeZonLocation: '',}];
     const [teamAverageBlueOne, setTeamAverageBlueOne] = useState(teamAverageDefault);
@@ -35,27 +39,27 @@ const Robotsummary = () => {
 
     useEffect(() => {
         if(match){
-        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.blueOneTeamNumber}`)
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/${appData.currentEventID}/team/${match.blueOneTeamNumber}`)
         .then(response => setTeamAverageBlueOne(response.data))
         .catch(error => console.error('Error fetching data:', error));
 
-        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.blueTwoTeamNumber}`)
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/${appData.currentEventID}/team/${match.blueTwoTeamNumber}`)
         .then(response => setTeamAverageBlueTwo(response.data))
         .catch(error => console.error('Error fetching data:', error));
 
-        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.blueThreeTeamNumber}`)
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/${appData.currentEventID}/team/${match.blueThreeTeamNumber}`)
         .then(response => setTeamAverageBlueThree(response.data))
         .catch(error => console.error('Error fetching data:', error));
 
-        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.redOneTeamNumber}`)
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/${appData.currentEventID}/team/${match.redOneTeamNumber}`)
         .then(response => setTeamAverageRedOne(response.data))
         .catch(error => console.error('Error fetching data:', error));
 
-        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.redTwoTeamNumber}`)
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/${appData.currentEventID}/team/${match.redTwoTeamNumber}`)
         .then(response => setTeamAverageRedTwo(response.data))
         .catch(error => console.error('Error fetching data:', error));
 
-        axios.get(`${APP_DATABASE_URL}/matchData/2025/team/${match.redThreeTeamNumber}`)
+        axios.get(`${APP_DATABASE_URL}/matchData/2025/${appData.currentEventID}/team/${match.redThreeTeamNumber}`)
         .then(response => setTeamAverageRedThree(response.data))
         .catch(error => console.error('Error fetching data:', error));
         }
@@ -67,7 +71,8 @@ const Robotsummary = () => {
                 <Col md={1}><BackButton /></Col>
                 <Col md={11}><h1> Match {match.matchNumber} Robot Summary</h1></Col>
             </Row>
-            <Row><hr></hr></Row>
+            <Row><hr></hr><p>Event Year: {appData.currentEventYear}; Event Key: {appData.currentEventKey}; Event Id (serverDV): {appData.currentEventID}; <em><b>{appData.name}</b></em></p>
+            </Row>
             <Row>
                 <Col>
                     <table className="table table-bordered">
@@ -101,9 +106,10 @@ const Robotsummary = () => {
                             <tr>
                                 <th>Team Number</th>
                                 <th>Match Cnt</th>
+                                <th>Auton Coral L1</th>
+                                <th>Auton Coral L4</th>
                                 <th>Auton Coral</th>
-                                <th>Auton Net</th>
-                                <th>Auton Processor</th>
+                                <th>TeleOp Coral L4</th>
                                 <th>TeleOp Coral</th>
                                 <th>TeleOp Net</th>
                                 <th>TeleOp Processor</th>
@@ -113,9 +119,10 @@ const Robotsummary = () => {
                                 <tr className="bg-primary bg-opacity-10">
                                     <td>{match.blueOneTeamNumber}</td>
                                     <td>{teamAverageBlueOne[0].matchCount}</td>
+                                    <td>{teamAverageBlueOne[0].avgAutonReefLevel1Total}</td>
+                                    <td>{teamAverageBlueOne[0].avgAutonReefLevel4Total}</td>
                                     <td>{teamAverageBlueOne[0].avgAutonReefTotal}</td>
-                                    <td>{teamAverageBlueOne[0].avgAutonNetScored}</td>
-                                    <td>{teamAverageBlueOne[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageBlueOne[0].avgTeleopReefLevel4Total}</td>
                                     <td>{teamAverageBlueOne[0].avgTeleopReefTotal}</td>
                                     <td>{teamAverageBlueOne[0].avgTeleopNetScored}</td>
                                     <td>{teamAverageBlueOne[0].avgTeleopProcessorScored}</td>
@@ -123,9 +130,10 @@ const Robotsummary = () => {
                                 <tr className="bg-primary bg-opacity-10">
                                     <td>{match.blueTwoTeamNumber}</td>
                                     <td>{teamAverageBlueTwo[0].matchCount}</td>
+                                    <td>{teamAverageBlueTwo[0].avgAutonReefLevel1Total}</td>
+                                    <td>{teamAverageBlueTwo[0].avgAutonReefLevel4Total}</td>
                                     <td>{teamAverageBlueTwo[0].avgAutonReefTotal}</td>
-                                    <td>{teamAverageBlueTwo[0].avgAutonNetScored}</td>
-                                    <td>{teamAverageBlueTwo[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageBlueTwo[0].avgTeleopReefLevel4Total}</td>
                                     <td>{teamAverageBlueTwo[0].avgTeleopReefTotal}</td>
                                     <td>{teamAverageBlueTwo[0].avgTeleopNetScored}</td>
                                     <td>{teamAverageBlueTwo[0].avgTeleopProcessorScored}</td>
@@ -133,9 +141,10 @@ const Robotsummary = () => {
                                 <tr className="bg-primary bg-opacity-10">
                                     <td>{match.blueThreeTeamNumber}</td>
                                     <td>{teamAverageBlueThree[0].matchCount}</td>
+                                    <td>{teamAverageBlueThree[0].avgAutonReefLevel1Total}</td>
+                                    <td>{teamAverageBlueThree[0].avgAutonReefLevel4Total}</td>
                                     <td>{teamAverageBlueThree[0].avgAutonReefTotal}</td>
-                                    <td>{teamAverageBlueThree[0].avgAutonNetScored}</td>
-                                    <td>{teamAverageBlueThree[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageBlueThree[0].avgTeleopReefLevel4Total}</td>
                                     <td>{teamAverageBlueThree[0].avgTeleopReefTotal}</td>
                                     <td>{teamAverageBlueThree[0].avgTeleopNetScored}</td>
                                     <td>{teamAverageBlueThree[0].avgTeleopProcessorScored}</td>
@@ -143,9 +152,10 @@ const Robotsummary = () => {
                                 <tr className="bg-danger bg-opacity-10">
                                     <td>{match.redOneTeamNumber}</td>
                                     <td>{teamAverageRedOne[0].matchCount}</td>
+                                    <td>{teamAverageRedOne[0].avgAutonReefLevel1Total}</td>
+                                    <td>{teamAverageRedOne[0].avgAutonReefLevel4Total}</td>
                                     <td>{teamAverageRedOne[0].avgAutonReefTotal}</td>
-                                    <td>{teamAverageRedOne[0].avgAutonNetScored}</td>
-                                    <td>{teamAverageRedOne[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageRedOne[0].avgTeleopReefLevel4Total}</td>
                                     <td>{teamAverageRedOne[0].avgTeleopReefTotal}</td>
                                     <td>{teamAverageRedOne[0].avgTeleopNetScored}</td>
                                     <td>{teamAverageRedOne[0].avgTeleopProcessorScored}</td>
@@ -153,9 +163,10 @@ const Robotsummary = () => {
                                 <tr className="bg-danger bg-opacity-10">
                                     <td>{match.redTwoTeamNumber}</td>
                                     <td>{teamAverageRedTwo[0].matchCount}</td>
+                                    <td>{teamAverageRedTwo[0].avgAutonReefLevel1Total}</td>
+                                    <td>{teamAverageRedTwo[0].avgAutonReefLevel4Total}</td>
                                     <td>{teamAverageRedTwo[0].avgAutonReefTotal}</td>
-                                    <td>{teamAverageRedTwo[0].avgAutonNetScored}</td>
-                                    <td>{teamAverageRedTwo[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageRedTwo[0].avgTeleopReefLevel4Total}</td>
                                     <td>{teamAverageRedTwo[0].avgTeleopReefTotal}</td>
                                     <td>{teamAverageRedTwo[0].avgTeleopNetScored}</td>
                                     <td>{teamAverageRedTwo[0].avgTeleopProcessorScored}</td>
@@ -163,9 +174,10 @@ const Robotsummary = () => {
                                 <tr className="bg-danger bg-opacity-10">
                                     <td>{match.redThreeTeamNumber}</td>
                                     <td>{teamAverageRedThree[0].matchCount}</td>
+                                    <td>{teamAverageRedThree[0].avgAutonReefLevel1Total}</td>
+                                    <td>{teamAverageRedThree[0].avgAutonReefLevel4Total}</td>
                                     <td>{teamAverageRedThree[0].avgAutonReefTotal}</td>
-                                    <td>{teamAverageRedThree[0].avgAutonNetScored}</td>
-                                    <td>{teamAverageRedThree[0].avgAutonProcessorScored}</td>
+                                    <td>{teamAverageRedThree[0].avgTeleopReefLevel4Total}</td>
                                     <td>{teamAverageRedThree[0].avgTeleopReefTotal}</td>
                                     <td>{teamAverageRedThree[0].avgTeleopNetScored}</td>
                                     <td>{teamAverageRedThree[0].avgTeleopProcessorScored}</td>
