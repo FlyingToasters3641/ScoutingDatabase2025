@@ -136,7 +136,7 @@ const SaveMatch = ({
         },
         isNewMatchButtonDisabled && styles.disabledButton,
       ]}
-      onPress={handlePress2} 
+      onPress={handleNewMatch} 
       disabled={isNewMatchButtonDisabled}
       >
         <Text style={styles.buttonText}>New Match</Text>
