@@ -1,6 +1,13 @@
 const defaultGameData = {
     // *** Version ***
-    v: '2025.1.0', // Version Number
+    v: '2025.2.0', // Version Number
+    // *** Version ***
+    // 2025.1.0 
+    //    - Initial version
+    // 2025.2.0 
+    //    - Changed smp from TRUE/FALSE to Message Index [1,2,3,etc for each message]
+
+    
     // *** Pre Match ***
     sl: 0, // Starting Location 0=None, 1=Top, 2=Center, 3=Bottom
 
