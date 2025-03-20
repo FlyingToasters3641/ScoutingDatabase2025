@@ -65,6 +65,8 @@ const MatchSetup = ({
         setAddMatchSuccess(true);
         setAddMatchError(false);
         setDuplicateMatchError(false);
+        // just close the modal if adding a new match was successful (keeping success in modal if we want to show a success message in the future again)
+        closeAddMatchModal();
       }
     } else {
       setAddMatchError(true);
@@ -272,7 +274,8 @@ const MatchSetup = ({
         onRequestClose={() => closeAddMatchModal()}>
           <View style={styles.modalCenteredView}>
             <View style={styles.modalView}>
-              {addMatchSuccess ? (
+              {
+              addMatchSuccess ? (
                 <>
                   <Text style={styles.modalContentText}>Match {editingMatch ? 'updated' : 'added'} successfully!</Text>
                   <Pressable
@@ -314,7 +317,8 @@ const MatchSetup = ({
                     </Pressable>
                   </View>
                 </>
-              )}
+              )
+              }
             </View>
           </View>
         </Modal>

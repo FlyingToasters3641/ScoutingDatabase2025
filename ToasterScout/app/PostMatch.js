@@ -12,9 +12,10 @@ const [displayClimbSelect, setDisplayClimbSelect] = useState(gameData.bzl); // B
 
 // information
 let tempinfo= gameData.snp.split(',');
-const [info1Toggled, setInfo1Toggled] = useState(tempinfo[0] === 'true');
-const [info2Toggled, setInfo2Toggled] = useState(tempinfo[1] === 'true');
-const [info3Toggled, setInfo3Toggled] = useState(tempinfo[2] === 'true');
+console.log(tempinfo);
+const [info1Toggled, setInfo1Toggled] = useState(tempinfo.includes('1'));
+const [info2Toggled, setInfo2Toggled] = useState(tempinfo.includes('2'));
+const [info3Toggled, setInfo3Toggled] = useState(tempinfo.includes('3'));
 
 const infoToggled1 = () => {
   setInfo1Toggled(!info1Toggled);
@@ -32,7 +33,7 @@ const infoToggled3 = () => {
 // *** Update gameData when Post Match data has changed ***
   useEffect(() => {
       setGameData(prevGameData => ({...prevGameData, bzl: displayClimbSelect}));
-      var tempGameData = `${info1Toggled},${info2Toggled},${info3Toggled}`;
+      var tempGameData = (info1Toggled ? '1,': '') + (info2Toggled ? '2,' : '') + (info3Toggled ? '3,' : '');//`${info1Toggled},${info2Toggled},${info3Toggled}`;
         setGameData(prevGameData => ({...prevGameData, snp: tempGameData}));
   }, [displayClimbSelect, info1Toggled, info2Toggled, info3Toggled]);
 
