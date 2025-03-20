@@ -7,49 +7,107 @@ const Auto = ({
   gameData,
   setGameData,
 }) => {
-  // Net
+
+   /* ########## Net ########## */
   const [displayNetScored, setDisplayNetScored] = useState(gameData.ans);
-  const [displayNetMissed, setDisplayNetMissed] = useState(gameData.anm);
+
+  // Net Scoring
+  const addNetScored = () => {
+    setDisplayNetScored(displayNetScored + 1);
+  };
+  const subNetScored = () => {
+    if (displayNetScored > 0) {
+      setDisplayNetScored(displayNetScored - 1);
+    } 
+  };
+
 
   // *** Update gameData when Net data has changed ***
     useEffect(() => {
       setGameData(prevGameData => ({...prevGameData, ans: displayNetScored}));
-      setGameData(prevGameData => ({...prevGameData, anm: displayNetMissed}));
-    }, [displayNetScored, displayNetMissed]);
+    }, [displayNetScored]);
 
-  // Processor
+  /* ########## ########## ########## */
+
+
+
+  /* ########## Processor ########## */
   const [displayProcessorScored, setDisplayProcessorScored] = useState(gameData.aps);
-  const [displayProcessorMissed, setDisplayProcessorMissed] = useState(gameData.apm);
+
+  // Processor Scoring
+  const addProcessorScored = () => {
+    setDisplayProcessorScored(displayProcessorScored + 1);
+  };
+  const subProcessorScored = () => {
+    if (displayProcessorScored > 0) {
+      setDisplayProcessorScored(displayProcessorScored - 1);
+    } 
+  };
 
   // *** Update gameData when Processor data has changed ***
     useEffect(() => {
       setGameData(prevGameData => ({...prevGameData, aps: displayProcessorScored}));
-      setGameData(prevGameData => ({...prevGameData, apm: displayProcessorMissed}));
-    }, [displayProcessorScored, displayProcessorMissed]);
+    }, [displayProcessorScored]);
 
-  // Intaking
-  const [displayCoralGround, setDisplayCoralGround] = useState(gameData.acgp);
-  const [displayCoralStation, setDisplayCoralStation] = useState(gameData.acsp);
+  /* ########## ########## ########## */
+
+
+  /* ########## Intaking ########## */
+  const [displayCoralPickup, setDisplayCoralPickup] = useState(gameData.acp);
   const [displayAlgaeIntake, setDisplayAlgaeIntake] = useState(gameData.aap);
+  const [displayStationIntake, setDisplayStationIntake] = useState(gameData.asi);  // ToDo: update from gameData on load
+  const [displayGroundIntake, setDisplayGroundIntake] = useState(gameData.agi); // ToDo: update from gameData on load
+
+  // Coral Station Intake
+  const addCoralStation = () => {
+    setDisplayCoralPickup(displayCoralPickup + 1);
+  };
+  const subCoralStation = () => {
+    if (displayCoralPickup > 0) {
+      setDisplayCoralPickup(displayCoralPickup - 1);
+    } 
+  };
+
+  // Algae Intake
+  const addAlgaeIntake = () => {
+    setDisplayAlgaeIntake(displayAlgaeIntake + 1);
+  };
+  const subAlgaeIntake = () => {
+    if (displayAlgaeIntake > 0) {
+      setDisplayAlgaeIntake(displayAlgaeIntake - 1);
+    } 
+  };
 
   // *** Update gameData when Intaking data has changed ***
     useEffect(() => {
-      setGameData(prevGameData => ({...prevGameData, acgp: displayCoralGround}));
-      setGameData(prevGameData => ({...prevGameData, acsp: displayCoralStation}));
+      setGameData(prevGameData => ({...prevGameData, acp: displayCoralPickup}));
       setGameData(prevGameData => ({...prevGameData, aap: displayAlgaeIntake}));
-    }, [displayCoralGround, displayCoralStation, displayAlgaeIntake]);
+      setGameData(prevGameData => ({...prevGameData, agi: displayStationIntake}));
+      setGameData(prevGameData => ({...prevGameData, asi: displayGroundIntake}));
+    }, [displayCoralPickup, displayAlgaeIntake, displayStationIntake, displayGroundIntake]);
 
-  // Reef Select and scooring
+  /* ########## ########## ########## */
+
+
+  /* ########## Auton Leave ########## */
+  const [displayLeave, setdisplayLeave] = useState(gameData.aL);
+
+  useEffect(() => {
+    setGameData(prevGameData => ({...prevGameData, aL:displayLeave}))
+  }, [displayLeave]);
+
+  /* ########## ########## ########## */
+
+
+
+  /* ########## Reef Select and scooring ########## */
   const [displayReefSelect, setDisplayReefSelect] = useState('');
   const [displayReefScore, setDisplayReefScore] = useState({
-    l1A:gameData.al1A, l1C:gameData.al1C, l1E:gameData.al1E, l1G:gameData.al1G, l1I:gameData.al1I, l1K:gameData.al1K,
-    l2A:gameData.al2A, l2C:gameData.al2C, l2E:gameData.al2E, l2G:gameData.al2G, l2I:gameData.al2I, l2K:gameData.al2K,
-    l3A:gameData.al3A, l3C:gameData.al3C, l3E:gameData.al3E, l3G:gameData.al3G, l3I:gameData.al3I, l3K:gameData.al3K,
-    l4A:gameData.al4A, l4C:gameData.al4C, l4E:gameData.al4E, l4G:gameData.al4G, l4I:gameData.al4I, l4K:gameData.al4K
+    l1A:gameData.al1A, l1C:gameData.al1C, l1G:gameData.al1G, l1I:gameData.al1I,
+    l2A:gameData.al2A, l2C:gameData.al2C, l2G:gameData.al2G, l2I:gameData.al2I,
+    l3A:gameData.al3A, l3C:gameData.al3C, l3G:gameData.al3G, l3I:gameData.al3I,
+    l4A:gameData.al4A, l4C:gameData.al4C, l4G:gameData.al4G, l4I:gameData.al4I, 
   });
-
-  // Coral Missed 
-    const [displayCoralMissed, setDisplayCoralMissed] = useState(gameData.acm);
 
 
   // *** Update gameData when Reef data has changed ***
@@ -58,41 +116,35 @@ const Auto = ({
     // Level 1
     setGameData(prevGameData => ({...prevGameData, al1A: displayReefScore.l1A}));
     setGameData(prevGameData => ({...prevGameData, al1C: displayReefScore.l1C}));
-    setGameData(prevGameData => ({...prevGameData, al1E: displayReefScore.l1E}));
     setGameData(prevGameData => ({...prevGameData, al1G: displayReefScore.l1G}));
     setGameData(prevGameData => ({...prevGameData, al1I: displayReefScore.l1I}));
-    setGameData(prevGameData => ({...prevGameData, al1K: displayReefScore.l1K}));
 
     // Level 2
     setGameData(prevGameData => ({...prevGameData, al2A: displayReefScore.l2A}));
     setGameData(prevGameData => ({...prevGameData, al2C: displayReefScore.l2C}));
-    setGameData(prevGameData => ({...prevGameData, al2E: displayReefScore.l2E}));
     setGameData(prevGameData => ({...prevGameData, al2G: displayReefScore.l2G}));
     setGameData(prevGameData => ({...prevGameData, al2I: displayReefScore.l2I}));
-    setGameData(prevGameData => ({...prevGameData, al2K: displayReefScore.l2K}));
 
     // Level 3
     setGameData(prevGameData => ({...prevGameData, al3A: displayReefScore.l3A}));
     setGameData(prevGameData => ({...prevGameData, al3C: displayReefScore.l3C}));
-    setGameData(prevGameData => ({...prevGameData, al3E: displayReefScore.l3E}));
     setGameData(prevGameData => ({...prevGameData, al3G: displayReefScore.l3G}));
     setGameData(prevGameData => ({...prevGameData, al3I: displayReefScore.l3I}));
-    setGameData(prevGameData => ({...prevGameData, al3K: displayReefScore.l3K}));
 
     // Level 4
     setGameData(prevGameData => ({...prevGameData, al4A: displayReefScore.l4A}));
     setGameData(prevGameData => ({...prevGameData, al4C: displayReefScore.l4C}));
-    setGameData(prevGameData => ({...prevGameData, al4E: displayReefScore.l4E}));
     setGameData(prevGameData => ({...prevGameData, al4G: displayReefScore.l4G}));
     setGameData(prevGameData => ({...prevGameData, al4I: displayReefScore.l4I}));
-    setGameData(prevGameData => ({...prevGameData, al4K: displayReefScore.l4K}));
 
-    setGameData(prevGameData => ({...prevGameData, acm: displayCoralMissed}));
+    // setGameData(prevGameData => ({...prevGameData, acm: displayCoralMissed}));
 
-  }, [displayReefScore, displayCoralMissed]);
+  }, [displayReefScore]);
 
-  // Algae Removal Toggles
-  // TODO: update from gameData on load
+  /* ########## ########## ########## */
+
+  
+  /* ########## Algae Removal Toggles ########## */
   const [algaeAToggled, setAlgaeAToggled] = useState(gameData.aalA);
   const [algaeBToggled, setAlgaeBToggled] = useState(gameData.aalB);
   const [algaeCToggled, setAlgaeCToggled] = useState(gameData.aalC);
@@ -109,12 +161,9 @@ const Auto = ({
     setGameData(prevGameData => ({...prevGameData, aalE: algaeEToggled}));
     setGameData(prevGameData => ({...prevGameData, aalF: algaeFToggled}));
   }, [algaeAToggled, algaeBToggled, algaeCToggled, algaeDToggled, algaeEToggled, algaeFToggled]);
-  
-  const [leave, setLeave] = useState(gameData.aL)
 
-  useEffect(() => {
-    setGameData(prevGameData => ({...prevGameData, aL:leave}))
-  }, [leave]);
+  /* ########## ########## ########## */
+  
 
   // Scoring functions
 
@@ -433,95 +482,7 @@ const Auto = ({
           console.log('[33:51] oops!');
       }
       setDisplayReefSelect('');
-
-
     }
-  };
-
-  // Net Scoring
-  const addNetScored = () => {
-    setDisplayNetScored(displayNetScored + 1);
-  };
-  const subNetScored = () => {
-    if (displayNetScored > 0) {
-      setDisplayNetScored(displayNetScored - 1);
-    } 
-  };
-
-  // Net Missed
-  const addNetMissed = () => {
-    setDisplayNetMissed(displayNetMissed + 1);
-  };
-  const subNetMissed = () => {
-    if (displayNetMissed > 0) {
-      setDisplayNetMissed(displayNetMissed - 1);
-    } 
-  };
-
-  // Processor Scoring
-  const addProcessorScored = () => {
-    setDisplayProcessorScored(displayProcessorScored + 1);
-  };
-  const subProcessorScored = () => {
-    if (displayProcessorScored > 0) {
-      setDisplayProcessorScored(displayProcessorScored - 1);
-    } 
-  };
-
-  // Processor Missed
-  const addProcessorMissed = () => {
-    setDisplayProcessorMissed(displayProcessorMissed + 1);
-  };
-  const subProcessorMissed = () => {
-    if (displayProcessorMissed > 0) {
-      setDisplayProcessorMissed(displayProcessorMissed - 1);
-    } 
-  };
-  // Coral Missed
-  const addCoralMissed = () => {
-    setDisplayCoralMissed(displayCoralMissed + 1);
-  };
-  const subCoralMissed = () => {
-    if (displayCoralMissed > 0) {
-      setDisplayCoralMissed(displayCoralMissed - 1)
-    }
-  };
-  // Intaking
-  
-  // Ground Coral Intake
-  const addCoralGround = () => {
-    setDisplayCoralGround(displayCoralGround + 1);
-  };
-  const subCoralGround = () => {
-    if (displayCoralGround > 0) {
-      setDisplayCoralGround(displayCoralGround - 1);
-    } 
-  };
-
-  // Coral Station Intake
-  const addCoralStation = () => {
-    setDisplayCoralStation(displayCoralStation + 1);
-  };
-  const subCoralStation = () => {
-    if (displayCoralStation > 0) {
-      setDisplayCoralStation(displayCoralStation - 1);
-    } 
-  };
-
-  // Algae Intake
-  const addAlgaeIntake = () => {
-    setDisplayAlgaeIntake(displayAlgaeIntake + 1);
-  };
-  const subAlgaeIntake = () => {
-    if (displayAlgaeIntake > 0) {
-      setDisplayAlgaeIntake(displayAlgaeIntake - 1);
-    } 
-  };
-
-  // Leave
-  const leaveToggle = () => {
-    setLeave(!leave);
-    console.log(leave);
   };
 
 
@@ -547,47 +508,6 @@ const Auto = ({
 
       {/* Coral Scoring */}
 
-      {/* location L */}
-      {/* <TouchableOpacity
-        style={[
-          styles.smallButton,
-          {
-            top: 75,
-            left: 62,
-          },
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle" size={24} color="black" />
-      </TouchableOpacity> */}
-
-      {/* location K */}
-      <TouchableOpacity
-        onPress={() => {displayReefSelect === 'K' ? setDisplayReefSelect('') : setDisplayReefSelect('K');}}
-        style={[
-          styles.smallButton,
-          {
-            top: 43,
-            left: 105,
-          },
-          displayReefSelect === 'K' && styles.reefSelected,
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle" size={24} color="black" />
-      </TouchableOpacity>
-
-      {/* location J */}
-      {/* <TouchableOpacity
-        style={[
-          styles.smallButton,
-          {
-            top: 25,
-            left: 260,
-          },
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle" size={24} color="black" />
-      </TouchableOpacity> */}
-
       {/* location I */}
       <TouchableOpacity
         onPress={() => {displayReefSelect === 'I' ? setDisplayReefSelect('') : setDisplayReefSelect('I');}}
@@ -595,7 +515,8 @@ const Auto = ({
           styles.smallButton,
           {
             top: 43,
-            left: 309,
+            left: 65,
+            width: 340,
           },
           displayReefSelect === 'I' && styles.reefSelected,
         ]}
@@ -603,18 +524,6 @@ const Auto = ({
         <Entypo name="circle" size={24} color="black" />
       </TouchableOpacity>
 
-      {/* location H */}
-      {/* <TouchableOpacity
-        style={[
-          styles.smallButton,
-          {
-            top: 164,
-            left: 405,
-          },
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle" size={24} color="black" />
-      </TouchableOpacity> */}
 
       {/* location G */}
       <TouchableOpacity
@@ -622,8 +531,9 @@ const Auto = ({
         style={[
           styles.smallButton,
           {
-            top: 215,
+            top: 165,
             left: 405,
+            height: 150,
           },
           displayReefSelect === 'G' && styles.reefSelected,
         ]}
@@ -631,46 +541,6 @@ const Auto = ({
         <Entypo name="circle" size={24} color="black" />
       </TouchableOpacity>
 
-      {/* location F */}
-      {/* <TouchableOpacity
-        style={[
-          styles.smallButton,
-          {
-            top: 355,
-            left: 358,
-          },
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle" size={24} color="black" />
-      </TouchableOpacity> */}
-
-      {/* location E */}
-      <TouchableOpacity
-        onPress={() => {displayReefSelect === 'E' ? setDisplayReefSelect('') : setDisplayReefSelect('E');}}
-        style={[
-          styles.smallButton,
-          {
-            top: 380,
-            left: 315,
-          },
-          displayReefSelect === 'E' && styles.reefSelected,
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle" size={24} color="black" />
-      </TouchableOpacity>
-
-      {/* location D */}
-      {/* <TouchableOpacity
-        style={[
-          styles.smallButton,
-          {
-            top: 415,
-            left: 155,
-          },
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle" size={24} color="black" />
-      </TouchableOpacity> */}
 
       {/* location C */}
       <TouchableOpacity
@@ -679,7 +549,8 @@ const Auto = ({
           styles.smallButton,
           {
             top: 380,
-            left: 110,
+            left: 65,
+            width: 340,
           },
           displayReefSelect === 'C' && styles.reefSelected,
         ]}
@@ -687,18 +558,6 @@ const Auto = ({
         <Entypo name="circle" size={24} color="black" />
       </TouchableOpacity>
 
-      {/* location B */}
-      {/* <TouchableOpacity
-        style={[
-          styles.smallButton,
-          {
-            top: 262,
-            left: 20,
-          },
-        ]}
-        activeOpacity={0.5}>
-        <Entypo name="circle" size={24} color="black" />
-      </TouchableOpacity> */}
 
       {/* location A */}
       <TouchableOpacity
@@ -706,8 +565,9 @@ const Auto = ({
         style={[
           styles.smallButton,
           {
-            top: 215,
+            top: 165,
             left: 20,
+            height: 150,
           },
           displayReefSelect === 'A' && styles.reefSelected,
         ]}
@@ -813,7 +673,7 @@ const Auto = ({
           onPress={subReefLevel4}
           style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l4K}   {displayReefScore.l4I}{'\n'}{displayReefScore.l4A}  L4  {displayReefScore.l4G}{'\n'}{displayReefScore.l4C}   {displayReefScore.l4E}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l4I}{'\n'}{displayReefScore.l4A}  L4  {displayReefScore.l4G}{'\n'}{displayReefScore.l4C}</Text></View>
         <TouchableOpacity 
           onPress={addReefLevel4}
           style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
@@ -826,7 +686,7 @@ const Auto = ({
         onPress={subReefLevel3}
         style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l3K}   {displayReefScore.l3I}{'\n'}{displayReefScore.l3A}  L3  {displayReefScore.l3G}{'\n'}{displayReefScore.l3C}   {displayReefScore.l3E}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l3I}{'\n'}{displayReefScore.l3A}  L3  {displayReefScore.l3G}{'\n'}{displayReefScore.l3C}</Text></View>
         <TouchableOpacity
         onPress={addReefLevel3}
         style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
@@ -839,7 +699,7 @@ const Auto = ({
         onPress={subReefLevel2}
         style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l2K}   {displayReefScore.l2I}{'\n'}{displayReefScore.l2A}  L2  {displayReefScore.l2G}{'\n'}{displayReefScore.l2C}   {displayReefScore.l2E}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l2I}{'\n'}{displayReefScore.l2A}  L2  {displayReefScore.l2G}{'\n'}{displayReefScore.l2C}</Text></View>
         <TouchableOpacity
         onPress={addReefLevel2}
         style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
@@ -852,7 +712,7 @@ const Auto = ({
         style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         onPress={subReefLevel1}
         ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l1K}   {displayReefScore.l1I}{'\n'}{displayReefScore.l1A}  L1  {displayReefScore.l1G}{'\n'}{displayReefScore.l1C}   {displayReefScore.l1E}</Text></View>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>{displayReefScore.l1I}{'\n'}{displayReefScore.l1A}  L1  {displayReefScore.l1G}{'\n'}{displayReefScore.l1C}</Text></View>
         <TouchableOpacity 
         style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         onPress={addReefLevel1}
@@ -860,21 +720,6 @@ const Auto = ({
       </View>
     </View>
     
-
-      {/* Coral Missed */}
-      <View style={[
-        {
-          top: 198,
-          left: 167,
-          position: 'absolute',
-        }
-        ]}>
-        <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
-          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralMissed}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Coral Missed{'\n'}{displayCoralMissed}</Text></View>
-          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralMissed}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
-        </View>
-      </View>
   
 
       {/* Scoring */}
@@ -894,76 +739,53 @@ const Auto = ({
           <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Net Scored{'\n'}{displayNetScored}</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addNetScored}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
-        <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
-        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subNetMissed}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Net Missed{'\n'}{displayNetMissed}</Text></View>
-          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}  onPress={addNetMissed}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
-        </View>
 
         {/* Processor Scoring */}
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
-        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subProcessorScored}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subProcessorScored}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
           <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Processor Scored{'\n'}{displayProcessorScored}</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addProcessorScored}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
+
+        {/* Algae Pick-Up */}
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
-        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subProcessorMissed}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} ><Text style={styles.buttonLabel}>Processor Missed{'\n'}{displayProcessorMissed}</Text></View>
-          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addProcessorMissed}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
-        </View>
-      </View>
-      
-      {/* Intaking */}
-
-      {/* Coral Ground Pick-Up */}
-      <View style={[
-        {
-          top: 395,
-          left: 460,
-          position: 'absolute',
-        }
-        ]}>
-        <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
-          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralGround}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Ground Coral Pick-Up{'\n'}{displayCoralGround}</Text></View>
-          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralGround}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Coral Station Pick-Up */}
-      <View style={[
-        {
-          top: 395,
-          left: 605,
-          position: 'absolute',
-        }
-        ]}>
-        <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
-          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralStation}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Station Coral Pick-Up{'\n'}{displayCoralStation}</Text></View>
-          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralStation}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Algae Pick-Up */}
-      <View style={[
-        {
-          top: 395,
-          left: 750,
-          position: 'absolute',
-        }
-        ]}>
-        <View style={[{flexDirection:'row', justifyContent:'space-between', width:135, paddingBottom: 5, paddingTop: 5}]}>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subAlgaeIntake}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
           <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Algae Pick-Up{'\n'}{displayAlgaeIntake}</Text></View>
           <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addAlgaeIntake}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
         </View>
+
+        {/* Coral Station Pick-Up */}
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralStation}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Coral Pick-Up{'\n'}{displayCoralPickup}</Text></View>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralStation}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
       </View>
 
-      {/* Leave */}
-      <Pressable style={[styles.leaveButton, leave && styles.leaveSelected]} onPress={leaveToggle}>
-        <Text styles={styles.buttonLabel}>Leave</Text>
+    </View>
+      
+    {/* Leave */}
+    <View style={[
+      {
+          top: 400,
+          left: 482,
+          position: 'absolute',
+          flexDirection: 'row',
+          // alignItems: 'center',
+      }
+      ]}>
+      <Pressable style={[styles.midButton, displayLeave && styles.leaveSelected]} onPress={() => setdisplayLeave(!displayLeave)}>
+        <Text style={styles.buttonLabel}>{displayLeave ? <Ionicons name="checkmark-circle-outline" size={26} color="black" /> : <Entypo name="circle" size={24} color="black" />} Auton{'\n'}      Leave</Text>
       </Pressable>
+
+      <Pressable style={[styles.midButton, displayGroundIntake && styles.leaveSelected,]} onPress={() => setDisplayGroundIntake(!displayGroundIntake)}>
+        <Text style={styles.buttonLabel}>{displayGroundIntake ? <Ionicons name="checkmark-circle-outline" size={26} color="black" /> : <Entypo name="circle" size={24} color="black" />} Ground Intake</Text>
+      </Pressable>
+
+      <Pressable style={[styles.midButton, displayStationIntake && styles.leaveSelected,]} onPress={() => setDisplayStationIntake(!displayStationIntake)}>
+        <Text style={styles.buttonLabel}>{displayStationIntake ? <Ionicons name="checkmark-circle-outline" size={26} color="black" /> : <Entypo name="circle" size={24} color="black" />} Station Intake</Text>
+      </Pressable>
+
+    </View>
   </>
 
   );
@@ -1009,7 +831,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'mediumaquamarine',
   },
   algaeSmallButtonActive: {
-    backgroundColor: 'limegreen',
+    // backgroundColor: 'limegreen',
+    backgroundColor: 'white',
   },
   bigButton: {
     paddingHorizontal: 16,
@@ -1025,21 +848,22 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   midButton: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     paddingVertical: 12,
     borderRadius: 8,
-    marginTop: 8,
-    marginBottom: 8,
+    margin: 8,
+    //marginTop: 8,
+    // marginBottom: 8,
     width: 115,
     height: 75,
-    position: 'absolute',
+    // position: 'absolute',
     backgroundColor: 'oldlace',
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
   },
   sMidButton: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     paddingVertical: 12,
     borderRadius: 8,
     marginTop: 8,
