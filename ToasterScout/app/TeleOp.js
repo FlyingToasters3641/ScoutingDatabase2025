@@ -811,41 +811,41 @@ const TeleOp = ({
 
       {/* Coral Level 4 */}
       <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
-        <TouchableOpacity 
+        <Pressable 
           onPress={subReefLevel4}
           style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+        ><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
         <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>Level 4{'\n'}{displayReefScore.l4A}</Text></View>
-        <TouchableOpacity 
+        <Pressable 
           onPress={addReefLevel4}
           style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        ><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+        ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
       </View>
 
       {/* Coral Level 3 */}
       <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
-        <TouchableOpacity 
+        <Pressable 
         onPress={subReefLevel3}
         style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+        ><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
         <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>Level 3{'\n'}{displayReefScore.l3A}</Text></View>
-        <TouchableOpacity
+        <Pressable
         onPress={addReefLevel3}
         style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        ><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+        ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
       </View>
 
       {/* Coral Level 2 */}
       <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
-        <TouchableOpacity
+        <Pressable
         onPress={subReefLevel2}
         style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        ><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+        ><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
         <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>Level 2{'\n'}{displayReefScore.l2A}</Text></View>
-        <TouchableOpacity
+        <Pressable
         onPress={addReefLevel2}
         style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        ><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+        ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
       </View>
 
       {/* Coral Level 1 */}
