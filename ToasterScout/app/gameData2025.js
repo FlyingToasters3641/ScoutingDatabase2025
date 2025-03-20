@@ -38,8 +38,8 @@ const defaultGameData = {
     tl4A:0,
     // Teleop Reef positions Algae
     // talA = (t)eleOp - (a)lge - Reef Location (A)
-    talH:false, // High Algae
-    talL:false, // Low Algae
+    talH:0, // High Algae
+    talL:0, // Low Algae
 
     // *** Post Match ***
     bzl: 'U', // Barge Zone Location (U=None, N=No Attempt, P=Parked, H=High Climbed, L=Low Climbed)
