@@ -110,6 +110,15 @@ const TeleOp = ({
     setGameData(prevGameData => ({...prevGameData, talF: algaeFToggled}));
   }, [algaeAToggled, algaeBToggled, algaeCToggled, algaeDToggled, algaeEToggled, algaeFToggled]);
   
+  const [playerIntake, setPlayerIntake] = useState(false)
+  const [groundIntake, setGroundIntake] = useState(false)
+
+  const playerStation = () => {
+    setPlayerIntake(!playerIntake)
+  }
+  const ground = () => {
+    setGroundIntake(!groundIntake)
+  }
 
   // Scoring functions
 
@@ -444,14 +453,14 @@ const TeleOp = ({
   };
 
   // Net Missed
-  const addNetMissed = () => {
-    setDisplayNetMissed(displayNetMissed + 1);
-  };
-  const subNetMissed = () => {
-    if (displayNetMissed > 0) {
-      setDisplayNetMissed(displayNetMissed - 1);
-    } 
-  };
+  // const addNetMissed = () => {
+  //   setDisplayNetMissed(displayNetMissed + 1);
+  // };
+  // const subNetMissed = () => {
+  //   if (displayNetMissed > 0) {
+  //     setDisplayNetMissed(displayNetMissed - 1);
+  //   } 
+  // };
 
   // Processor Scoring
   const addProcessorScored = () => {
@@ -463,15 +472,15 @@ const TeleOp = ({
     } 
   };
 
-  // Processor Missed
-  const addProcessorMissed = () => {
-    setDisplayProcessorMissed(displayProcessorMissed + 1);
-  };
-  const subProcessorMissed = () => {
-    if (displayProcessorMissed > 0) {
-      setDisplayProcessorMissed(displayProcessorMissed - 1);
-    } 
-  };
+  // // Processor Missed
+  // const addProcessorMissed = () => {
+  //   setDisplayProcessorMissed(displayProcessorMissed + 1);
+  // };
+  // const subProcessorMissed = () => {
+  //   if (displayProcessorMissed > 0) {
+  //     setDisplayProcessorMissed(displayProcessorMissed - 1);
+  //   } 
+  // };
   // Coral Missed
   const addCoralMissed = () => {
     setDisplayCoralMissed(displayCoralMissed + 1);
@@ -1005,24 +1014,24 @@ const TeleOp = ({
 
 
       <Pressable style={[
-        styles.midButton,
+        styles.midButton, groundIntake && styles.selected,
         {
           top: 395,
           left: 370,
           position: 'absolute',
         }
-      ]}>
+      ]} onPress={ground}>
         <Text>Ground Intake</Text>
       </Pressable>
 
       <Pressable style={[
-        styles.midButton,
+        styles.midButton, playerIntake && styles.selected,
         {
           top: 395,
           left: 235,
           position: 'absolute',
         }
-      ]}>
+      ]} onPress={playerStation}>
         <Text>Player Station Intake</Text>
       </Pressable>
 
@@ -1151,6 +1160,9 @@ const styles = StyleSheet.create({
     borderColor: 'white', // Change color to your desired border color
     borderRadius: 8,
     padding: 30,
+  },
+  selected: {
+    backgroundColor: 'limegreen',
   }
 });
 
