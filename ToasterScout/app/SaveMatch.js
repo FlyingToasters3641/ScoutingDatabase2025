@@ -24,8 +24,10 @@ const SaveMatch = ({
   const handlePress1 = async() => {
     let defaultQRCodeData = {schemaVar: '1.0.0', dataSHA1:'', data: gameData};
     defaultQRCodeData={...defaultQRCodeData, data: {...defaultQRCodeData.data, ...appData}}
-    let sataSHA1 = await sha1(JSON.stringify(gameData));
-    defaultQRCodeData.dataSHA1 = sataSHA1;
+    // removing the SHA1 hash for now, as it is not used and causes the QR code to be too large
+    // let sataSHA1 = await sha1(JSON.stringify(gameData));
+    // defaultQRCodeData.dataSHA1 = sataSHA1;
+
     // setJsonData({e :"2025event", sN :"Jacob K", mN:"qm1", rP:"R1", dP:"RD1", tN:"7553", mK :"2025event_qm1", sP :"000", dP :"000", cA :"0000", cB :"0000", cC :"0000", cD :"0000", cE :"0000", cF :"0000", cG :"0000", cH :"0000", cI :"0000", cJ :"0000", cK :"0000", cL :"0000", aG :"000000", cP :"000", gCI :4, pCI :2, cM :4, gAI :7, nS :4, pS :5});
     setJsonData(defaultQRCodeData);
     setQrCodeSize(400);
@@ -51,24 +53,24 @@ const SaveMatch = ({
     Alert.alert('QR Code Saved', 'QR Code saved to Download directory');
   };
 
-  const handlePress2 = async() => {
-    // Alert the user confirming they want to start a new match
-    Alert.alert(
-      'New Match',
-      'Are you sure you want to start a new match?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'OK',
-          onPress: () => handleNewMatch(),
-        },
-      ],
-      { cancelable: false }
-    );
-  };
+  // const handlePress2 = async() => {
+  //   // Alert the user confirming they want to start a new match
+  //   Alert.alert(
+  //     'New Match',
+  //     'Are you sure you want to start a new match?',
+  //     [
+  //       {
+  //         text: 'Cancel',
+  //         style: 'cancel',
+  //       },
+  //       {
+  //         text: 'OK',
+  //         onPress: () => handleNewMatch(),
+  //       },
+  //     ],
+  //     { cancelable: false }
+  //   );
+  // };
 
   const handleNewMatch = () => {
     setGameData(defaultGameData); // Clear gameData
