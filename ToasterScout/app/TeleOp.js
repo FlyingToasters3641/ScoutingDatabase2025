@@ -1007,7 +1007,7 @@ const TeleOp = ({
         ]}>
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
           <Pressable style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralGround}><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text>Coral Pick-Up{'\n'}{displayCoralGround}</Text></View>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Coral Pick-Up{'\n'}{displayCoralGround}</Text></View>
           <Pressable style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralGround}><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
         </View>
       </View>
@@ -1021,7 +1021,7 @@ const TeleOp = ({
           position: 'absolute',
         }
       ]} onPress={ground}>
-        <Text>Ground Intake</Text>
+        <Text style={styles.buttonLabel}>{groundIntake ? <Ionicons name="checkmark-circle-outline" size={26} color="black" /> : <Entypo name="circle" size={24} color="black" />} Ground Intake</Text>
       </Pressable>
 
       <Pressable style={[
@@ -1032,7 +1032,7 @@ const TeleOp = ({
           position: 'absolute',
         }
       ]} onPress={playerStation}>
-        <Text>Player Station Intake</Text>
+        <Text style={styles.buttonLabel}>{playerIntake ? <Ionicons name="checkmark-circle-outline" size={26} color="black" /> : <Entypo name="circle" size={24} color="black" />} Station Intake</Text>
       </Pressable>
 
       {/* Coral Station Pick-Up */}
