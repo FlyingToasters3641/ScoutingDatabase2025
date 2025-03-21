@@ -89,84 +89,7 @@ const MatchSetup = ({
   // console.log('matchData:', matchData);
 
   
-  // TODO: need move this data to match Add / Inport in the settings view
-  // const matchs = [
-  //   {matchId: "2024milac_qm1", matchNumber: 1,  teamNumber: 3641, matchStatus: 1},
-  //   {matchId: "2024milac_qm2", matchNumber: 2,  teamNumber: 1711, matchStatus: 0},
-  //   {matchId: "2024milac_qm3", matchNumber: 3,  teamNumber: 1918, matchStatus: 0},
-  //   {matchId: "2024milac_qm4", matchNumber: 4,  teamNumber: 5505, matchStatus: 0},
-  //   {matchId: "2024milac_qm5", matchNumber: 5,  teamNumber: 4003, matchStatus: 0},
-  //   {matchId: "2024milac_qm6", matchNumber: 6,  teamNumber: 6087, matchStatus: 0},
-  //   {matchId: "2024milac_qm7", matchNumber: 7,  teamNumber: 6642, matchStatus: 0},
-  //   {matchId: "2024milac_qm8", matchNumber: 8,  teamNumber: 5505, matchStatus: 0},
-  //   {matchId: "2024milac_qm9", matchNumber: 9,  teamNumber: 5982, matchStatus: 0},
-  //   {matchId: "2024milac_qm0", matchNumber: 10, teamNumber: 3603, matchStatus: 0},
-  //   {matchId: "2024milac_qm11", matchNumber: 11, teamNumber: 2137, matchStatus: 0},
-  //   {matchId: "2024milac_qm12", matchNumber: 12, teamNumber: 2246, matchStatus: 0},
-  //   {matchId: "2024milac_qm13", matchNumber: 13, teamNumber: 2619, matchStatus: 0},
-  //   {matchId: "2024milac_qm14", matchNumber: 14, teamNumber: 3536, matchStatus: 0},
-  //   {matchId: "2024milac_qm15", matchNumber: 15, teamNumber: 3603, matchStatus: 0},
-  //   {matchId: "2024milac_qm16", matchNumber: 16, teamNumber: 3618, matchStatus: 0},
-  //   {matchId: "2024milac_qm17", matchNumber: 17, teamNumber: 4003, matchStatus: 0},
-  //   {matchId: "2024milac_qm18", matchNumber: 18, teamNumber: 4422, matchStatus: 0},
-  //   {matchId: "2024milac_qm19", matchNumber: 19, teamNumber: 5086, matchStatus: 0},
-  //   {matchId: "2024milac_qm20", matchNumber: 20, teamNumber: 5110, matchStatus: 0},
-  //   {matchId: "2024milac_qm21", matchNumber: 21, teamNumber: 5166, matchStatus: 0},
-  //   {matchId: "2024milac_qm22", matchNumber: 22, teamNumber: 5216, matchStatus: 0},
-  //   {matchId: "2024milac_qm23", matchNumber: 23, teamNumber: 5247, matchStatus: 0},
-  //   {matchId: "2024milac_qm24", matchNumber: 24, teamNumber: 5505, matchStatus: 0},
-  //   {matchId: "2024milac_qm25", matchNumber: 25, teamNumber: 5509, matchStatus: 0},
-  //   {matchId: "2024milac_qm26", matchNumber: 26, teamNumber: 5525, matchStatus: 0},
-  //   {matchId: "2024milac_qm27", matchNumber: 27, teamNumber: 5547, matchStatus: 0},
-  //   {matchId: "2024milac_qm28", matchNumber: 28, teamNumber: 5980, matchStatus: 0},
-  //   {matchId: "2024milac_qm29", matchNumber: 29, teamNumber: 5982, matchStatus: 0},
-  //   {matchId: "2024milac_qm30", matchNumber: 30, teamNumber: 6033, matchStatus: 0},
-  //   {matchId: "2024milac_qm31", matchNumber: 31, teamNumber: 6077, matchStatus: 0},
-  //   {matchId: "2024milac_qm32", matchNumber: 32, teamNumber: 6087, matchStatus: 0},
-  //   {matchId: "2024milac_qm33", matchNumber: 33, teamNumber: 6121, matchStatus: 0},
-  //   {matchId: "2024milac_qm34", matchNumber: 34, teamNumber: 6642, matchStatus: 0},
-  //   {matchId: "2024milac_qm35", matchNumber: 35, teamNumber: 7155, matchStatus: 0},
-  //   {matchId: "2024milac_qm36", matchNumber: 36, teamNumber: 7794, matchStatus: 0},
-  //   {matchId: "2024milac_qm37", matchNumber: 37, teamNumber: 7808, matchStatus: 0},
-  //   {matchId: "2024milac_qm38", matchNumber: 38, teamNumber: 7855, matchStatus: 0},
-  //   {matchId: "2024milac_qm39", matchNumber: 39, teamNumber: 8041, matchStatus: 0},
-  //   {matchId: "2024milac_qm40", matchNumber: 40, teamNumber: 8873, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 96,  teamNumber: 6087, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 97,  teamNumber: 6642, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 98,  teamNumber: 5505, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 99,  teamNumber: 5982, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 910, teamNumber: 3603, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 911, teamNumber: 2137, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 912, teamNumber: 2246, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 913, teamNumber: 2619, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 914, teamNumber: 3536, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 915, teamNumber: 3603, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 916, teamNumber: 3618, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 917, teamNumber: 4003, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 918, teamNumber: 4422, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 919, teamNumber: 5086, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 920, teamNumber: 5110, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 921, teamNumber: 5166, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 922, teamNumber: 5216, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 923, teamNumber: 5247, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 924, teamNumber: 5505, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 925, teamNumber: 5509, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 926, teamNumber: 5525, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 927, teamNumber: 5547, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 928, teamNumber: 5980, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 929, teamNumber: 5982, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 930, teamNumber: 6033, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 931, teamNumber: 6077, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 932, teamNumber: 6087, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 933, teamNumber: 6121, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 934, teamNumber: 6642, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 935, teamNumber: 7155, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 936, teamNumber: 7794, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 937, teamNumber: 7808, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 938, teamNumber: 7855, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 939, teamNumber: 8041, matchStatus: 0},
-  //   // {matchId: "2024milac_sqm1", matchNumber: 940, teamNumber: 8873, matchStatus: 0},
-  // ];
+
 
     return (
       <>
@@ -217,7 +140,7 @@ const MatchSetup = ({
                                 setAppData(prevAppData => ({...prevAppData, currentMatch: value.matchNumber, currentTeam: value.teamNumber}));
                                 setDisplayMatchNumber(value.matchNumber);
                                 setGameData(defaultGameData);}}
-                onLongPress={value.matchStatus !== 1 ? () => {
+                onLongPress={value.matchStatus !== 2 ? () => {
                   setEditingMatch(value);
                   setNewMatchNumber(value.matchNumber.toString());
                   setNewTeamNumber(value.teamNumber.toString());
@@ -225,9 +148,9 @@ const MatchSetup = ({
                 } : null}
                 // onLongPress={() => Alert.alert('Match: ' + value.matchNumber +  ` selected`)}
                 delayLongPress={750}
-                style={[styles.matchButton, value.matchStatus == 1 && styles.matchSaved, displayMatchNumber === value.matchNumber && styles.matchSelected]}>
-                <Text style={[styles.buttonLabel]}>{value.matchNumber}{"\n"}{value.teamNumber}</Text>
-              </Pressable>
+                style={[styles.matchButton, displayMatchNumber === value.matchNumber && styles.matchSelected, value.matchStatus == 2 && styles.matchSaved,]}>
+                <Text style={[styles.buttonLabel]}>{value.matchStatus == 2 && <Ionicons name="checkmark-done" size={18} color="black" />}{value.matchNumber}{"\n"}{value.teamNumber}</Text>
+              </Pressable> 
             ))
           )}
           </View>

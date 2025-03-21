@@ -72,7 +72,10 @@ const PreMatch = ({
 
   const startScouting = () => {
     if (appData.allianceLocation[0] === 'S' || !displayScoutName || !appData.currentMatch || !appData.currentTeam || displayRobotPlacement === 0) {
-      Alert.alert('Error', 'Please ensure all fields are set: Field Orientation, Alliance Location, Scout Name, Match, Team, or Robot Position.');
+      Alert.alert(
+        'Warning', 
+        'Please ensure all fields are set: Field Orientation, Alliance Location, Scout Name, Match, Team, or Robot Position.'
+      );
       return;
     }
     // Transition to Auton View
@@ -85,6 +88,18 @@ const PreMatch = ({
   useEffect(() => {
       setGameData(prevGameData => ({...prevGameData, sl: displayRobotPlacement}));
   }, [displayRobotPlacement]);
+
+  useEffect(() => {
+    const currentMatch = matchData.find(match => match.matchNumber === appData.currentMatch);
+    if (currentMatch?.matchStatus === 2) {
+        Alert.alert(
+            'Warning',
+            'This match has already been scounted. Please select a different match.',
+            [{ text: 'Close' }]
+        );
+        return;
+    }
+}, [appData.currentMatch, matchData]);
 
   return (
   <>
@@ -146,6 +161,11 @@ const PreMatch = ({
             Match: {appData.currentMatch}{'\n'}
             Team: {appData.currentTeam}{'\n'}
             Auton Position: {botLocationEnum[displayRobotPlacement]}{'\n'}
+            {matchData.find(match => match.matchNumber === appData.currentMatch)?.matchStatus === 2 && (
+                <Text style={{ color: 'red', fontWeight: 'bold' }}>
+                    <Ionicons name="warning-outline" size={24} color="red" /> This match has already{'\n'}been Scouted.
+                </Text>
+            )}
           </Text>
         </View>
         <View style={{ flex: 2, }}>
