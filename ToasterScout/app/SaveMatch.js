@@ -36,22 +36,24 @@ const SaveMatch = ({
 
   const saveQrCodeToFile = () => {
     qrCodeRef.current.toDataURL((dataURL) => {
-      const path = `${RNFS.DownloadDirectoryPath}/2025-${appData.allianceLocation[0]+appData.allianceLocation.slice(-1)}-m${appData.currentMatch}-t${appData.currentTeam}.png`;
-      RNFS.writeFile(path, dataURL, 'base64')
-        .then(() => {
-          console.log('QR code saved to', path);
-        })
-        .catch((error) => {
-          console.error('Failed to save QR code', error);
-        })
-        .finally(() => {
-          setIsNewMatchButtonDisabled(false);
-        });
-    });
-    
-    Alert.alert('QR Code Saved', 'QR Code saved to Download directory');
-  };
+        const randomCode = Math.floor(100 + Math.random() * 900); // Generate a 3-digit random code
+        const path = `${RNFS.DownloadDirectoryPath}/2025-${appData.allianceLocation[0]+appData.allianceLocation.slice(-1)}-m${appData.currentMatch}-t${appData.currentTeam}-${randomCode}.png`; // Append random code to filename
 
+        RNFS.writeFile(path, dataURL, 'base64')
+            .then(() => {
+                console.log('QR code saved to', path);
+                Alert.alert('QR Code Saved', `QR Code saved to Download directory as ${path}`);
+                setIsQRSaveButtonDisabled(true); // Disable the "Save QRCode" button
+            })
+            .catch((error) => {
+                console.error('Failed to save QR code', error);
+                Alert.alert('Error', 'Failed to save QR Code. Please inform a Scouting Lead.');
+            })
+            .finally(() => {
+                setIsNewMatchButtonDisabled(false);
+            });
+    });
+};
 
   const handleNewMatch = () => {
     setGameData(defaultGameData); // Clear gameData
