@@ -117,12 +117,12 @@ const Dataimport = () => {
         prepData.autoAlgaeRemovedD = leftFieldOrientation ? matchData.aalD : matchData.aalA;
         prepData.autoAlgaeRemovedE = leftFieldOrientation ? matchData.aalE : matchData.aalB;
         prepData.autoAlgaeRemovedF = leftFieldOrientation ? matchData.aalF : matchData.aalC;
-        prepData.autonAlgeaRemovedTotal = autonAlgeaRemovedTotal;
+        
        
         // Teleop data
         
-        prepData.teleopNetScored = matchData.tns,
-        prepData.teleopProcessorScored = matchData.tps,
+        prepData.teleopNetScored = matchData.tns;
+        prepData.teleopProcessorScored = matchData.tps;
         prepData.teleopReefLevel1Total = teleopReefLevel1Total;
         prepData.teleopReefLevel2Total = teleopReefLevel2Total;
         prepData.teleopReefLevel3Total = teleopReefLevel3Total;
@@ -134,7 +134,7 @@ const Dataimport = () => {
         prepData.teleopAlgaeRemovedD = leftFieldOrientation ? matchData.talD : matchData.talA;
         prepData.teleopAlgaeRemovedE = leftFieldOrientation ? matchData.talE : matchData.talB;
         prepData.teleopAlgaeRemovedF = leftFieldOrientation ? matchData.talF : matchData.talC;
-        prepData.teleopAlgeaRemovedTotal = teleopAlgeaRemovedTotal;
+       
 
         // The rest of the data
         prepData.bargeZonLocation = matchData.bzl;
@@ -142,7 +142,7 @@ const Dataimport = () => {
         prepData.scouterNotesOther = matchData.sno;
         prepData.uniqueId = scannedDataSHA1;
 
-        if(data.v === '2025.2.0'){
+        if(matchData.v === '2025.2.0'){
             // put data in the prepData object
            // prepData.totalCoralGroundPickup = matchData.acgp + matchData.tcgp;
             //prepData.totalCoralStationPickup = matchData.acsp + matchData.tcsp;
@@ -169,6 +169,8 @@ const Dataimport = () => {
             prepData.totalCoralGroundPickup = matchData.acgp + matchData.tcgp;
             prepData.totalCoralStationPickup = matchData.acsp + matchData.tcsp;
             prepData.totalAlgaePickup = matchData.aap + matchData.tap;
+            //auton data
+            prepData.autonAlgeaRemovedTotal = autonAlgeaRemovedTotal;
             //Telop Data
             prepData.teleopCoralMissed = matchData.tcm;
             prepData.teleopNetMissed = matchData.tnm;
@@ -176,6 +178,7 @@ const Dataimport = () => {
             prepData.teleopCoralGroundPickup = matchData.tcgp;
             prepData.teleopCoralStationPickup = matchData.tcsp;
             prepData.teleopAlgaePickup = matchData.tap;
+            prepData.teleopAlgeaRemovedTotal = teleopAlgeaRemovedTotal;
             prepData.teleopReefLevel1A = leftFieldOrientation ? matchData.tl1A : matchData.tl1G;
             prepData.teleopReefLevel2A = leftFieldOrientation ? matchData.tl2A : matchData.tl2G;
             prepData.teleopReefLevel3A = leftFieldOrientation ? matchData.tl3A : matchData.tl3G;
