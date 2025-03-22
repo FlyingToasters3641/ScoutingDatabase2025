@@ -210,7 +210,7 @@ const TeleOp = ({
             alignItems: 'center',
             },
       ]}>
-        <Text style={[styles.title, {textAlign: 'center'}]}>Reef Coral</Text>
+        <Text style={[styles.title, {textAlign: 'center'}]}>Coral</Text>
 
           {/* Coral Level 4 */}
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
@@ -264,12 +264,19 @@ const TeleOp = ({
           ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
         </View>
 
+        {/* Coral Station Pickup */}
+      <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
+        <TouchableOpacity style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralStation}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Coral{'\n'}Pickup{'\n'}{displayCoralPickup}</Text></View>
+        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralStation}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+      </View>
+
       </View>
     
 
       {/* Algae Removed */}
       <View style={[
-          // styles.border,
+          styles.border,
             {
             top: 10,
             left: 47,
@@ -306,7 +313,7 @@ const TeleOp = ({
 
       {/* Scoring Algae */}
       <View style={[
-          // styles.border,
+          styles.border,
             {
             top: 10,
             left: 296,
@@ -333,42 +340,36 @@ const TeleOp = ({
       </View>
 
 
-      {/* Pick-Up */}
-      <View style={[
-        {
-          top: 398,
-          left: 40,
+     {/* Coral Pickup */}
+    <View style={[
+      styles.border,
+      {
+          top: 250,
+          left: 296,
           position: 'absolute',
-        }
-        ]}>
-        <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
-          <Pressable style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralStation}><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
-          <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Coral Pick-Up{'\n'}{displayCoralPickup}</Text></View>
-          <Pressable style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralStation}><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
-        </View>
-      </View>
-
-      <Pressable style={[
-        styles.midButton, displayStationIntake && styles.selected,
-        {
-          top: 395,
-          left: 235,
-          position: 'absolute',
-        }
-      ]} onPress={() => setDisplayStationIntake(!displayStationIntake)}>
-        <Text style={styles.buttonLabel}>{displayStationIntake ? <Ionicons name="checkmark-circle-outline" size={26} color="black" /> : <Entypo name="circle" size={24} color="black" />} Station Intake</Text>
+          alignItems: 'center',
+          // flexDirection: 'row',
+      }
+      ]}>
+        <Text style={[styles.title, {textAlign: 'center'}]}>Intake Type</Text>
+      
+      {/* Coral Ground Intake */}
+      <Pressable style={[styles.midButton, displayGroundIntake && styles.selected, {width:160}]} onPress={() => setDisplayGroundIntake(!displayGroundIntake)}>
+        <Text style={styles.buttonLabel}>{displayGroundIntake ? <Ionicons name="checkbox-outline" size={24} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />} Coral Ground</Text>
       </Pressable>
 
-      <Pressable style={[
-        styles.midButton, displayGroundIntake && styles.selected,
-        {
-          top: 395,
-          left: 370,
-          position: 'absolute',
-        }
-      ]} onPress={() => setDisplayGroundIntake(!displayGroundIntake)}>
-        <Text style={styles.buttonLabel}>{displayGroundIntake ? <Ionicons name="checkmark-circle-outline" size={26} color="black" /> : <Entypo name="circle" size={24} color="black" />} Ground Intake</Text>
+      {/* Coral Station Intake */}
+      <Pressable style={[styles.midButton, displayStationIntake && styles.selected,{width:160}]} onPress={() => setDisplayStationIntake(!displayStationIntake)}>
+        <Text style={styles.buttonLabel}>{displayStationIntake ? <Ionicons name="checkbox-outline" size={24} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />} Coral Station</Text>
       </Pressable>
+
+      
+
+    </View>
+     
+     
+
+      
   </>
 
   );
@@ -380,7 +381,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    marginBottom: 10,
+    // marginBottom: 10,
     fontSize: 26,
     fontWeight: 'bold',
     color: 'white',
@@ -438,14 +439,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   midButton: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     paddingVertical: 12,
     borderRadius: 8,
-    marginTop: 8,
-    marginBottom: 8,
+    margin: 8,
+    //marginTop: 8,
+    // marginBottom: 8,
     width: 115,
     height: 75,
-    position: 'absolute',
+    // position: 'absolute',
     backgroundColor: 'oldlace',
     justifyContent: 'center',
     alignItems: 'center',
@@ -467,7 +469,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'white', // Change color to your desired border color
     borderRadius: 8,
-    padding: 30,
+    padding: 10,
   },
   selected: {
     backgroundColor: 'limegreen',

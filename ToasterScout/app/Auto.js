@@ -620,7 +620,7 @@ const Auto = ({
           },
         ]}
         activeOpacity={0.5} onPress={() => setAlgaeAToggled(!algaeAToggled)}>
-        {algaeAToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
+        {algaeAToggled ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}
       </TouchableOpacity>
 
         {/* Location Algae B */}
@@ -633,7 +633,7 @@ const Auto = ({
           },
         ]}
         activeOpacity={0.5} onPress={() => setAlgaeBToggled(!algaeBToggled)}>
-        {algaeBToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
+        {algaeBToggled ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}
       </TouchableOpacity>
       
         {/* Location Algae C */}
@@ -646,7 +646,7 @@ const Auto = ({
           },
         ]}
         activeOpacity={0.5} onPress={() => setAlgaeCToggled(!algaeCToggled)}>
-        {algaeCToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
+        {algaeCToggled ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}
       </TouchableOpacity>
 
         {/* Location Algae D */}
@@ -659,7 +659,7 @@ const Auto = ({
           },
         ]}
         activeOpacity={0.5} onPress={() => setAlgaeDToggled(!algaeDToggled)}>
-        {algaeDToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
+        {algaeDToggled ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}
       </TouchableOpacity>
 
         {/* Location Algae E */}
@@ -672,7 +672,7 @@ const Auto = ({
           },
         ]}
         activeOpacity={0.5} onPress={() => setAlgaeEToggled(!algaeEToggled)}>
-        {algaeEToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
+        {algaeEToggled ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}
       </TouchableOpacity>
 
         {/* Location Algae F */}
@@ -685,7 +685,7 @@ const Auto = ({
           },
         ]}
         activeOpacity={0.5} onPress={() => setAlgaeFToggled(!algaeFToggled)}>
-        {algaeFToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
+        {algaeFToggled ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}
       </TouchableOpacity>
     </View>
 
@@ -796,12 +796,12 @@ const Auto = ({
       
       {/* Coral Ground Intake */}
       <Pressable style={[styles.midButton, displayGroundIntake && styles.leaveSelected,]} onPress={() => setDisplayGroundIntake(!displayGroundIntake)}>
-        <Text style={styles.buttonLabel}>{displayGroundIntake ? <Ionicons name="checkmark-circle-outline" size={26} color="black" /> : <Entypo name="circle" size={24} color="black" />} Ground Intake</Text>
+        <Text style={styles.buttonLabel}>{displayGroundIntake ? <Ionicons name="checkbox-outline" size={24} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />} Ground Intake</Text>
       </Pressable>
 
       {/* Coral Station Intake */}
       <Pressable style={[styles.midButton, displayStationIntake && styles.leaveSelected,]} onPress={() => setDisplayStationIntake(!displayStationIntake)}>
-        <Text style={styles.buttonLabel}>{displayStationIntake ? <Ionicons name="checkmark-circle-outline" size={26} color="black" /> : <Entypo name="circle" size={24} color="black" />} Station Intake</Text>
+        <Text style={styles.buttonLabel}>{displayStationIntake ? <Ionicons name="checkbox-outline" size={24} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />} Station Intake</Text>
       </Pressable>
 
       {/* Coral Station Pickup */}
