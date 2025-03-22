@@ -202,196 +202,136 @@ const TeleOp = ({
    
 
     {/* Coral Scoring Levels */}
-    <View style={[
-      styles.border,
-        {
-        top: 5,
-        left: 525,
-        position: 'absolute',
-        }
+    <View style={[styles.border,
+            {
+            top: 10,
+            left: 525,
+            position: 'absolute',
+            alignItems: 'center',
+            },
       ]}>
-        <View style={[{
-          borderRadius: 8,
-          marginTop: 8,
-          marginBottom: 8,
-          height: 75,
-          backgroundColor: 'oldlace',
-          justifyContent: 'center',
-          alignItems: 'center',
-          textAlign: 'center',
-        }]}>
-          <Text style={{textAlign: 'center', fontSize: 25}}>Reef Coral</Text>
+        <Text style={[styles.title, {textAlign: 'center'}]}>Reef Coral</Text>
+
+          {/* Coral Level 4 */}
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
+          <Pressable 
+            onPress={subReefLevel4}
+            style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
+          ><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>Level 4{'\n'}{displayReefScore.l4A}</Text></View>
+          <Pressable 
+            onPress={addReefLevel4}
+            style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
+          ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
         </View>
 
-
-      {/* Coral Level 4 */}
-      <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
-        <Pressable 
-          onPress={subReefLevel4}
-          style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        ><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>Level 4{'\n'}{displayReefScore.l4A}</Text></View>
-        <Pressable 
-          onPress={addReefLevel4}
+        {/* Coral Level 3 */}
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
+          <Pressable 
+          onPress={subReefLevel3}
+          style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
+          ><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>Level 3{'\n'}{displayReefScore.l3A}</Text></View>
+          <Pressable
+          onPress={addReefLevel3}
           style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
-      </View>
+          ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
+        </View>
 
-      {/* Coral Level 3 */}
-      <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
-        <Pressable 
-        onPress={subReefLevel3}
-        style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        ><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>Level 3{'\n'}{displayReefScore.l3A}</Text></View>
-        <Pressable
-        onPress={addReefLevel3}
-        style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
-      </View>
+        {/* Coral Level 2 */}
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
+          <Pressable
+          onPress={subReefLevel2}
+          style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
+          ><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>Level 2{'\n'}{displayReefScore.l2A}</Text></View>
+          <Pressable
+          onPress={addReefLevel2}
+          style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
+          ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
+        </View>
 
-      {/* Coral Level 2 */}
-      <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
-        <Pressable
-        onPress={subReefLevel2}
-        style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        ><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>Level 2{'\n'}{displayReefScore.l2A}</Text></View>
-        <Pressable
-        onPress={addReefLevel2}
-        style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
-      </View>
+        {/* Coral Level 1 */}
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
+          <Pressable 
+          style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
+          onPress={subReefLevel1}
+          ><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>Level 1{'\n'}{displayReefScore.l1A}</Text></View>
+          <Pressable 
+          style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
+          onPress={addReefLevel1}
+          ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
+        </View>
 
-      {/* Coral Level 1 */}
-      <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
-        <Pressable 
-        style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        onPress={subReefLevel1}
-        ><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={{textAlign: 'center', fontSize: 22}}>Level 1{'\n'}{displayReefScore.l1A}</Text></View>
-        <Pressable 
-        style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
-        onPress={addReefLevel1}
-        ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
       </View>
-    </View>
     
 
       {/* Algae Removed */}
-
       <View style={[
-        styles.bigButton,
-          {
-            top: 0,
+          // styles.border,
+            {
+            top: 10,
             left: 47,
-            position: 'absolute' 
-          }
-        ]}>
-          <Text style={{textAlign: 'center', fontSize: 25}}>Reef Algae</Text>
-      </View>
+            position: 'absolute',
+            alignItems: 'center',
+            },
+      ]}>
+        <Text style={[styles.title, {textAlign: 'center'}]}>Reef Algae</Text>
 
-      <View style={[
-        {
-          top: 100,
-          left: 50,
-          position: 'absolute',
-        }
-        ]}>
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
-          <Pressable 
-            style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} 
-            onPress={subAlgaeRemovedHigh}
-          >
-            <Entypo name="circle-with-minus" size={30} color="black"/>
-          </Pressable>
+          <Pressable style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} 
+            onPress={subAlgaeRemovedHigh}><Entypo name="circle-with-minus" size={30} color="black"/></Pressable>
           <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}>
             <Text style={styles.buttonLabel}>Top Removed{'\n'}{displayAlgaeRemovedHigh}</Text>
           </View>
-          <Pressable 
-            style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} 
-            onPress={addAlgaeRemovedHigh}
-          >
-           <Entypo name="circle-with-plus" size={30} color="black" />
-          </Pressable>
+          <Pressable style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} 
+            onPress={addAlgaeRemovedHigh}><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
         </View>
-      </View>
 
-      <View style={[
-        {
-          top: 200,
-          left: 50,
-          position: 'absolute',
-        }
-        ]}>
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
-          <Pressable 
-            style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} 
-            onPress={subAlgaeRemovedLow}
-          >
-            <Entypo name="circle-with-minus" size={30} color="black"/>
+          <Pressable style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} 
+            onPress={subAlgaeRemovedLow}><Entypo name="circle-with-minus" size={30} color="black"/>
           </Pressable>
           <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}>
             <Text style={styles.buttonLabel}>Bottom Removed{'\n'}{displayAlgaeRemovedLow}</Text>
           </View>
-          <Pressable 
-            style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} 
-            onPress={addAlgaeRemovedLow}
-          >
-           <Entypo name="circle-with-plus" size={30} color="black" />
+          <Pressable style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} 
+            onPress={addAlgaeRemovedLow}><Entypo name="circle-with-plus" size={30} color="black" />
           </Pressable>
         </View>
       </View>
+
   
 
-      {/* Scoring */}
-
+      {/* Scoring Algae */}
       <View style={[
-        styles.bigButton,
-          {
-            top: 0,
+          // styles.border,
+            {
+            top: 10,
             left: 296,
-            position: 'absolute' 
-          }
-        ]}>
-          <Text style={{textAlign: 'center', fontSize: 25}}>Scoring Algae</Text>
-      </View>
-
-      <View style={[
-        {
-        top: 100,
-        left: 300,
-        position: 'absolute',
-        alignItems: 'center',
-        },
+            position: 'absolute',
+            alignItems: 'center',
+            },
       ]}>
+        <Text style={[styles.title, {textAlign: 'center'}]}>Scoring Algae</Text>
 
         {/* Net Scoring */}
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
-          <Pressable style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subNetScored}><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
-            <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Net Scored{'\n'}{displayNetScored}</Text></View>
-          <Pressable style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addNetScored}><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
-        </View>
+            <Pressable style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subNetScored}><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
+              <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Net Scored{'\n'}{displayNetScored}</Text></View>
+            <Pressable style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addNetScored}><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
+          </View>
+
+          {/* Processor Scoring */}
+          <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
+            <Pressable style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subProcessorScored}><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
+              <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Processor Scored{'\n'}{displayProcessorScored}</Text></View>
+            <Pressable style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addProcessorScored}><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
+          </View>
+
       </View>
 
-      {/* Scoring */}
-      <View style={[
-        {
-        top: 200,
-        left: 300,
-        position: 'absolute',
-        alignItems: 'center',
-        },
-      ]}>
-        {/* Processor Scoring */}
-        <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
-          <Pressable style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subProcessorScored}><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
-            <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Processor Scored{'\n'}{displayProcessorScored}</Text></View>
-          <Pressable style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addProcessorScored}><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
-        </View>
-      </View>
-      
-      {/* Intaking */}
 
       {/* Pick-Up */}
       <View style={[
@@ -402,7 +342,7 @@ const TeleOp = ({
         }
         ]}>
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
-          <Pressable style={[styles.addButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralStation}><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
+          <Pressable style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralStation}><Entypo name="circle-with-minus" size={30} color="black" /></Pressable>
           <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Coral Pick-Up{'\n'}{displayCoralPickup}</Text></View>
           <Pressable style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralStation}><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
         </View>
@@ -437,6 +377,14 @@ const TeleOp = ({
 const styles = StyleSheet.create({
   contentText: {
     fontSize: 22,
+  },
+  title: {
+    textAlign: 'center',
+    marginBottom: 10,
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: 'white',
+
   },
   midButtonText: {
     fontSize: 14,
@@ -503,22 +451,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
   },
-  sMidButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 8,
-    marginTop: 8,
-    marginBottom: 8,
-    width: 91,
-    height: 75,
-    backgroundColor: 'oldlace',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-  },
   addButton: {
     width: 'auto',
     height: 75,
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  subButton: {
+    width: 'auto',
+    height: 75,
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
   },
   border: {
     borderWidth: 2,
