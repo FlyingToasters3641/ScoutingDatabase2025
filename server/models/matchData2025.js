@@ -7,7 +7,9 @@ class MatchData2025 extends Model {}
 // Changes
 // v1: Initial version
 // v2: Added autonReefLevel1Total-autonReefLevel4Total, teleopReefLevel1Total-teleopReefLevel4Total, totalReefLevel1-totalReefLevel4
+// v3: Added schemaVersion, autonIntakeGround, autonIntakeStation, teleopIntakeGround, teleopIntakeStation
 MatchData2025.init({
+    schemaVersion: DataTypes.STRING,
     scouterName: DataTypes.STRING,
     matchNumber: DataTypes.INTEGER,
     teamNumber: DataTypes.INTEGER,
@@ -27,6 +29,8 @@ MatchData2025.init({
     autonProcessorMissed: DataTypes.INTEGER,
     autonCoralGroundPickup: DataTypes.INTEGER,
     autonCoralStationPickup: DataTypes.INTEGER,
+    autonIntakeGround: DataTypes.BOOLEAN,
+    autonIntakeStation: DataTypes.BOOLEAN,
     autonAlgaePickup: DataTypes.INTEGER,
     autonReefLevel1A: DataTypes.INTEGER,
     autonReefLevel2A: DataTypes.INTEGER,
@@ -72,6 +76,8 @@ MatchData2025.init({
     teleopProcessorMissed: DataTypes.INTEGER,
     teleopCoralGroundPickup: DataTypes.INTEGER,
     teleopCoralStationPickup: DataTypes.INTEGER,
+    teleopIntakeGround: DataTypes.BOOLEAN,
+    teleopIntakeStation: DataTypes.BOOLEAN,
     teleopAlgaePickup: DataTypes.INTEGER,
     teleopReefLevel1A: DataTypes.INTEGER,
     teleopReefLevel2A: DataTypes.INTEGER,
