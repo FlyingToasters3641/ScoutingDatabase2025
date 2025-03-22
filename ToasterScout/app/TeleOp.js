@@ -207,10 +207,10 @@ const TeleOp = ({
             top: 10,
             left: 525,
             position: 'absolute',
-            alignItems: 'center',
+            // alignItems: 'center',
             },
       ]}>
-        <Text style={[styles.title, {textAlign: 'center'}]}>Coral</Text>
+        <Text style={[styles.title, {textAlign: 'center'}]}>Reef & Coral</Text>
 
           {/* Coral Level 4 */}
         <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
@@ -264,12 +264,15 @@ const TeleOp = ({
           ><Entypo name="circle-with-plus" size={30} color="black" /></Pressable>
         </View>
 
+        {/* Separator */}
+        <View style={{ height: 1, backgroundColor: 'white', marginVertical: 5 }} />
+
         {/* Coral Station Pickup */}
-      <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
-        <TouchableOpacity style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralStation}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Coral{'\n'}Pickup{'\n'}{displayCoralPickup}</Text></View>
-        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralStation}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
-      </View>
+        <View style={[{flexDirection:'row', justifyContent:'space-between', width:275, paddingBottom: 5, paddingTop: 5}]}>
+          <TouchableOpacity style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralStation}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+          <View style={[styles.box, {backgroundColor: 'oldlace', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Coral{'\n'}Pickup{'\n'}{displayCoralPickup}</Text></View>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralStation}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+        </View>
 
       </View>
     
@@ -352,7 +355,7 @@ const TeleOp = ({
       }
       ]}>
         <Text style={[styles.title, {textAlign: 'center'}]}>Intake Type</Text>
-      
+
       {/* Coral Ground Intake */}
       <Pressable style={[styles.midButton, displayGroundIntake && styles.selected, {width:160}]} onPress={() => setDisplayGroundIntake(!displayGroundIntake)}>
         <Text style={styles.buttonLabel}>{displayGroundIntake ? <Ionicons name="checkbox-outline" size={24} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />} Coral Ground</Text>
@@ -382,7 +385,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     // marginBottom: 10,
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
 
