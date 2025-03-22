@@ -790,10 +790,10 @@ const Auto = ({
       </View>
     </View>
       
-    {/* Coral Pickup */}
+    {/* Coral Intake */}
     <View style={[ styles.border,
       {
-          top: 250,
+          top: 260,
           left: 690,
           position: 'absolute',
           alignItems: 'center',

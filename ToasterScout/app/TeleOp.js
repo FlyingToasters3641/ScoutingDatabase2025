@@ -343,11 +343,11 @@ const TeleOp = ({
       </View>
 
 
-     {/* Coral Pickup */}
+     {/* Coral Intake */}
     <View style={[
       styles.border,
       {
-          top: 250,
+          top: 260,
           left: 296,
           position: 'absolute',
           alignItems: 'center',
