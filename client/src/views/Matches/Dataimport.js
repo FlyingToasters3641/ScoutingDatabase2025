@@ -43,19 +43,10 @@ const Dataimport = () => {
             botLocationEnum = [...botLocationViewSbEnum]; // Scoring Blue, Spectator Red
         }
 
-        let autonReefLevel1Total = matchData.al1A + matchData.al1C + matchData.al1E + matchData.al1G + matchData.al1I + matchData.al1K; //n
-        let autonReefLevel2Total = matchData.al2A + matchData.al2C + matchData.al2E + matchData.al2G + matchData.al2I + matchData.al2K; //n
-        let autonReefLevel3Total = matchData.al3A + matchData.al3C + matchData.al3E + matchData.al3G + matchData.al3I + matchData.al3K; //n
-        let autonReefLevel4Total = matchData.al4A + matchData.al4C + matchData.al4E + matchData.al4G + matchData.al4I + matchData.al4K; //n
-        let autonReefTotal = autonReefLevel1Total + autonReefLevel2Total + autonReefLevel3Total + autonReefLevel4Total;
-        let teleopReefLevel1Total = matchData.tl1A + matchData.tl1C + matchData.tl1E + matchData.tl1G + matchData.tl1I + matchData.tl1K; //n
-        let teleopReefLevel2Total = matchData.tl2A + matchData.tl2C + matchData.tl2E + matchData.tl2G + matchData.tl2I + matchData.tl2K; //n
-        let teleopReefLevel3Total = matchData.tl3A + matchData.tl3C + matchData.tl3E + matchData.tl3G + matchData.tl3I + matchData.tl3K; //n
-        let teleopReefLevel4Total = matchData.tl4A + matchData.tl4C + matchData.tl4E + matchData.tl4G + matchData.tl4I + matchData.tl4K; //n
-        let teleopReefTotal = teleopReefLevel1Total + teleopReefLevel2Total + teleopReefLevel3Total + teleopReefLevel4Total;
-
-
-        //General Match Data
+         
+        
+        /* *** General Match Data *** */
+        prepData.schemaVersion = matchData.v;
         prepData.scouterName = matchData.currentScout;
         prepData.matchNumber = matchData.currentMatch;
         prepData.teamNumber = matchData.currentTeam;
@@ -65,13 +56,22 @@ const Dataimport = () => {
         prepData.allianceLocation = matchData.allianceLocation;
         prepData.fieldOrientation = matchData.fieldOrientation;
         
-        
-        // calculated data
-        prepData.totalReef = autonReefTotal + teleopReefTotal;
-        prepData.totalNetScored = matchData.ans + matchData.tns;
-        prepData.totalProcessorScored = matchData.aps + matchData.tps;
 
-        // Auton data
+
+        /* *** Auton data *** */
+        let autonReefLevel1Total = matchData.al1A + matchData.al1C + matchData.al1E + matchData.al1G + matchData.al1I + matchData.al1K; //n
+        let autonReefLevel2Total = matchData.al2A + matchData.al2C + matchData.al2E + matchData.al2G + matchData.al2I + matchData.al2K; //n
+        let autonReefLevel3Total = matchData.al3A + matchData.al3C + matchData.al3E + matchData.al3G + matchData.al3I + matchData.al3K; //n
+        let autonReefLevel4Total = matchData.al4A + matchData.al4C + matchData.al4E + matchData.al4G + matchData.al4I + matchData.al4K; //n
+        let autonReefTotal = autonReefLevel1Total + autonReefLevel2Total + autonReefLevel3Total + autonReefLevel4Total;
+        let autonAlgeaRemovedTotal = matchData.aalA + matchData.aalB + matchData.aalC + matchData.aalD + matchData.aalE + matchData.aalF;
+
+        // For any auton differences between schema versions
+        if(matchData.v === '2025.2.0'){
+        }
+        else{ 
+        }
+
         prepData.autonPosition = botLocationEnum[matchData.sl];
         prepData.autonLeave = matchData.aL;
         prepData.autonCoralMissed = matchData.acm;
@@ -117,60 +117,37 @@ const Dataimport = () => {
         prepData.autoAlgaeRemovedD = leftFieldOrientation ? matchData.aalD : matchData.aalA;
         prepData.autoAlgaeRemovedE = leftFieldOrientation ? matchData.aalE : matchData.aalB;
         prepData.autoAlgaeRemovedF = leftFieldOrientation ? matchData.aalF : matchData.aalC;
+        prepData.autonAlgeaRemovedTotal = autonAlgeaRemovedTotal;
         
-       
-        // Teleop data
-        
-        prepData.teleopNetScored = matchData.tns;
-        prepData.teleopProcessorScored = matchData.tps;
-        prepData.teleopReefLevel1Total = teleopReefLevel1Total;
-        prepData.teleopReefLevel2Total = teleopReefLevel2Total;
-        prepData.teleopReefLevel3Total = teleopReefLevel3Total;
-        prepData.teleopReefLevel4Total = teleopReefLevel4Total;
-        prepData.teleopReefTotal = teleopReefTotal;
-        prepData.teleopAlgaeRemovedA = leftFieldOrientation ? matchData.talA : matchData.talD;
-        prepData.teleopAlgaeRemovedB = leftFieldOrientation ? matchData.talB : matchData.talE;
-        prepData.teleopAlgaeRemovedC = leftFieldOrientation ? matchData.talC : matchData.talF;
-        prepData.teleopAlgaeRemovedD = leftFieldOrientation ? matchData.talD : matchData.talA;
-        prepData.teleopAlgaeRemovedE = leftFieldOrientation ? matchData.talE : matchData.talB;
-        prepData.teleopAlgaeRemovedF = leftFieldOrientation ? matchData.talF : matchData.talC;
-       
 
-        // The rest of the data
-        prepData.bargeZonLocation = matchData.bzl;
-        prepData.scouterNotesPicklist = matchData.snp;
-        prepData.scouterNotesOther = matchData.sno;
-        prepData.uniqueId = scannedDataSHA1;
 
-        if(matchData.v === '2025.2.0'){
-            // put data in the prepData object
-           // prepData.totalCoralGroundPickup = matchData.acgp + matchData.tcgp;
-            //prepData.totalCoralStationPickup = matchData.acsp + matchData.tcsp;
-            //prepData.teleopCoralGroundPickup = matchData.tcgp;
-           // prepData.teleopCoralStationPickup = matchData.tcsp;
-           prepData.teleopReefLevel1A = matchData.tl1A; 
-           prepData.teleopReefLevel2A = matchData.tl2A;
-           prepData.teleopReefLevel3A = matchData.tl3A;
-           prepData.teleopReefLevel4A = matchData.tl4A;
-           
+        // For any Teleop differences between schema versions
+        let teleopAlgeaRemovedTotal = 0;
+        let teleopReefLevel1Total = 0;
+        let teleopReefLevel2Total = 0;
+        let teleopReefLevel3Total = 0;
+        let teleopReefLevel4Total = 0;
+        if(matchData.v === '2025.2.0') {
+
+            teleopReefLevel1Total = matchData.tl1A;
+            teleopReefLevel2Total = matchData.tl2A;
+            teleopReefLevel3Total = matchData.tl3A;
+            teleopReefLevel4Total = matchData.tl4A;
+
+            prepData.teleopReefLevel1A = matchData.tl1A; 
+            prepData.teleopReefLevel2A = matchData.tl2A;
+            prepData.teleopReefLevel3A = matchData.tl3A;
+            prepData.teleopReefLevel4A = matchData.tl4A;
 
         }
-        //else if(data.v === '2025.2.0'){
-        //   // put data is the prepData object
-        //}
-        else{
-            let autonAlgeaRemovedTotal = matchData.aalA + matchData.aalB + matchData.aalC + matchData.aalD + matchData.aalE + matchData.aalF;
-            let teleopAlgeaRemovedTotal = matchData.talA + matchData.talB + matchData.talC + matchData.talD + matchData.talE + matchData.talF;
-           
-            prepData.totalAlgeaRemoved = autonAlgeaRemovedTotal + teleopAlgeaRemovedTotal;
-            prepData.totalCoralMissed = matchData.acm + matchData.tcm;
-            prepData.totalNetMissed = matchData.anm + matchData.tnm;
-            prepData.totalProcessorMissed = matchData.apm + matchData.tpm;
-            prepData.totalCoralGroundPickup = matchData.acgp + matchData.tcgp;
-            prepData.totalCoralStationPickup = matchData.acsp + matchData.tcsp;
-            prepData.totalAlgaePickup = matchData.aap + matchData.tap;
-            //auton data
-            prepData.autonAlgeaRemovedTotal = autonAlgeaRemovedTotal;
+        else {
+            teleopReefLevel1Total = matchData.tl1A + matchData.tl1C + matchData.tl1E + matchData.tl1G + matchData.tl1I + matchData.tl1K;
+            teleopReefLevel2Total = matchData.tl2A + matchData.tl2C + matchData.tl2E + matchData.tl2G + matchData.tl2I + matchData.tl2K;
+            teleopReefLevel3Total = matchData.tl3A + matchData.tl3C + matchData.tl3E + matchData.tl3G + matchData.tl3I + matchData.tl3K;
+            teleopReefLevel4Total = matchData.tl4A + matchData.tl4C + matchData.tl4E + matchData.tl4G + matchData.tl4I + matchData.tl4K;
+
+            teleopAlgeaRemovedTotal = matchData.talA + matchData.talB + matchData.talC + matchData.talD + matchData.talE + matchData.talF;
+            
             //Telop Data
             prepData.teleopCoralMissed = matchData.tcm;
             prepData.teleopNetMissed = matchData.tnm;
@@ -203,8 +180,59 @@ const Dataimport = () => {
             prepData.teleopReefLevel2K = leftFieldOrientation ? matchData.tl2K : matchData.tl2E;
             prepData.teleopReefLevel3K = leftFieldOrientation ? matchData.tl3K : matchData.tl3E;
             prepData.teleopReefLevel4K = leftFieldOrientation ? matchData.tl4K : matchData.tl4E;
+
+            prepData.teleopAlgaeRemovedA = leftFieldOrientation ? matchData.talA : matchData.talD;
+            prepData.teleopAlgaeRemovedB = leftFieldOrientation ? matchData.talB : matchData.talE;
+            prepData.teleopAlgaeRemovedC = leftFieldOrientation ? matchData.talC : matchData.talF;
+            prepData.teleopAlgaeRemovedD = leftFieldOrientation ? matchData.talD : matchData.talA;
+            prepData.teleopAlgaeRemovedE = leftFieldOrientation ? matchData.talE : matchData.talB;
+            prepData.teleopAlgaeRemovedF = leftFieldOrientation ? matchData.talF : matchData.talC;
         }
 
+        // Teleop data
+        let teleopReefTotal = teleopReefLevel1Total + teleopReefLevel2Total + teleopReefLevel3Total + teleopReefLevel4Total; 
+
+        prepData.teleopNetScored = matchData.tns;
+        prepData.teleopProcessorScored = matchData.tps;
+        prepData.teleopReefLevel1Total = teleopReefLevel1Total;
+        prepData.teleopReefLevel2Total = teleopReefLevel2Total;
+        prepData.teleopReefLevel3Total = teleopReefLevel3Total;
+        prepData.teleopReefLevel4Total = teleopReefLevel4Total;
+        prepData.teleopReefTotal = teleopReefTotal;
+
+
+
+        /* *** Calculated Data (mostly Totals) *** */
+        // For any auton differences between schema versions
+        if(matchData.v === '2025.2.0'){
+            prepData.totalAlgeaRemoved = autonAlgeaRemovedTotal;
+        }
+        else{
+            prepData.totalAlgeaRemoved = autonAlgeaRemovedTotal + teleopAlgeaRemovedTotal;
+            prepData.totalCoralMissed = matchData.acm + matchData.tcm;
+            prepData.totalNetMissed = matchData.anm + matchData.tnm;
+            prepData.totalProcessorMissed = matchData.apm + matchData.tpm;
+            prepData.totalCoralGroundPickup = matchData.acgp + matchData.tcgp;
+            prepData.totalCoralStationPickup = matchData.acsp + matchData.tcsp;
+            prepData.totalAlgaePickup = matchData.aap + matchData.tap;
+        }
+
+        // calculated data
+        prepData.totalReefLevel1 = autonReefLevel1Total + teleopReefLevel1Total;
+        prepData.totalReefLevel2 = autonReefLevel2Total + teleopReefLevel2Total;
+        prepData.totalReefLevel3 = autonReefLevel3Total + teleopReefLevel3Total;    
+        prepData.totalReefLevel4 = autonReefLevel4Total + teleopReefLevel4Total;
+        prepData.totalReef = autonReefTotal + teleopReefTotal;
+        prepData.totalNetScored = matchData.ans + matchData.tns;
+        prepData.totalProcessorScored = matchData.aps + matchData.tps;
+
+        // The rest of the data
+        prepData.bargeZonLocation = matchData.bzl;
+        prepData.scouterNotesPicklist = matchData.snp;
+        prepData.scouterNotesOther = matchData.sno;
+        prepData.uniqueId = scannedDataSHA1;
+
+        return prepData;
     };
 
 
@@ -233,12 +261,9 @@ const Dataimport = () => {
 
                 //call prepareMatchDataforDatabase with data.data
                 let matchData = prepareMatchDataforDatabase(data.data);
-               
-                
-
-                
-
-               
+                matchData = {...matchData, uniqueId: scannedDataSHA1};
+                // console.log('matchData:', matchData);
+                console.log('matchData for DB:', JSON.stringify(matchData));
                 // Entering the data from the scanned QR code to the database
                 await axios.post(`${APP_DATABASE_URL}/matchData/2025`,matchData,
                 
