@@ -21,6 +21,7 @@ const Dataimport = () => {
     const prepareMatchDataforDatabase = (matchData) => {
         let prepData = {};
 
+        /* *** General Decoding logic *** */
         let botLocationEnum = [];
         const botLocationViewSbEnum = ['None', 'Left', 'Center', 'Right']; // Scoring Blue, Spectator Red
         const botLocationViewSrEnum = ['None', 'Right', 'Center', 'Left']; // Scoring Red, Spectator Blue
@@ -44,7 +45,6 @@ const Dataimport = () => {
         }
 
          
-        
         /* *** General Match Data *** */
         prepData.schemaVersion = matchData.v;
         prepData.scouterName = matchData.currentScout;
@@ -57,20 +57,22 @@ const Dataimport = () => {
         prepData.fieldOrientation = matchData.fieldOrientation;
         
 
-
         /* *** Auton data *** */
+        // For any auton differences between schema versions
+        // if(matchData.v === '2025.2.0'){
+        //     // nothing specific to do for 2025.1.0, 2025.1.1
+        //     // Note: Intake type is global so done later
+        // }
+        // else{ 
+        //     // nothing specific to do for 2025.1.0, 2025.1.1
+        // }
+
         let autonReefLevel1Total = matchData.al1A + matchData.al1C + matchData.al1E + matchData.al1G + matchData.al1I + matchData.al1K; //n
         let autonReefLevel2Total = matchData.al2A + matchData.al2C + matchData.al2E + matchData.al2G + matchData.al2I + matchData.al2K; //n
         let autonReefLevel3Total = matchData.al3A + matchData.al3C + matchData.al3E + matchData.al3G + matchData.al3I + matchData.al3K; //n
         let autonReefLevel4Total = matchData.al4A + matchData.al4C + matchData.al4E + matchData.al4G + matchData.al4I + matchData.al4K; //n
         let autonReefTotal = autonReefLevel1Total + autonReefLevel2Total + autonReefLevel3Total + autonReefLevel4Total;
         let autonAlgeaRemovedTotal = matchData.aalA + matchData.aalB + matchData.aalC + matchData.aalD + matchData.aalE + matchData.aalF;
-
-        // For any auton differences between schema versions
-        if(matchData.v === '2025.2.0'){
-        }
-        else{ 
-        }
 
         prepData.autonPosition = botLocationEnum[matchData.sl];
         prepData.autonLeave = matchData.aL;
@@ -120,7 +122,7 @@ const Dataimport = () => {
         prepData.autonAlgeaRemovedTotal = autonAlgeaRemovedTotal;
         
 
-
+        /* *** teleop data *** */
         // For any Teleop differences between schema versions
         let teleopAlgeaRemovedTotal = 0;
         let teleopReefLevel1Total = 0;
@@ -128,6 +130,7 @@ const Dataimport = () => {
         let teleopReefLevel3Total = 0;
         let teleopReefLevel4Total = 0;
         if(matchData.v === '2025.2.0') {
+            // Note: Intake type is global so done later
 
             teleopReefLevel1Total = matchData.tl1A;
             teleopReefLevel2Total = matchData.tl2A;
@@ -189,9 +192,7 @@ const Dataimport = () => {
             prepData.teleopAlgaeRemovedF = leftFieldOrientation ? matchData.talF : matchData.talC;
         }
 
-        // Teleop data
         let teleopReefTotal = teleopReefLevel1Total + teleopReefLevel2Total + teleopReefLevel3Total + teleopReefLevel4Total; 
-
         prepData.teleopNetScored = matchData.tns;
         prepData.teleopProcessorScored = matchData.tps;
         prepData.teleopReefLevel1Total = teleopReefLevel1Total;
@@ -199,7 +200,6 @@ const Dataimport = () => {
         prepData.teleopReefLevel3Total = teleopReefLevel3Total;
         prepData.teleopReefLevel4Total = teleopReefLevel4Total;
         prepData.teleopReefTotal = teleopReefTotal;
-
 
 
         /* *** Calculated Data (mostly Totals) *** */
@@ -226,12 +226,23 @@ const Dataimport = () => {
         prepData.totalNetScored = matchData.ans + matchData.tns;
         prepData.totalProcessorScored = matchData.aps + matchData.tps;
 
-        // The rest of the data
+
+        /* *** The rest of the data *** */
+        // For any auton differences between schema versions
+        if(matchData.v === '2025.2.0') {
+            prepData.coralIntakeTypeGround = matchData.cgi;
+            prepData.coralIntakeTypeStation = matchData.csi;
+        }
+        else {
+            // nothing specific to do for 2025.1.0, 2025.1.1
+        }
+
         prepData.bargeZonLocation = matchData.bzl;
         prepData.scouterNotesPicklist = matchData.snp;
         prepData.scouterNotesOther = matchData.sno;
         prepData.uniqueId = scannedDataSHA1;
 
+        /* *** Returning the prepData to the calling method  *** */
         return prepData;
     };
 
