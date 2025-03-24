@@ -261,10 +261,14 @@ const Eventdetail = () => {
             <Row>
                 <Col md={1}><BackButton /></Col>
                 <Col md={11}>
-                    <h2>{event.name}</h2>
+                    <h2>{appData.name}</h2>
                 </Col>
-                <hr></hr>
-                <p>Event Year: {appData.currentEventYear}; Event Key: {appData.currentEventKey}; Event Id (serverDV): {appData.currentEventID}; <em><b>{appData.name}</b></em></p>
+            </Row>
+            <Row>
+                <Col>
+                    <hr></hr>
+                    <p>Event Year: {appData.currentEventYear}; Event Key: {appData.currentEventKey}; Event Id (serverDV): {appData.currentEventID}; <em><b>{appData.name}</b></em></p>
+                </Col>
             </Row>
             <Row>
                 <Col md={1}>&nbsp;</Col>
@@ -291,7 +295,7 @@ const Eventdetail = () => {
                                 <Col md={12}>
                                     <h5>Match Details:</h5>
                                     <form className="was-validated">
-                                    <div class="mb-3 mt-3">
+                                    <div className="mb-3 mt-3">
                                         <input 
                                             type="text" 
                                             name="matchNumber"
@@ -302,7 +306,7 @@ const Eventdetail = () => {
                                             required
                                         />
                                     </div>
-                                    <div class="mb-3 mt-3">
+                                    <div className="mb-3 mt-3">
                                         <input 
                                             type="text" 
                                             name="matchType"
@@ -489,7 +493,7 @@ const Eventdetail = () => {
                                     <Col md={6}>   
                                         <form className="was-validated">
                                         <h5>Or Add New Team:</h5>
-                                        <div class="mb-3 mt-3">
+                                        <div className="mb-3 mt-3">
                                             <input 
                                                 type="text" 
                                                 name="teamNumber"
@@ -500,7 +504,7 @@ const Eventdetail = () => {
                                                 required
                                             />
                                         </div>
-                                        <div class="mb-3 mt-3">
+                                        <div className="mb-3 mt-3">
                                             <input 
                                                 type="text" 
                                                 name="nickname"
@@ -511,7 +515,7 @@ const Eventdetail = () => {
                                                 required
                                             />
                                         </div>
-                                        <div class="mb-3 mt-3">
+                                        <div className="mb-3 mt-3">
                                             <input 
                                                 type="text" 
                                                 name="city"
@@ -522,7 +526,7 @@ const Eventdetail = () => {
                                                 required
                                             />
                                         </div>
-                                        <div class="mb-3 mt-3">
+                                        <div className="mb-3 mt-3">
                                             <input 
                                                 type="text" 
                                                 name="state_prov"
@@ -533,7 +537,7 @@ const Eventdetail = () => {
                                                 required
                                             />
                                         </div>
-                                        <div class="mb-3 mt-3">
+                                        <div className="mb-3 mt-3">
                                             <input 
                                                 type="text" 
                                                 name="country"
