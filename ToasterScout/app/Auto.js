@@ -54,8 +54,8 @@ const Auto = ({
   /* ########## Intaking ########## */
   const [displayCoralPickup, setDisplayCoralPickup] = useState(gameData.acp);
   // const [displayAlgaeIntake, setDisplayAlgaeIntake] = useState(gameData.aap);
-  const [displayStationIntake, setDisplayStationIntake] = useState(gameData.asi);  // ToDo: update from gameData on load
-  const [displayGroundIntake, setDisplayGroundIntake] = useState(gameData.agi); // ToDo: update from gameData on load
+  const [displayStationIntake, setDisplayStationIntake] = useState(gameData.csi);  // ToDo: update from gameData on load
+  const [displayGroundIntake, setDisplayGroundIntake] = useState(gameData.cgi); // ToDo: update from gameData on load
 
   // Coral Station Intake
   const addCoralStation = () => {
@@ -81,8 +81,8 @@ const Auto = ({
     useEffect(() => {
       setGameData(prevGameData => ({...prevGameData, acp: displayCoralPickup}));
       //setGameData(prevGameData => ({...prevGameData, aap: displayAlgaeIntake}));
-      setGameData(prevGameData => ({...prevGameData, agi: displayStationIntake}));
-      setGameData(prevGameData => ({...prevGameData, asi: displayGroundIntake}));
+      setGameData(prevGameData => ({...prevGameData, csi: displayStationIntake}));
+      setGameData(prevGameData => ({...prevGameData, cgi: displayGroundIntake}));
     }, [displayCoralPickup, displayStationIntake, displayGroundIntake]);
     // }, [displayCoralPickup, displayAlgaeIntake, displayStationIntake, displayGroundIntake]);
 
@@ -620,7 +620,7 @@ const Auto = ({
           },
         ]}
         activeOpacity={0.5} onPress={() => setAlgaeAToggled(!algaeAToggled)}>
-        {algaeAToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
+        {algaeAToggled ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}
       </TouchableOpacity>
 
         {/* Location Algae B */}
@@ -633,7 +633,7 @@ const Auto = ({
           },
         ]}
         activeOpacity={0.5} onPress={() => setAlgaeBToggled(!algaeBToggled)}>
-        {algaeBToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
+        {algaeBToggled ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}
       </TouchableOpacity>
       
         {/* Location Algae C */}
@@ -646,7 +646,7 @@ const Auto = ({
           },
         ]}
         activeOpacity={0.5} onPress={() => setAlgaeCToggled(!algaeCToggled)}>
-        {algaeCToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
+        {algaeCToggled ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}
       </TouchableOpacity>
 
         {/* Location Algae D */}
@@ -659,7 +659,7 @@ const Auto = ({
           },
         ]}
         activeOpacity={0.5} onPress={() => setAlgaeDToggled(!algaeDToggled)}>
-        {algaeDToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
+        {algaeDToggled ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}
       </TouchableOpacity>
 
         {/* Location Algae E */}
@@ -672,7 +672,7 @@ const Auto = ({
           },
         ]}
         activeOpacity={0.5} onPress={() => setAlgaeEToggled(!algaeEToggled)}>
-        {algaeEToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
+        {algaeEToggled ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}
       </TouchableOpacity>
 
         {/* Location Algae F */}
@@ -685,7 +685,7 @@ const Auto = ({
           },
         ]}
         activeOpacity={0.5} onPress={() => setAlgaeFToggled(!algaeFToggled)}>
-        {algaeFToggled ? <Ionicons name="checkmark-circle-outline" size={32} color="black" /> : <Entypo name="circle" size={26} color="black" />}
+        {algaeFToggled ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}
       </TouchableOpacity>
     </View>
 
@@ -698,9 +698,10 @@ const Auto = ({
         position: 'absolute',
         }
       ]}>
+        <Text style={[styles.title, {textAlign: 'center'}]}>Reef & Coral</Text>
 
       {/* Coral Level 4 */}
-      <View style={[{flexDirection:'row', justifyContent:'space-between', width:150, paddingBottom: 5, paddingTop: 5}]}>
+      <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity 
           onPress={subReefLevel4}
           style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
@@ -713,7 +714,7 @@ const Auto = ({
       </View>
 
       {/* Coral Level 3 */}
-      <View style={[{flexDirection:'row', justifyContent:'space-between', width:150, paddingBottom: 5, paddingTop: 5}]}>
+      <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity 
         onPress={subReefLevel3}
         style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
@@ -726,7 +727,7 @@ const Auto = ({
       </View>
 
       {/* Coral Level 2 */}
-      <View style={[{flexDirection:'row', justifyContent:'space-between', width:150, paddingBottom: 5, paddingTop: 5}]}>
+      <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity
         onPress={subReefLevel2}
         style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
@@ -739,7 +740,7 @@ const Auto = ({
       </View>
 
       {/* Coral Level 1 */}
-      <View style={[{flexDirection:'row', justifyContent:'space-between', width:150, paddingBottom: 5, paddingTop: 5}]}>
+      <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
         <TouchableOpacity 
         style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}
         onPress={subReefLevel1}
@@ -750,24 +751,30 @@ const Auto = ({
         onPress={addReefLevel1}
         ><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
       </View>
+
+      {/* Separator */}
+      <View style={{ height: 1, backgroundColor: 'white', marginVertical: 5 }} />
+
+      {/* Coral Station Pickup */}
+      <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
+        <TouchableOpacity style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralStation}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
+        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Coral Pickup{'\n'}{displayCoralPickup}</Text></View>
+        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralStation}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
+      </View>
     </View>
     
 
     {/* Scoring */}
     <View style={[
-    // styles.border,
+      styles.border,
       {
       top: 5,
-      left: 675,
+      left: 690,
       position: 'absolute',
       alignItems: 'center',
       },
     ]}>
-      {/* Auton Leave */}
-      <Pressable style={[styles.midButton, {width:170,  paddingBottom: 5, paddingTop: 5}, displayLeave && styles.leaveSelected]} onPress={() => setdisplayLeave(!displayLeave)}>
-        <Text style={styles.buttonLabel}>{displayLeave ? <Ionicons name="checkmark-circle-outline" size={26} color="black" /> : <Entypo name="circle" size={24} color="black" />} Auton Leave</Text>
-      </Pressable>
-      
+      <Text style={[styles.title, {textAlign: 'center'}]}>Scoring Algae</Text>  
       {/* Net Scoring */}
       <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
       <TouchableOpacity style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subNetScored}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
@@ -783,35 +790,49 @@ const Auto = ({
       </View>
     </View>
       
-    {/* Coral Pickup */}
-    <View style={[
+    {/* Coral Intake */}
+    <View style={[ styles.border,
       {
-          top: 400,
-          left: 450,
+          top: 260,
+          left: 690,
           position: 'absolute',
           alignItems: 'center',
-          flexDirection: 'row',
+          // flexDirection: 'row',
       }
       ]}>
-      
+        <Text style={[styles.title, {textAlign: 'center'}]}>Intake Type</Text>
       {/* Coral Ground Intake */}
-      <Pressable style={[styles.midButton, displayGroundIntake && styles.leaveSelected,]} onPress={() => setDisplayGroundIntake(!displayGroundIntake)}>
-        <Text style={styles.buttonLabel}>{displayGroundIntake ? <Ionicons name="checkmark-circle-outline" size={26} color="black" /> : <Entypo name="circle" size={24} color="black" />} Ground Intake</Text>
+      <Pressable style={[styles.midButton, displayGroundIntake && styles.leaveSelected, {width:165}]} onPress={() => setDisplayGroundIntake(!displayGroundIntake)}>
+        <Text style={styles.buttonLabel}>{displayGroundIntake ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />} Coral Ground</Text>
       </Pressable>
 
       {/* Coral Station Intake */}
-      <Pressable style={[styles.midButton, displayStationIntake && styles.leaveSelected,]} onPress={() => setDisplayStationIntake(!displayStationIntake)}>
-        <Text style={styles.buttonLabel}>{displayStationIntake ? <Ionicons name="checkmark-circle-outline" size={26} color="black" /> : <Entypo name="circle" size={24} color="black" />} Station Intake</Text>
+      <Pressable style={[styles.midButton, displayStationIntake && styles.leaveSelected, {width:165}]} onPress={() => setDisplayStationIntake(!displayStationIntake)}>
+        <Text style={styles.buttonLabel}>{displayStationIntake ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />} Coral Station</Text>
       </Pressable>
 
-      {/* Coral Station Pickup */}
-      <View style={[{flexDirection:'row', justifyContent:'space-between', width:175, paddingBottom: 5, paddingTop: 5}]}>
-        <TouchableOpacity style={[styles.subButton, {backgroundColor: 'red', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={subCoralStation}><Entypo name="circle-with-minus" size={30} color="black" /></TouchableOpacity>
-        <View style={[styles.box, {backgroundColor: 'oldlace', flex:2, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]}><Text style={styles.buttonLabel}>Coral Pickup{'\n'}{displayCoralPickup}</Text></View>
-        <TouchableOpacity style={[styles.addButton, {backgroundColor: 'green', flex:1, justifyContent: 'center', alignItems: 'center', textAlign: 'center',}]} onPress={addCoralStation}><Entypo name="circle-with-plus" size={30} color="black" /></TouchableOpacity>
-      </View>
+      
 
     </View>
+
+
+    {/* Auto Leave */}
+    <View style={[
+      {
+      top: 190,
+      left: 180,
+      position: 'absolute',
+      alignItems: 'center',
+      },
+    ]}>
+      {/* Auton Leave */}
+      <Pressable style={[styles.midButton, {width:95,  paddingBottom: 5, paddingTop: 5}, displayLeave && styles.leaveSelected]} onPress={() => setdisplayLeave(!displayLeave)}>
+        <Text style={styles.buttonLabel}>{displayLeave ? <Ionicons name="checkbox-outline" size={28} color="black" /> : <Ionicons name="stop-outline" size={28} color="black" />}{'\n'}Auton{'\n'}Leave</Text>
+      </Pressable>
+
+    </View>
+
+    
   </>
   );
 }
@@ -819,6 +840,14 @@ const Auto = ({
 const styles = StyleSheet.create({
   contentText: {
     fontSize: 22,
+  },
+  title: {
+    textAlign: 'center',
+    // marginBottom: 10,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+
   },
   midButtonText: {
     fontSize: 14,

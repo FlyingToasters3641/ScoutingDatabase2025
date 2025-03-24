@@ -41,9 +41,13 @@ const SaveMatch = ({
 
         RNFS.writeFile(path, dataURL, 'base64')
             .then(() => {
-                console.log('QR code saved to', path);
-                Alert.alert('QR Code Saved', `QR Code saved to Download directory as ${path}`);
-                setIsQRSaveButtonDisabled(true); // Disable the "Save QRCode" button
+              // Update matchStatus to 2 (completed) for the current match
+              setMatchData(prevMatchData =>
+                prevMatchData.map(match => match.matchNumber === appData.currentMatch ? { ...match, matchStatus: 2 } : match)
+              ); 
+              console.log('QR code saved to', path);
+              Alert.alert('QR Code Saved', `QR Code saved to Download directory as ${path}`);
+              setIsQRSaveButtonDisabled(true); // Disable the "Save QRCode" button
             })
             .catch((error) => {
                 console.error('Failed to save QR code', error);
@@ -61,10 +65,6 @@ const SaveMatch = ({
     setIsNewMatchButtonDisabled(true);
     setJsonData({});
     setQrCodeSize(0);
-    // Update matchStatus to 2 (completed) for the current match
-    setMatchData(prevMatchData =>
-      prevMatchData.map(match => match.matchNumber === appData.currentMatch ? { ...match, matchStatus: 2 } : match)
-    );  
   };
 
   const qrCodeData = JSON.stringify(jsonData);

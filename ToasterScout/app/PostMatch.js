@@ -118,6 +118,7 @@ const infoToggled3 = () => {
           width: 420,
           }
         ]}>
+          <Text style={[styles.title, {textAlign: 'center'}]}>Match Notes Picklist</Text>
         <Pressable 
           style={[styles.buttonAuto, info1Toggled && styles.selected,]} 
           onPress={infoToggled1}>
@@ -148,6 +149,14 @@ const styles = StyleSheet.create({
   contentText: {
     fontSize: 22,
   },
+  title: {
+    textAlign: 'center',
+    // marginBottom: 10,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+
+  },
   contentTextInfo: {
     fontSize: 18,
     color: 'white',
@@ -176,7 +185,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 8,
     width: 'auto',
-    height: 70,
+    height: 60,
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
