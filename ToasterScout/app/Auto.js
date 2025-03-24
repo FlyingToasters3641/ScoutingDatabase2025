@@ -54,8 +54,8 @@ const Auto = ({
   /* ########## Intaking ########## */
   const [displayCoralPickup, setDisplayCoralPickup] = useState(gameData.acp);
   // const [displayAlgaeIntake, setDisplayAlgaeIntake] = useState(gameData.aap);
-  const [displayStationIntake, setDisplayStationIntake] = useState(gameData.asi);  // ToDo: update from gameData on load
-  const [displayGroundIntake, setDisplayGroundIntake] = useState(gameData.agi); // ToDo: update from gameData on load
+  const [displayStationIntake, setDisplayStationIntake] = useState(gameData.csi);  // ToDo: update from gameData on load
+  const [displayGroundIntake, setDisplayGroundIntake] = useState(gameData.cgi); // ToDo: update from gameData on load
 
   // Coral Station Intake
   const addCoralStation = () => {
@@ -81,8 +81,8 @@ const Auto = ({
     useEffect(() => {
       setGameData(prevGameData => ({...prevGameData, acp: displayCoralPickup}));
       //setGameData(prevGameData => ({...prevGameData, aap: displayAlgaeIntake}));
-      setGameData(prevGameData => ({...prevGameData, agi: displayStationIntake}));
-      setGameData(prevGameData => ({...prevGameData, asi: displayGroundIntake}));
+      setGameData(prevGameData => ({...prevGameData, csi: displayStationIntake}));
+      setGameData(prevGameData => ({...prevGameData, cgi: displayGroundIntake}));
     }, [displayCoralPickup, displayStationIntake, displayGroundIntake]);
     // }, [displayCoralPickup, displayAlgaeIntake, displayStationIntake, displayGroundIntake]);
 

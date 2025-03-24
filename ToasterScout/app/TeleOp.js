@@ -53,8 +53,8 @@ const TeleOp = ({
 
   /* ########## Intaking ########## */
   const [displayCoralPickup, setDisplayCoralPickup] = useState(gameData.tcp);
-  const [displayStationIntake, setDisplayStationIntake] = useState(gameData.tsi);
-  const [displayGroundIntake, setDisplayGroundIntake] = useState(gameData.tgi);
+  const [displayStationIntake, setDisplayStationIntake] = useState(gameData.csi);
+  const [displayGroundIntake, setDisplayGroundIntake] = useState(gameData.cgi);
 
   // Coral Station Intake
   const addCoralStation = () => {
@@ -69,8 +69,8 @@ const TeleOp = ({
   // *** Update gameData when Intaking data has changed ***
   useEffect(() => {
     setGameData(prevGameData => ({...prevGameData, tcp: displayCoralPickup}));
-    setGameData(prevGameData => ({...prevGameData, tsi: displayStationIntake}));
-    setGameData(prevGameData => ({...prevGameData, tgi: displayGroundIntake}));
+    setGameData(prevGameData => ({...prevGameData, csi: displayStationIntake}));
+    setGameData(prevGameData => ({...prevGameData, cgi: displayGroundIntake}));
   }, [displayCoralPickup, displayStationIntake, displayGroundIntake]);
   
   /* ########## ########## ########## */
