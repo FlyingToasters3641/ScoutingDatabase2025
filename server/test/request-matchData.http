@@ -21,13 +21,20 @@ GET http://localhost:3001/api/v1/matchData/2025/matchkey/2025mimil_qm1
 
 ###
 
+
 // List match number in matchData currently in the database
 GET http://localhost:3001/api/v1/matchData/2025/team/5561
 
 ###
 
-// List match number in matchData currently in the database
-GET http://localhost:3001/api/v1/matchData/2025/eventkey/2025mimil
+// List the average matchData for all teams based on year and eventkey
+// Following API replaced with GET http://localhost:3001/api/v1/matchData/2025/eventkey/2025mibel/exclude/0
+# GET http://localhost:3001/api/v1/matchData/2025/eventkey/2025mibel
+
+###
+
+// List the average matchData for all team based on year and eventkey except for a list of teams
+GET http://localhost:3001/api/v1/matchData/2025/eventkey/2025mibel/exclude/0
 
 ###
 

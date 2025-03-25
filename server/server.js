@@ -318,9 +318,52 @@ app.get('/api/v1/matchData/:year/matchkey/:id', async (req, res) => {
   }
 });
 
-app.get('/api/v1/matchData/:year/eventkey/:id', async (req, res) => {
+// Replaced by: app.get('/api/v1/matchData/:year/eventkey/:id/exclude/:exclude',
+// app.get('/api/v1/matchData/:year/eventkey/:id', async (req, res) => {
+//   try {
+//     const MatchData = getMatchDataModelByYear(req.params.year);
+//     const matchdata = await MatchData.findAll({
+//       attributes: [
+//        'teamNumber',
+//         [Sequelize.fn('COUNT', Sequelize.col('teamNumber')), 'matchCount'],
+//         [Sequelize.literal('ROUND(AVG(autonReefLevel1Total), 2)'), 'avgAutonReefLevel1Total'],
+//         [Sequelize.literal('ROUND(AVG(autonReefLevel4Total), 2)'), 'avgAutonReefLevel4Total'],
+//         [Sequelize.literal('ROUND(AVG(autonReefTotal), 2)'), 'avgAutonReefTotal'],
+//         [Sequelize.literal('ROUND(AVG(autonNetScored), 2)'), 'avgAutonNetScored'],
+//         [Sequelize.literal('ROUND(AVG(autonProcessorScored), 2)'), 'avgAutonProcessorScored'],
+//         [Sequelize.literal('ROUND(AVG(teleopReefLevel1Total), 2)'), 'avgTeleopReefLevel1Total'],
+//         [Sequelize.literal('ROUND(AVG(teleopReefLevel3Total), 2)'), 'avgTeleopReefLevel3Total'],
+//         [Sequelize.literal('ROUND(AVG(teleopReefLevel4Total), 2)'), 'avgTeleopReefLevel4Total'],
+//         [Sequelize.literal('ROUND(AVG(teleopReefTotal), 2)'), 'avgTeleopReefTotal'],
+//         [Sequelize.literal('ROUND(AVG(teleopNetScored), 2)'), 'avgTeleopNetScored'],
+//         [Sequelize.literal('ROUND(AVG(teleopProcessorScored), 2)'), 'avgTeleopProcessorScored'],
+//         [Sequelize.literal('ROUND(AVG(totalAlgaePickup), 2)'), 'avgTotalAlgaePickup'],
+//         [Sequelize.literal('ROUND(AVG(totalAlgeaRemoved), 2)'), 'avgTotalAlgeaRemoved'],
+//         [Sequelize.literal('ROUND(AVG(totalCoralGroundPickup), 2)'), 'avgTotalCoralGroundPickup'],
+//         [Sequelize.literal('ROUND(AVG(totalCoralStationPickup), 2)'), 'avgTotalCoralStationPickup'],
+//         [Sequelize.fn('GROUP_CONCAT', Sequelize.col('bargeZonLocation')), 'catBargeZonLocation'],
+//         [Sequelize.literal('ROUND(AVG(autonProcessorMissed), 2)'), 'avgAutonProcessorMissed'],
+//         [Sequelize.literal('ROUND(AVG(totalReef), 2)'), 'avgTotalReef'],
+//         [Sequelize.literal('ROUND(AVG(totalNetScored), 2)'), 'totalNetScored'],
+//         [Sequelize.literal('ROUND(AVG(totalNetMissed), 2)'), 'totalNetMissed'],
+//         [Sequelize.literal('ROUND(AVG(totalProcessorScored), 2)'), 'totalProcessorScored'],
+//         [Sequelize.literal('ROUND(AVG(totalProcessorMissed), 2)'), 'totalProcessorMissed'],
+//       ],
+//       where: {
+//         eventKey: req.params.id,
+//       },
+//       group: ['teamNumber'],
+//     });
+//     res.json(matchdata);
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// });
+
+app.get('/api/v1/matchData/:year/eventkey/:id/exclude/:exclude', async (req, res) => {
   try {
     const MatchData = getMatchDataModelByYear(req.params.year);
+    const excludeList = req.params.exclude ? req.params.exclude.split(',') : [];
     const matchdata = await MatchData.findAll({
       attributes: [
        'teamNumber',
@@ -344,14 +387,13 @@ app.get('/api/v1/matchData/:year/eventkey/:id', async (req, res) => {
         [Sequelize.literal('ROUND(AVG(autonProcessorMissed), 2)'), 'avgAutonProcessorMissed'],
         [Sequelize.literal('ROUND(AVG(autonNetMissed), 2)'), 'avgAutonNetMissed'],
         [Sequelize.literal('ROUND(AVG(totalReef), 2)'), 'avgTotalReef'],
-        [Sequelize.literal('ROUND(AVG(totalCoralMissed), 2)'), 'totalCoralMissed'],
         [Sequelize.literal('ROUND(AVG(totalNetScored), 2)'), 'totalNetScored'],
-        [Sequelize.literal('ROUND(AVG(totalNetMissed), 2)'), 'totalNetMissed'],
         [Sequelize.literal('ROUND(AVG(totalProcessorScored), 2)'), 'totalProcessorScored'],
         [Sequelize.literal('ROUND(AVG(totalProcessorMissed), 2)'), 'totalProcessorMissed'],
       ],
       where: {
         eventKey: req.params.id,
+        teamNumber: { [Op.notIn]: excludeList, },
       },
       group: ['teamNumber'],
     });
