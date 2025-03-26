@@ -139,8 +139,12 @@ app.delete('/api/v1/events/:id', async (req, res) => {
 //   |_|\___|\__,_|_| |_| |_|___/ /_/   \_\_|  |___|___/
 
 app.get('/api/v1/teams', async (req, res) => {
-  const teams = await Teams.findAll();
-  res.json(teams);
+  try {
+    const teams = await Teams.findAll();
+    res.json(teams);
+  } catch (error) {
+    res.status(400).json({ verb: 'get', api: '/api/v1/teams', message: error.message });
+  }
 });
 
 app.get('/api/v1/teams/:id', async (req, res) => {
@@ -238,8 +242,12 @@ app.get('/api/v1/matches/:id', async (req, res) => {
 });
   
 app.get('/api/v1/match/:id', async (req, res) => {
-const match = await Match.findByPk(req.params.id);
-res.json(match);
+  try {
+    const match = await Match.findByPk(req.params.id);
+    res.json(match);
+  } catch (error) {
+    res.status(400).json({ verb: 'get', api: '/api/v1/match/:id', message: error.message });
+  }
 });
 
 app.post('/api/v1/match', async (req, res) => {
