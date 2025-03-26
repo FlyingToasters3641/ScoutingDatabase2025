@@ -11,12 +11,15 @@ const Matchdetails = () => {
     const [match, setMatch] = useState(null);
     const [matchdata, setMatchdata] = useState([]);
     const [team, setTeam] = useState([]);
-
+    
+    let matchId = null;
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const matchId = searchParams.get('matchId');
+    matchId = searchParams.get('matchId');
 
     useEffect(() => {
+        if (!matchId) return;
+        
         axios.get(`${APP_DATABASE_URL}/match/${matchId}`)
         .then(response => setMatch(response.data))
         .catch(error => console.error('Error fetching data:', error));
@@ -25,9 +28,9 @@ const Matchdetails = () => {
         .then(response => setTeam(response.data))
         .catch(error => console.error('Error fetching data:', error));
         
-        }, [matchId]);
+    }, [matchId]);
 
-
+    
     useEffect(() => {
         if (match && match.matchKey) {
             axios.get(`${APP_DATABASE_URL}/matchData/2025/matchkey/${match.matchKey}`)
@@ -100,9 +103,8 @@ const Matchdetails = () => {
                                 <th>TeleOp Net</th>
                                 <th>Alage Removed</th>
                                 <th>Climb Position</th>
-                                <th>Coral Ground Pick-Up</th>
-                                <th>Coral Station Pick-Up</th>
-                                <th>Algae Pick-Up</th>
+                                <th>Coral Pick-Up</th>
+                                <th>Coral Pick-Up Type</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -120,9 +122,16 @@ const Matchdetails = () => {
                                     <td>{matchdata.teleopNetScored}</td>
                                     <td>{matchdata.totalAlgeaRemoved}</td>
                                     <td>{matchdata.bargeZonLocation}</td>
-                                    <td>{matchdata.totalCoralGroundPickup}</td>
-                                    <td>{matchdata.totalCoralStationPickup}</td>
-                                    <td>{matchdata.totalAlgaePickup}</td>
+                                    <td>
+                                        {matchdata.schemaVersion === '2025.2.0' 
+                                            ? matchdata.totalCoralPickup 
+                                            : (matchdata.totalCoralGroundPickup + matchdata.totalCoralStationPickup)}
+                                    </td>
+                                    <td>
+                                        {matchdata.schemaVersion === '2025.2.0'
+                                            ? `${matchdata.coralIntakeTypeGround ? 'G' : ''}${matchdata.coralIntakeTypeStation ? 'S' : ''}`
+                                            : `${matchdata.totalCoralGroundPickup > 0 ? 'G' : ''}${matchdata.totalCoralStationPickup  > 0 ? 'S' : ''}`}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

@@ -29,6 +29,7 @@ MatchData2025.init({
     autonProcessorMissed: DataTypes.INTEGER,
     autonCoralGroundPickup: DataTypes.INTEGER,
     autonCoralStationPickup: DataTypes.INTEGER,
+    autonCoralPickup: DataTypes.INTEGER,
     autonAlgaePickup: DataTypes.INTEGER,
     autonReefLevel1A: DataTypes.INTEGER,
     autonReefLevel2A: DataTypes.INTEGER,
@@ -74,6 +75,7 @@ MatchData2025.init({
     teleopProcessorMissed: DataTypes.INTEGER,
     teleopCoralGroundPickup: DataTypes.INTEGER,
     teleopCoralStationPickup: DataTypes.INTEGER,
+    teleopCoralPickup: DataTypes.INTEGER,
     teleopAlgaePickup: DataTypes.INTEGER,
     teleopReefLevel1A: DataTypes.INTEGER,
     teleopReefLevel2A: DataTypes.INTEGER,
@@ -134,6 +136,7 @@ MatchData2025.init({
     totalAlgeaRemoved: DataTypes.INTEGER,
     totalCoralGroundPickup: DataTypes.INTEGER,
     totalCoralStationPickup: DataTypes.INTEGER,
+    totalCoralPickup: DataTypes.INTEGER,
     totalAlgaePickup: DataTypes.INTEGER
 }, { sequelize, modelName: 'matchdata2025' });
 

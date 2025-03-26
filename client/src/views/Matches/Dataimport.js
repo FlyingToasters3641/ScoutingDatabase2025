@@ -59,13 +59,15 @@ const Dataimport = () => {
 
         /* *** Auton data *** */
         // For any auton differences between schema versions
-        // if(matchData.v === '2025.2.0'){
-        //     // nothing specific to do for 2025.1.0, 2025.1.1
-        //     // Note: Intake type is global so done later
-        // }
-        // else{ 
-        //     // nothing specific to do for 2025.1.0, 2025.1.1
-        // }
+        if(matchData.v === '2025.2.0'){
+            // nothing specific to do for 2025.1.0, 2025.1.1
+            prepData.autonCoralPickup = matchData.acp;
+        }
+        else{ 
+            // nothing specific to do for 2025.1.0, 2025.1.1
+            prepData.autonCoralGroundPickup = matchData.acgp;
+            prepData.autonCoralStationPickup = matchData.acsp;
+        }
 
         let autonReefLevel1Total = matchData.al1A + matchData.al1C + matchData.al1E + matchData.al1G + matchData.al1I + matchData.al1K; //n
         let autonReefLevel2Total = matchData.al2A + matchData.al2C + matchData.al2E + matchData.al2G + matchData.al2I + matchData.al2K; //n
@@ -81,8 +83,7 @@ const Dataimport = () => {
         prepData.autonNetMissed = matchData.anm;
         prepData.autonProcessorScored = matchData.aps;
         prepData.autonProcessorMissed = matchData.apm;
-        prepData.autonCoralGroundPickup = matchData.acgp;
-        prepData.autonCoralStationPickup = matchData.acsp;
+        
         prepData.autonAlgaePickup = matchData.aap;
         prepData.autonReefLevel1A = leftFieldOrientation ? matchData.al1A : matchData.al1G;
         prepData.autonReefLevel2A = leftFieldOrientation ? matchData.al2A : matchData.al2G;
@@ -130,7 +131,7 @@ const Dataimport = () => {
         let teleopReefLevel3Total = 0;
         let teleopReefLevel4Total = 0;
         if(matchData.v === '2025.2.0') {
-            // Note: Intake type is global so done later
+            prepData.teleopCoralPickup = matchData.tcp;
 
             teleopReefLevel1Total = matchData.tl1A;
             teleopReefLevel2Total = matchData.tl2A;
@@ -192,13 +193,13 @@ const Dataimport = () => {
             prepData.teleopAlgaeRemovedF = leftFieldOrientation ? matchData.talF : matchData.talC;
         }
 
-        let teleopReefTotal = teleopReefLevel1Total + teleopReefLevel2Total + teleopReefLevel3Total + teleopReefLevel4Total; 
         prepData.teleopNetScored = matchData.tns;
         prepData.teleopProcessorScored = matchData.tps;
         prepData.teleopReefLevel1Total = teleopReefLevel1Total;
         prepData.teleopReefLevel2Total = teleopReefLevel2Total;
         prepData.teleopReefLevel3Total = teleopReefLevel3Total;
         prepData.teleopReefLevel4Total = teleopReefLevel4Total;
+        let teleopReefTotal = teleopReefLevel1Total + teleopReefLevel2Total + teleopReefLevel3Total + teleopReefLevel4Total;
         prepData.teleopReefTotal = teleopReefTotal;
 
 
@@ -206,6 +207,7 @@ const Dataimport = () => {
         // For any auton differences between schema versions
         if(matchData.v === '2025.2.0'){
             prepData.totalAlgeaRemoved = autonAlgeaRemovedTotal;
+            prepData.totalCoralPickup = matchData.acp + matchData.tcp;
         }
         else{
             prepData.totalAlgeaRemoved = autonAlgeaRemovedTotal + teleopAlgeaRemovedTotal;
