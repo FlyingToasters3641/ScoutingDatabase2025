@@ -223,7 +223,7 @@ const Eventdetail = () => {
                     blueThreeTeamNumber: newMatch.blueThree,
                     redRankingPoint: 0,
                     blueRankingPoint: 0,
-                    matchKey: appData.currentEventKey + '_qm' + newMatch.matchNumber,
+                    matchKey: appData.currentEventKey + '_' + newMatch.matchType + newMatch.matchNumber,
                     event_id: appData.currentEventID,
                 },
                 { headers: { 'Content-Type': 'application/json' } }
