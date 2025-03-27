@@ -16,7 +16,7 @@ import defaultGameData from "@/app/gameData2025"
 export default function App() {
   
   // *** Initialize appData and matchData ***
-  const defaultAppData = {allianceLocation: 'Select Alliance Team in Settings', fieldOrientation: 'Spectator', currentScout: '', currentTeam: null, currentMatch: null};
+  const defaultAppData = {currentTbaEventKey: '', allianceLocation: 'Select Alliance Team in Settings', fieldOrientation: 'Spectator', currentScout: '', currentTeam: null, currentMatch: null};
   const defaultMatchData = [];
   
   const [appData, setAppData] = useState(defaultAppData);
