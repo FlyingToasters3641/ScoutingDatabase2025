@@ -133,7 +133,7 @@ const [info4Toggled, setInfo4Toggled] = useState(tempinfo.includes('4'));
           style={[styles.buttonAuto, info4Toggled && styles.selected,]} 
           onPress={() => setInfo4Toggled(!info4Toggled)}>
           <Text style={styles.contentText}>
-            No Robot On Field
+            No Robot on Field
           </Text>
         </Pressable>
       </View>
