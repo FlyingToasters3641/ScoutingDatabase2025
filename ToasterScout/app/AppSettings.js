@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet, View, ScrollView, Pressable, Image, Switch, Alert  } from 'react-native';
-
+import { Text, StyleSheet, View, ScrollView, Pressable, Image, Alert, TextInput } from 'react-native';
+import { TBA_DATABASE_URL, TBA_KEY, DATA_MODEL_VERSION, TOASTERSCOUT_APP_VERSION, TOASTERSCOUT_APP_TYPE } from './Constants';
+import axios from 'axios';
 
 const AppSettings = ({
   appData,
@@ -16,7 +17,7 @@ const AppSettings = ({
   const toggleOption2 = () => setOption2Enabled(!isOption2Enabled);
 
   // *** default appData and matchData for deleting ***
-  const defaultAppData = {allianceLocation: 'Select Alliance Team in Settings', fieldOrientation: 'Spectator', currentScout: '', currentTeam: null, currentMatch: null};
+  const defaultAppData = {currentTbaEventKey: '', allianceLocation: 'Select Alliance Team in Settings', fieldOrientation: 'Spectator', currentScout: '', currentTeam: null, currentMatch: null};
   const defaultMatchData = [];
 
 
@@ -26,6 +27,105 @@ const AppSettings = ({
   const ScoringTableView = require('@/assets/images/scoring-table-view.png');
   const SpectatorView = require('@/assets/images/spectator-view.png');
   
+  const [displayEventKey, setDisplayEventKey] = useState(appData.currentTbaEventKey);
+  const [isEventKeyInputVisible, setEventKeyInputVisible] = useState(false);
+  const [isImporting, setIsImporting] = useState(false); // State to track import progress
+  const [isCheckingStatus, setIsCheckingStatus] = useState(false); // State to track TBA status check progress
+
+  const handleImportMatches = async (start, end) => {
+
+    // Check if the displayEventKey is set
+    if (!displayEventKey) {
+      Alert.alert('Invalid Event Key', `Set an Event key before proceeding.`);
+      // console.error('Invalid event key:', displayEventKey);
+      return;
+    }
+
+    // Determine the index for teamNumber based on displayAllianceLocation
+    const allianceIndexMap = {
+      'Red 1': { alliance: 'red', index: 0 },
+      'Red 2': { alliance: 'red', index: 1 },
+      'Red 3': { alliance: 'red', index: 2 },
+      'Blue 1': { alliance: 'blue', index: 0 },
+      'Blue 2': { alliance: 'blue', index: 1 },
+      'Blue 3': { alliance: 'blue', index: 2 },
+    };
+
+    const allianceInfo = allianceIndexMap[displayAllianceLocation];
+
+    if (!allianceInfo) {
+      Alert.alert('Alliance Location', `Set an Alliance location before proceeding.`);
+      // console.error('Invalid alliance location:', displayAllianceLocation);
+      return;
+    }
+
+    setIsImporting(true); // Set loading state to true
+
+    // Attempt to fetch matches from TBA
+    try {
+      const response = await axios.get(`${TBA_DATABASE_URL}/event/${displayEventKey}/matches/simple`, {
+        headers: {
+          'X-TBA-Auth-Key': `${TBA_KEY}`,
+          'accept': 'application/json'
+        }
+      });
+
+      // console.log(`Matches Received:`, response.data);
+
+      // Filter matches by match number, comp_level, and sort by match number
+      const matches = response.data
+        .filter(match => match.comp_level === 'qm' && match.match_number >= start && match.match_number <= end)
+        .sort((a, b) => a.match_number - b.match_number);
+
+      setMatchData(prevMatchData => [
+        ...prevMatchData,
+        ...matches.map(match => ({
+          matchId: match.key,
+          matchNumber: match.match_number,
+          teamNumber: match.alliances[allianceInfo.alliance].team_keys[allianceInfo.index].substring(3),
+          matchStatus: 0
+        }))
+      ]);
+
+      console.log(`Matches ${start}-${end} added:`, matches);
+
+      // Alert the user that matches have been added
+      Alert.alert('Success', `Matches ${start}-${end} have been successfully added.`);
+      
+    } catch (error) {
+      console.error('Error fetching matches:', error);
+      Alert.alert('Error', 'Failed to import matches. Please try again.');
+    } finally {
+      setIsImporting(false); // Reset loading state
+    }
+  };
+
+  const toggleEventKeyInput = () => {
+    setEventKeyInputVisible(!isEventKeyInputVisible);
+  };
+
+  const checkTBAStatus = async () => {
+    setIsCheckingStatus(true); // Set loading state to true
+    try {
+      const response = await axios.get(`${TBA_DATABASE_URL}/status`, {
+        headers: {
+          'X-TBA-Auth-Key': `${TBA_KEY}`,
+          'accept': 'application/json',
+        },
+      });
+      const isDatafeedDown = response.data?.is_datafeed_down;
+      if (isDatafeedDown === false) {
+        Alert.alert('TBA Status', 'Connection successful. TBA is online.');
+      } else {
+        Alert.alert('TBA Status', 'TBA is down or unavailable.');
+      }
+    } catch (error) {
+      console.error('Error checking TBA status:', error);
+      Alert.alert('TBA Status', 'TBA is down or unavailable.');
+    } finally {
+      setIsCheckingStatus(false); // Reset loading state
+    }
+  };
 
   return (
     <>
@@ -150,6 +250,71 @@ const AppSettings = ({
             </View>
         </SettingsGroup> */}
 
+        <SettingsGroup title="TBA Match Import*">
+          <Text style={[styles.contentTextInfo, ]}>Import matches from TBA. * Internet connected required.</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Pressable 
+              key='CheckTBAStatus'
+              onPress={checkTBAStatus}
+              style={[styles.button, isCheckingStatus && { backgroundColor: 'gray' }]}
+              disabled={isCheckingStatus}>
+              <Text style={[styles.buttonLabel,]}>{isCheckingStatus ? 'Checking...' : 'Check TBA Status'}</Text>
+            </Pressable>
+            <Pressable 
+              key='ToggleEventKeyInput'
+              onPress={toggleEventKeyInput}
+              style={[styles.button,]}>
+              <Text style={[styles.buttonLabel,]}>Show / Set Event Key</Text>
+            </Pressable>
+            {isEventKeyInputVisible && (
+              <TextInput
+                style={{
+                  height: 50,
+                  borderColor: 'gray',
+                  borderWidth: 1,
+                  marginTop: 10,
+                  paddingHorizontal: 8,
+                  color: 'white',
+                  backgroundColor: 'black',
+                  fontSize: 22,
+                  width: '200',
+                }}
+                placeholder="Enter Event Key"
+                placeholderTextColor="gray"
+                value={displayEventKey}
+                onChangeText={(text) => {
+                  setDisplayEventKey(text);
+                  setAppData(prevAppData => ({...prevAppData, currentTbaEventKey: text}));
+                }}
+              />
+            )}
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+            <Pressable 
+              key='ImportTBA1'
+              onPress={() => handleImportMatches(1, 40)}
+              style={[styles.button, isImporting && { backgroundColor: 'gray' }]}
+              disabled={isImporting}>
+              <Text style={[styles.buttonLabel,]}>{isImporting ? 'Importing...' : 'Import Matches 1-40'}</Text>
+            </Pressable>
+            <Pressable 
+              key='ImportTBA41'
+              onPress={() => handleImportMatches(41, 80)} 
+              style={[styles.button, isImporting && { backgroundColor: 'gray' }]}
+              disabled={isImporting}>
+              <Text style={[styles.buttonLabel, ]}>{isImporting ? 'Importing...' : 'Import Matches 41-80'}</Text>
+            </Pressable>
+            <Pressable 
+              key='ImportTBA81'
+              onPress={() => handleImportMatches(81, 120)} 
+              style={[styles.button, isImporting && { backgroundColor: 'gray' }]}
+              disabled={isImporting}>
+              <Text style={[styles.buttonLabel, ]}>{isImporting ? 'Importing...' : 'Import Matches 81+'}</Text>
+            </Pressable>
+          </View>
+        </SettingsGroup>
+        
+
         <SettingsGroup title="Advanced Settings">
           <Text style={[styles.contentTextInfo, ]}>Options to Reset / Clear of TFT Scouter Data Stores.</Text>
           <View style={{ flexDirection: 'row', /*justifyContent: 'space-between',*/ alignItems: 'center' }}>
@@ -157,6 +322,8 @@ const AppSettings = ({
               key='DeleteAppData'
               onPress={() => {console.log(`Delete App Data`);
                 setAppData(defaultAppData); 
+                setDisplayEventKey('');
+                setEventKeyInputVisible(false);
                 setDisplayAllianceLocation('');
                 setDisplayfieldOrientation('Spectator');
                 }}
@@ -174,7 +341,14 @@ const AppSettings = ({
                         onPress: () => console.log('Cancel Pressed'),
                         style: 'cancel',
                       },
-                      {text: 'OK', onPress: () => setMatchData(defaultMatchData)},
+                      {text: 'OK', onPress: () => {
+                        setMatchData(defaultMatchData);
+                        setAppData(prevAppData => ({
+                          ...prevAppData,
+                          currentTeam: null,
+                          currentMatch: null,
+                        }));
+                      }},
                     ]); 
               }}
               style={[styles.button,  ]}>
@@ -197,6 +371,18 @@ const AppSettings = ({
               value={isOption2Enabled}
             />
           </View> */}
+        </SettingsGroup>
+
+      <SettingsGroup title="App Information">
+        <Text style={[styles.contentTextInfo]}>
+            ToasterScout App Version: {TOASTERSCOUT_APP_VERSION} {TOASTERSCOUT_APP_TYPE}
+          </Text>
+          <Text style={[styles.contentTextInfo]}>
+            Data Model Version: {DATA_MODEL_VERSION}
+          </Text>
+          <Text style={[styles.contentTextInfo]}>
+            TBA API URL: {TBA_DATABASE_URL}
+          </Text>
         </SettingsGroup>
 
       </ScrollView>
