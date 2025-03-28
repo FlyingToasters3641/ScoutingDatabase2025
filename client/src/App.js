@@ -11,7 +11,7 @@ import Team from "./views/Events/Team.js";
 import Eventimport from "./views/Events/Eventimport.js";
 import Dataimport from "./views/Matches/Dataimport.js";
 import Matchdetails from "./views/Matches/Matchdetails.js";
-import Admin from "./views/Admin/Adminpg.js";
+import Settings from "./views/Settings/Settings.js";
 import Eventdata from "./views/Events/Eventdata.js";
 import Robotsummary from "./views/Matches/Robotsummary.js";
 
@@ -31,7 +31,7 @@ const App = () => {
                 <Route path='/eventdetail' component={Eventdetail}/>
                 <Route path='/team' component={Team}/>
                 <Route path='/matchdetails' component={Matchdetails}/>
-                <Route path='/admin' component={Admin}/>
+                <Route path='/settings' component={Settings}/>
                 <Route path='/eventdata' component={Eventdata}/>
                 <Route path='/robotsummary' component={Robotsummary}/>
             </Switch>
