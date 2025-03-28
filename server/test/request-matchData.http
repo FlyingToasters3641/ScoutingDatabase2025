@@ -21,6 +21,11 @@ GET http://localhost:3001/api/v1/matchData/2025/matchkey/2025mimil_qm1
 
 ###
 
+// List match number in matchData currently in the database
+GET http://localhost:3001/api/v1/matchData/2025/teamNumber/3641
+
+###
+
 
 // List match number in matchData currently in the database
 GET http://localhost:3001/api/v1/matchData/2025/team/5561
