@@ -7,7 +7,7 @@ const Admin = () => {
             <Row>
                 <Col md={1}><BackButton /></Col>
                 <Col md={11}> 
-                    <h1>Hamberger Menu</h1>
+                    <h1>Hamburger Menu</h1>
                 </Col>
                 <hr></hr>
             </Row>
