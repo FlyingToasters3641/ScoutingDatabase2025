@@ -1,7 +1,12 @@
 import { Container, Row, Col } from "react-bootstrap";
 import BackButton from '../common/BackButton';
+import { RiDeleteBin2Line, RiEdit2Line } from "react-icons/ri";
 
 const Admin = () => {
+    const tdRight={
+        textAlign:'right'
+    };
+
     return (
         <Container>
             <Row>
@@ -43,11 +48,35 @@ const Admin = () => {
                     <h2>Admin</h2>
                     <hr></hr>
                 </Col>
-                <Col md={6}>
+                <Col md={4}>
+                    <h3>Matches</h3>
+                    <hr></hr>
+                    <table classname="table">
+                        <thead>
+                            <tr>
+                                <th>Match Key</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2025mil_flm1</td>
+                                <td style={tdRight}>
+                                    <button className="btn btn-primary" ><RiEdit2Line /> </button>
+                                </td>
+                                <td style={tdRight}>
+                                    <button className="btn btn-danger" ><RiDeleteBin2Line /> </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </Col>
+                <Col md={4}>
                     <h3>Events</h3>
                     <hr></hr>
                 </Col>
-                <Col md={6}>
+                <Col md={4}>
                     <h3>Teams</h3>
                     <hr></hr>
                 </Col>
